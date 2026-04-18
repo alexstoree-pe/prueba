@@ -645,20 +645,30 @@
         <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer;">ENTRAR</button>
     </div>
 </div>
-   // PARA EL BOTN DE CARRITO SELECCION
+
 <div class="floating-container">
     <div id="ahorro-display" class="ahorro-tag">¡Llevas 0 productos seleccionados! 🚀</div>
     
-    <button onclick="limpiarSelecciones()" class="floating-btn btn-clear" id="btn-limpiar" style="display: none; background: #ff4444; margin-bottom: 5px;">
-        <i class="fa-solid fa-trash-can"></i> LIMPIAR TODO
-    </button>
+    <div id="barra-pedido-estilo" style="display: none; align-items: center; background: #2ecc71; border-radius: 50px; padding: 8px 15px; gap: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        
+        <button onclick="enviarPedido()" style="flex: 1; background: transparent; border: none; color: white; display: flex; align-items: center; justify-content: space-between; font-weight: bold; cursor: pointer;">
+            <span id="count-total-badge" style="background: rgba(0,0,0,0.2); width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8rem;">0</span>
+            <span>PEDIR SELECCIONADOS</span>
+            <span id="price-total-display" style="font-size: 1rem; margin-left: 5px;">S/ 0.00</span>
+        </button>
+
+        <button onclick="limpiarSelecciones()" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
+    </div>
 
     <a href="../distribuidores-promos/" class="floating-btn btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
     
-    <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp">
+    <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp" style="display: none;">
         <i class="fa-brands fa-whatsapp"></i> PEDIR SELECCIONADOS (<span id="count-total">0</span>)
     </button>
 </div>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // INICIALIZACIÓN DE ANIMACIONES
@@ -675,68 +685,65 @@
 
         document.querySelectorAll('.service-link').forEach(item => {
             const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-
             if (nombre.includes(term)) {
                 item.style.display = 'block';
-
-                if (!primerResultado) {
-                    primerResultado = item;
-                }
+                if (!primerResultado) primerResultado = item;
             } else {
                 item.style.display = 'none';
             }
         });
 
-        setTimeout(() => {
-            AOS.refreshHard();
-        }, 100);
+        setTimeout(() => { AOS.refreshHard(); }, 100);
 
         if (primerResultado) {
             setTimeout(() => {
-                primerResultado.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
+                primerResultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 150);
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 
-    // SELECCIÓN Y ANIMACIÓN SHAKE
+    // SELECCIÓN Y ANIMACIÓN
     document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
         tarjeta.addEventListener('click', function(e) {
             e.preventDefault();
             this.classList.toggle('selected');
             
-            const btn = document.getElementById('btn-whatsapp');
-            btn.classList.remove('shake');
-            void btn.offsetWidth; 
-            btn.classList.add('shake');
+            const btnVerde = document.getElementById('barra-pedido-estilo');
+            btnVerde.classList.remove('shake');
+            void btnVerde.offsetWidth; 
+            btnVerde.classList.add('shake');
             
             actualizarContadores();
         });
     });
 
-   // --- LÓGICA DE SELECCIÓN Y CONTADORES ---
+    // --- NUEVAS FUNCIONES AGREGADAS ---
+
     function actualizarContadores() {
         const seleccionados = document.querySelectorAll('.service-link.selected');
-        document.getElementById('count-total').innerText = seleccionados.length;
-        
+        const barraVerde = document.getElementById('barra-pedido-estilo');
         const ahorroDisplay = document.getElementById('ahorro-display');
-        const btnLimpiar = document.getElementById('btn-limpiar'); // Referencia al botón nuevo
+        
+        let totalSoles = 0;
+        seleccionados.forEach(p => {
+            const precioTexto = p.querySelector('.precio-prod').innerText.replace('S/ ', '');
+            totalSoles += parseFloat(precioTexto);
+        });
 
         if(seleccionados.length > 0) {
+            barraVerde.style.display = 'flex';
             ahorroDisplay.style.display = 'block';
-            if(btnLimpiar) btnLimpiar.style.display = 'block'; // Muestra botón limpiar
+            document.getElementById('count-total-badge').innerText = seleccionados.length;
+            document.getElementById('price-total-display').innerText = `S/ ${totalSoles.toFixed(2)}`;
             ahorroDisplay.innerText = `¡Llevas ${seleccionados.length} plataforma(s) lista(s)! 🚀`;
         } else {
+            barraVerde.style.display = 'none';
             ahorroDisplay.style.display = 'none';
-            if(btnLimpiar) btnLimpiar.style.display = 'none'; // Oculta botón limpiar
         }
     }
 
-    // NUEVA FUNCIÓN: ELIMINAR TODAS LAS SELECCIONES
     function limpiarSelecciones() {
         if (confirm("¿Seguro que quieres quitar todos los productos seleccionados?")) {
             document.querySelectorAll('.service-link.selected').forEach(tarjeta => {
@@ -767,10 +774,8 @@
     function actualizarFecha() {
         const fecha = new Date();
         const opciones = { day: '2-digit', month: 'long' };
-        const elementoFecha = document.getElementById('fecha-actualizacion');
-        if(elementoFecha) {
-            elementoFecha.innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
-        }
+        const el = document.getElementById('fecha-actualizacion');
+        if(el) el.innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
     }
 
     function validarAcceso() {
@@ -780,14 +785,14 @@
         } else { alert("Contraseña incorrecta"); }
     }
 
-    // EVENTOS FINALIZACIÓN
+    // EVENTOS DE INICIO
     document.getElementById('input-dist-pass').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') { validarAcceso(); }
     });
 
     window.onload = function() {
         actualizarFecha();
-        actualizarContadores(); // Asegura que el estado del botón sea correcto al cargar
+        actualizarContadores();
     };
 </script>
 
