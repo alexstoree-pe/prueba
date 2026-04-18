@@ -3,467 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promociones | Alex Store</title>
-    
+    <title>Alex Store - Distribución VIP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
         :root {
-            --primary: #ffcc00; 
-            --secondary: #ff6600; 
-            --dark: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --danger-bright: #ff3333;
+            --primary: #00d2ff;
+            --secondary: #0045ff;
+            --dark: #0a0b10;
+            --card-bg: #161b22;
+            --text: #ffffff;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --popular-color: #ff9f43;
         }
 
-        html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at top right, #0a0a0a, #050505);
-            color: white;
-            line-height: 1.6;
-            padding-bottom: 50px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--dark); color: var(--text); padding-bottom: 180px; }
 
         header {
-            background: rgba(255, 204, 0, 0.9);
-            backdrop-filter: blur(15px);
-            padding: 30px 20px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
             text-align: center;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2);
-            color: #000;
-            position: sticky;
-            top: 0;
-            z-index: 2000;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        .update-tag { background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px; }
+        
+        .search-container { max-width: 600px; margin: 20px auto 0; position: relative; }
+        .search-container input { width: 100%; padding: 15px 50px; border-radius: 30px; border: none; outline: none; font-size: 1rem; }
+        .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #888; }
 
-        header h1 { font-size: 2.2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
-        header p { font-size: 0.85rem; font-weight: 500; text-align: center; line-height: 1.3; margin-bottom: 15px; }
-
-        .search-container {
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-        #search-input {
-            width: 100%;
-            padding: 10px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.9);
-            color: #000;
-            font-family: 'Poppins';
-            outline: none;
-            font-size: 0.9rem;
-        }
-
-        .container { padding: 20px 15px; max-width: 600px; margin: auto; }
-
-        .back-nav { text-align: left; margin-bottom: 25px; }
-        .back-btn {
-            display: inline-block;
-            color: #888;
-            text-decoration: none;
-            font-size: 0.8rem;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
-            padding: 10px 20px;
-            border-radius: 15px;
-        }
+        .container { max-width: 800px; margin: 20px auto; padding: 0 20px; }
+        .btn-inicio-top { display: inline-block; color: white; text-decoration: none; margin-bottom: 20px; font-weight: bold; }
 
         .category-title {
-            margin: 45px 0 20px; 
-            font-size: 0.95rem; 
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--primary); 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            font-size: 1.4rem; font-weight: 800; margin: 30px 0 15px; color: var(--primary);
+            border-left: 5px solid var(--primary); padding-left: 15px;
         }
 
-        .category-title::before {
-            content: '';
-            width: 4px; height: 18px;
-            background: var(--secondary);
-            border-radius: 4px;
-            box-shadow: 0 0 10px var(--secondary);
+        .service-link {
+            background: var(--card-bg); border-radius: 20px; margin-bottom: 15px; padding: 15px;
+            position: relative; border: 2px solid transparent; transition: 0.3s; cursor: pointer;
+        }
+        .service-link.selected { border-color: var(--primary); background: #1c2533; }
+        
+        /* GADGET POPULAR */
+        .service-link.popular::before {
+            content: "🔥 POPULAR";
+            position: absolute; top: -10px; left: 20px;
+            background: var(--popular-color); color: white;
+            font-size: 0.65rem; font-weight: 900; padding: 4px 10px; border-radius: 10px; z-index: 2;
         }
 
-        /* --- NUEVAS ANIMACIONES DE BÚSQUEDA --- */
-        .promo-link { 
-            text-decoration: none; 
-            color: inherit; 
-            display: block; 
-            margin-bottom: 18px; 
-            outline: none;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        margin 0.4s ease;
-            transform-origin: center;
-        }
+        .service-card { display: flex; align-items: center; gap: 15px; }
+        .service-logo { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; }
+        .service-text { flex: 1; }
+        .nombre-prod { font-size: 1.05rem; margin-bottom: 2px; }
+        .manual-desc { font-size: 0.75rem; color: #aaa; display: block; line-height: 1.2; }
+        
+        .price-container { text-align: right; min-width: 100px; }
+        .price-tag { display: block; font-size: 1.2rem; font-weight: 800; color: var(--primary); white-space: nowrap; }
+        .renovacion-info { font-size: 0.7rem; color: #888; display: block; margin-top: 2px; }
 
-        /* Clase para ocultar suavemente */
-        .promo-hidden {
-            opacity: 0 !important;
-            transform: translateY(20px) scale(0.95) !important;
-            pointer-events: none;
-            margin-bottom: 0;
-            height: 0;
-            overflow: hidden;
+        .check-icon {
+            position: absolute; top: -10px; right: -10px; background: var(--primary);
+            color: white; width: 28px; height: 28px; border-radius: 50%;
+            display: none; align-items: center; justify-content: center; z-index: 5;
         }
+        .selected .check-icon { display: flex; }
 
-        /* Clase para mostrar suavemente */
-        .promo-visible {
-            opacity: 1 !important;
-            transform: translateY(0) scale(1) !important;
-            height: auto;
-        }
+        /* STOCK STATUS */
+        .agotado { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
+        .agotado::after { content: "SIN STOCK"; position: absolute; top: 10px; right: 10px; background: var(--danger); font-size: 0.6rem; padding: 2px 8px; border-radius: 5px; color: white; }
+        .pocas::after { content: "POCO STOCK"; position: absolute; top: 10px; right: 10px; background: var(--popular-color); font-size: 0.6rem; padding: 2px 8px; border-radius: 5px; color: white; }
 
-        .promo-card {
-            background: var(--glass);
-            border-radius: 25px;
-            padding: 15px 20px;
-            display: grid;
-            grid-template-columns: 80px 1fr 100px; 
-            align-items: center;
-            border: 1px solid var(--glass-border);
-            gap: 10px;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            min-height: 100px;
-        }
+        /* FLOTANTES */
+        .floating-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 500px; z-index: 1000; }
+        .ahorro-tag { background: var(--success); text-align: center; padding: 10px; border-radius: 15px; font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; }
+        .floating-btn { width: 100%; padding: 18px; border-radius: 20px; border: none; font-size: 1.1rem; font-weight: 800; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
+        #btn-whatsapp { background: #25d366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
+        .btn-promo { background: #6c5ce7; text-decoration: none; margin-bottom: 8px; font-size: 0.9rem; padding: 12px; }
 
-        .promo-link:not(.agotado):hover .promo-card {
-            border-color: var(--primary);
-            background: rgba(255, 204, 0, 0.05);
-            transform: scale(1.02);
-        }
+        /* MODAL */
+        .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: none; align-items: center; justify-content: center; }
+        .modal-content { text-align: center; background: var(--card-bg); padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; }
+        .modal-content input { width: 100%; padding: 15px; margin: 20px 0; border-radius: 12px; border: none; text-align: center; font-size: 1.5rem; }
 
-        .service-logo {
-            width: 65px; height: 65px;
-            object-fit: cover;
-            border-radius: 18px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .service-text h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
-        .manual-desc { font-size: 0.75rem; color: #999; display: block; line-height: 1.2; }
-
-        .price-container { display: flex; align-items: center; justify-content: center; width: 100%; }
-
-        .price-tag { 
-            color: #000; background: var(--primary);
-            padding: 8px 0; border-radius: 10px;
-            font-weight: 800; font-size: 1rem;
-            width: 100%; text-align: center;
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
-        }
-
-        @keyframes shine-red {
-            0% { text-shadow: 0 0 5px #ff0000; color: #ff3333; border-color: #ff3333; }
-            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #ffffff; border-color: #ffffff; }
-            100% { text-shadow: 0 0 5px #ff0000; color: #ff3333; border-color: #ff3333; }
-        }
-
-        .promo-link.agotado { cursor: default; pointer-events: none; }
-        .promo-link.agotado .service-logo { filter: grayscale(1); opacity: 0.4; }
-        .promo-link.agotado .service-text { opacity: 0.6; }
-        .promo-link.agotado .price-tag { display: none !important; }
-
-        .promo-link.agotado .price-container::after {
-            content: "SIN STOCK";
-            font-size: 0.7rem; font-weight: 900;
-            border: 2px solid var(--danger-bright);
-            padding: 8px 0; border-radius: 10px;
-            background: rgba(255, 0, 0, 0.2); 
-            animation: shine-red 1.5s infinite;
-            display: block; width: 100%; text-align: center;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-            pointer-events: auto;
-        }
-
-        /* SEGURIDAD MODAL */
-        .modal-pass { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
-            z-index: 3000; justify-content: center; align-items: flex-end; 
-        }
-        .modal-content { 
-            background: #111; padding: 40px 25px; border-radius: 35px 35px 0 0; 
-            width: 100%; max-width: 500px; border-top: 2px solid var(--primary); text-align: center;
-        }
-
-        #input-pass { 
-            width: 100%; padding: 18px; margin: 25px 0; border-radius: 15px; border: 1px solid #333; 
-            background: #000; color: var(--primary); text-align: center; font-size: 1.6rem; letter-spacing: 6px; 
-        }
-        .btn-acceso { 
-            display: block; width: 100%; padding: 18px; border-radius: 18px; border: none; 
-            background: var(--primary); color: #000; font-weight: 800; cursor: pointer;
-        }
+        .shake { animation: shake 0.4s ease-in-out; }
+        @keyframes shake { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
     </style>
-
-    <script>
-        (function() {
-            const acceso = sessionStorage.getItem("acceso_concedido");
-            if (acceso === "true") {
-                document.documentElement.style.display = "block";
-            } else {
-                document.addEventListener("DOMContentLoaded", function() {
-                    document.documentElement.style.display = "block";
-                    const container = document.querySelector('.container');
-                    const header = document.querySelector('header');
-                    if(container) container.style.display = 'none';
-                    if(header) header.style.display = 'none';
-                    abrirSeguridadPromos();
-                });
-            }
-        })();
-
-        function abrirSeguridadPromos() {
-            const modal = document.getElementById('modal-password');
-            if (modal) {
-                modal.style.display = 'flex';
-                document.getElementById('input-pass').focus();
-            }
-        }
-    </script>
 </head>
 <body>
 
-<header>
-    <h1 data-aos="fade-down">COMBOS OFERTAS ⚡</h1>
-    <p>Alex Store • Máximo ahorro garantizado</p>
-    <div class="search-container" data-aos="fade-up">
-        <input type="text" id="search-input" placeholder="Buscar oferta..." onkeyup="filtrarPromos()">
+<header data-aos="fade-down">
+    <h1>SOLO DISTRIBUIDORES 🚀</h1>
+    <p id="fecha-actualizacion" class="update-tag">Cargando fecha...</p>
+    <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="buscador" placeholder="Buscar plataforma...">
     </div>
 </header>
 
 <div class="container">
-    <div class="back-nav" data-aos="fade-right">
-        <a href="../clientes/" class="back-btn">⬅ VOLVER AL CATÁLOGO</a>
+    <a href="../" class="btn-inicio-top"><i class="fa-solid fa-house"></i> VOLVER AL INICIO</a>
+
+    <div class="category-title" data-aos="fade-right">👤 ZONA PERFILES</div>
+
+    <div class="service-link disponible popular" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Netflix Perfil</h3>
+                <span class="manual-desc">Ultra HD 4K • 1 Pantalla • Renovable.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="renovacion-info">🔄 Renova: S/ 12.00</span>
+            </div>
+        </div>
     </div>
 
-    <div class="category-title" data-aos="fade-right">🔥 COMBOS MÁS PEDIDOS</div>
-
-    <a href="javascript:void(0)" class="promo-link agotado" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/combo1.png" class="service-logo">
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/disneys.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Combo Cine Pro</h3>
-                <span class="manual-desc">Netflix + Disney • Ambos 4K Ultra HD.</span>
+                <h3 class="nombre-prod">Disney standar Perfil</h3>
+                <span class="manual-desc">Sin ESPN • Calidad 4K • PIN privado.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag precio-prod">S/ 4</span>
+                <span class="renovacion-info">🔄 Renova: S/ 5.00</span>
             </div>
         </div>
-    </a>
+    </div>
 
-    <div class="category-title" data-aos="fade-right">🕒 PROMOCIONES INDIVIDUALES</div>
-
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" class="service-logo">
+    <div class="service-link disponible popular" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/disneyp.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Spotify Premium (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Sin anuncios • Se entrega correo y contraseña.</span>
+                <h3 class="nombre-prod">Disney premium Perfil</h3>
+                <span class="manual-desc">Activacion a TV • Todo los canales ESPN • Calidad 4K.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag precio-prod">S/ 6</span>
+                <span class="renovacion-info">🔄 Renova: S/ 7.00</span>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/youtube.png" class="service-logo">
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/prime.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Youtube Premium (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Sin anuncios • Activacion a tu correo (correo nuevo creado).</span>
+                <h3 class="nombre-prod">AMAZON PRIME Perfil</h3>
+                <span class="manual-desc">1 perfil • Correo y contraseña.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag precio-prod">S/ 4</span>
+                <span class="renovacion-info">🔄 Renova: S/ 5.00</span>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/max.png" class="service-logo">
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/prime.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Max Standard (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Full HD • Perfil privado.</span>
+                <h3 class="nombre-prod">AMAZON PRIME Perfil (TV)</h3>
+                <span class="manual-desc">1 perfil • Activación directa a TV.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/max.png" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">Max Platino (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Ultra HD • Perfil privado.</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 20</span>
-            </div>
-        </div>
-    </a>
-
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/crunchyroll.png" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">CRUNCHYROLL (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
-            </div>
-        </div>
-    </a>
-
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
             <img src="../img/vix.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">VIX PREMIUM (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
+                <h3 class="nombre-prod">VIX PREMIUM Perfil</h3>
+                <span class="manual-desc">Premium • Series y Telenovelas.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/paramount.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PARAMOUNT Perfil</h3>
+                <span class="manual-desc">Premium • Estrenos exclusivos.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/crunchyroll.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CRUNCHYROLL Perfil</h3>
+                <span class="manual-desc">Premium • Sin anuncios.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link pocas popular" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/movistar.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Movistar Play + Liga 1 Max Perfil</h3>
+                <span class="manual-desc">Activación TV • Incluye canales ESPN • +90 canales.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 12</span>
+                <span class="renovacion-info">🔄 Renova: S/ 15.00</span>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/dgo.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">DGO + Liga 1 Max Perfil</h3>
+                <span class="manual-desc">Activación TV • Incluye ESPN.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 16</span>
+                <span class="renovacion-info">🔄 Renova: S/ 18.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">🏠 ZONA CUENTAS COMPLETAS</div>
+
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
             <img src="../img/paramount.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">PARAMOUNT (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
+                <h3 class="nombre-prod">PARAMOUNT PREMIUM</h3>
+                <span class="manual-desc">1 Mes • 6 Perfiles • Plan Premium.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 7</span>
+                <span class="renovacion-info">🔄 Renova: S/ 18.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="service-link agotado" data-aos="fade-up">
+        <div class="service-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Netflix Completa</h3>
+                <span class="manual-desc">5 Perfiles • Renovable • Ultra HD.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 45</span>
+                <span class="renovacion-info">🔄 Renova: S/ 45.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link disponible popular" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/disneys.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Disney premium Completa(SIN ESPN)</h3>
+                <span class="manual-desc">1 Mes • 7 Perfiles • Sin canales ESPN.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 14</span>
+                <span class="renovacion-info">🔄 Renova: S/ 18.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link pocas agotado" data-aos="fade-up">
+        <div class="service-card">
+            <img src="../img/disneyp.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Disney Premium Completa</h3>
+                <span class="manual-desc">1 Mes • 7 Perfiles • Incluye canales ESPN.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="renovacion-info">🔄 Renova: S/ 20.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link agotado" data-aos="fade-up">
+        <div class="service-card">
+            <img src="../img/dgo.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">DGO + Liga 1 Max Completa</h3>
+                <span class="manual-desc">Plan Completo • 4 dispositivos (2 canal L1).</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 28</span>
+                <span class="renovacion-info">🔄 Renova: S/ 32.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link pocas" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/movistar.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Movistar Play + Liga 1 Max Completa</h3>
+                <span class="manual-desc">Plan Completo • 2 dispositivos.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="renovacion-info">🔄 Renova: S/ 25.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link disponible popular" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/max.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">MAX PLATINO completa</h3>
+                <span class="manual-desc">5 perfiles • Ultra HD • 4 dispositivos.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="renovacion-info">🔄 Renova: S/ 15.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
+    
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/canva.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO(1 mes)</h3>
+                <span class="manual-desc">• 1 mes • Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/canva.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO(3 meses)</h3>
+                <span class="manual-desc">• 3 meses • Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 7</span>
+                <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/canva.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO(6 meses)</h3>
+                <span class="manual-desc">• 6 meses • Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 10</span>
+                <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="service-link disponible popular" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/canva.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO(12 meses)</h3>
+                <span class="manual-desc">• 12 meses • Plan EDU • Invitación a tu correo.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 15</span>
+                <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
             </div>
         </div>
-    </a>
+    </div>
     
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/netflix.png" class="service-logo">
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/canva.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">NETFLIX PREMIUM (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
+                <h3 class="nombre-prod">CANVA PRO(12 meses cond.)</h3>
+                <span class="manual-desc">• 6 meses de garantia • Plan EDU.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 43</span>
+                <span class="price-tag precio-prod">S/ 10</span>
+                <span class="renovacion-info">🔄 Renova: S/ 10.00</span>
             </div>
         </div>
-    </a>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">👤 APPS DE PAGA</div>
+    
+    <div class="service-link disponible popular" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/ibo.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">IBO PLAYER (12 meses)</h3>
+                <span class="manual-desc">Licencia 1 año • Solo activación.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 13</span>
+                <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="service-link disponible" data-aos="fade-up">
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="service-card">
+            <img src="../img/ibopro.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">IBOPRO (12 meses)</h3>
+                <span class="manual-desc">Licencia 1 año • Estabilidad Pro.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 13</span>
+                <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="modal-password" class="modal-pass">
+<div id="modal-login-distribuidor" class="modal-pass">
     <div class="modal-content">
-        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="****">
-        <button class="btn-acceso" onclick="validarPassPromos()">ENTRAR A OFERTAS</button>
-        <button onclick="window.location.href='../clientes/'" style="background:none; border:none; color:#444; width:100%; margin-top:25px; cursor:pointer;">Regresar</button>
+        <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
+        <h2>ACCESO PRIVADO</h2>
+        <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8">
+        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:15px; border-radius:12px; font-weight:800; border:none; color:white; cursor:pointer;">ENTRAR</button>
     </div>
+</div>
+
+<div class="floating-container">
+    <div id="ahorro-display" class="ahorro-tag" style="display: none;"></div>
+    <a href="../distribuidores-promos/" class="floating-btn btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
+    <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp">
+        <i class="fa-brands fa-whatsapp"></i> PEDIR SELECCIONADOS (<span id="count-total">0</span>)
+    </button>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 800, once: true });
-
-    function filtrarPromos() {
-        const busqueda = document.getElementById('search-input').value.toLowerCase();
-        const items = document.querySelectorAll('.promo-link');
-        const titulos = document.querySelectorAll('.category-title');
-
-        items.forEach((item, index) => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            const desc = item.querySelector('.manual-desc').innerText.toLowerCase();
-            
-            if (nombre.includes(busqueda) || desc.includes(busqueda)) {
-                // Remover clase oculta y añadir visible
-                item.classList.remove('promo-hidden');
-                item.classList.add('promo-visible');
-                
-                // Pequeño delay para que no aparezcan todos al mismo tiempo
-                item.style.transitionDelay = (index * 0.05) + "s";
-                
-                // Forzar que el display sea block para que ocupe espacio
-                setTimeout(() => { item.style.display = 'block'; }, 0);
-            } else {
-                // Añadir clase oculta
-                item.classList.add('promo-hidden');
-                item.classList.remove('promo-visible');
-                item.style.transitionDelay = "0s";
-                
-                // Esperar a que termine la animación para poner display none
-                setTimeout(() => { 
-                    if(item.classList.contains('promo-hidden')) item.style.display = 'none'; 
-                }, 400);
-            }
-        });
-
-        titulos.forEach(titulo => {
-            if (busqueda !== "") {
-                titulo.style.opacity = "0";
-                setTimeout(() => { titulo.style.display = 'none'; }, 400);
-            } else {
-                titulo.style.display = 'flex';
-                setTimeout(() => { titulo.style.opacity = "1"; }, 10);
-            }
-        });
+    if (!sessionStorage.getItem("acceso_distribuidor")) {
+        document.getElementById('modal-login-distribuidor').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function validarAcceso() {
+        if (document.getElementById('input-dist-pass').value === "dis") {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            location.reload();
+        } else { alert("Contraseña incorrecta"); }
     }
 
-    function validarPassPromos() {
-        const input = document.getElementById('input-pass');
-        if (input.value === "cliente") {
-            sessionStorage.setItem("acceso_concedido", "true");
-            location.reload();
+    AOS.init({ duration: 800, once: true });
+
+    document.getElementById('buscador').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.service-link').forEach(item => {
+            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
+            item.style.display = nombre.includes(term) ? 'block' : 'none';
+        });
+        AOS.refreshHard();
+    });
+
+    document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
+        tarjeta.addEventListener('click', function() {
+            this.classList.toggle('selected');
+            const btn = document.getElementById('btn-whatsapp');
+            btn.classList.remove('shake');
+            void btn.offsetWidth; 
+            btn.classList.add('shake');
+            actualizarContadores();
+        });
+    });
+
+    function actualizarContadores() {
+        const seleccionados = document.querySelectorAll('.service-link.selected');
+        document.getElementById('count-total').innerText = seleccionados.length;
+        const ahorroDisplay = document.getElementById('ahorro-display');
+        if(seleccionados.length > 0) {
+            ahorroDisplay.style.display = 'block';
+            ahorroDisplay.innerText = `¡${seleccionados.length} plataforma(s) lista(s) para pedir!`;
         } else {
-            input.style.borderColor = "red";
-            input.value = "";
-            setTimeout(() => { input.style.borderColor = "#333"; }, 1500);
+            ahorroDisplay.style.display = 'none';
         }
     }
 
-    document.getElementById('input-pass').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') validarPassPromos();
-    });
-
-    function configurarLinksWhatsApp() {
-        const telefono = "51918600000";
-        document.querySelectorAll('.promo-link').forEach(tarjeta => {
-            if (!tarjeta.classList.contains('agotado')) {
-                const nombre = tarjeta.querySelector('.nombre-prod')?.innerText;
-                const precio = tarjeta.querySelector('.precio-prod')?.innerText;
-                const descripcion = tarjeta.querySelector('.manual-desc')?.innerText;
-                const mensaje = `Hola *Alex Store*, deseo adquirir esta promoción: \n\n📌 *${nombre}*\n📝 _${descripcion}_\n💰 *Precio:* ${precio}`;
-                
-                tarjeta.onclick = () => {
-                    window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
-                };
-            }
+    function enviarPedido() {
+        const seleccionados = document.querySelectorAll('.service-link.selected');
+        if (seleccionados.length === 0) { alert("Selecciona al menos un producto."); return; }
+        let lista = "";
+        seleccionados.forEach(p => {
+            lista += `• ${p.querySelector('.nombre-prod').innerText}\n`;
         });
+        const msg = `Hola Alex Store, soy Distribuidor deseo adquirir:\n\n${lista}`;
+        window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
     }
-    window.onload = configurarLinksWhatsApp;
+
+    function actualizarFecha() {
+        const fecha = new Date();
+        const opciones = { day: '2-digit', month: 'long' };
+        document.getElementById('fecha-actualizacion').innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
+    }
+    window.onload = actualizarFecha;
 </script>
 </body>
 </html>
