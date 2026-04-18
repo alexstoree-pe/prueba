@@ -188,32 +188,39 @@
     text-transform: uppercase;
 }
 
-/* OFERTA: Posición a la IZQUIERDA */
-.service-link.oferta .badge-manual.oferta-text { 
+/* --- LÓGICA DE JERARQUÍA: AGOTADO MANDA --- */
+
+/* Si la tarjeta tiene la clase 'agotado', escondemos CUALQUIER badge por la fuerza */
+.service-link.agotado .badge-manual {
+    display: none !important;
+}
+
+/* --- TUS BADGES NORMALES (Se mantienen igual) --- */
+.badge-manual {
+    position: absolute;
+    top: -12px;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 4px 12px;
+    border-radius: 50px;
+    z-index: 10;
+    display: none; /* Por defecto ocultos */
+    text-transform: uppercase;
+}
+
+/* Solo se muestran si NO está agotado (esto es por seguridad extra) */
+.service-link.oferta:not(.agotado) .badge-manual.oferta-text { 
     display: block; 
     left: 15px;
-    background: var(--danger-bright); 
-    color: white; 
-    box-shadow: 0 5px 10px rgba(255,0,0,0.3); 
+    background: var(--danger-bright);
+    color: white;
 }
 
-/* POPULAR: Posición a la DERECHA */
-.service-link.popular .badge-manual.popular-text { 
+.service-link.popular:not(.agotado) .badge-manual.popular-text { 
     display: block; 
     right: 15px;
-    background: var(--vip); 
-    color: black; 
-    box-shadow: 0 5px 10px rgba(212,175,55,0.4); 
-}
-
-/* Ajuste para que los badges no choquen con el contenido de arriba */
-.service-link { 
-    margin-top: 25px; 
-    position: relative; 
-    text-decoration: none; 
-    color: inherit; 
-    display: block; 
-    margin-bottom: 15px; 
+    background: var(--vip);
+    color: black;
 }
 
         /* --- CHECK DE SELECCIÓN --- */
