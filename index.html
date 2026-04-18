@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Store - Distribución VIP</title>
+    <title>Alex Store - Distribuidor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
@@ -42,13 +42,23 @@
             border-left: 5px solid var(--primary); padding-left: 15px;
         }
 
+        /* DISEÑO DE TARJETA ORIGINAL */
         .service-link {
-            background: var(--card-bg); border-radius: 20px; margin-bottom: 15px; padding: 15px;
-            position: relative; border: 2px solid transparent; transition: 0.3s; cursor: pointer;
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            margin-bottom: 15px; 
+            padding: 15px;
+            position: relative; 
+            border: 2px solid transparent; 
+            transition: 0.3s; 
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            color: white;
         }
         .service-link.selected { border-color: var(--primary); background: #1c2533; }
         
-        /* GADGET POPULAR */
+        /* GADGET POPULAR SOLICITADO */
         .service-link.popular::before {
             content: "🔥 POPULAR";
             position: absolute; top: -10px; left: 20px;
@@ -56,42 +66,38 @@
             font-size: 0.65rem; font-weight: 900; padding: 4px 10px; border-radius: 10px; z-index: 2;
         }
 
-        .service-card { display: flex; align-items: center; gap: 15px; }
+        .service-card { display: flex; align-items: center; gap: 15px; width: 100%; }
         .service-logo { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; }
-        .service-text { flex: 1; }
-        .nombre-prod { font-size: 1.05rem; margin-bottom: 2px; }
-        .manual-desc { font-size: 0.75rem; color: #aaa; display: block; line-height: 1.2; }
         
-        .price-container { text-align: right; min-width: 100px; }
-        .price-tag { display: block; font-size: 1.2rem; font-weight: 800; color: var(--primary); white-space: nowrap; }
+        .service-text { flex: 1; }
+        .nombre-prod { font-size: 1.05rem; margin-bottom: 2px; font-weight: 700; }
+        .manual-desc { font-size: 0.8rem; color: #aaa; display: block; line-height: 1.2; }
+        
+        .price-container { text-align: right; min-width: 110px; }
+        .price-tag { display: block; font-size: 1.2rem; font-weight: 800; color: var(--primary); }
         .renovacion-info { font-size: 0.7rem; color: #888; display: block; margin-top: 2px; }
 
         .check-icon {
             position: absolute; top: -10px; right: -10px; background: var(--primary);
             color: white; width: 28px; height: 28px; border-radius: 50%;
-            display: none; align-items: center; justify-content: center; z-index: 5;
+            display: none; align-items: center; justify-content: center; z-index: 10;
         }
         .selected .check-icon { display: flex; }
 
-        /* STOCK STATUS */
-        .agotado { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
-        .agotado::after { content: "SIN STOCK"; position: absolute; top: 10px; right: 10px; background: var(--danger); font-size: 0.6rem; padding: 2px 8px; border-radius: 5px; color: white; }
-        .pocas::after { content: "POCO STOCK"; position: absolute; top: 10px; right: 10px; background: var(--popular-color); font-size: 0.6rem; padding: 2px 8px; border-radius: 5px; color: white; }
+        /* ESTADOS DE STOCK */
+        .agotado { opacity: 0.4; filter: grayscale(1); cursor: not-allowed; }
+        .agotado::after { content: "AGOTADO"; position: absolute; top: 10px; right: 10px; background: var(--danger); font-size: 0.6rem; padding: 2px 8px; border-radius: 5px; color: white; }
+        .pocas::after { content: "POCAS"; position: absolute; top: 10px; right: 10px; background: var(--popular-color); font-size: 0.6rem; padding: 2px 8px; border-radius: 5px; color: white; }
 
-        /* FLOTANTES */
         .floating-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 500px; z-index: 1000; }
         .ahorro-tag { background: var(--success); text-align: center; padding: 10px; border-radius: 15px; font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; }
         .floating-btn { width: 100%; padding: 18px; border-radius: 20px; border: none; font-size: 1.1rem; font-weight: 800; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
-        #btn-whatsapp { background: #25d366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
+        #btn-whatsapp { background: #25d366; }
         .btn-promo { background: #6c5ce7; text-decoration: none; margin-bottom: 8px; font-size: 0.9rem; padding: 12px; }
 
-        /* MODAL */
         .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: none; align-items: center; justify-content: center; }
         .modal-content { text-align: center; background: var(--card-bg); padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; }
         .modal-content input { width: 100%; padding: 15px; margin: 20px 0; border-radius: 12px; border: none; text-align: center; font-size: 1.5rem; }
-
-        .shake { animation: shake 0.4s ease-in-out; }
-        @keyframes shake { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
     </style>
 </head>
 <body>
@@ -119,7 +125,7 @@
                 <span class="manual-desc">Ultra HD 4K • 1 Pantalla • Renovable.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="price-tag">S/ 12</span>
                 <span class="renovacion-info">🔄 Renova: S/ 12.00</span>
             </div>
         </div>
@@ -134,7 +140,7 @@
                 <span class="manual-desc">Sin ESPN • Calidad 4K • PIN privado.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 4</span>
+                <span class="price-tag">S/ 4</span>
                 <span class="renovacion-info">🔄 Renova: S/ 5.00</span>
             </div>
         </div>
@@ -149,7 +155,7 @@
                 <span class="manual-desc">Activacion a TV • Todo los canales ESPN • Calidad 4K.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 6</span>
+                <span class="price-tag">S/ 6</span>
                 <span class="renovacion-info">🔄 Renova: S/ 7.00</span>
             </div>
         </div>
@@ -164,7 +170,7 @@
                 <span class="manual-desc">1 perfil • Correo y contraseña.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 4</span>
+                <span class="price-tag">S/ 4</span>
                 <span class="renovacion-info">🔄 Renova: S/ 5.00</span>
             </div>
         </div>
@@ -179,7 +185,7 @@
                 <span class="manual-desc">1 perfil • Activación directa a TV.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="price-tag">S/ 3</span>
                 <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
             </div>
         </div>
@@ -194,7 +200,7 @@
                 <span class="manual-desc">Premium • Series y Telenovelas.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="price-tag">S/ 3</span>
                 <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
             </div>
         </div>
@@ -209,7 +215,7 @@
                 <span class="manual-desc">Premium • Estrenos exclusivos.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="price-tag">S/ 3</span>
                 <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
             </div>
         </div>
@@ -224,7 +230,7 @@
                 <span class="manual-desc">Premium • Sin anuncios.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="price-tag">S/ 3</span>
                 <span class="renovacion-info">🔄 Renova: S/ 4.00</span>
             </div>
         </div>
@@ -239,7 +245,7 @@
                 <span class="manual-desc">Activación TV • Incluye canales ESPN • +90 canales.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="price-tag">S/ 12</span>
                 <span class="renovacion-info">🔄 Renova: S/ 15.00</span>
             </div>
         </div>
@@ -254,7 +260,7 @@
                 <span class="manual-desc">Activación TV • Incluye ESPN.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 16</span>
+                <span class="price-tag">S/ 16</span>
                 <span class="renovacion-info">🔄 Renova: S/ 18.00</span>
             </div>
         </div>
@@ -271,7 +277,7 @@
                 <span class="manual-desc">1 Mes • 6 Perfiles • Plan Premium.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 7</span>
+                <span class="price-tag">S/ 7</span>
                 <span class="renovacion-info">🔄 Renova: S/ 18.00</span>
             </div>
         </div>
@@ -285,7 +291,7 @@
                 <span class="manual-desc">5 Perfiles • Renovable • Ultra HD.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 45</span>
+                <span class="price-tag">S/ 45</span>
                 <span class="renovacion-info">🔄 Renova: S/ 45.00</span>
             </div>
         </div>
@@ -300,13 +306,13 @@
                 <span class="manual-desc">1 Mes • 7 Perfiles • Sin canales ESPN.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 14</span>
+                <span class="price-tag">S/ 14</span>
                 <span class="renovacion-info">🔄 Renova: S/ 18.00</span>
             </div>
         </div>
     </div>
 
-    <div class="service-link pocas agotado" data-aos="fade-up">
+    <div class="service-link agotado" data-aos="fade-up">
         <div class="service-card">
             <img src="../img/disneyp.png" class="service-logo">
             <div class="service-text">
@@ -314,7 +320,7 @@
                 <span class="manual-desc">1 Mes • 7 Perfiles • Incluye canales ESPN.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag">S/ 22</span>
                 <span class="renovacion-info">🔄 Renova: S/ 20.00</span>
             </div>
         </div>
@@ -328,7 +334,7 @@
                 <span class="manual-desc">Plan Completo • 4 dispositivos (2 canal L1).</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 28</span>
+                <span class="price-tag">S/ 28</span>
                 <span class="renovacion-info">🔄 Renova: S/ 32.00</span>
             </div>
         </div>
@@ -343,7 +349,7 @@
                 <span class="manual-desc">Plan Completo • 2 dispositivos.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag">S/ 22</span>
                 <span class="renovacion-info">🔄 Renova: S/ 25.00</span>
             </div>
         </div>
@@ -358,7 +364,7 @@
                 <span class="manual-desc">5 perfiles • Ultra HD • 4 dispositivos.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="price-tag">S/ 12</span>
                 <span class="renovacion-info">🔄 Renova: S/ 15.00</span>
             </div>
         </div>
@@ -375,7 +381,7 @@
                 <span class="manual-desc">• 1 mes • Plan EDU • Invitación a tu correo.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 3</span>
+                <span class="price-tag">S/ 3</span>
                 <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
             </div>
         </div>
@@ -390,7 +396,7 @@
                 <span class="manual-desc">• 3 meses • Plan EDU • Invitación a tu correo.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 7</span>
+                <span class="price-tag">S/ 7</span>
                 <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
             </div>
         </div>
@@ -405,7 +411,7 @@
                 <span class="manual-desc">• 6 meses • Plan EDU • Invitación a tu correo.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 10</span>
+                <span class="price-tag">S/ 10</span>
                 <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
             </div>
         </div>
@@ -420,7 +426,7 @@
                 <span class="manual-desc">• 12 meses • Plan EDU • Invitación a tu correo.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 15</span>
+                <span class="price-tag">S/ 15</span>
                 <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
             </div>
         </div>
@@ -435,7 +441,7 @@
                 <span class="manual-desc">• 6 meses de garantia • Plan EDU.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 10</span>
+                <span class="price-tag">S/ 10</span>
                 <span class="renovacion-info">🔄 Renova: S/ 10.00</span>
             </div>
         </div>
@@ -452,7 +458,7 @@
                 <span class="manual-desc">Licencia 1 año • Solo activación.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 13</span>
+                <span class="price-tag">S/ 13</span>
                 <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
             </div>
         </div>
@@ -467,7 +473,7 @@
                 <span class="manual-desc">Licencia 1 año • Estabilidad Pro.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 13</span>
+                <span class="price-tag">S/ 13</span>
                 <span class="renovacion-info">🔄 Renova: S/ 13.00</span>
             </div>
         </div>
@@ -518,10 +524,6 @@
     document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
         tarjeta.addEventListener('click', function() {
             this.classList.toggle('selected');
-            const btn = document.getElementById('btn-whatsapp');
-            btn.classList.remove('shake');
-            void btn.offsetWidth; 
-            btn.classList.add('shake');
             actualizarContadores();
         });
     });
@@ -532,7 +534,7 @@
         const ahorroDisplay = document.getElementById('ahorro-display');
         if(seleccionados.length > 0) {
             ahorroDisplay.style.display = 'block';
-            ahorroDisplay.innerText = `¡${seleccionados.length} plataforma(s) lista(s) para pedir!`;
+            ahorroDisplay.innerText = `¡${seleccionados.length} plataforma(s) seleccionada(s)!`;
         } else {
             ahorroDisplay.style.display = 'none';
         }
