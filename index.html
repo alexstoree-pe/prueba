@@ -118,24 +118,24 @@
         .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
         .manual-desc { font-size: 0.75rem; color: #777; }
         
+        /* AJUSTE PARA MANTENER PRECIO UNIDO */
         .price-container {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
             justify-content: center;
-            min-width: 85px;
+            min-width: 90px;
             text-align: right;
+            flex-shrink: 0;
         }
         .price-tag { 
             color: var(--primary); 
             font-weight: 700; 
             font-size: 1.25rem; 
-            white-space: nowrap;
-            display: inline-flex;
-            gap: 2px;
+            white-space: nowrap; 
+            display: block;
         }
         
-        /* Feedback de selección */
         .selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.12); transform: scale(1.02); }
         .selected-check {
             position: absolute; top: 10px; right: 10px; color: var(--primary);
@@ -180,8 +180,6 @@
         }
         #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
         .hidden { display: none; }
-        
-        /* Estilos de inputs */
         input:focus { outline: none; border-color: var(--primary) !important; box-shadow: 0 0 10px rgba(0, 212, 255, 0.2); }
     </style>
 </head>
@@ -465,7 +463,6 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // Manejo de acceso
     (function() {
         const acceso = sessionStorage.getItem("acceso_concedido");
         if (acceso === "true") { document.documentElement.style.display = "block"; } 
@@ -484,7 +481,6 @@
         } else { alert("Código incorrecto"); }
     }
 
-    // Carrito y selección
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
 
@@ -504,20 +500,28 @@
         actualizarUI();
     }
 
-    // Tu Lógica de Descuento Intacta
+    /* LÓGICA DE DESCUENTOS MEJORADA */
     function calcularDescuento() {
         if (carrito.length < 2) return 0;
         let descuentoTotal = 0;
         const carritoOrdenado = [...carrito].sort((a, b) => b.precio - a.precio);
+        
         for (let i = 1; i < carritoOrdenado.length; i++) {
             const itemActual = carritoOrdenado[i];
             const itemAnterior = carritoOrdenado[i-1];
+            
             if (i === 1) {
-                if (itemActual.precio >= 10 && itemAnterior.precio >= 10) { descuentoTotal += 2; } 
-                else { descuentoTotal += 1; }
+                if (itemActual.precio >= 10 && itemAnterior.precio >= 10) { 
+                    descuentoTotal += 2; 
+                } else { 
+                    descuentoTotal += 1; 
+                }
             } else {
-                if (itemActual.precio >= 10) { descuentoTotal += 2; } 
-                else { descuentoTotal += 1; }
+                if (itemActual.precio >= 10) { 
+                    descuentoTotal += 2; 
+                } else { 
+                    descuentoTotal += 1; 
+                }
             }
         }
         return descuentoTotal;
@@ -527,31 +531,34 @@
         const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
         const descuento = calcularDescuento();
         const totalFinal = subtotal - descuento;
+        
         document.getElementById('cart-count').innerText = carrito.length;
         document.getElementById('cart-total').innerText = `S/ ${totalFinal}`;
+        
         const label = document.getElementById('discount-label');
         if (descuento > 0) {
             label.innerText = `¡Descuento aplicado: -S/ ${descuento}!`;
             label.style.display = 'block';
-        } else { label.style.display = 'none'; }
+        } else { 
+            label.style.display = 'none'; 
+        }
+        
         document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
     }
 
-    // Modal
     function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
     function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
     function mostrarForm() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-datos').style.display = 'block'; }
     function volverPaso1() { document.getElementById('form-datos').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
 
-    // Enviar WhatsApp con mejoras de validación y limpieza
     function enviarWhatsApp(tipo) {
         let nom = document.getElementById('reg-nom').value;
         let cel = document.getElementById('reg-cel').value;
         let per = document.getElementById('reg-per').value;
 
-        // Mejora: Validación de campos
+        // VALIDACIÓN DE DATOS
         if(tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) {
-            alert("Por favor, ingresa tu nombre y celular.");
+            alert("Por favor, ingresa tu nombre y celular para continuar.");
             return;
         }
 
@@ -577,17 +584,19 @@
             msg += `👤 Nombre: ${nom}\n`;
             msg += `📞 Celular: ${cel}\n`;
             if(per.trim() !== "") msg += `👤 Perfil: ${per}`;
-        } else { msg += `\n✅ *YA SOY CLIENTE*`; }
+        } else { 
+            msg += `\n✅ *YA SOY CLIENTE*`; 
+        }
         
         window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
         
-        // Mejora: Limpiar carrito después de enviar
+        // AUTO-LIMPIEZA DEL CARRITO
         cerrarModalRegistro();
         setTimeout(() => {
             carrito = [];
             document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
             actualizarUI();
-        }, 1000);
+        }, 1500);
     }
 
     function consultarStockManual(elemento, event) {
