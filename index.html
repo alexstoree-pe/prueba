@@ -8,7 +8,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Alex Store">
-    <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png">
+    
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <link rel="icon" type="image/png" href="img/logo.png">
+
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#050505">
 
@@ -51,6 +54,17 @@
             top: 0;
             z-index: 2000;
         }
+
+        /* Estilo para tu logo en la cabecera */
+        .brand-logo {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
         header h1 { 
             font-size: 2.2rem; 
             font-weight: 800; 
@@ -151,6 +165,7 @@
 <body>
 
 <header>
+    <img src="img/logo.png" alt="Alex Store Logo" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
     <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
     <div class="search-container" data-aos="fade-up">
@@ -230,7 +245,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/max.png" class="service-logo">
@@ -260,7 +275,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/prime.png" class="service-logo">
@@ -275,7 +290,7 @@
         </div>
     </div>
 
-    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/vix.png" class="service-logo">
@@ -337,7 +352,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
             <img src="../img/canva.png" class="service-logo"> 
@@ -352,7 +367,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
             <img src="../img/canva.png" class="service-logo"> 
@@ -367,7 +382,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
             <img src="../img/canva.png" class="service-logo"> 
@@ -384,7 +399,7 @@
 
     <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
             <img src="../img/movistar.png" class="service-logo"> 
@@ -399,7 +414,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/dgo.png" class="service-logo">
@@ -414,7 +429,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/flujo.png" class="service-logo">
@@ -429,7 +444,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/iptv.png" class="service-logo">
@@ -444,7 +459,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/iptv.png" class="service-logo">
