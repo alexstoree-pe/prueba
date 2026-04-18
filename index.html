@@ -8,10 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Alex Store">
-    
-    <link rel="apple-touch-icon" href="../img/logo.png">
-    <link rel="icon" type="image/png" href="../img/logo.png">
-
+    <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#050505">
 
@@ -55,14 +52,13 @@
             z-index: 2000;
         }
 
-        /* ESTILO DEL LOGO */
+        /* ESTILO LOGO AÑADIDO */
         .brand-logo {
             width: 75px;
             height: 75px;
             object-fit: contain;
             border-radius: 18px;
             margin-bottom: 10px;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
         }
 
         header h1 { 
@@ -74,7 +70,7 @@
             letter-spacing: 2px;
         }
 
-        /* BARRA DE CONFIANZA */
+        /* ESTILO BARRA CONFIANZA AÑADIDO */
         .trust-bar {
             display: flex;
             justify-content: space-around;
@@ -193,10 +189,8 @@
     <img src="../img/logo.png" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
     <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
-    
     <div class="search-container" data-aos="fade-up">
         <input type="text" id="search-input" placeholder="Buscar plataforma (Netflix, Disney...)" onkeyup="filtrarProductos()">
-        
         <div class="trust-bar">
             <div class="trust-item"><i class="fas fa-headset"></i>Soporte 24/7</div>
             <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía Real</div>
@@ -207,8 +201,10 @@
 
 <div class="container">
     <div class="grid-botones" data-aos="zoom-in">
-        <a href="../index.html" class="btn-universal btn-inicio-top">🏠 VOLVER AL INICIO</a>
+        <a href="../" class="btn-universal btn-inicio-top">🏠 VOLVER AL INICIO</a>
         <a href="https://drive.google.com/file/d/1MPAECoht01Udr-oa7NcerexfZMC6h-5i/view?usp=sharing" target="_blank" class="btn-universal btn-referencias">⭐ NUESTRAS REFERENCIAS</a>
+        <a href="../promociones-clientes/" class="btn-universal btn-combos-premium">🎁 VER COMBOS Y PROMOCIONES</a>
+        <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal btn-comunidad">👥 COMUNIDAD</a>
     </div>
 
     <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
@@ -224,6 +220,7 @@
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 16</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
     </div>
@@ -235,10 +232,287 @@
             <img src="../img/disneyp.png" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium</h3>
-                <span class="manual-desc">• Activación a TV • Perfil privado.</span>
+                <span class="manual-desc">•Cliente nuevo (Activación a TV)• Todo los canales ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 10</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/disneys.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
+                <span class="manual-desc">•Cliente nuevo (Activación a TV)• No contiene canales ESPN • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 7</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/max.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Max Standard</h3>
+                <span class="manual-desc">• 1 mes •Full HD • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/max.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">MAX Platino</h3>
+                <span class="manual-desc">• 1 mes • premium 4K • Perfil privado .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • Activacion solo a TV.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • se entrega correo y contraseña.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/vix.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">VIX PREMIUM</h3>
+                <span class="manual-desc">• 1 mes • perfil privado • premium.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/paramount.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PARAMOUNT</h3>
+                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 6</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/crunchyroll.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CRUNCHYROLL </h3>
+                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (1 mes) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (3 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (6 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 17</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (12 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 25</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/movistar.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
+                <span class="manual-desc">• Canal l1 Max • Activación a TV • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 20</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/dgo.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Directv Go + l1 Max</h3>
+                <span class="manual-desc">•1 mes • Activación a TV• Todo los canales ESPN • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 20</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/flujo.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Magis TV- Fluo TV</h3>
+                <span class="manual-desc">• 1 Perfil •+1200 Canales en vivo .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/iptv.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">IPTV Smarters pro (1 dis)</h3>
+                <span class="manual-desc">•1 Dispositivo •6500 Canales en vivo .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 10</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/iptv.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">IPTV Smarters pro (3 dis)</h3>
+                <span class="manual-desc">•3 Dispositivos •6500 Canales en vivo .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 13</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
+                <span class="manual-desc">• Sin anuncios • Se entrega con correo y contraseña.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
     </div>
@@ -327,7 +601,8 @@
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
         const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
+        const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
+        const precio = parseFloat(precioText);
         const idx = carrito.findIndex(i => i.nombre === nombre);
 
         if (idx > -1) { 
