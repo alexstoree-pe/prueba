@@ -6,98 +6,154 @@
     <title>Distribución | Alex Store</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* BLOQUEO DE SEGURIDAD */
+        html { display: none; background-color: #0a0a0a; scroll-behavior: smooth; }
+    </style>
+
+    <script>
+        (function() {
+            const acceso = sessionStorage.getItem("acceso_distribuidor");
+            if (acceso === "true") {
+                document.documentElement.style.display = "block";
+            } else {
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.documentElement.style.display = "block";
+                    document.querySelector('.container').style.display = 'none';
+                    document.querySelector('header').style.display = 'none';
+                    document.getElementById('modal-login-distribuidor').style.display = 'flex';
+                });
+            }
+        })();
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary: #00d4ff;
+            --secondary: #0055ff;
             --dark: #050505;
             --card-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --whatsapp: #25d366;
+            --text-gray: #bbb;
             --danger-bright: #ff3333;
-            --vip: #d4af37;
+            --warning: #f4d03f;
             --success: #2ecc71;
+            --vip: #d4af37;
+            --renovacion-color: #f1c40f;
         }
 
-        /* SEGURIDAD INICIAL */
-        html { background-color: #0a0a0a; scroll-behavior: smooth; }
-        
+        /* --- ANIMACIONES --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse-glow { 0% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.2); } 50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); } 100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.2); } }
+        @keyframes shine-red { 0% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } 50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; } 100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } }
+        @keyframes shake { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.05); } 75% { transform: scale(0.95); } }
+        .shake { animation: shake 0.4s ease-in-out; }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
             font-family: 'Poppins', sans-serif; 
             background: radial-gradient(circle at top right, #1a1a1a, #050505);
-            color: white; padding-bottom: 220px; overflow-x: hidden;
+            color: white; 
+            padding-bottom: 220px; 
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        /* --- HEADER --- */
         header {
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px);
-            padding: 40px 20px; text-align: center; border-bottom: 2px solid var(--glass-border);
-            border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 40px 20px; 
+            text-align: center;
+            border-bottom: 2px solid var(--glass-border);
+            border-bottom-left-radius: 50px; 
+            border-bottom-right-radius: 50px;
+            margin-bottom: 30px;
         }
+        header h1 { 
+            font-size: 2.2rem; font-weight: 800; 
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
+        .search-container input {
+            width: 100%; padding: 12px 20px 12px 45px; border-radius: 50px;
+            border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05);
+            color: white; outline: none; transition: 0.3s;
+        }
+        .search-container i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+        .update-tag { font-size: 0.8rem; color: var(--success); font-weight: 600; margin-top: 10px; background: rgba(46, 204, 113, 0.1); display: inline-block; padding: 4px 15px; border-radius: 50px; }
 
         .container { padding: 10px 20px; max-width: 650px; margin: auto; }
+        .btn-inicio-top { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: var(--glass-border); color: #fff; text-decoration: none; padding: 15px; border-radius: 20px; font-weight: 600; margin-bottom: 30px; border: 1px solid var(--glass-border); transition: 0.3s; backdrop-filter: blur(10px); }
 
-        /* --- ESTILO DE TARJETAS --- */
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 25px; transition: 0.4s; }
-        
-        .service-card { 
-            background: var(--card-bg); border-radius: 25px; padding: 18px; 
-            display: flex; align-items: center; gap: 15px;
-            border: 1px solid var(--glass-border); min-height: 110px;
+        .category-title { margin: 40px 0 15px; font-size: 0.85rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .category-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, var(--primary), transparent); }
+
+        /* --- CORRECCIÓN GADGETS MANUALES --- */
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 15px; transition: 0.4s; cursor: pointer; }
+        .service-card { position: relative; background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 25px; padding: 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--glass-border); gap: 15px; min-height: 100px; }
+
+        .badge-manual {
+            position: absolute;
+            top: -10px;
+            font-size: 0.65rem;
+            font-weight: 900;
+            padding: 4px 12px;
+            border-radius: 50px;
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
+        .oferta-text { left: 15px; background: var(--danger-bright); color: white; }
+        .popular-text { right: 15px; background: var(--vip); color: black; }
 
-        .service-logo { width: 60px; height: 60px; border-radius: 15px; object-fit: contain; }
+        /* Ocultar gadgets si está agotado */
+        .service-link.agotado .badge-manual { display: none !important; }
+
+        .check-icon { position: absolute; top: 10px; left: 10px; background: var(--primary); color: black; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; opacity: 0; transform: scale(0); transition: 0.3s; z-index: 5; }
+        .service-link.selected .check-icon { opacity: 1; transform: scale(1); }
+        .service-link.selected .service-card { border-color: var(--primary); background: rgba(0,212,255,0.05); }
+
+        .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; flex-shrink: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .service-text { flex-grow: 1; }
-        .nombre-prod { font-size: 1.1rem; font-weight: 700; color: #fff; }
-        .manual-desc { font-size: 0.75rem; color: #bbb; display: block; margin-top: 4px; }
+        .service-text h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .manual-desc { font-size: 0.75rem; color: var(--text-gray); display: block; line-height: 1.4; }
+
+        .price-container { text-align: right; margin-left: auto; min-width: 110px; display: flex; flex-direction: column; align-items: flex-end; }
+        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.2rem; display: block; }
+        .renovacion-info { display: none; font-size: 0.65rem; color: var(--renovacion-color); margin-top: 5px; font-weight: 700; background: rgba(241, 196, 15, 0.1); padding: 2px 6px; border-radius: 4px; }
+        .service-link.con-renovacion .renovacion-info { display: inline-block; }
+
+        .stock-status { display: block; margin-bottom: 5px; }
+        .stock-status::before { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 2px 8px; border-radius: 50px; }
+        .disponible .stock-status::before { content: "● Disponible"; color: var(--success); background: rgba(46, 204, 113, 0.1); }
+        .pocas .stock-status::before { content: "● Pocas Unidades"; color: var(--warning); background: rgba(244, 208, 63, 0.1); }
+
+        .service-link.agotado { pointer-events: none; }
+        .service-link.agotado .service-logo, .service-link.agotado .service-text { opacity: 0.4; }
+        .service-link.agotado .price-tag, .service-link.agotado .renovacion-info, .service-link.agotado .stock-status { display: none !important; }
+        .service-link.agotado .price-container::after { content: "SIN STOCK"; font-size: 0.85rem; font-weight: 900; border: 2px solid var(--danger-bright); padding: 6px 10px; border-radius: 12px; animation: shine-red 1.2s infinite; display: block; background: rgba(255, 0, 0, 0.1); text-align: center; }
+
+        /* --- BOTONES FLOTANTES --- */
+        .floating-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; display: flex; flex-direction: column; gap: 12px; z-index: 100; }
+        .floating-btn { background: var(--whatsapp); color: white; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; border: none; cursor: pointer; flex-grow: 1; }
+        .btn-promo { background: var(--vip); color: #000; animation: pulse-glow 2s infinite; }
+        .ahorro-tag { font-size: 0.8rem; color: var(--success); font-weight: 700; margin-bottom: 5px; display: none; text-align: center; background: rgba(46, 204, 113, 0.1); padding: 5px; border-radius: 10px; }
         
-        .price-container { text-align: right; min-width: 100px; }
-        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.3rem; display: block; }
-        .renovacion-info { font-size: 0.65rem; color: #f1c40f; font-weight: 600; }
+        /* Estilo basura */
+        .btn-trash { background: #ff3333; color: white; width: 55px; border-radius: 20px; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 1.2rem; }
 
-        /* --- GADGETS (OFERTA / POPULAR) --- */
-        .service-link::before, .service-link::after {
-            position: absolute; top: -12px; font-size: 0.65rem; font-weight: 900;
-            padding: 5px 14px; border-radius: 50px; z-index: 20; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        /* Izquierda: Oferta */
-        .service-link.oferta::before { content: "🔥 OFERTA"; background: var(--danger-bright); color: white; left: 20px; }
-        /* Derecha: Popular */
-        .service-link.popular::after { content: "⭐ POPULAR"; background: var(--vip); color: black; right: 20px; }
-
-        /* PRIORIDAD AGOTADO: Oculta los gadgets y opaca la tarjeta */
-        .service-link.agotado { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
-        .service-link.agotado::before, .service-link.agotado::after { display: none !important; }
-        .service-link.agotado .service-card::after { content: "AGOTADO"; position: absolute; right: 20px; top: 10px; color: #ff3333; font-weight: 900; font-size: 0.7rem; }
-
-        /* SELECCIÓN */
-        .service-link.selected .service-card { border-color: var(--primary); background: rgba(0,212,255,0.1); transform: scale(1.02); }
-        .check-icon { position: absolute; left: -10px; top: 50%; transform: translateY(-50%); background: var(--primary); color: #000; width: 25px; height: 25px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 30; }
-        .service-link.selected .check-icon { display: flex; }
-
-        /* --- FOOTER FLOTANTE CORREGIDO --- */
-        .floating-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 450px; z-index: 1000; }
-        .cart-wrapper { position: relative; display: flex; align-items: center; width: 100%; gap: 10px; }
-        
-        .floating-btn { flex-grow: 1; background: var(--whatsapp); color: white; padding: 18px; border-radius: 22px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-size: 0.9rem; }
-        
-        .btn-trash { 
-            background: #ff4757; color: white; width: 55px; height: 55px; 
-            border-radius: 18px; border: none; cursor: pointer; 
-            display: none; align-items: center; justify-content: center; 
-            font-size: 1.2rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(255,71,87,0.3);
-        }
-
-        .ahorro-tag { text-align: center; color: var(--success); font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; background: rgba(0,0,0,0.4); padding: 6px; border-radius: 10px; display: none; }
-
-        /* BUSCADOR */
-        .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
-        .search-container input { width: 100%; padding: 12px 45px; border-radius: 50px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; outline: none; }
-        .search-container i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
-
-        .category-title { margin: 30px 0 15px; font-weight: 800; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px; }
+        .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 5000; justify-content: center; align-items: center; }
+        .modal-content { background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; }
+        #input-dist-pass { width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; }
     </style>
 </head>
 <body>
@@ -402,94 +458,100 @@
     </div>
 </div>
 
+<div id="modal-login-distribuidor" class="modal-pass">
+    <div class="modal-content">
+        <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
+        <h2 style="color:var(--primary); margin-bottom:10px;">ACCESO PRIVADO</h2>
+        <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8">
+        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer;">ENTRAR</button>
+    </div>
+</div>
+
 <div class="floating-container">
-    <div id="ahorro-display" class="ahorro-tag"></div>
-    <div class="cart-wrapper">
+    <div id="ahorro-display" class="ahorro-tag">¡Llevas 0 productos seleccionados! 🚀</div>
+    <a href="../distribuidores-promos/" class="floating-btn btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
+    <div style="display: flex; gap: 10px; width: 100%;">
         <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp">
             <i class="fa-brands fa-whatsapp"></i> PEDIR SELECCIONADOS (<span id="count-total">0</span>)
         </button>
-        <button onclick="limpiarSelecciones()" class="btn-trash" id="btn-trash" title="Vaciar Carrito">
-            <i class="fa-solid fa-trash-can"></i>
-        </button>
+        <button onclick="limpiarTodo()" id="btn-trash" class="btn-trash"><i class="fa-solid fa-trash-can"></i></button>
     </div>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 1000, once: true });
 
-    // BUSCADOR CON AUTO-SCROLL
+    // BUSCADOR
     document.getElementById('buscador').addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase();
-        let encontrado = null;
+        let primerResultado = null;
         document.querySelectorAll('.service-link').forEach(item => {
             const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
             if (nombre.includes(term)) {
                 item.style.display = 'block';
-                if(!encontrado) encontrado = item;
+                if (!primerResultado) primerResultado = item;
             } else { item.style.display = 'none'; }
         });
-        if(encontrado && term !== "") {
-            encontrado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (primerResultado) {
+            setTimeout(() => { primerResultado.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
         }
     });
 
-    // SELECCIÓN DE PRODUCTOS
+    // SELECCIÓN
     document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
-        tarjeta.addEventListener('click', function() {
+        tarjeta.addEventListener('click', function(e) {
+            e.preventDefault();
             this.classList.toggle('selected');
+            const btn = document.getElementById('btn-whatsapp');
+            btn.classList.remove('shake');
+            void btn.offsetWidth; btn.classList.add('shake');
             actualizarContadores();
         });
     });
 
     function actualizarContadores() {
-        const seleccionados = document.querySelectorAll('.service-link.selected');
-        const num = seleccionados.length;
+        const num = document.querySelectorAll('.service-link.selected').length;
         document.getElementById('count-total').innerText = num;
-        
-        const ahorro = document.getElementById('ahorro-display');
-        const trash = document.getElementById('btn-trash');
-
-        if(num > 0) {
-            ahorro.style.display = 'block';
-            ahorro.innerText = `Llevas ${num} plataformas en tu pedido 🚀`;
-            trash.style.display = 'flex';
-        } else {
-            ahorro.style.display = 'none';
-            trash.style.display = 'none';
-        }
+        document.getElementById('ahorro-display').style.display = num > 0 ? 'block' : 'none';
+        document.getElementById('ahorro-display').innerText = `¡Llevas ${num} plataforma(s) lista(s)! 🚀`;
+        document.getElementById('btn-trash').style.display = num > 0 ? 'flex' : 'none';
     }
 
-    function limpiarSelecciones() {
-        if(confirm("¿Deseas limpiar toda tu selección?")) {
-            document.querySelectorAll('.service-link.selected').forEach(t => t.classList.remove('selected'));
+    function limpiarTodo() {
+        if(confirm("¿Vaciar selección?")) {
+            document.querySelectorAll('.service-link.selected').forEach(el => el.classList.remove('selected'));
             actualizarContadores();
         }
     }
 
     function enviarPedido() {
         const seleccionados = document.querySelectorAll('.service-link.selected');
-        if (seleccionados.length === 0) { alert("¡Selecciona algo primero!"); return; }
-
-        let lista = "";
-        let total = 0;
+        if (seleccionados.length === 0) { alert("Selecciona un producto."); return; }
+        let lista = ""; let total = 0;
         seleccionados.forEach(p => {
             const nombre = p.querySelector('.nombre-prod').innerText;
             const precio = parseFloat(p.querySelector('.precio-prod').innerText.replace('S/ ', ''));
-            lista += `✅ ${nombre} (S/ ${precio})\n`;
+            lista += `• ${nombre} (S/ ${precio})\n`;
             total += precio;
         });
-
-        const msg = `Hola Alex Store, soy Distribuidor. Mi pedido es:\n\n${lista}\n💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
+        const msg = `Hola Alex Store, deseo:\n\n${lista}\n💰 *TOTAL: S/ ${total.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    function ponerFecha() {
-        const f = new Date();
-        document.getElementById('fecha-actualizacion').innerText = "✅ Lista actualizada: " + f.toLocaleDateString('es-ES', {day:'2-digit', month:'long'});
+    function validarAcceso() {
+        if (document.getElementById('input-dist-pass').value === "dis") {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            location.reload();
+        } else { alert("Error"); }
     }
-    window.onload = ponerFecha;
-</script>
 
+    function actualizarFecha() {
+        const fecha = new Date();
+        document.getElementById('fecha-actualizacion').innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', { day: '2-digit', month: 'long' });
+    }
+
+    window.onload = actualizarFecha;
+</script>
 </body>
 </html>
