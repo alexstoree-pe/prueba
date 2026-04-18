@@ -9,7 +9,7 @@
     
     <style>
         /* BLOQUEO DE SEGURIDAD */
-        html { display: none; background-color: #0a0a0a; } 
+        html { display: none; background-color: #0a0a0a; scroll-behavior: smooth; }
     </style>
 
     <script>
@@ -728,14 +728,34 @@
     // INICIALIZACIÓN DE ANIMACIONES
     AOS.init({ duration: 1000, once: true });
 
-    // BUSCADOR EN TIEMPO REAL
-    document.getElementById('buscador').addEventListener('input', function(e) {
-        const term = e.target.value.toLowerCase();
-        document.querySelectorAll('.service-link').forEach(item => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            item.style.display = nombre.includes(term) ? 'block' : 'none';
-        });
+    // BUSCADOR EN TIEMPO REAL (CORREGIDO CON SCROLL)
+document.getElementById('buscador').addEventListener('input', function(e) {
+    const term = e.target.value.toLowerCase();
+    let primerResultado = null;
+
+    document.querySelectorAll('.service-link').forEach(item => {
+        const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
+
+        if (nombre.includes(term)) {
+            item.style.display = 'block';
+
+            if (!primerResultado) {
+                primerResultado = item;
+            }
+        } else {
+            item.style.display = 'none';
+        }
     });
+
+    if (primerResultado) {
+        primerResultado.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+});
 
     // SELECCIÓN Y ANIMACIÓN SHAKE
     document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
