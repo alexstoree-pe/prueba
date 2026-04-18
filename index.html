@@ -533,15 +533,13 @@
         <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
         <h2 style="color:var(--primary); margin-bottom:10px;">ACCESO PRIVADO</h2>
         <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8">
-        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer; color: black;">ENTRAR</button>
+        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer;">ENTRAR</button>
     </div>
 </div>
 
 <div class="floating-container">
-    <div id="ahorro-display" class="ahorro-tag" style="display: none;">¡Llevas 0 productos seleccionados! 🚀</div>
-    <a href="../distribuidores-promos/" class="floating-btn btn-promo">
-        <i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS
-    </a>
+    <div id="ahorro-display" class="ahorro-tag">¡Llevas 0 productos seleccionados! 🚀</div>
+    <a href="../distribuidores-promos/" class="floating-btn btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
     <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp">
         <i class="fa-brands fa-whatsapp"></i> PEDIR SELECCIONADOS (<span id="count-total">0</span>)
     </button>
@@ -549,45 +547,63 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // 1. INICIALIZACIÓN
-    AOS.init({ duration: 1000, once: true, mirror: true });
+    // INICIALIZACIÓN DE ANIMACIONES
+    AOS.init({ 
+        duration: 1000, 
+        once: true,
+        mirror: true 
+    });
 
-    // 2. BUSCADOR CON SCROLL AUTOMÁTICO
+    // BUSCADOR EN TIEMPO REAL (CORREGIDO CON SCROLL)
     document.getElementById('buscador').addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase();
         let primerResultado = null;
 
         document.querySelectorAll('.service-link').forEach(item => {
             const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
+
             if (nombre.includes(term)) {
                 item.style.display = 'block';
-                if (!primerResultado) primerResultado = item;
+
+                if (!primerResultado) {
+                    primerResultado = item;
+                }
             } else {
                 item.style.display = 'none';
             }
         });
 
-        setTimeout(() => { AOS.refreshHard(); }, 100);
+        setTimeout(() => {
+            AOS.refreshHard();
+        }, 100);
 
-        if (primerResultado && term !== "") {
+        if (primerResultado) {
             setTimeout(() => {
-                primerResultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                primerResultado.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
             }, 150);
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 
-    // 3. SELECCIÓN, GADGETS Y SHAKE
+    // SELECCIÓN Y ANIMACIÓN SHAKE (CON FILTRO PARA AGOTADO)
     document.querySelectorAll('.service-link').forEach(tarjeta => {
         tarjeta.addEventListener('click', function(e) {
-            // Si está agotado, no hacer nada (Jerarquía máxima de gadget)
-            if (this.classList.contains('agotado')) return;
+            // GADGET JERARQUÍA: Si es agotado, bloquea la selección
+            if (this.classList.contains('agotado')) {
+                e.preventDefault();
+                return;
+            }
 
+            e.preventDefault();
             this.classList.toggle('selected');
             
-            // Efecto sacudida en el botón al seleccionar
             const btn = document.getElementById('btn-whatsapp');
             btn.classList.remove('shake');
-            void btn.offsetWidth; // Reset de animación
+            void btn.offsetWidth; 
             btn.classList.add('shake');
             
             actualizarContadores();
@@ -607,7 +623,6 @@
         }
     }
 
-    // 4. ENVÍO DE PEDIDO
     function enviarPedido() {
         const seleccionados = document.querySelectorAll('.service-link.selected');
         if (seleccionados.length === 0) { alert("Por favor, selecciona al menos un producto."); return; }
@@ -626,28 +641,35 @@
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // 5. LOGIN Y VALIDACIÓN
+    function actualizarFecha() {
+        const fecha = new Date();
+        const opciones = { day: '2-digit', month: 'long' };
+        const fechaEl = document.getElementById('fecha-actualizacion');
+        if (fechaEl) {
+            fechaEl.innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
+        }
+    }
+
     function validarAcceso() {
         if (document.getElementById('input-dist-pass').value === "dis") {
             sessionStorage.setItem("acceso_distribuidor", "true");
-            document.getElementById('modal-login-distribuidor').style.display = 'none';
+            location.reload();
         } else { alert("Contraseña incorrecta"); }
     }
-
-    window.onload = function() {
-        // Control de sesión
-        if(sessionStorage.getItem("acceso_distribuidor") === "true") {
-            document.getElementById('modal-login-distribuidor').style.display = 'none';
-        }
-        
-        // Fecha de actualización
-        const fecha = new Date();
-        const opciones = { day: '2-digit', month: 'long' };
-        const elFecha = document.getElementById('fecha-actualizacion');
-        if(elFecha) elFecha.innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
-    };
 
     document.getElementById('input-dist-pass').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') { validarAcceso(); }
     });
+
+    // VERIFICACIÓN DE SESIÓN AL CARGAR
+    window.onload = function() {
+        actualizarFecha();
+        if(sessionStorage.getItem("acceso_distribuidor") === "true") {
+            const modal = document.getElementById('modal-login-distribuidor');
+            if(modal) modal.style.display = 'none';
+        }
+    };
 </script>
+
+</body>
+</html>
