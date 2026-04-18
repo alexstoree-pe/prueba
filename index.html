@@ -20,8 +20,10 @@
             } else {
                 document.addEventListener("DOMContentLoaded", function() {
                     document.documentElement.style.display = "block";
-                    document.querySelector('.container').style.display = 'none';
-                    document.querySelector('header').style.display = 'none';
+                    const container = document.querySelector('.container');
+                    const header = document.querySelector('header');
+                    if(container) container.style.display = 'none';
+                    if(header) header.style.display = 'none';
                     document.getElementById('modal-login-distribuidor').style.display = 'flex';
                 });
             }
@@ -47,17 +49,23 @@
             --renovacion-color: #f1c40f;
         }
 
+        /* --- ANIMACIONES --- */
         @keyframes pulse-glow {
             0% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.2); }
             50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
             100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.2); }
         }
-
+        @keyframes shine-red {
+            0% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; }
+            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; }
+            100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; }
+        }
         @keyframes shake {
             0%, 100% { transform: scale(1); }
             25% { transform: scale(1.05); }
             75% { transform: scale(0.95); }
         }
+        .shake { animation: shake 0.4s ease-in-out; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -67,6 +75,7 @@
             color: white; 
             padding-bottom: 220px; 
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         header {
@@ -80,37 +89,91 @@
             margin-bottom: 30px;
         }
 
+        header h1 { 
+            font-size: 2.2rem; font-weight: 800; 
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
         .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
         .search-container input {
             width: 100%; padding: 12px 20px 12px 45px; border-radius: 50px;
             border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05);
-            color: white; outline: none;
+            color: white; outline: none; transition: 0.3s;
         }
         .search-container i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
 
         .container { padding: 10px 20px; max-width: 650px; margin: auto; }
 
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 15px; cursor: pointer; }
+        /* --- GADGETS (OFERTA A LA IZQUIERDA, POPULAR A LA DERECHA) --- */
+.service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 15px; transition: 0.4s; cursor: pointer; }
+
+.service-link::before {
+    position: absolute; 
+    top: -10px; 
+    font-size: 0.65rem; 
+    font-weight: 900;
+    padding: 4px 12px; 
+    border-radius: 50px; 
+    z-index: 10;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+/* OFERTA -> EXTREMO IZQUIERDO */
+.service-link.oferta::before { 
+    content: "🔥 OFERTA"; 
+    background: var(--danger-bright); 
+    color: white;
+    left: 15px; /* Posición izquierda */
+}
+
+/* POPULAR -> EXTREMO DERECHO */
+.service-link.popular::before { 
+    content: "⭐ POPULAR"; 
+    background: var(--vip); 
+    color: black;
+    right: 15px; /* Posición derecha */
+}
+
+/* PRIORIDAD AGOTADO: Oculta ambos si no hay stock */
+.service-link.agotado::before { 
+    display: none !important; 
+}
+
         .service-card { 
             background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 25px; 
             padding: 18px; display: flex; align-items: center; justify-content: space-between; 
-            border: 1px solid var(--glass-border); min-height: 100px;
+            border: 1px solid var(--glass-border); min-height: 100px; position: relative;
         }
 
-        .service-link.selected .service-card { border-color: var(--primary); background: rgba(0,212,255,0.05); }
+        .service-link.selected .service-card { border-color: var(--primary); background: rgba(0,212,255,0.08); }
 
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
 
         /* FOOTER FLOTANTE */
-        .floating-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; z-index: 1000; }
-        .floating-btn { background: var(--whatsapp); color: white; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; border: none; cursor: pointer; margin-bottom: 10px; }
+        .floating-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; display: flex; flex-direction: column; gap: 12px; z-index: 100; }
+        
+        /* BOTÓN WHATSAPP CON CESTA Y ELIMINAR */
+        .cart-wrapper { position: relative; display: flex; align-items: center; width: 100%; }
+        
+        .floating-btn { width: 100%; background: var(--whatsapp); color: white; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        
         .btn-promo { background: var(--vip); color: #000; animation: pulse-glow 2s infinite; }
-        .ahorro-tag { font-size: 0.8rem; color: var(--success); font-weight: 700; margin-bottom: 5px; display: none; text-align: center; }
+        
+        /* BOTÓN DE ELIMINAR DENTRO DEL BOTÓN DE SELECCIÓN */
+        .btn-delete-all {
+            position: absolute; right: 10px; background: rgba(255, 255, 255, 0.2);
+            border: none; color: white; width: 35px; height: 35px; border-radius: 12px;
+            display: none; align-items: center; justify-content: center; cursor: pointer;
+            transition: 0.2s; z-index: 5;
+        }
+        .btn-delete-all:hover { background: #ff3333; transform: scale(1.1); }
 
-        /* MODAL */
-        .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; }
+        .ahorro-tag { font-size: 0.8rem; color: var(--success); font-weight: 700; margin-bottom: 5px; display: none; text-align: center; background: rgba(46, 204, 113, 0.1); padding: 5px; border-radius: 10px; }
+
+        .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 5000; justify-content: center; align-items: center; }
         .modal-content { background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; }
-        #input-dist-pass { width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; color: white; text-align: center; font-size: 1.5rem; }
+        #input-dist-pass { width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; }
     </style>
 </head>
 <body>
@@ -413,70 +476,70 @@
             </div>
         </div>
     </div>
+</div>
 
 <div id="modal-login-distribuidor" class="modal-pass">
     <div class="modal-content">
         <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
-        <h2>ACCESO PRIVADO</h2>
-        <input type="password" id="input-dist-pass" placeholder="••••">
-        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer;">ENTRAR</button>
+        <h2 style="color:var(--primary);">ACCESO PRIVADO</h2>
+        <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8">
+        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer; color:black;">ENTRAR</button>
     </div>
-</div>
-
-<div class="floating-container">
-    <div id="ahorro-display" class="ahorro-tag">¡Llevas 0 productos seleccionados! 🚀</div>
-    
-    <button onclick="limpiarSelecciones()" class="floating-btn" id="btn-limpiar" style="display: none; background: #ff4444; margin-bottom: 5px;">
-        <i class="fa-solid fa-trash-can"></i> LIMPIAR TODO
-    </button>
-
-    <a href="../distribuidores-promos/" class="floating-btn btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
-    
-    <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp">
-        <i class="fa-brands fa-whatsapp"></i> PEDIR SELECCIONADOS (<span id="count-total">0</span>)
-    </button>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 1000, once: true });
 
-    // BUSCADOR
+    // BUSCADOR CON SCROLL
     document.getElementById('buscador').addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase();
+        let primerResultado = null;
         document.querySelectorAll('.service-link').forEach(item => {
             const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            item.style.display = nombre.includes(term) ? 'block' : 'none';
+            if (nombre.includes(term)) {
+                item.style.display = 'block';
+                if (!primerResultado) primerResultado = item;
+            } else { item.style.display = 'none'; }
         });
+        if (primerResultado && term !== "") {
+            setTimeout(() => primerResultado.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+        }
     });
 
     // SELECCIÓN
     document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
-        tarjeta.addEventListener('click', function(e) {
+        tarjeta.addEventListener('click', function() {
             this.classList.toggle('selected');
+            const btn = document.getElementById('btn-whatsapp');
+            btn.classList.remove('shake');
+            void btn.offsetWidth; 
+            btn.classList.add('shake');
             actualizarContadores();
         });
     });
 
     function actualizarContadores() {
         const seleccionados = document.querySelectorAll('.service-link.selected');
-        document.getElementById('count-total').innerText = seleccionados.length;
+        const total = seleccionados.length;
+        document.getElementById('count-total').innerText = total;
         
         const ahorroDisplay = document.getElementById('ahorro-display');
-        const btnLimpiar = document.getElementById('btn-limpiar');
+        const trashBtn = document.getElementById('btn-trash');
 
-        if(seleccionados.length > 0) {
+        if(total > 0) {
             ahorroDisplay.style.display = 'block';
-            btnLimpiar.style.display = 'flex';
-            ahorroDisplay.innerText = `¡Llevas ${seleccionados.length} plataforma(s) lista(s)! 🚀`;
+            ahorroDisplay.innerText = `¡Llevas ${total} plataforma(s) lista(s)! 🚀`;
+            trashBtn.style.display = 'flex';
         } else {
             ahorroDisplay.style.display = 'none';
-            btnLimpiar.style.display = 'none';
+            trashBtn.style.display = 'none';
         }
     }
 
-    function limpiarSelecciones() {
-        if (confirm("¿Seguro que quieres quitar todos los productos seleccionados?")) {
+    function limpiarSelecciones(e) {
+        e.stopPropagation(); // Evita disparar el pedido al hacer clic en el basurero
+        if(confirm("¿Vaciar todos los seleccionados?")) {
             document.querySelectorAll('.service-link.selected').forEach(t => t.classList.remove('selected'));
             actualizarContadores();
         }
@@ -484,15 +547,18 @@
 
     function enviarPedido() {
         const seleccionados = document.querySelectorAll('.service-link.selected');
-        if (seleccionados.length === 0) { alert("Selecciona al menos un producto."); return; }
-        
+        if (seleccionados.length === 0) { alert("Selecciona algo primero."); return; }
+
         let lista = "";
+        let suma = 0;
         seleccionados.forEach(p => {
             const nombre = p.querySelector('.nombre-prod').innerText;
-            lista += `• ${nombre}\n`;
+            const precio = parseFloat(p.querySelector('.price-tag').innerText.replace('S/ ', ''));
+            lista += `• ${nombre} (S/ ${precio.toFixed(2)})\n`;
+            suma += precio;
         });
 
-        const msg = `Hola Alex Store, deseo adquirir:\n\n${lista}`;
+        const msg = `Hola Alex Store, soy Distribuidor deseo adquirir:\n\n${lista}\n💰 *TOTAL: S/ ${suma.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
@@ -500,7 +566,7 @@
         if (document.getElementById('input-dist-pass').value === "dis") {
             sessionStorage.setItem("acceso_distribuidor", "true");
             location.reload();
-        } else { alert("Contraseña incorrecta"); }
+        } else { alert("Error"); }
     }
 
     function actualizarFecha() {
@@ -509,7 +575,7 @@
         document.getElementById('fecha-actualizacion').innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
     }
 
-    window.onload = actualizarFecha;
+    window.onload = () => { actualizarFecha(); actualizarContadores(); };
 </script>
 </body>
 </html>
