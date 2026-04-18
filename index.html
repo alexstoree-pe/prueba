@@ -769,16 +769,6 @@ document.getElementById('buscador').addEventListener('input', function(e) {
     }
 });
 
-    if (primerResultado) {
-        primerResultado.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
-    } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-});
-
     // SELECCIÓN Y ANIMACIÓN SHAKE
     document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
         tarjeta.addEventListener('click', function(e) {
