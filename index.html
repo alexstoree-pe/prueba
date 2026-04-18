@@ -726,7 +726,11 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // INICIALIZACIÓN DE ANIMACIONES
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({ 
+    duration: 1000, 
+    once: true,
+    mirror: true // 👈 ayuda cuando aparecen dinámicamente
+});
 
     // BUSCADOR EN TIEMPO REAL (CORREGIDO CON SCROLL)
 document.getElementById('buscador').addEventListener('input', function(e) {
@@ -746,6 +750,24 @@ document.getElementById('buscador').addEventListener('input', function(e) {
             item.style.display = 'none';
         }
     });
+
+    // 🔥 FORZAR ACTUALIZACIÓN DE AOS
+    setTimeout(() => {
+        AOS.refreshHard();
+    }, 100);
+
+    // 🔥 SCROLL AL PRIMER RESULTADO
+    if (primerResultado) {
+        setTimeout(() => {
+            primerResultado.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }, 150);
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+});
 
     if (primerResultado) {
         primerResultado.scrollIntoView({
