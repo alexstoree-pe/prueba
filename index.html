@@ -20,10 +20,8 @@
             } else {
                 document.addEventListener("DOMContentLoaded", function() {
                     document.documentElement.style.display = "block";
-                    const container = document.querySelector('.container');
-                    const header = document.querySelector('header');
-                    if(container) container.style.display = 'none';
-                    if(header) header.style.display = 'none';
+                    document.querySelector('.container').style.display = 'none';
+                    document.querySelector('header').style.display = 'none';
                     document.getElementById('modal-login-distribuidor').style.display = 'flex';
                 });
             }
@@ -40,7 +38,7 @@
             --dark: #050505;
             --card-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --whatsapp: #2ecc71;
+            --whatsapp: #25d366;
             --text-gray: #bbb;
             --danger-bright: #ff3333;
             --warning: #f4d03f;
@@ -49,27 +47,17 @@
             --renovacion-color: #f1c40f;
         }
 
-        /* --- ANIMACIONES --- */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
         @keyframes pulse-glow {
             0% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.2); }
             50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
             100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.2); }
         }
-        @keyframes shine-red {
-            0% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; }
-            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; }
-            100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; }
-        }
+
         @keyframes shake {
             0%, 100% { transform: scale(1); }
             25% { transform: scale(1.05); }
             75% { transform: scale(0.95); }
         }
-        .shake { animation: shake 0.4s ease-in-out; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -79,10 +67,8 @@
             color: white; 
             padding-bottom: 220px; 
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* --- HEADER --- */
         header {
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(15px);
@@ -93,152 +79,43 @@
             border-bottom-right-radius: 50px;
             margin-bottom: 30px;
         }
-        header h1 { 
-            font-size: 2.2rem; 
-            font-weight: 800; 
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-        }
-        
-        /* BUSCADOR */
-        .search-container {
-            max-width: 500px;
-            margin: 20px auto 0;
-            position: relative;
-        }
+
+        .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
         .search-container input {
-            width: 100%;
-            padding: 12px 20px 12px 45px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.05);
-            color: white;
-            outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 12px 20px 12px 45px; border-radius: 50px;
+            border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05);
+            color: white; outline: none;
         }
         .search-container i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
-        .search-container input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
 
-        .update-tag { 
-            font-size: 0.8rem; 
-            color: var(--success); 
-            font-weight: 600; 
-            margin-top: 10px;
-            background: rgba(46, 204, 113, 0.1);
-            display: inline-block;
-            padding: 4px 15px;
-            border-radius: 50px;
-        }
+        .container { padding: 10px 20px; max-width: 650px; margin: auto; }
 
-        .container { 
-            padding: 10px 20px; 
-            max-width: 650px; 
-            margin: auto;
-        }
-
-        /* --- BADGES JERARQUÍA --- */
-        .badge-manual {
-            position: absolute;
-            top: -12px;
-            font-size: 0.65rem;
-            font-weight: 900;
-            padding: 4px 12px;
-            border-radius: 50px;
-            z-index: 10;
-            display: none;
-            text-transform: uppercase;
-        }
-
-        .service-link.oferta:not(.agotado) .badge-manual.oferta-text { 
-            display: block; left: 15px; background: var(--danger-bright); color: white;
-        }
-
-        .service-link.popular:not(.agotado) .badge-manual.popular-text { 
-            display: block; right: 15px; background: var(--vip); color: black;
-        }
-
-        .service-link.agotado .badge-manual { display: none !important; }
-
-        /* --- TARJETAS --- */
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 15px; transition: 0.4s; cursor: pointer; }
-        
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 15px; cursor: pointer; }
         .service-card { 
-            background: var(--card-bg); 
-            backdrop-filter: blur(10px);
-            border-radius: 25px; 
-            padding: 18px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            border: 1px solid var(--glass-border); 
-            gap: 15px; 
-            min-height: 100px;
-            position: relative;
+            background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 25px; 
+            padding: 18px; display: flex; align-items: center; justify-content: space-between; 
+            border: 1px solid var(--glass-border); min-height: 100px;
         }
 
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0,212,255,0.05); }
 
-        .service-text h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.2rem; display: block; }
+        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
 
-        /* AGOTADO */
-        .service-link.agotado { pointer-events: none; }
-        .service-link.agotado .service-card { opacity: 0.5; }
-        .service-link.agotado .price-tag, .service-link.agotado .stock-status { display: none !important; }
-        .service-link.agotado .service-card::after {
-            content: "SIN STOCK"; 
-            position: absolute; right: 20px;
-            font-size: 0.85rem; font-weight: 900;
-            border: 2px solid var(--danger-bright); padding: 6px 10px; border-radius: 12px;
-            animation: shine-red 1.2s infinite; background: rgba(255, 0, 0, 0.1);
-        }
+        /* FOOTER FLOTANTE */
+        .floating-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; z-index: 1000; }
+        .floating-btn { background: var(--whatsapp); color: white; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; border: none; cursor: pointer; margin-bottom: 10px; }
+        .btn-promo { background: var(--vip); color: #000; animation: pulse-glow 2s infinite; }
+        .ahorro-tag { font-size: 0.8rem; color: var(--success); font-weight: 700; margin-bottom: 5px; display: none; text-align: center; }
 
-        /* --- NUEVO ESTILO CARRITO (IMAGEN) --- */
-        .pedido-wrapper-style {
-            display: flex;
-            align-items: center;
-            background: #2ecc71; 
-            border-radius: 50px;
-            padding: 8px 15px;
-            gap: 12px;
-            margin-bottom: 10px;
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
-        }
-
-        .count-badge-circle {
-            background: rgba(0, 0, 0, 0.15);
-            color: white; width: 28px; height: 28px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; font-size: 0.85rem; font-weight: 800;
-        }
-
-        .price-total-tag {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 4px 10px; border-radius: 20px;
-            font-size: 0.9rem; font-weight: 700; color: white;
-        }
-
-        .btn-delete-circle {
-            background: rgba(255, 255, 255, 0.25);
-            border: none; color: white;
-            width: 35px; height: 35px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-        }
-
-        .floating-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; z-index: 5000; }
-        .btn-promo { background: var(--vip); color: #000; padding: 15px; border-radius: 20px; text-decoration: none; font-weight: 700; text-align: center; display: block; margin-top: 10px; }
-
-        .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 9999; justify-content: center; align-items: center; }
+        /* MODAL */
+        .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; }
         .modal-content { background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; }
-        #input-dist-pass { width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; }
+        #input-dist-pass { width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; color: white; text-align: center; font-size: 1.5rem; }
     </style>
 </head>
 <body>
 
-    <header data-aos="fade-down">
+<header data-aos="fade-down">
     <h1>SOLO DISTRIBUIDORES 🚀</h1>
     <p id="fecha-actualizacion" class="update-tag">Cargando fecha...</p>
     
@@ -537,122 +414,103 @@
         </div>
     </div>
 </div>
+
+<div id="modal-login-distribuidor" class="modal-pass">
+    <div class="modal-content">
+        <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
+        <h2>ACCESO PRIVADO</h2>
+        <input type="password" id="input-dist-pass" placeholder="••••">
+        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer;">ENTRAR</button>
+    </div>
+</div>
+
+<div class="floating-container">
+    <div id="ahorro-display" class="ahorro-tag">¡Llevas 0 productos seleccionados! 🚀</div>
     
-    <div id="modal-login-distribuidor" class="modal-pass">
-        <div class="modal-content">
-            <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
-            <h2 style="color:var(--primary); margin-bottom:10px;">ACCESO PRIVADO</h2>
-            <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8">
-            <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer; color:black;">ENTRAR</button>
-        </div>
-    </div>
+    <button onclick="limpiarSelecciones()" class="floating-btn" id="btn-limpiar" style="display: none; background: #ff4444; margin-bottom: 5px;">
+        <i class="fa-solid fa-trash-can"></i> LIMPIAR TODO
+    </button>
 
-    <div class="floating-container">
-        <div id="ahorro-display" class="ahorro-tag" style="background: rgba(46, 204, 113, 0.1); color: #2ecc71; text-align: center; padding: 5px; border-radius: 10px; margin-bottom: 5px; display: none; font-size: 0.8rem; font-weight: bold;"></div>
-        
-        <div id="barra-pedido-estilo" class="pedido-wrapper-style" style="display: none;">
-            <button onclick="enviarPedido()" style="display: flex; flex: 1; align-items: center; justify-content: space-between; background: none; border: none; padding: 0; cursor: pointer; color: white;">
-                <span id="count-total-badge" class="count-badge-circle">0</span>
-                <span style="font-weight: 800; font-size: 0.85rem;">PEDIR SELECCIONADOS</span>
-                <span id="price-total-display" class="price-total-tag">S/ 0.00</span>
-            </button>
-            
-            <button onclick="limpiarSelecciones()" class="btn-delete-circle">
-                <i class="fa-solid fa-trash-can"></i>
-            </button>
-        </div>
+    <a href="../distribuidores-promos/" class="floating-btn btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
+    
+    <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp">
+        <i class="fa-brands fa-whatsapp"></i> PEDIR SELECCIONADOS (<span id="count-total">0</span>)
+    </button>
+</div>
 
-        <a href="../distribuidores-promos/" class="btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
-    </div>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-
-        // BUSCADOR
-        document.getElementById('buscador').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.service-link').forEach(item => {
-                const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-                item.style.display = nombre.includes(term) ? 'block' : 'none';
-            });
-            AOS.refresh();
+    // BUSCADOR
+    document.getElementById('buscador').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.service-link').forEach(item => {
+            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
+            item.style.display = nombre.includes(term) ? 'block' : 'none';
         });
+    });
 
-        // SELECCIÓN
-        document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
-            tarjeta.addEventListener('click', function() {
-                this.classList.toggle('selected');
-                const barra = document.getElementById('barra-pedido-estilo');
-                barra.classList.remove('shake');
-                void barra.offsetWidth;
-                barra.classList.add('shake');
-                actualizarContadores();
-            });
-        });
-
-        function actualizarContadores() {
-            const seleccionados = document.querySelectorAll('.service-link.selected');
-            const barra = document.getElementById('barra-pedido-estilo');
-            const ahorro = document.getElementById('ahorro-display');
-            
-            let totalSoles = 0;
-            seleccionados.forEach(p => {
-                const precioTxt = p.querySelector('.precio-prod').innerText.replace('S/ ', '');
-                totalSoles += parseFloat(precioTxt);
-            });
-
-            if(seleccionados.length > 0) {
-                barra.style.display = 'flex';
-                ahorro.style.display = 'block';
-                document.getElementById('count-total-badge').innerText = seleccionados.length;
-                document.getElementById('price-total-display').innerText = `S/ ${totalSoles.toFixed(2)}`;
-                ahorro.innerText = `¡Llevas ${seleccionados.length} plataforma(s) lista(s)! 🚀`;
-            } else {
-                barra.style.display = 'none';
-                ahorro.style.display = 'none';
-            }
-        }
-
-        function limpiarSelecciones() {
-            if (confirm("¿Vaciar toda la selección?")) {
-                document.querySelectorAll('.service-link.selected').forEach(t => t.classList.remove('selected'));
-                actualizarContadores();
-            }
-        }
-
-        function enviarPedido() {
-            const seleccionados = document.querySelectorAll('.service-link.selected');
-            let lista = ""; let total = 0;
-            seleccionados.forEach(p => {
-                const n = p.querySelector('.nombre-prod').innerText;
-                const pr = p.querySelector('.precio-prod').innerText;
-                lista += `• ${n} (${pr})\n`;
-                total += parseFloat(pr.replace('S/ ', ''));
-            });
-            const msg = `Hola Alex Store, soy Distribuidor deseo adquirir:\n\n${lista}\n💰 *TOTAL: S/ ${total.toFixed(2)}*`;
-            window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function validarAcceso() {
-            if (document.getElementById('input-dist-pass').value === "dis") {
-                sessionStorage.setItem("acceso_distribuidor", "true");
-                location.reload();
-            } else { alert("Contraseña incorrecta"); }
-        }
-
-        function actualizarFecha() {
-            const fecha = new Date();
-            const opciones = { day: '2-digit', month: 'long' };
-            document.getElementById('fecha-actualizacion').innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
-        }
-
-        document.getElementById('input-dist-pass').addEventListener('keypress', (e) => { if(e.key === 'Enter') validarAcceso(); });
-
-        window.onload = function() {
-            actualizarFecha();
+    // SELECCIÓN
+    document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
+        tarjeta.addEventListener('click', function(e) {
+            this.classList.toggle('selected');
             actualizarContadores();
-        };
-    </script>
+        });
+    });
+
+    function actualizarContadores() {
+        const seleccionados = document.querySelectorAll('.service-link.selected');
+        document.getElementById('count-total').innerText = seleccionados.length;
+        
+        const ahorroDisplay = document.getElementById('ahorro-display');
+        const btnLimpiar = document.getElementById('btn-limpiar');
+
+        if(seleccionados.length > 0) {
+            ahorroDisplay.style.display = 'block';
+            btnLimpiar.style.display = 'flex';
+            ahorroDisplay.innerText = `¡Llevas ${seleccionados.length} plataforma(s) lista(s)! 🚀`;
+        } else {
+            ahorroDisplay.style.display = 'none';
+            btnLimpiar.style.display = 'none';
+        }
+    }
+
+    function limpiarSelecciones() {
+        if (confirm("¿Seguro que quieres quitar todos los productos seleccionados?")) {
+            document.querySelectorAll('.service-link.selected').forEach(t => t.classList.remove('selected'));
+            actualizarContadores();
+        }
+    }
+
+    function enviarPedido() {
+        const seleccionados = document.querySelectorAll('.service-link.selected');
+        if (seleccionados.length === 0) { alert("Selecciona al menos un producto."); return; }
+        
+        let lista = "";
+        seleccionados.forEach(p => {
+            const nombre = p.querySelector('.nombre-prod').innerText;
+            lista += `• ${nombre}\n`;
+        });
+
+        const msg = `Hola Alex Store, deseo adquirir:\n\n${lista}`;
+        window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function validarAcceso() {
+        if (document.getElementById('input-dist-pass').value === "dis") {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            location.reload();
+        } else { alert("Contraseña incorrecta"); }
+    }
+
+    function actualizarFecha() {
+        const fecha = new Date();
+        const opciones = { day: '2-digit', month: 'long' };
+        document.getElementById('fecha-actualizacion').innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
+    }
+
+    window.onload = actualizarFecha;
+</script>
 </body>
 </html>
