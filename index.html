@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promos Mayoristas | Alex Store</title>
     
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS (ANIMACIONES AL SCROLL) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
@@ -23,13 +23,30 @@
             --danger-bright: #ff3333;
         }
 
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        @keyframes shine-red { 
+            0%, 100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } 
+            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; } 
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* 🔥 FIX SCROLL */
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Poppins', sans-serif;
             background: radial-gradient(circle at top right, #1a1a1a, #050505);
             color: white;
             padding-bottom: 120px;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         header {
@@ -40,44 +57,66 @@
             border-bottom: 2px solid var(--vip);
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
+            animation: fadeInUp 0.8s ease;
         }
 
-        header h1 { font-size: 1.6rem; color: var(--vip); }
-
-        /* BUSCADOR */
-        .search-container {
-            max-width: 400px;
-            margin: 15px auto 0;
-            position: relative;
-        }
-        .search-container input {
-            width: 100%;
-            padding: 10px 15px 10px 40px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.05);
-            color: white;
-        }
-        .search-container i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
+        header h1 {
+            font-size: 1.6rem;
             color: var(--vip);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .container { padding: 20px 15px; max-width: 600px; margin: auto; }
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .back-nav {
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--vip);
+            text-decoration: none;
+            font-size: 0.8rem;
+            border: 1px solid var(--glass-border);
+            background: var(--card-bg);
+            padding: 8px 18px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
 
         .category-title {
             margin: 30px 0 15px;
             font-size: 0.8rem;
             font-weight: 800;
             color: var(--vip);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--vip), transparent);
         }
 
         .promo-link {
+            text-decoration: none;
+            color: inherit;
             display: block;
             margin-bottom: 20px;
+            animation: fadeInUp 1s ease backwards;
         }
 
         .vip-card {
@@ -87,20 +126,93 @@
             padding: 20px;
             display: flex;
             align-items: center;
+            border: 1px solid var(--glass-border);
             gap: 15px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .batch-badge {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--vip);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 900;
+            padding: 3px 12px;
+            border-radius: 50px;
+            z-index: 5;
         }
 
         .service-logo {
             width: 70px;
             height: 70px;
             border-radius: 15px;
+            object-fit: cover;
+            border: 1px solid var(--glass-border);
         }
 
         .service-text { flex-grow: 1; }
 
+        .service-text h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .manual-desc {
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            display: block;
+        }
+
+        .price-container {
+            text-align: right;
+            min-width: 100px;
+        }
+
         .price-tag {
+            color: #fff;
             font-weight: 800;
             font-size: 1.3rem;
+        }
+
+        .reno-tag {
+            font-size: 0.6rem;
+            color: var(--whatsapp);
+            font-weight: 700;
+            background: rgba(37, 211, 102, 0.1);
+            padding: 2px 8px;
+            border-radius: 50px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .promo-link.agotado {
+            pointer-events: none;
+        }
+
+        .promo-link.agotado .vip-card {
+            opacity: 0.4;
+        }
+
+        .promo-link.agotado .price-tag,
+        .promo-link.agotado .reno-tag {
+            display: none !important;
+        }
+
+        .promo-link.agotado .price-container::after {
+            content: "SIN STOCK";
+            font-size: 0.75rem;
+            font-weight: 900;
+            border: 1px solid var(--danger-bright);
+            padding: 6px 10px;
+            border-radius: 10px;
+            animation: shine-red 1.2s infinite;
+            display: block;
+            background: rgba(255, 0, 0, 0.1);
         }
 
         .floating-btn {
@@ -117,6 +229,8 @@
             width: 90%;
             max-width: 400px;
             text-align: center;
+            z-index: 100;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
     </style>
 </head>
@@ -126,80 +240,117 @@
 <header>
     <h1>ALEX STORE PROMOS 👑</h1>
     <p>Panel Exclusivo para Mayoristas</p>
-
-    <!-- BUSCADOR -->
-    <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="buscador" placeholder="Buscar promo...">
-    </div>
 </header>
 
 <div class="container">
+    
+    <div class="back-nav">
+        <a href="../distribuidores/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Panel Principal</a>
+    </div>
 
-    <div class="category-title">📦 PACKS</div>
+    <div class="category-title">📦 PACKS DE CUENTAS COMPLETAS</div>
 
-    <!-- EJEMPLO -->
-    <a href="#" class="promo-link" data-aos="fade-up">
+    <a href="#" class="promo-link time" data-tiempo="2026-04-18 23:59">
         <div class="vip-card">
+            <div class="batch-badge">PACK x10</div>
             <img src="../img/max.png" class="service-logo">
             <div class="service-text">
+                <div class="countdown-timer"><i class="fa-regular fa-clock"></i> Cierra en: <span class="timer">...</span></div>
                 <h3 class="nombre-prod">MAX PLATINO COMPLETA</h3>
-                <span>10 cuentas</span>
+                <span class="manual-desc">10 Cuentas • 4K UHD • 1 Mes.</span>
             </div>
-            <div class="price-tag">S/ 50</div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 50</span> 
+                <span class="reno-tag">Reno: S/ 9 c/u</span>
+            </div>
         </div>
     </a>
 
-    <a href="#" class="promo-link" data-aos="fade-up">
+    <a href="#" class="promo-link time" data-tiempo="2026-04-18 23:59">
         <div class="vip-card">
+            <div class="batch-badge">PACK x10</div>
             <img src="../img/vix.png" class="service-logo">
             <div class="service-text">
+                <div class="countdown-timer"><i class="fa-regular fa-clock"></i> Cierra en: <span class="timer">...</span></div>
                 <h3 class="nombre-prod">VIX PREMIUM</h3>
-                <span>10 cuentas</span>
+                <span class="manual-desc">10 Cuentas • Liga MX • 1 Mes.</span>
             </div>
-            <div class="price-tag">S/ 30</div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 30</span> 
+                <span class="reno-tag">Reno: S/ 4.50 c/u</span>
+            </div>
         </div>
     </a>
 
+    <a href="#" class="promo-link time" data-tiempo="2026-04-18 23:59">
+        <div class="vip-card">
+            <div class="batch-badge">PACK x10</div>
+            <img src="../img/paramount.png" class="service-logo">
+            <div class="service-text">
+                <div class="countdown-timer"><i class="fa-regular fa-clock"></i> Cierra en: <span class="timer">...</span></div>
+                <h3 class="nombre-prod">PARAMOUNT</h3>
+                <span class="manual-desc">10 Cuentas • Todo el catálogo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 50</span> 
+                <span class="reno-tag">Reno: S/ 7 c/u</span>
+            </div>
+        </div>
+    </a>
+
+    <div class="category-title">👤 PROMOCIONES INDIVIDUALES</div>
+
+    <a href="#" class="promo-link agotado">
+        <div class="vip-card">
+            <div class="batch-badge">INDIVIDUAL</div>
+            <img src="../img/spotify.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">SPOTIFY PREMIUM</h3>
+                <span class="manual-desc">A tu propio correo • 1 Mes.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 7</span> 
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="promo-link agotado">
+        <div class="vip-card">
+            <div class="batch-badge">PROMO</div>
+            <img src="../img/prime.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO</h3>
+                <span class="manual-desc">Cuenta Completa • Original.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 10</span> 
+            </div>
+        </div>
+    </a>
 </div>
 
-<a href="#" class="floating-btn">PEDIR POR WHATSAPP</a>
+<a href="https://wa.me/51918600000?text=Hola%20Alex%20Store" class="floating-btn">
+    <i class="fa-brands fa-whatsapp"></i> PEDIR POR WHATSAPP
+</a>
 
 <!-- AOS SCRIPT -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
-    // INICIAR AOS (FIX SCROLL)
     AOS.init({
         duration: 800,
-        once: true,
-        offset: 0 // 🔥 clave para que detecte todo
+        once: true
     });
 
-    // FORZAR REFRESH (SOLUCION BUG)
-    window.addEventListener('load', () => {
+    // 🔥 FIX IMPORTANTE: render al cargar + scroll
+    window.addEventListener("load", () => {
         setTimeout(() => {
-            AOS.refreshHard();
-        }, 300);
+            AOS.refresh();
+        }, 500);
     });
 
-    window.addEventListener('scroll', () => {
-        AOS.refresh();
-    });
-
-    // BUSCADOR FIX
-    document.getElementById('buscador').addEventListener('input', function(e) {
-        const term = e.target.value.toLowerCase();
-
-        document.querySelectorAll('.promo-link').forEach(item => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            item.style.display = nombre.includes(term) ? 'block' : 'none';
-        });
-
-        // 🔥 CLAVE: refrescar AOS después de buscar
-        setTimeout(() => {
-            AOS.refreshHard();
-        }, 100);
+    window.addEventListener("scroll", () => {
+        AOS.refreshHard();
     });
 </script>
 
