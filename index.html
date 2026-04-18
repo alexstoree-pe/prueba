@@ -645,15 +645,20 @@
         <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer;">ENTRAR</button>
     </div>
 </div>
-
+   // PARA EL BOTN DE CARRITO SELECCION
 <div class="floating-container">
     <div id="ahorro-display" class="ahorro-tag">¡Llevas 0 productos seleccionados! 🚀</div>
+    
+    <button onclick="limpiarSelecciones()" class="floating-btn btn-clear" id="btn-limpiar" style="display: none; background: #ff4444; margin-bottom: 5px;">
+        <i class="fa-solid fa-trash-can"></i> LIMPIAR TODO
+    </button>
+
     <a href="../distribuidores-promos/" class="floating-btn btn-promo"><i class="fa-solid fa-crown"></i> ZONA PROMOS MAYORISTAS</a>
+    
     <button onclick="enviarPedido()" class="floating-btn" id="btn-whatsapp">
         <i class="fa-brands fa-whatsapp"></i> PEDIR SELECCIONADOS (<span id="count-total">0</span>)
     </button>
 </div>
-
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // INICIALIZACIÓN DE ANIMACIONES
@@ -713,16 +718,31 @@
         });
     });
 
+   // --- LÓGICA DE SELECCIÓN Y CONTADORES ---
     function actualizarContadores() {
         const seleccionados = document.querySelectorAll('.service-link.selected');
         document.getElementById('count-total').innerText = seleccionados.length;
         
         const ahorroDisplay = document.getElementById('ahorro-display');
+        const btnLimpiar = document.getElementById('btn-limpiar'); // Referencia al botón nuevo
+
         if(seleccionados.length > 0) {
             ahorroDisplay.style.display = 'block';
+            if(btnLimpiar) btnLimpiar.style.display = 'block'; // Muestra botón limpiar
             ahorroDisplay.innerText = `¡Llevas ${seleccionados.length} plataforma(s) lista(s)! 🚀`;
         } else {
             ahorroDisplay.style.display = 'none';
+            if(btnLimpiar) btnLimpiar.style.display = 'none'; // Oculta botón limpiar
+        }
+    }
+
+    // NUEVA FUNCIÓN: ELIMINAR TODAS LAS SELECCIONES
+    function limpiarSelecciones() {
+        if (confirm("¿Seguro que quieres quitar todos los productos seleccionados?")) {
+            document.querySelectorAll('.service-link.selected').forEach(tarjeta => {
+                tarjeta.classList.remove('selected');
+            });
+            actualizarContadores();
         }
     }
 
@@ -747,7 +767,10 @@
     function actualizarFecha() {
         const fecha = new Date();
         const opciones = { day: '2-digit', month: 'long' };
-        document.getElementById('fecha-actualizacion').innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
+        const elementoFecha = document.getElementById('fecha-actualizacion');
+        if(elementoFecha) {
+            elementoFecha.innerText = "✅ Lista Actualizada: " + fecha.toLocaleDateString('es-ES', opciones);
+        }
     }
 
     function validarAcceso() {
@@ -757,11 +780,15 @@
         } else { alert("Contraseña incorrecta"); }
     }
 
+    // EVENTOS FINALIZACIÓN
     document.getElementById('input-dist-pass').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') { validarAcceso(); }
     });
 
-    window.onload = actualizarFecha;
+    window.onload = function() {
+        actualizarFecha();
+        actualizarContadores(); // Asegura que el estado del botón sea correcto al cargar
+    };
 </script>
 
 </body>
