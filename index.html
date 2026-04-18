@@ -175,43 +175,45 @@
         /* --- MODO URGENCIA (OFERTA) --- */
         .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 15px; transition: 0.4s; cursor: pointer; }
         
-       /* --- GADGETS EN EXTREMOS (OFERTA IZQUIERDA | POPULAR DERECHA) --- */
-.badge-oferta, .badge-popular {
+      /* --- GADGETS EN EXTREMOS (OFERTA IZQUIERDA | POPULAR DERECHA) --- */
+.badge-manual {
     position: absolute;
-    top: -12px; /* Eleva el gadget sobre el borde de la tarjeta */
+    top: -12px; /* Eleva el badge sobre el borde de la tarjeta */
     font-size: 0.65rem;
     font-weight: 900;
     padding: 4px 12px;
     border-radius: 50px;
     z-index: 10;
-    letter-spacing: 1px;
+    display: none; /* Se activa con las clases de abajo */
     text-transform: uppercase;
 }
 
-/* OFERTA a la Izquierda */
-.badge-oferta {
+/* OFERTA: Posición a la IZQUIERDA */
+.service-link.oferta .badge-manual.oferta-text { 
+    display: block; 
     left: 15px;
-    background: var(--danger-bright);
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 51, 51, 0.4);
+    background: var(--danger-bright); 
+    color: white; 
+    box-shadow: 0 5px 10px rgba(255,0,0,0.3); 
 }
 
-/* POPULAR a la Derecha */
-.badge-popular {
+/* POPULAR: Posición a la DERECHA */
+.service-link.popular .badge-manual.popular-text { 
+    display: block; 
     right: 15px;
-    background: var(--vip);
-    color: black;
-    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+    background: var(--vip); 
+    color: black; 
+    box-shadow: 0 5px 10px rgba(212,175,55,0.4); 
 }
 
-/* Separación extra para que los gadgets no choquen con el título superior */
-.service-link {
+/* Ajuste para que los badges no choquen con el contenido de arriba */
+.service-link { 
     margin-top: 25px; 
-    margin-bottom: 15px;
-    position: relative;
-    text-decoration: none;
-    color: inherit;
-    display: block;
+    position: relative; 
+    text-decoration: none; 
+    color: inherit; 
+    display: block; 
+    margin-bottom: 15px; 
 }
 
         /* --- CHECK DE SELECCIÓN --- */
