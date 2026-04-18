@@ -55,7 +55,6 @@
             z-index: 2000;
         }
 
-        /* Estilo para tu logo en la cabecera */
         .brand-logo {
             width: 70px;
             height: 70px;
@@ -80,7 +79,32 @@
             background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
             outline: none; transition: 0.3s;
         }
-        #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+
+        /* SECCIÓN DE CONFIANZA Y GARANTÍA */
+        .trust-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+        }
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .trust-item i {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
 
         .container { padding: 20px 15px; max-width: 600px; margin: auto; }
 
@@ -98,7 +122,7 @@
 
         .category-title { margin: 30px 0 15px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
 
-        /* ESTILO PREMIUM SIMPLIFICADO */
+        /* ESTILO PREMIUM */
         .premium .service-card {
             border: 1px solid #d4af37 !important;
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
@@ -165,11 +189,18 @@
 <body>
 
 <header>
-    <img src="../img/logo.png" alt="Alex Store Logo" class="brand-logo" data-aos="zoom-in">
+    <img src="../img/logo.png" alt="Logo" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
     <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
+    
     <div class="search-container" data-aos="fade-up">
         <input type="text" id="search-input" placeholder="Buscar plataforma (Netflix, Disney...)" onkeyup="filtrarProductos()">
+        
+        <div class="trust-bar">
+            <div class="trust-item"><i class="fas fa-headset"></i>Soporte 24/7</div>
+            <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía Real</div>
+            <div class="trust-item"><i class="fas fa-bolt"></i>Entrega Veloz</div>
+        </div>
     </div>
 </header>
 
@@ -523,126 +554,3 @@
             <button class="btn-universal" style="background:#222; color:#fff; width:100%; margin-bottom:10px;" onclick="enviarWhatsApp('antiguo')">SÍ, YA COMPRÉ ANTES</button>
             <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
             <button class="btn-universal" style="background:transparent; color:#555; width:100%; margin-top:10px; font-size:0.6rem;" onclick="cerrarModalRegistro()">CANCELAR / VOLVER</button>
-        </div>
-        <div id="form-datos" style="display:none;">
-            <h2 style="color:var(--primary); margin-bottom:15px;">Registro de Pedido</h2>
-            <input type="text" id="reg-nom" placeholder="Nombre Completo" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
-            <input type="tel" id="reg-cel" placeholder="Número Celular" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
-            <input type="text" id="reg-per" placeholder="Nombre para Perfil (Opcional)" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
-            <button class="btn-universal" style="background:var(--primary); color:#000; width:100%; margin-bottom:10px;" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
-            <button class="btn-universal" style="background:#222; color:#777; width:100%; border:1px solid #333;" onclick="volverPaso1()">← VOLVER</button>
-        </div>
-    </div>
-</div>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    AOS.init({ duration: 800, once: true });
-
-    let carrito = [];
-    const numWhatsApp = "51918600000";
-
-    function filtrarProductos() {
-        const busqueda = document.getElementById('search-input').value.toLowerCase();
-        const items = document.querySelectorAll('.service-item');
-        const titulos = document.querySelectorAll('.category-title');
-        items.forEach(item => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            if (nombre.includes(busqueda)) {
-                item.style.display = 'block'; item.style.opacity = "1";
-            } else { item.style.display = 'none'; }
-        });
-        titulos.forEach(titulo => { titulo.style.display = (busqueda !== "") ? 'none' : 'block'; });
-        AOS.refreshHard();
-    }
-
-    (function() {
-        if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
-        else {
-            document.addEventListener("DOMContentLoaded", () => {
-                document.documentElement.style.display = "block";
-                document.getElementById('modal-password').style.display = 'flex';
-            });
-        }
-    })();
-
-    function validarPass() {
-        if (document.getElementById('input-pass').value === "cliente") { 
-            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
-        } else { alert("Código incorrecto"); }
-    }
-
-    function toggleCarrito(elemento) {
-        if (elemento.classList.contains('agotado')) return;
-        const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
-        const idx = carrito.findIndex(i => i.nombre === nombre);
-
-        if (idx > -1) { 
-            carrito.splice(idx, 1); elemento.classList.remove('selected'); 
-        } else { 
-            carrito.push({nombre, precio}); elemento.classList.add('selected'); 
-        }
-        actualizarUI();
-    }
-
-    function limpiarCarrito() {
-        carrito = [];
-        document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
-        actualizarUI();
-    }
-
-    function calcularDescuento() {
-        if (carrito.length < 2) return 0;
-        let desc = 0;
-        const ordenado = [...carrito].sort((a, b) => b.precio - a.precio);
-        for (let i = 1; i < ordenado.length; i++) {
-            if (i === 1) { desc += (ordenado[i].precio >= 10 && ordenado[0].precio >= 10) ? 2 : 1; }
-            else { desc += (ordenado[i].precio >= 10) ? 2 : 1; }
-        }
-        return desc;
-    }
-
-    function actualizarUI() {
-        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const desc = calcularDescuento();
-        document.getElementById('cart-count').innerText = carrito.length;
-        document.getElementById('cart-total').innerText = `S/ ${subtotal - desc}`;
-        const label = document.getElementById('discount-label');
-        if (desc > 0) {
-            label.innerText = `¡Ahorro aplicado: S/ ${desc}! 🎁`;
-            label.style.display = 'block';
-        } else { label.style.display = 'none'; }
-        document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
-    }
-
-    function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
-    function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
-    function mostrarForm() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-datos').style.display = 'block'; }
-    function volverPaso1() { document.getElementById('form-datos').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
-
-    function enviarWhatsApp(tipo) {
-        let nom = document.getElementById('reg-nom').value;
-        let cel = document.getElementById('reg-cel').value;
-        let per = document.getElementById('reg-per').value;
-        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { alert("Datos incompletos."); return; }
-        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const desc = calcularDescuento();
-        let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
-        carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
-        if(desc > 0) msg += `\n🎁 Ahorro: -S/ ${desc}`;
-        msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
-        if(tipo === 'nuevo') { msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; if(per.trim() !== "") msg += `\n👤 Perfil: ${per}`; } 
-        else { msg += `\n\n✅ *YA SOY CLIENTE*`; }
-        window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
-        cerrarModalRegistro();
-    }
-
-    function consultarStockManual(elemento, event) {
-        event.stopPropagation();
-        const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
-        window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
-    }
-</script>
-</body>
-</html>
