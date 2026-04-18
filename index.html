@@ -65,7 +65,6 @@
             overflow-x: hidden;
         }
 
-        /* --- HEADER --- */
         header {
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(15px);
@@ -98,7 +97,6 @@
         .category-title { margin: 40px 0 15px; font-size: 0.85rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 2px; }
         .category-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, var(--primary), transparent); }
 
-        /* --- CORRECCIÓN GADGETS MANUALES --- */
         .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 15px; transition: 0.4s; cursor: pointer; }
         .service-card { position: relative; background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 25px; padding: 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--glass-border); gap: 15px; min-height: 100px; }
 
@@ -115,7 +113,6 @@
         .oferta-text { left: 15px; background: var(--danger-bright); color: white; }
         .popular-text { right: 15px; background: var(--vip); color: black; }
 
-        /* Ocultar gadgets si está agotado */
         .service-link.agotado .badge-manual { display: none !important; }
 
         .check-icon { position: absolute; top: 10px; left: 10px; background: var(--primary); color: black; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; opacity: 0; transform: scale(0); transition: 0.3s; z-index: 5; }
@@ -142,13 +139,10 @@
         .service-link.agotado .price-tag, .service-link.agotado .renovacion-info, .service-link.agotado .stock-status { display: none !important; }
         .service-link.agotado .price-container::after { content: "SIN STOCK"; font-size: 0.85rem; font-weight: 900; border: 2px solid var(--danger-bright); padding: 6px 10px; border-radius: 12px; animation: shine-red 1.2s infinite; display: block; background: rgba(255, 0, 0, 0.1); text-align: center; }
 
-        /* --- BOTONES FLOTANTES --- */
         .floating-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; display: flex; flex-direction: column; gap: 12px; z-index: 100; }
         .floating-btn { background: var(--whatsapp); color: white; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; border: none; cursor: pointer; flex-grow: 1; }
         .btn-promo { background: var(--vip); color: #000; animation: pulse-glow 2s infinite; }
         .ahorro-tag { font-size: 0.8rem; color: var(--success); font-weight: 700; margin-bottom: 5px; display: none; text-align: center; background: rgba(46, 204, 113, 0.1); padding: 5px; border-radius: 10px; }
-        
-        /* Estilo basura */
         .btn-trash { background: #ff3333; color: white; width: 55px; border-radius: 20px; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 1.2rem; }
 
         .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 5000; justify-content: center; align-items: center; }
@@ -482,23 +476,41 @@
 <script>
     AOS.init({ duration: 1000, once: true });
 
-    // BUSCADOR
+    // BUSCADOR SOLUCIONADO (SCROLL + AOS)
     document.getElementById('buscador').addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase();
         let primerResultado = null;
+        
         document.querySelectorAll('.service-link').forEach(item => {
             const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
             if (nombre.includes(term)) {
                 item.style.display = 'block';
                 if (!primerResultado) primerResultado = item;
-            } else { item.style.display = 'none'; }
+            } else { 
+                item.style.display = 'none'; 
+            }
         });
+
+        // REFRESCAR AOS para que detecte los elementos visibles
+        AOS.refresh();
+
         if (primerResultado) {
-            setTimeout(() => { primerResultado.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
+            // Pequeño retraso para dejar que la transición sea fluida
+            setTimeout(() => {
+                const headerOffset = 150;
+                const elementPosition = primerResultado.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }, 100);
+        } else if (term === "") {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 
-    // SELECCIÓN
     document.querySelectorAll('.service-link:not(.agotado)').forEach(tarjeta => {
         tarjeta.addEventListener('click', function(e) {
             e.preventDefault();
