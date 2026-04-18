@@ -14,6 +14,7 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         :root {
@@ -25,7 +26,7 @@
             --whatsapp: #25d366;
             --promo: #f4d03f;
             --promo-dark: #d4af37;
-            --danger: #ff3333; 
+            --danger: #ff4444; 
             --gold-gradient: linear-gradient(45deg, #d4af37, #f4d03f);
         }
 
@@ -59,129 +60,46 @@
             letter-spacing: 2px;
         }
 
-        /* --- SECCIÓN GARANTÍA --- */
-        .trust-bar {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px auto 0;
-            max-width: 600px;
-            gap: 10px;
-        }
-        .trust-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.6rem;
-            color: #aaa;
-            font-weight: 600;
-        }
-        .trust-item i {
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
+        .trust-bar { display: flex; justify-content: space-around; margin: 20px auto 0; max-width: 600px; gap: 10px; }
+        .trust-item { display: flex; flex-direction: column; align-items: center; font-size: 0.6rem; color: #aaa; font-weight: 600; }
+        .trust-item i { color: var(--primary); font-size: 1.1rem; margin-bottom: 5px; }
 
-        /* --- BUSCADOR --- */
-        .search-container {
-            max-width: 600px;
-            margin: 15px auto 0;
-            position: relative;
-        }
+        .search-container { max-width: 600px; margin: 15px auto 0; position: relative; }
         #search-input {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.05);
-            color: white;
-            font-family: 'Poppins';
-            outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 12px 20px; border-radius: 15px; border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
+            outline: none; transition: 0.3s;
         }
         #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
 
         .container { padding: 20px 15px; max-width: 600px; margin: auto; }
 
-        .grid-botones {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 20px 0 30px;
-        }
-
+        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
         .btn-universal {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 10px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            text-align: center;
+            display: flex; align-items: center; justify-content: center; padding: 15px 10px;
+            border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
+            cursor: pointer; text-align: center;
         }
-
         .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
-        .btn-referencias {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
-            animation: pulse-mini 2s infinite;
-        }
-        .btn-combos-premium {
-            background: linear-gradient(45deg, var(--promo-dark), var(--promo));
-            color: #000;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }
-        .btn-comunidad {
-            background: linear-gradient(45deg, #25d366, #128c7e);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
-        }
+        .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); animation: pulse-mini 2s infinite; }
+        .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+        .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); }
 
-        @keyframes pulse-mini {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulse-mini { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
 
-        .category-title { 
-            margin: 30px 0 15px; font-size: 0.9rem; font-weight: 700; 
-            color: var(--primary); letter-spacing: 3px;
-        }
+        .category-title { margin: 30px 0 15px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
 
-        .service-item { cursor: pointer; margin-bottom: 15px; outline: none; position: relative; }
+        .service-item { cursor: pointer; margin-bottom: 15px; outline: none; position: relative; transition: 0.3s; }
 
-        /* RECOMENDACIÓN: DIFERENCIACIÓN VISUAL PREMIUM */
-        .plan-premium .service-card {
+        /* MODIFICACIÓN: CLASE SIMPLIFICADA A 'premium' */
+        .premium .service-card {
             border: 1px solid #d4af37 !important;
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
-        .plan-premium .price-tag {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-        .plan-premium::after {
-            content: 'PREMIUM';
-            position: absolute;
-            top: 10px;
-            right: 40px;
-            font-size: 0.5rem;
-            font-weight: 900;
-            color: #d4af37;
-            letter-spacing: 1px;
-            border: 1px solid #d4af37;
-            padding: 1px 5px;
-            border-radius: 4px;
-        }
+        .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 40px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
 
         .service-card { 
             background: var(--glass); border-radius: 22px; padding: 18px; 
@@ -189,22 +107,10 @@
             transition: 0.4s; gap: 15px; position: relative; overflow: hidden;
         }
 
-        .check-icon {
-            position: absolute; top: 10px; right: 10px;
-            background: var(--primary); color: #000;
-            width: 22px; height: 22px; border-radius: 50%;
-            display: none; align-items: center; justify-content: center;
-            font-size: 0.7rem; font-weight: bold; z-index: 10;
-        }
+        .check-icon { position: absolute; top: 10px; right: 10px; background: var(--primary); color: #000; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; z-index: 10; }
         .selected .check-icon { display: flex; }
 
-        .badge-oferta {
-            position: absolute; top: 0; left: 20px;
-            background: var(--promo); color: #000;
-            padding: 2px 12px; border-radius: 0 0 10px 10px;
-            font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
-            display: none; z-index: 11; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
+        .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         .service-item.oferta .badge-oferta { display: block; }
 
         .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
@@ -212,25 +118,16 @@
         .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
         .manual-desc { font-size: 0.75rem; color: #777; }
 
-        .price-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            min-width: 85px;
-            text-align: right;
-        }
+        .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
         .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
 
         .selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.08); }
 
         .btn-consultar-neon {
-            display: none; 
-            color: #ff3333; font-size: 0.85rem; font-weight: 900; 
+            display: none; color: #ff3333; font-size: 0.85rem; font-weight: 900; 
             border: 2px solid var(--danger); padding: 8px 10px; border-radius: 10px;
             background: rgba(255, 0, 0, 0.1); animation: shine-red 1.5s infinite; text-transform: uppercase;
         }
-
         .service-item.agotado .btn-consultar-neon { display: block; }
         .service-item.agotado .price-tag { display: none; }
         .service-item.agotado .service-card { opacity: 0.5; filter: grayscale(0.5); }
@@ -243,10 +140,16 @@
             color: white; padding: 20px; border-radius: 25px;
             text-decoration: none; font-weight: 700; width: 92%; max-width: 480px;
             display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-            transition: 0.3s;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px); transition: 0.3s;
         }
         .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        
+        .btn-clear-cart {
+            background: rgba(255, 68, 68, 0.2); border: 1px solid rgba(255, 68, 68, 0.4); color: #ffcccc;
+            width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; transition: 0.3s;
+        }
+        .btn-clear-cart:active { transform: scale(0.8); background: var(--danger); }
+
         .discount-notice { font-size: 0.7rem; color: #f4d03f; font-weight: 600; margin-top: 5px; display: none; }
 
         .modal-overlay, .modal-pass { 
@@ -254,14 +157,10 @@
             justify-content: center; align-items: flex-end; z-index: 3000;
             background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
         }
-        .modal-content { 
-            background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; 
-            width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center;
-        }
+        .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
         #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
         .hidden { display: none; }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -290,7 +189,7 @@
 
     <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
 
-    <div class="service-item oferta" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item oferta premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
@@ -306,7 +205,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="badge-oferta">OFERTA HOY 🎁</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
@@ -397,7 +296,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/vix.png" class="service-logo">
@@ -474,36 +373,6 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card"> 
-            <div class="check-icon">✓</div>
-            <img src="../img/canva.png" class="service-logo"> 
-            <div class="service-text">
-                <h3 class="nombre-prod">CANVA PRO (6 meses) </h3>
-                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 17</span>
-                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card"> 
-            <div class="check-icon">✓</div>
-            <img src="../img/canva.png" class="service-logo"> 
-            <div class="service-text">
-                <h3 class="nombre-prod">CANVA PRO (12 meses) </h3>
-                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 25</span>
-                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
-            </div>
-        </div>
-    </div>
-
     <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
@@ -513,21 +382,6 @@
             <div class="service-text">
                 <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
                 <span class="manual-desc">• Canal l1 Max • Activación a TV • Perfil privado.</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 20</span>
-                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card">
-            <div class="check-icon">✓</div>
-            <img src="../img/dgo.png" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">Directv Go + l1 Max</h3>
-                <span class="manual-desc">•1 mes • Activación a TV• Todo los canales ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 20</span>
@@ -551,39 +405,9 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card">
-            <div class="check-icon">✓</div>
-            <img src="../img/iptv.png" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">IPTV Smarters pro (1 dis)</h3>
-                <span class="manual-desc">•1 Dispositivo •6500 Canales en vivo .</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 10</span>
-                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card">
-            <div class="check-icon">✓</div>
-            <img src="../img/iptv.png" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">IPTV Smarters pro (3 dis)</h3>
-                <span class="manual-desc">•3 Dispositivos •6500 Canales en vivo .</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 13</span>
-                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
-            </div>
-        </div>
-    </div>
-
     <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" class="service-logo">
@@ -598,7 +422,7 @@
         </div>
     </div>
 
-    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
             <img src="../img/youtube.png" class="service-logo">
@@ -614,18 +438,21 @@
     </div>
 </div>
 
-<a href="javascript:void(0)" id="whatsapp-btn" class="floating-btn hidden" onclick="abrirModalRegistro()">
+<div id="whatsapp-btn" class="floating-btn hidden">
     <div class="cart-row">
-        <div class="cart-info">
+        <div class="cart-info" onclick="abrirModalRegistro()" style="flex-grow: 1; display: flex; align-items: center; cursor: pointer;">
             <span id="cart-count" style="background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 10px;">0</span>
             <span style="font-size: 0.9rem; margin-left: 8px;">PEDIR AHORA</span>
         </div>
-        <div class="total-info">
-            <span id="cart-total" style="font-size: 1.3rem;">S/ 0</span>
+        <div class="total-info" style="display: flex; align-items: center;">
+            <span id="cart-total" style="font-size: 1.3rem; margin-right: 5px;">S/ 0</span>
+            <div class="btn-clear-cart" onclick="limpiarCarrito()" title="Eliminar selección">
+                <i class="fas fa-trash-alt"></i>
+            </div>
         </div>
     </div>
     <div id="discount-label" class="discount-notice"></div>
-</a>
+</div>
 
 <div id="modal-password" class="modal-pass">
     <div class="modal-content">
@@ -661,118 +488,77 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // --- RECOMENDACIÓN: DIFERENCIACIÓN VISUAL AUTOMÁTICA ---
-    function aplicarEstilosPremium() {
-        const items = document.querySelectorAll('.service-item');
-        items.forEach(item => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            // Si el nombre contiene "premium", aplica la clase automáticamente
-            if (nombre.includes('premium')) {
-                item.classList.add('plan-premium');
-            }
-        });
-    }
-
     function filtrarProductos() {
         const busqueda = document.getElementById('search-input').value.toLowerCase();
         const items = document.querySelectorAll('.service-item');
         const titulos = document.querySelectorAll('.category-title');
-
         items.forEach(item => {
             const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
             if (nombre.includes(busqueda)) {
-                item.style.display = 'block';
-                item.style.opacity = "1";
-                item.style.transform = "none";
-            } else {
-                item.style.display = 'none';
-            }
+                item.style.display = 'block'; item.style.opacity = "1"; item.style.transform = "none";
+            } else { item.style.display = 'none'; }
         });
-
-        titulos.forEach(titulo => {
-            titulo.style.display = (busqueda !== "") ? 'none' : 'block';
-        });
-
-        if (typeof AOS !== 'undefined') {
-            AOS.refreshHard();
-        }
+        titulos.forEach(titulo => { titulo.style.display = (busqueda !== "") ? 'none' : 'block'; });
+        AOS.refreshHard();
     }
 
     (function() {
-        const acceso = sessionStorage.getItem("acceso_concedido");
-        if (acceso === "true") { 
-            document.documentElement.style.display = "block"; 
-            aplicarEstilosPremium(); // Ejecutar al cargar si hay acceso
-        } 
+        if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", () => {
                 document.documentElement.style.display = "block";
                 document.getElementById('modal-password').style.display = 'flex';
-                aplicarEstilosPremium(); // Ejecutar al cargar
             });
         }
     })();
 
     function validarPass() {
         if (document.getElementById('input-pass').value === "cliente") { 
-            sessionStorage.setItem("acceso_concedido", "true"); 
-            location.reload(); 
+            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
         } else { alert("Código incorrecto"); }
     }
 
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
-
         const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
-        const precio = parseFloat(precioText);
-        const descripcion = elemento.querySelector('.manual-desc').innerText;
-
+        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
         const idx = carrito.findIndex(i => i.nombre === nombre);
         const btn = document.getElementById('whatsapp-btn');
 
         if (idx > -1) { 
-            carrito.splice(idx, 1); 
-            elemento.classList.remove('selected'); 
+            carrito.splice(idx, 1); elemento.classList.remove('selected'); 
         } else { 
-            carrito.push({nombre, precio, descripcion}); 
-            elemento.classList.add('selected'); 
-
-            btn.classList.remove('animate-push');
-            void btn.offsetWidth; 
-            btn.classList.add('animate-push');
+            carrito.push({nombre, precio}); elemento.classList.add('selected'); 
+            btn.classList.remove('animate-push'); void btn.offsetWidth; btn.classList.add('animate-push');
         }
+        actualizarUI();
+    }
+
+    function limpiarCarrito() {
+        carrito = [];
+        document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
         actualizarUI();
     }
 
     function calcularDescuento() {
         if (carrito.length < 2) return 0;
-        let descuentoTotal = 0;
-        const carritoOrdenado = [...carrito].sort((a, b) => b.precio - a.precio);
-
-        for (let i = 1; i < carritoOrdenado.length; i++) {
-            const itemActual = carritoOrdenado[i];
-            const itemAnterior = carritoOrdenado[i-1];
-            if (i === 1) {
-                if (itemActual.precio >= 10 && itemAnterior.precio >= 10) { descuentoTotal += 2; } 
-                else { descuentoTotal += 1; }
-            } else {
-                if (itemActual.precio >= 10) { descuentoTotal += 2; } 
-                else { descuentoTotal += 1; }
-            }
+        let desc = 0;
+        const ordenado = [...carrito].sort((a, b) => b.precio - a.precio);
+        for (let i = 1; i < ordenado.length; i++) {
+            if (i === 1) { desc += (ordenado[i].precio >= 10 && ordenado[0].precio >= 10) ? 2 : 1; }
+            else { desc += (ordenado[i].precio >= 10) ? 2 : 1; }
         }
-        return descuentoTotal;
+        return desc;
     }
 
     function actualizarUI() {
         const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const descuento = calcularDescuento();
-        const totalFinal = subtotal - descuento;
+        const desc = calcularDescuento();
         document.getElementById('cart-count').innerText = carrito.length;
-        document.getElementById('cart-total').innerText = `S/ ${totalFinal}`;
+        document.getElementById('cart-total').innerText = `S/ ${subtotal - desc}`;
         const label = document.getElementById('discount-label');
-        if (descuento > 0) {
-            label.innerText = `¡Estás ahorrando S/ ${descuento}! 🎁`;
+        if (desc > 0) {
+            label.innerText = `¡Estás ahorrando S/ ${desc}! 🎁`;
             label.style.display = 'block';
         } else { label.style.display = 'none'; }
         document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
@@ -787,43 +573,24 @@
         let nom = document.getElementById('reg-nom').value;
         let cel = document.getElementById('reg-cel').value;
         let per = document.getElementById('reg-per').value;
-
-        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) {
-            alert("Por favor, ingresa tu nombre y celular.");
-            return;
-        }
-
+        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { alert("Por favor, ingresa tu nombre y celular."); return; }
         const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const descuento = calcularDescuento();
-        const totalFinal = subtotal - descuento;
-
+        const desc = calcularDescuento();
         let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
-        carrito.forEach(i => {
-            msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`;
-        });
-
-        if(descuento > 0) msg += `\n🎁 Ahorro: -S/ ${descuento}`;
-        msg += `\n💰 *TOTAL: S/ ${totalFinal}*`;
-
-        if(tipo === 'nuevo') {
-            msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`;
-            if(per.trim() !== "") msg += `\n👤 Perfil: ${per}`;
-        } else { msg += `\n\n✅ *YA SOY CLIENTE*`; }
-
+        carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
+        if(desc > 0) msg += `\n🎁 Ahorro: -S/ ${desc}`;
+        msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
+        if(tipo === 'nuevo') { msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; if(per.trim() !== "") msg += `\n👤 Perfil: ${per}`; } 
+        else { msg += `\n\n✅ *YA SOY CLIENTE*`; }
         window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
         cerrarModalRegistro();
-
-        setTimeout(() => {
-            carrito = [];
-            document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
-            actualizarUI();
-        }, 1000);
+        setTimeout(limpiarCarrito, 1000);
     }
 
     function consultarStockManual(elemento, event) {
         event.stopPropagation();
         const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
-        window.open(`https://wa.me/${numWhatsApp}?text=Hola Alex Store, ¿tienes stock de ${nombre}?`, '_blank');
+        window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
     }
 </script>
 </body>
