@@ -98,9 +98,9 @@
         .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
         .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
         
-        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; white-space: nowrap; /* Esto evita que el número baje */display: inline-block; }
-        .price-container { text-align: right; margin-left: auto;  display: flex; flex-direction: column;  align-items: flex-end;  min-width: fit-content; /* Asegura que el contenedor se ajuste al texto */ }
-        .unit-price { display: block; font-size: 9px; color: var(--text-dim); font-weight: 600; margin-top: 4px; }
+        .price-container {  text-align: right;  margin-left: auto;  display: flex;   flex-direction: column; /* Apila el precio y el unitario uno bajo el otro */ align-items: flex-end;   /* Alinea ambos al borde derecho */ justify-content: center; min-width: 80px;        /* Espacio suficiente para que no se amontone */ }
+        .price-tag {  color: var(--primary); font-weight: 900;  font-size: 1.1rem;  white-space: nowrap;    /* Mantiene S/ y el número juntos */ }
+        .unit-price { display: block;  font-size: 9px; color: var(--text-dim);  font-weight: 600;  margin-top: 2px;        /* Pequeña separación del precio principal */ }
 
         /* --- STICKY TOOLS --- */
         .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
