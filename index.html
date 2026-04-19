@@ -18,6 +18,7 @@
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --glass-border: rgba(255, 255, 255, 0.1);
+            --danger: #ff4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -28,25 +29,33 @@
         h1 { font-size: 2rem; font-weight: 800; }
         h1 span { color: var(--primary); }
 
-        .search-container { max-width: 600px; margin: 30px auto; padding: 0 20px; }
-        .search-wrapper {
-            background: var(--card-bg); border: 1px solid var(--glass-border);
-            border-radius: 18px; display: flex; align-items: center; padding: 15px 25px;
-        }
-        .search-wrapper i { color: var(--primary); margin-right: 15px; }
-        .search-wrapper input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 1rem; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
+        /* ESTILO DE TÍTULOS Y DESCRIPCIÓN DE CATEGORÍA */
+        .category-header { margin: 40px 0 20px; }
         .category-title {
             font-weight: 800; font-size: 1.2rem; color: var(--text-main);
-            margin: 40px 0 20px; display: flex; align-items: center; gap: 12px;
+            display: flex; align-items: center; gap: 12px;
             border-left: 4px solid var(--accent); padding-left: 15px; text-transform: uppercase;
+            margin-bottom: 10px;
         }
+        
+        .category-description {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        .category-description p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+        .info-grid { display: flex; gap: 15px; margin-top: 8px; flex-wrap: wrap; }
+        .info-item { font-size: 11px; font-weight: 700; color: var(--primary); background: rgba(57, 255, 20, 0.1); padding: 4px 10px; border-radius: 6px; }
+        
+        /* Alerta para Flujo TV */
+        .desc-danger { border-left-color: var(--danger); }
+        .danger-item { color: var(--danger); background: rgba(255, 68, 68, 0.1); }
 
-        .grid-servicios {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px;
-        }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
 
         .service-link { cursor: pointer; position: relative; }
         .service-card {
@@ -54,20 +63,14 @@
             border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px;
             height: 100%; position: relative; transition: 0.3s;
         }
+        .service-link.selected .service-card { border-color: var(--primary); transform: scale(1.02); }
 
-        .service-link.selected .service-card { border-color: var(--primary); background: rgba(57, 255, 20, 0.02); transform: scale(1.02); }
-
-        .service-logo { width: 60px; height: 60px; border-radius: 15px; object-fit: cover; background: #000; }
+        .service-logo { width: 60px; height: 60px; border-radius: 15px; object-fit: cover; }
         .service-text h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 3px; }
-        .manual-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.3; display: block; }
-
-        .tech-tags { margin-top: 8px; display: flex; gap: 5px; flex-wrap: wrap; }
-        .tech-tag { background: rgba(157, 0, 255, 0.15); color: #d199ff; font-size: 9px; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
-        .tag-green { background: rgba(57, 255, 20, 0.1); color: var(--primary); }
+        .manual-desc { font-size: 0.8rem; color: var(--text-dim); display: block; }
 
         .price-container { margin-left: auto; text-align: right; min-width: 85px; }
         .price-tag { display: block; font-size: 1.2rem; font-weight: 900; color: var(--primary); }
-        .badge-renovacion { font-size: 10px; color: var(--text-dim); }
 
         .badge-oferta {
             display: none; position: absolute; top: 0; left: 0;
@@ -94,77 +97,106 @@
         .cart-flex { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
         .btn-send { background: #000; color: #fff; flex-grow: 1; padding: 14px; border-radius: 15px; text-align: center; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .btn-trash { background: #ff3b30; color: #fff; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-
-        .oculto-busqueda { display: none !important; }
     </style>
 </head>
 <body>
 
-<header data-aos="zoom-in">
+<header>
     <img src="../img/logo.png" class="brand-logo">
-    <h1>ALEX STORE <span>MAYORISTA IPTV</span></h1>
-    <div class="search-container">
-        <div class="search-wrapper">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="buscador" placeholder="Buscar paneles o cuentas..." onkeyup="filtrarContenido()">
-        </div>
-    </div>
+    <h1>ALEX STORE <span>CATÁLOGO IPTV</span></h1>
 </header>
 
 <div class="container">
 
-    <div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-earth-europe"></i> PANELES MAYORISTA IPTV PREMIUM (EUROPEO)
-    </div>
-    <div class="grid-servicios">
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><span class="badge-oferta">INICIO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p_10.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 10 Créditos Premium</h3><span class="manual-desc">Servidor Europeo • Alta Calidad.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 8.00 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 80</span></div></div></div>
-        
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p_20.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 20 Créditos Premium</h3><span class="manual-desc">Servidor Europeo • Soporte VIP.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 7.50 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 150</span></div></div></div>
-
-        <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><span class="badge-oferta">RECOMENDADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p_50.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 50 Créditos Premium</h3><span class="manual-desc">Servidor Europeo • El más vendido.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 7.00 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 350</span></div></div></div>
-
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p_70.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 70 Créditos Premium</h3><span class="manual-desc">Servidor Europeo • Precio especial.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 6.50 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 455</span></div></div></div>
-
-        <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><span class="badge-oferta">MASTER</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p_100.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 100 Créditos Premium</h3><span class="manual-desc">Servidor Europeo • Precio Gold.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 6.00 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 600</span></div></div></div>
-
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p_500.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 500 Créditos Premium</h3><span class="manual-desc">Servidor Europeo • Máximo ahorro.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 5.00 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 2500</span></div></div></div>
-    </div>
-
-    <div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-bolt"></i> PANELES MAYORISTA IPTV 6500 CANALES
-    </div>
-    <div class="grid-servicios">
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n_10.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 10 Créditos Normal</h3><span class="manual-desc">6500 Canales • Económico.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 4.50 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 45</span></div></div></div>
-        
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n_20.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 20 Créditos Normal</h3><span class="manual-desc">6500 Canales • Plan Bronce.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 4.20 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 84</span></div></div></div>
-
-        <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><span class="badge-oferta">POPULAR</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n_50.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 50 Créditos Normal</h3><span class="manual-desc">6500 Canales • Plan Plata.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 4.00 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 200</span></div></div></div>
-
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n_70.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 70 Créditos Normal</h3><span class="manual-desc">6500 Canales • Precio Reseller.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 3.80 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 266</span></div></div></div>
-
-        <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><span class="badge-oferta">OFERTA 🔥</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n_100.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 100 Créditos Normal</h3><span class="manual-desc">6500 Canales • Plan Oro.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 3.60 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 360</span></div></div></div>
-
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n_500.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Panel 500 Créditos Normal</h3><span class="manual-desc">6500 Canales • Distribuidor Master.</span><div class="tech-tags"><span class="tech-tag tag-green">S/ 3.00 x UNID.</span></div></div><div class="price-container"><span class="price-tag precio-prod">S/ 1500</span></div></div></div>
+    <div class="category-header" data-aos="fade-up">
+        <div class="category-title"><i class="fa-solid fa-earth-europe"></i> PANEL MAYORISTA PREMIUM (EUROPEO)</div>
+        <div class="category-description">
+            <p>El servidor más potente y estable. Ideal para clientes que buscan calidad 4K sin interrupciones.</p>
+            <div class="info-grid">
+                <div class="info-item"><i class="fa-solid fa-tv"></i> 10,000 CANALES</div>
+                <div class="info-item"><i class="fa-solid fa-film"></i> 40,000 PELÍCULAS</div>
+                <div class="info-item"><i class="fa-solid fa-clapperboard"></i> 3,000 SERIES</div>
+                <div class="info-item"><i class="fa-solid fa-bolt"></i> SERVIDOR EUROPEO</div>
+            </div>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <img src="../img/p_100.png" class="service-logo">
+                    <div class="service-text"><h3>Panel 100 Créditos Premium</h3><span class="manual-desc">Precio Master Gold.</span></div>
+                    <div class="price-container"><span class="price-tag">S/ 600</span></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-user-tag"></i> CUENTAS POR UNIDAD (AMBOS IPTV)
-    </div>
-    <div class="grid-servicios">
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/u_n.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Unidad IPTV Normal</h3><span class="manual-desc">1 Mes • 6500 Canales.</span></div><div class="price-container"><span class="price-tag precio-prod">S/ 10</span></div></div></div>
-        <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up"><div class="service-card"><span class="badge-oferta">CALIDAD HD</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/u_p.png" class="service-logo"><div class="service-text"><h3 class="nombre-prod">Unidad IPTV Premium</h3><span class="manual-desc">1 Mes • Server Europeo.</span></div><div class="price-container"><span class="price-tag precio-prod">S/ 18</span></div></div></div>
+    <div class="category-header" data-aos="fade-up">
+        <div class="category-title"><i class="fa-solid fa-bolt"></i> PANEL MAYORISTA IPTV (6500 CANALES)</div>
+        <div class="category-description">
+            <p>Servidor equilibrado con excelente relación calidad-precio. Contenido variado para toda la familia.</p>
+            <div class="info-grid">
+                <div class="info-item"><i class="fa-solid fa-tv"></i> 6,500 CANALES</div>
+                <div class="info-item"><i class="fa-solid fa-film"></i> 20,000 PELÍCULAS</div>
+                <div class="info-item"><i class="fa-solid fa-clapperboard"></i> 2,000 SERIES</div>
+            </div>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <img src="../img/n_100.png" class="service-logo">
+                    <div class="service-text"><h3>Panel 100 Créditos Normal</h3><span class="manual-desc">Plan Mayorista Oro.</span></div>
+                    <div class="price-container"><span class="price-tag">S/ 360</span></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-mobile-screen-button"></i> APPS ESTABLES
+    <div class="category-header" data-aos="fade-up">
+        <div class="category-title"><i class="fa-solid fa-user-tag"></i> CUENTAS POR UNIDAD</div>
+        <div class="category-description">
+            <p>Selecciona tu cuenta individual. Activación inmediata después del pago.</p>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <img src="../img/unit_std.png" class="service-logo">
+                    <div class="service-text"><h3>IPTV Normal (1 Mes)</h3></div>
+                    <div class="price-container"><span class="price-tag">S/ 10</span></div>
+                </div>
+            </div>
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <img src="../img/unit_premium.png" class="service-logo">
+                    <div class="service-text"><h3>IPTV Premium (1 Mes)</h3></div>
+                    <div class="price-container"><span class="price-tag">S/ 18</span></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="grid-servicios">
-        <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up">
-            <div class="service-card">
-                <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-                <img src="../img/flujotv.png" class="service-logo">
-                <div class="service-text"><h3 class="nombre-prod">Flujo TV</h3><span class="manual-desc">La App más estable y exclusiva.</span><div class="tech-tags"><span class="tech-tag">TOP PREMIUM</span></div></div>
-                <div class="price-container"><span class="price-tag precio-prod">S/ 15</span></div>
+
+    <div class="category-header" data-aos="fade-up">
+        <div class="category-title"><i class="fa-solid fa-mobile-screen-button"></i> APPS ESTABLES (FLUJO TV)</div>
+        <div class="category-description desc-danger">
+            <p><strong>Nota importante sobre compatibilidad:</strong> Esta aplicación está optimizada exclusivamente para sistemas Android.</p>
+            <div class="info-grid">
+                <div class="info-item"><i class="fa-solid fa-check"></i> ANDROID TV / CELULAR</div>
+                <div class="info-item"><i class="fa-solid fa-check"></i> TV BOX / FIRE STICK</div>
+                <div class="info-item danger-item"><i class="fa-solid fa-xmark"></i> NO COMPATIBLE: SMART TV (LG/SAMSUNG)</div>
+                <div class="info-item danger-item"><i class="fa-solid fa-xmark"></i> NO COMPATIBLE: ROKU / IPHONE</div>
+            </div>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <img src="../img/flujotv.png" class="service-logo">
+                    <div class="service-text"><h3>Flujo TV Premium</h3><span class="manual-desc">Máxima fluidez.</span></div>
+                    <div class="price-container"><span class="price-tag">S/ 15</span></div>
+                </div>
             </div>
         </div>
     </div>
@@ -187,15 +219,6 @@
     AOS.init({ duration: 800, once: true });
     let carrito = [];
 
-    function filtrarContenido() {
-        const busqueda = document.getElementById('buscador').value.trim().toLowerCase();
-        const tarjetas = document.querySelectorAll('.service-link');
-        tarjetas.forEach(t => {
-            const nombre = t.querySelector('.nombre-prod').innerText.toLowerCase();
-            t.style.display = nombre.includes(busqueda) ? "block" : "none";
-        });
-    }
-
     function toggleItem(elemento) {
         elemento.classList.toggle('selected');
         recalcular();
@@ -204,8 +227,8 @@
     function recalcular() {
         carrito = [];
         document.querySelectorAll('.service-link.selected').forEach(el => {
-            const nombre = el.querySelector('.nombre-prod').innerText;
-            const precio = parseFloat(el.querySelector('.precio-prod').innerText.replace('S/ ', ''));
+            const nombre = el.querySelector('h3').innerText;
+            const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
             carrito.push({ nombre, precio });
         });
         const suma = carrito.reduce((s, p) => s + p.precio, 0);
@@ -220,7 +243,7 @@
     }
 
     function enviarWhatsApp() {
-        let msg = "¡Hola Alex Store! 👋 Deseo estos servicios mayoristas:\n\n";
+        let msg = "¡Hola Alex Store! 👋 Deseo estos servicios:\n\n";
         carrito.forEach(p => msg += `✅ ${p.nombre} - S/ ${p.precio}\n`);
         msg += `\n💰 *TOTAL: S/ ${carrito.reduce((s, p) => s + p.precio, 0).toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
