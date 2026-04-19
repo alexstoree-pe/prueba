@@ -316,23 +316,26 @@
     </div>
 </div>
 
-  <script>
+<script>
     let total = 0, cant = 0;
     let selectedItems = [];
 
     function toggleItem(el) {
         if(el.classList.contains('agotado')) return;
+        
+        // Evitamos capturar datos de elementos duplicados si existen en el HTML
+        // Solo operamos sobre la tarjeta que recibió el click
+        const cardContainer = el.querySelector('.service-card');
         el.classList.toggle('selected');
         
-        // Captura limpia de datos
         const nombre = el.querySelector('h3') ? el.querySelector('h3').innerText.trim() : "Servicio";
         const precioTag = el.querySelector('.price-tag') ? el.querySelector('.price-tag').innerText : "0";
         const precio = parseFloat(precioTag.replace(/[^\d.]/g, ''));
         const desc = el.querySelector('.manual-desc') ? el.querySelector('.manual-desc').innerText.trim() : "";
         const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText.trim() : "";
         
-        // Captura oferta solo si existe la clase y el elemento
         let ofertaDetalle = "";
+        // Regla estricta: Solo envía oferta si la tarjeta tiene la clase 'oferta'
         if (el.classList.contains('oferta')) {
             const badge = el.querySelector('.badge-izq');
             ofertaDetalle = badge ? badge.innerText.trim() : "";
@@ -340,72 +343,91 @@
         
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            // Usamos un ID único (nombre) para evitar duplicados en el array
+            // Guardamos el objeto. Si el nombre se repite, el buscador no se mareará
             selectedItems.push({nombre, precio, desc, unitario, oferta: ofertaDetalle});
-            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
+            if(cardContainer) cardContainer.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
         } else {
             total -= precio; cant--;
+            // Filtramos para eliminar solo el elemento desmarcado
             selectedItems = selectedItems.filter(item => item.nombre !== nombre);
-            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
+            if(cardContainer) cardContainer.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
         }
         updateCartUI();
     }
 
     function updateCartUI() {
-        document.getElementById('cart-qty').innerText = cant;
-        document.getElementById('cart-total').innerText = "S/ " + total.toFixed(2);
-        document.getElementById('cart-bar').style.display = cant > 0 ? "block" : "none";
+        const qtyEl = document.getElementById('cart-qty');
+        const totalEl = document.getElementById('cart-total');
+        const barEl = document.getElementById('cart-bar');
+        
+        if(qtyEl) qtyEl.innerText = cant;
+        if(totalEl) totalEl.innerText = "S/ " + total.toFixed(2);
+        if(barEl) barEl.style.display = cant > 0 ? "block" : "none";
     }
 
     function sendWhatsapp() {
-    if(selectedItems.length === 0) return;
-    const numero = "51918600000"; // Tu número
-    
-    // Usamos códigos que WhatsApp entiende directamente
-    const saludo = "%F0%9F%91%8B"; // 👋
-    const check = "%E2%9C%85";     // ✅
-    const promo = "%F0%9F%8E%81";  // 🎁
-    const nota = "%F0%9F%93%9D";    // 📝
-    const precioIcon = "%F0%9F%92%B0"; // 💰
-    const totalIcon = "%F0%9F%92%B5";  // 💵
+        if(selectedItems.length === 0) return;
+        const numero = "51918600000";
+        
+        // UNICODE ESCAPES: Esta es la forma infalible para los iconos
+        const iSaludo = "\uD83D\uDC4B"; // 👋
+        const iCheck  = "\u2705";       // ✅
+        const iPromo  = "\uD83C\uDF81"; // 🎁
+        const iNota   = "\uD83D\uDCDD"; // 📝
+        const iTag    = "\uD83C\uDFF7"; // 🏷️
+        const iPrecio = "\uD83D\uDCB0"; // 💰
+        const iTotal  = "\uD83D\uDCB5"; // 💵
 
-    let msj = "¡Hola Alex Store!, soy distribuidor! " + decodeURIComponent(saludo) + "\n\n";
-    msj += "Deseo adquirir:\n\n";
-    
-    selectedItems.forEach(item => {
-        msj += decodeURIComponent(check) + " *" + item.nombre + "*\n";
+        let msj = "¡Hola Alex Store!, soy distribuidor! " + iSaludo + "\n\n";
+        msj += "Deseo adquirir:\n\n";
         
-        // Si tiene la clase 'oferta' capturada
-        if(item.oferta) {
-            msj += decodeURIComponent(promo) + " *PROMOCIÓN:* " + item.oferta + "\n";
-        }
+        selectedItems.forEach(item => {
+            msj += iCheck + " *" + item.nombre + "*\n";
+            
+            if(item.oferta !== "") {
+                msj += iPromo + " *PROMOCIÓN:* " + item.oferta + "\n";
+            }
+            
+            msj += iNota + " _" + item.desc + "_\n";
+            
+            if(item.unitario) {
+                msj += iTag + " [" + item.unitario + "]\n";
+            }
+            
+            msj += iPrecio + " *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
+        });
         
-        msj += decodeURIComponent(nota) + " _" + item.desc + "_\n";
+        msj += "───────────────\n";
+        msj += iTotal + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
         
-        if(item.unitario) {
-            msj += "🏷️ [" + item.unitario + "]\n";
-        }
-        
-        msj += decodeURIComponent(precioIcon) + " *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
-    });
-    
-    msj += "───────────────\n";
-    msj += decodeURIComponent(totalIcon) + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
-    
-    // Abrimos con el mensaje totalmente codificado
-    window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
-}
+        window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
+    }
 
     function clearAll(event) {
         if(event) event.stopPropagation();
         document.querySelectorAll('.service-link.selected').forEach(el => {
             el.classList.remove('selected');
             const card = el.querySelector('.service-card');
-            card.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
+            if(card) card.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
         });
         selectedItems = []; total = 0; cant = 0;
         updateCartUI();
     }
 
-    // Mantén tus funciones de filtrarServicios() y filterCat() igual
+    // Función de filtrado mejorada para evitar duplicados visuales
+    function filtrarServicios() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const cards = document.querySelectorAll('.service-link');
+        const categories = document.querySelectorAll('.category-block');
+
+        cards.forEach(card => {
+            const content = card.innerText.toLowerCase();
+            card.style.display = content.includes(input) ? "" : "none";
+        });
+
+        categories.forEach(cat => {
+            const hasVisible = cat.querySelectorAll('.service-link:not([style*="display: none"])').length > 0;
+            cat.style.display = (hasVisible || input === "") ? "" : "none";
+        });
+    }
 </script>
