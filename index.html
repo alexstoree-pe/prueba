@@ -136,7 +136,24 @@
         .service-link.agotado .service-card { opacity: 0.3; filter: grayscale(1); }
         .service-link.agotado::after { content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%); font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; z-index: 200; background: #000; }
 
-        .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 22px; width: 92%; max-width: 480px; z-index: 3000; display: none; text-align: center; text-decoration: none; font-weight: 800; }
+        .floating-btn {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    padding: 20px;
+    border-radius: 22px;
+    width: 92%;
+    max-width: 480px;
+    z-index: 3000;
+    display: none;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+}
+
     </style>
 
     <script>
@@ -654,26 +671,33 @@
         });
     }
 
-    function toggleSeleccion(elemento) {
-        elemento.classList.toggle('selected');
-        const btn = document.getElementById('btn-whatsapp');
-        const seleccionados = document.querySelectorAll('.service-link.selected');
-        btn.style.display = seleccionados.length > 0 ? "block" : "none";
-        
-        carrito = [];
-        seleccionados.forEach(el => {
-            carrito.push({
-                nombre: el.querySelector('.nombre-prod').innerText,
-                precio: el.querySelector('.precio-prod').innerText
-            });
-        });
-    }
+    let carrito = [];
 
-    function enviarPedido() {
-        let msg = "¡Hola Alex Store! 👋 Deseo estos servicios:\n\n";
-        carrito.forEach(p => msg += `✅ ${p.nombre} - ${p.precio}\n`);
-        window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
-    }
+function toggleSeleccion(elemento) {
+    elemento.classList.toggle('selected');
+    const btn = document.getElementById('btn-whatsapp');
+    const seleccionados = document.querySelectorAll('.service-link.selected');
+    
+    // Control de visibilidad del botón
+    btn.style.display = seleccionados.length > 0 ? "block" : "none";
+    
+    // Limpiar y llenar el carrito
+    carrito = [];
+    seleccionados.forEach(el => {
+        carrito.push({
+            nombre: el.querySelector('.nombre-prod').innerText,
+            precio: el.querySelector('.precio-prod').innerText
+        });
+    });
+}
+
+function enviarPedido() {
+    let msg = "¡Hola Alex Store! 👋 Deseo estos servicios:\n\n";
+    carrito.forEach(p => msg += `✅ ${p.nombre} - ${p.precio}\n`);
+    
+    // Cambia el número 51918600000 por el tuyo real
+    window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
+}
 </script>
 </body>
 </html>
