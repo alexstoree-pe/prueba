@@ -36,9 +36,19 @@
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
         .brand-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 18px; margin-bottom: 8px; }
+
+        /* GARANTÍA Y SOPORTE (ANTES DEL BUSCADOR) */
+        .garantia-section {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 15px; margin: 20px 15px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+        }
+        .garantia-item { text-align: center; }
+        .garantia-item i { font-size: 1.2rem; color: var(--primary); margin-bottom: 5px; }
+        .garantia-item p { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; color: #bbb; line-height: 1.2; }
         
         /* BUSCADOR */
-        .search-container { position: sticky; top: 145px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
+        .search-container { position: sticky; top: 140px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
         .search-wrapper { position: relative; max-width: 500px; margin: auto; }
         .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
         #buscador { width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
@@ -95,11 +105,12 @@
 
         /* LÓGICA DE AGOTADO - JERARQUÍA SUPERIOR */
         .service-link.agotado { pointer-events: none; }
-        .service-link.agotado .service-card { opacity: 0.4; border-color: var(--glass-border); filter: grayscale(1); }
+        .service-link.agotado .service-card { opacity: 0.3; border-color: var(--glass-border); filter: grayscale(1); }
         .service-link.agotado .price-container,
         .service-link.agotado .badge-oferta,
         .service-link.agotado .status-badge,
-        .service-link.agotado .badge-renovacion { display: none !important; }
+        .service-link.agotado .badge-renovacion,
+        .service-link.agotado .check-icon { display: none !important; }
         
         .service-link.agotado::after { 
             content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
@@ -107,16 +118,6 @@
             padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; 
             z-index: 200; background: #000;
         }
-
-        /* GARANTÍA SOPORTE */
-        .garantia-section {
-            background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 20px; margin: 40px 15px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-        }
-        .garantia-item { text-align: center; }
-        .garantia-item i { font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; }
-        .garantia-item p { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #bbb; }
 
         .floating-btn { 
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
@@ -133,16 +134,31 @@
     <h1>DISTRIBUIDORES VIP</h1>
 </header>
 
+<div class="grid-botones">
+    <a href="../" class="btn-universal btn-inicio"><i class="fa-solid fa-house"></i> INICIO</a>
+    <a href="../promos-distribuidores/" class="btn-universal btn-promo-distri"><i class="fa-solid fa-crown"></i> PROMOS</a>
+</div>
+
+<div class="garantia-section" data-aos="fade-down">
+    <div class="garantia-item">
+        <i class="fa-solid fa-shield-halved"></i>
+        <p>Garantía<br>Total</p>
+    </div>
+    <div class="garantia-item">
+        <i class="fa-solid fa-bolt"></i>
+        <p>Entrega<br>Inmediata</p>
+    </div>
+    <div class="garantia-item">
+        <i class="fa-solid fa-headset"></i>
+        <p>Soporte VIP<br>24/7</p>
+    </div>
+</div>
+
 <div class="search-container">
     <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="buscador" placeholder="Buscar plataforma..." onkeyup="filtrarPlataformas()">
     </div>
-</div>
-
-<div class="grid-botones">
-    <a href="../" class="btn-universal btn-inicio"><i class="fa-solid fa-house"></i> INICIO</a>
-    <a href="../promos-distribuidores/" class="btn-universal btn-promo-distri"><i class="fa-solid fa-crown"></i> PROMOS</a>
 </div>
 
 <div class="container" id="lista-productos">
@@ -166,7 +182,7 @@
         </div>
     </div>
 
-    <div class="service-link premium  oferta renovacion agotado" onclick="toggleSeleccion(this)" data-aos="fade-up">
+    <div class="service-link premium pocas renovacion agotado" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
             <span class="badge-oferta">super solicitado🔥</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
@@ -179,19 +195,9 @@
             <div class="price-container">
                 <span class="premium-text">Premium</span>
                 <span class="price-tag precio-prod">S/ 7</span>
+                <span class="badge-renovacion">Disponible para Renovación</span>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="garantia-section" data-aos="zoom-in">
-    <div class="garantia-item">
-        <i class="fa-solid fa-shield-halved"></i>
-        <p>Garantía Total<br>del Servicio</p>
-    </div>
-    <div class="garantia-item">
-        <i class="fa-solid fa-headset"></i>
-        <p>Soporte VIP<br>Personalizado</p>
     </div>
 </div>
 
@@ -211,7 +217,7 @@
     
     let carrito = [];
 
-    // BUSCADOR INTELIGENTE
+    // BUSCADOR QUE FILTRA TODO SIN IMPORTAR EL SCROLL
     function filtrarPlataformas() {
         const input = document.getElementById('buscador').value.toLowerCase();
         const tarjetas = document.querySelectorAll('.service-link');
@@ -220,8 +226,7 @@
             const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
             if (nombre.includes(input)) {
                 tarjeta.style.display = "block";
-                // Forzamos AOS a recalcular para que no desaparezcan al filtrar
-                tarjeta.classList.add('aos-animate');
+                tarjeta.classList.add('aos-animate'); // Mantiene la visibilidad con AOS
             } else {
                 tarjeta.style.display = "none";
             }
