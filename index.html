@@ -41,13 +41,12 @@
             --danger-bright: #ff3333;
             --vip: #d4af37;
             --most-requested: #f4d03f;
-            --success: #2ecc71;
         }
 
-        @keyframes shine-red { 
-            0% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } 
-            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; } 
-            100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } 
+        /* ANIMACIÓN NEÓN PARPADEANTE */
+        @keyframes blink-red {
+            0%, 100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; box-shadow: inset 0 0 8px rgba(255,0,0,0.2); }
+            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; box-shadow: inset 0 0 15px rgba(255,0,0,0.4); }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,28 +67,25 @@
 
         .service-link.premium .service-card { border: 1px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
 
-        /* BADGE PREMIUM INTERNO (Arriba a la izquierda del precio) */
+        /* BADGE MÁS SOLICITADO (Restaurado) */
+        .badge-maestro.solicitado { 
+            position: absolute; top: -12px; left: 20px; 
+            background: var(--most-requested); color: #000; 
+            font-size: 0.65rem; font-weight: 900; padding: 4px 12px; 
+            border-radius: 50px; z-index: 20; box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+        }
+
+        /* BADGE PREMIUM (Posición profesional arriba del precio) */
         .badge-premium-internal { 
-            display: none; 
-            position: absolute; 
-            top: 15px; 
-            right: 45px; /* Movido un poco más a la izquierda para toque profesional */
-            background: #000; 
-            color: var(--vip); 
-            border: 1px solid var(--vip); 
-            padding: 2px 8px; 
-            border-radius: 6px; 
-            font-size: 0.5rem; 
-            font-weight: 800; 
-            letter-spacing: 1px;
-            z-index: 5;
+            display: none; position: absolute; top: 18px; right: 55px; 
+            background: #000; color: var(--vip); border: 1px solid var(--vip); 
+            padding: 2px 8px; border-radius: 6px; font-size: 0.5rem; 
+            font-weight: 800; letter-spacing: 1px; z-index: 5;
         }
         .service-link.premium .badge-premium-internal { display: block; }
 
-        /* --- TEXTOS NEÓN AUTOMÁTICOS --- */
+        /* --- ESTADOS DE STOCK NEÓN --- */
         .stock-status { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
-        
-        /* Lógica automática para el texto */
         .disponible .stock-status::before { content: "● DISPONIBLE"; color: #2ecc71; text-shadow: 0 0 12px rgba(46, 204, 113, 0.8); }
         .pocas .stock-status::before { content: "● POCAS UNIDADES"; color: #ff3333; text-shadow: 0 0 12px rgba(255, 51, 51, 0.8); }
 
@@ -99,30 +95,34 @@
         .manual-desc { font-size: 0.75rem; color: #bbb; display: block; }
 
         /* --- PRECIOS --- */
-        .price-container { text-align: right; min-width: 90px; display: flex; flex-direction: column; align-items: flex-end; margin-top: 15px; }
-        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; transition: 0.3s; }
+        .price-container { text-align: right; min-width: 95px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; }
+        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; margin-top: 15px; }
         .service-link.premium .price-tag { color: var(--vip); }
         .renovacion-info { display: none; font-size: 0.65rem; color: var(--most-requested); font-weight: 700; }
         .service-link.con-renovacion .renovacion-info { display: block; }
 
-        /* --- AGOTADO (Oculta precios y estados) --- */
+        /* --- SIN STOCK (Rojo Neón Parpadeante y Centrado) --- */
         .service-link.agotado { pointer-events: none; }
+        .service-link.agotado .badge-maestro,
         .service-link.agotado .badge-premium-internal,
         .service-link.agotado .price-tag,
         .service-link.agotado .renovacion-info,
         .service-link.agotado .stock-status { display: none !important; }
         
-        .service-link.agotado .service-card { opacity: 0.5; filter: grayscale(1); border: 1px solid var(--glass-border) !important; }
+        .service-link.agotado .service-card { opacity: 0.5; filter: grayscale(0.8); border: 1px solid rgba(255,0,0,0.2) !important; }
         .service-link.agotado .price-container::after {
-            content: "SIN STOCK"; font-size: 0.8rem; font-weight: 900; border: 2px solid var(--danger-bright);
-            padding: 5px 12px; border-radius: 10px; animation: shine-red 1.2s infinite; display: block;
-            background: rgba(255, 0, 0, 0.1);
+            content: "SIN STOCK"; font-size: 0.75rem; font-weight: 900; 
+            border: 2px solid #ff3333; padding: 6px 12px; border-radius: 12px; 
+            animation: blink-red 1.2s infinite; display: block;
+            background: rgba(255, 0, 0, 0.1); text-align: center;
+            margin-top: 0; /* Centrado vertical en el área del precio */
         }
 
-        /* SELECCIÓN Y CATEGORÍAS */
+        /* SELECCIÓN */
         .check-icon { position: absolute; left: -10px; top: 50%; transform: translateY(-50%); background: var(--primary); color: #000; width: 25px; height: 25px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 30; }
         .service-link.selected .check-icon { display: flex; }
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0,212,255,0.05); }
+
         .category-title { margin: 40px 0 15px; font-weight: 800; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px; }
 
         /* FOOTER FLOTANTE */
@@ -130,7 +130,7 @@
         .floating-btn { flex-grow: 1; background: var(--whatsapp); color: white; padding: 18px; border-radius: 20px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-decoration: none; }
         .btn-trash { background: #ff4757; color: white; width: 55px; height: 55px; border-radius: 15px; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; }
 
-        /* MODAL */
+        /* MODAL LOGIN */
         .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 5000; justify-content: center; align-items: center; }
         .modal-content { background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; }
         #input-dist-pass { width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; }
@@ -140,7 +140,7 @@
 
 <header data-aos="fade-down">
     <h1>SOLO DISTRIBUIDORES 🚀</h1>
-    <p id="fecha-actualizacion" style="font-size: 0.8rem; color: var(--success); font-weight: 600;"></p>
+    <p id="fecha-actualizacion" style="font-size: 0.8rem; color: #2ecc71; font-weight: 600;"></p>
     <div class="search-container">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="buscador" placeholder="Buscar plataforma...">
@@ -150,13 +150,15 @@
 <div class="container">
     <div class="category-title" data-aos="fade-right">👤 ZONA PERFILES</div>
 
-    <div class="service-link pocas premium con-renovacion" data-aos="fade-up">
+    <div class="service-link disponible premium con-renovacion" data-aos="fade-up">
+        <span class="badge-maestro solicitado">MÁS SOLICITADO 🔥</span>
         <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card">
             <span class="badge-premium-internal">PREMIUM</span>
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
-                <span class="stock-status"></span> <h3 class="nombre-prod">Netflix Perfil</h3>
+                <span class="stock-status"></span>
+                <h3 class="nombre-prod">Netflix Perfil</h3>
                 <span class="manual-desc">Ultra HD 4K • 1 Pantalla • Renovable.</span>
             </div>
             <div class="price-container">
@@ -166,12 +168,13 @@
         </div>
     </div>
 
-    <div class="service-link disponible oferta con-renovacion" data-aos="fade-up">
+    <div class="service-link pocas con-renovacion" data-aos="fade-up">
         <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card">
             <img src="../img/disneys.png" class="service-logo">
             <div class="service-text">
-                <span class="stock-status"></span> <h3 class="nombre-prod">Disney Standar Perfil</h3>
+                <span class="stock-status"></span>
+                <h3 class="nombre-prod">Disney Standar Perfil</h3>
                 <span class="manual-desc">Sin ESPN • Calidad 4K • PIN privado.</span>
             </div>
             <div class="price-container">
@@ -181,7 +184,7 @@
         </div>
     </div>
 
-    <div class="service-link disponible oferta con-renovacion agotado" data-aos="fade-up">
+    <div class="service-link agotado" data-aos="fade-up">
         <div class="service-card">
             <img src="../img/prime.png" class="service-logo">
             <div class="service-text">
