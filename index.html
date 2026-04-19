@@ -130,7 +130,7 @@
 
 <div class="sticky-tools">
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar plataforma..." onkeyup="filterSearch()">
+        <input type="text" id="searchInput" onkeyup="filtrarServicios()" placeholder="Buscar plataforma..." onkeyup="filterSearch()">
     </div>
     <div class="filter-buttons">
         <button class="filter-btn active" onclick="filterCat('all', this)">Todos</button>
@@ -539,13 +539,33 @@
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
-    function filterSearch() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        document.querySelectorAll('.service-link').forEach(card => {
-            let text = card.querySelector('h3').innerText.toLowerCase();
-            card.style.display = text.includes(input) ? "block" : "none";
-        });
-    }
+    function filtrarServicios() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let cards = document.querySelectorAll('.service-link');
+    let categories = document.querySelectorAll('.category-block');
+
+    // 1. Filtrar las tarjetas individuales
+    cards.forEach(card => {
+        let texto = card.innerText.toLowerCase();
+        if (texto.includes(input)) {
+            card.style.display = ""; // Mostrar
+        } else {
+            card.style.display = "none"; // Ocultar
+        }
+    });
+
+    // 2. Ocultar categorías que no tengan ninguna tarjeta visible
+    categories.forEach(category => {
+        // Contamos cuántas tarjetas dentro de esta categoría NO tienen display "none"
+        let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
+        
+        if (cardsVisibles > 0 || input === "") {
+            category.style.display = ""; // Mostrar bloque de categoría
+        } else {
+            category.style.display = "none"; // Ocultar bloque vacío
+        }
+    });
+}
 
     function filterCat(cat, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
