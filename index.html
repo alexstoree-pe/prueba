@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV DISTRIBUIDORES | AlexStoree</title>
+    <title>IPTV DISTRIBUIDOR | AlexStoree</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -23,69 +23,52 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--dark-bg); color: var(--text-main); padding-bottom: 120px; }
 
-        /* --- HEADER --- */
         header { text-align: center; padding: 50px 20px; background: linear-gradient(to bottom, rgba(157, 0, 255, 0.05), transparent); }
         .brand-logo { width: 90px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--accent)); }
-        h1 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
-        h1 span { color: var(--primary); text-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
+        h1 { font-size: 2rem; font-weight: 800; }
+        h1 span { color: var(--primary); }
 
-        /* --- BUSCADOR --- */
         .search-container { max-width: 600px; margin: 30px auto; padding: 0 20px; }
         .search-wrapper {
             background: var(--card-bg); border: 1px solid var(--glass-border);
             border-radius: 18px; display: flex; align-items: center; padding: 15px 25px;
-            transition: 0.3s;
         }
-        .search-wrapper:focus-within { border-color: var(--primary); box-shadow: 0 0 15px rgba(57, 255, 20, 0.1); }
         .search-wrapper i { color: var(--primary); margin-right: 15px; }
         .search-wrapper input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 1rem; }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
         .category-title {
             font-weight: 800; font-size: 1.2rem; color: var(--text-main);
             margin: 40px 0 20px; display: flex; align-items: center; gap: 12px;
-            border-left: 4px solid var(--accent); padding-left: 15px;
+            border-left: 4px solid var(--accent); padding-left: 15px; text-transform: uppercase;
         }
 
-        /* --- GRID DE TARJETAS --- */
         .grid-servicios {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;
         }
 
-        .service-link { cursor: pointer; position: relative; transition: 0.3s; }
-        
+        .service-link { cursor: pointer; position: relative; }
         .service-card {
             background: var(--card-bg); border: 1px solid var(--glass-border);
             border-radius: 24px; padding: 22px; display: flex; align-items: center; gap: 18px;
-            height: 100%; position: relative; overflow: hidden;
+            height: 100%; position: relative; overflow: hidden; transition: 0.3s;
         }
 
-        .service-link.selected .service-card {
-            border-color: var(--primary); background: rgba(57, 255, 20, 0.02);
-            transform: scale(1.02);
-        }
+        .service-link.selected .service-card { border-color: var(--primary); background: rgba(57, 255, 20, 0.02); transform: scale(1.02); }
 
         .service-logo { width: 75px; height: 75px; border-radius: 18px; object-fit: cover; background: #000; }
-
-        .service-text h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 5px; color: #fff; }
+        .service-text h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 5px; }
         .manual-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.4; display: block; }
 
-        /* Tech Tags */
         .tech-tags { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
-        .tech-tag {
-            background: rgba(157, 0, 255, 0.15); color: #d199ff;
-            font-size: 10px; padding: 4px 10px; border-radius: 8px; font-weight: 700; text-transform: uppercase;
-        }
+        .tech-tag { background: rgba(157, 0, 255, 0.15); color: #d199ff; font-size: 10px; padding: 4px 10px; border-radius: 8px; font-weight: 700; }
         .tag-green { background: rgba(57, 255, 20, 0.1); color: var(--primary); }
 
-        /* Precios */
         .price-container { margin-left: auto; text-align: right; min-width: 90px; }
         .price-tag { display: block; font-size: 1.4rem; font-weight: 900; color: var(--primary); }
-        .badge-renovacion { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+        .badge-renovacion { font-size: 11px; color: var(--text-dim); }
 
-        /* Badge de Oferta */
         .badge-oferta {
             display: none; position: absolute; top: 0; left: 0;
             background: var(--primary); color: #000; padding: 5px 18px;
@@ -94,16 +77,14 @@
         }
         .service-link.oferta .badge-oferta { display: block; }
 
-        /* Check Icon */
         .check-icon {
             position: absolute; top: 12px; right: 12px;
             background: var(--primary); color: #000; width: 24px; height: 24px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: 0.3s; z-index: 5;
+            opacity: 0; transition: 0.3s;
         }
-        .service-link.selected .check-icon { opacity: 1; transform: scale(1.1); }
+        .service-link.selected .check-icon { opacity: 1; }
 
-        /* --- CARRITO FLOTANTE --- */
         #cart-bar {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 450px; background: #fff; color: #000;
@@ -111,31 +92,21 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.6); z-index: 2000;
         }
         .cart-flex { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .btn-send { 
-            background: #000; color: #fff; flex-grow: 1; padding: 14px; 
-            border-radius: 15px; text-align: center; font-weight: 800; cursor: pointer;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
+        .btn-send { background: #000; color: #fff; flex-grow: 1; padding: 14px; border-radius: 15px; text-align: center; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .btn-trash { background: #ff3b30; color: #fff; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
         .oculto-busqueda { display: none !important; }
-
-        @media (max-width: 500px) {
-            .grid-servicios { grid-template-columns: 1fr; }
-            .service-card { padding: 18px; }
-        }
     </style>
 </head>
 <body>
 
 <header data-aos="zoom-in">
-    <img src="../img/logo.png" class="brand-logo" alt="AlexStoree">
-    <h1>ALEX STORE <span>IPTV VIP</span></h1>
-    
+    <img src="../img/logo.png" class="brand-logo">
+    <h1>ALEX STORE <span>MAYORISTA IPTV</span></h1>
     <div class="search-container">
         <div class="search-wrapper">
-            <i class="fa-solid fa-bolt"></i>
-            <input type="text" id="buscador" placeholder="Buscar servidor, películas o paneles..." onkeyup="filtrarContenido()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="buscador" placeholder="Buscar paneles o cuentas..." onkeyup="filtrarContenido()">
         </div>
     </div>
 </header>
@@ -143,113 +114,103 @@
 <div class="container">
 
     <div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-crown"></i> PANELES MAYORISTAS (CRÉDITOS)
+        <i class="fa-solid fa-earth-europe"></i> PANEL MAYORISTA IPTV PREMIUM (EUROPEO)
     </div>
     <div class="grid-servicios">
         <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up">
             <div class="service-card">
-                <span class="badge-oferta">PROMOCIÓN 🔥</span>
+                <span class="badge-oferta">10k CANALES 💎</span>
                 <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-                <img src="../img/pack10.png" class="service-logo">
+                <img src="../img/panel_premium.png" class="service-logo">
                 <div class="service-text">
-                    <h3 class="nombre-prod">Panel 10 Créditos</h3>
-                    <span class="manual-desc">Ideal para iniciar ventas.</span>
+                    <h3 class="nombre-prod">Panel 100 Créditos Premium</h3>
+                    <span class="manual-desc">Servidor Europeo • 40k Pelis • 3k Series.</span>
                     <div class="tech-tags">
-                        <span class="tech-tag tag-green">S/ 4.00 x UNID.</span>
+                        <span class="tech-tag" style="background:var(--accent); color:white;">ULTRA STABLE</span>
+                        <span class="tech-tag tag-green">S/ 6.00 x UNID.</span>
                     </div>
                 </div>
                 <div class="price-container">
-                    <span class="price-tag precio-prod">S/ 40</span>
-                    <span class="badge-renovacion">Total Pack</span>
+                    <span class="price-tag precio-prod">S/ 600</span>
+                    <span class="badge-renovacion">Pack Mayorista</span>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="category-title" data-aos="fade-right">
+        <i class="fa-solid fa-bolt"></i> PANEL MAYORISTA IPTV 6500 CANALES
+    </div>
+    <div class="grid-servicios">
         <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up">
             <div class="service-card">
-                <span class="badge-oferta">MAYORISTA 🚀</span>
+                <span class="badge-oferta">OFERTA 🔥</span>
                 <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-                <img src="../img/pack100.png" class="service-logo">
+                <img src="../img/panel_std.png" class="service-logo">
                 <div class="service-text">
-                    <h3 class="nombre-prod">Panel 100 Créditos</h3>
-                    <span class="manual-desc">Precio Master Distribuidor.</span>
+                    <h3 class="nombre-prod">Panel 100 Créditos Normal</h3>
+                    <span class="manual-desc">6500 Canales • 20k Pelis • 2k Series.</span>
                     <div class="tech-tags">
-                        <span class="tech-tag">GOLD RESELLER</span>
+                        <span class="tech-tag">ECONÓMICO</span>
                         <span class="tech-tag tag-green">S/ 3.60 x UNID.</span>
                     </div>
                 </div>
                 <div class="price-container">
                     <span class="price-tag precio-prod">S/ 360</span>
-                    <span class="badge-renovacion">Total Pack</span>
+                    <span class="badge-renovacion">Pack Mayorista</span>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-tv"></i> CUENTAS POR UNIDAD (IPTV)
+        <i class="fa-solid fa-user-tag"></i> CUENTAS POR UNIDAD (AMBOS IPTV)
     </div>
     <div class="grid-servicios">
         <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up">
             <div class="service-card">
-                <span class="badge-oferta">ESTABLE</span>
                 <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-                <img src="../img/iptv_std.png" class="service-logo">
+                <img src="../img/unit_std.png" class="service-logo">
                 <div class="service-text">
-                    <h3 class="nombre-prod">IPTV Estándar</h3>
-                    <span class="manual-desc">6.5k Canales • 20k Pelis • 2k Series.</span>
-                    <div class="tech-tags">
-                        <span class="tech-tag">SD / HD</span>
-                        <span class="tech-tag">LATINO</span>
-                    </div>
+                    <h3 class="nombre-prod">Unidad IPTV Normal</h3>
+                    <span class="manual-desc">1 Mes • 6500 Canales • 3 Dispositivos.</span>
                 </div>
                 <div class="price-container">
                     <span class="price-tag precio-prod">S/ 10</span>
-                    <span class="badge-renovacion">1 Mes / 3 Disp.</span>
                 </div>
             </div>
         </div>
-
         <div class="service-link oferta" onclick="toggleItem(this)" data-aos="fade-up">
             <div class="service-card">
-                <span class="badge-oferta">PREMIUM 💎</span>
+                <span class="badge-oferta">FULL HD / 4K</span>
                 <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-                <img src="../img/iptv_euro.png" class="service-logo">
+                <img src="../img/unit_premium.png" class="service-logo">
                 <div class="service-text">
-                    <h3 class="nombre-prod">IPTV Premium (Server Europeo)</h3>
-                    <span class="manual-desc">10k Canales • 40k Pelis • 3k Series.</span>
-                    <div class="tech-tags">
-                        <span class="tech-tag" style="background:var(--accent); color:#fff;">ULTRA HD 4K</span>
-                        <span class="tech-tag tag-green">SIN LAG</span>
-                    </div>
+                    <h3 class="nombre-prod">Unidad IPTV Premium</h3>
+                    <span class="manual-desc">1 Mes • 10k Canales • Servidor Europeo.</span>
                 </div>
                 <div class="price-container">
                     <span class="price-tag precio-prod">S/ 18</span>
-                    <span class="badge-renovacion">1 Mes / 3 Disp.</span>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-fire"></i> FLUJO TV
+        <i class="fa-solid fa-mobile-screen-button"></i> APPS ESTABLES
     </div>
     <div class="grid-servicios">
         <div class="service-link" onclick="toggleItem(this)" data-aos="fade-up">
             <div class="service-card">
-                <span class="badge-oferta">OFERTA</span>
                 <div class="check-icon"><i class="fa-solid fa-check"></i></div>
                 <img src="../img/flujotv.png" class="service-logo">
                 <div class="service-text">
-                    <h3 class="nombre-prod">Flujo TV (Premium)</h3>
-                    <span class="manual-desc">Contenido exclusivo y estable.</span>
-                    <div class="tech-tags">
-                        <span class="tech-tag">TOP CALIDAD</span>
-                    </div>
+                    <h3 class="nombre-prod">Flujo TV</h3>
+                    <span class="manual-desc">La App más estable del mercado.</span>
+                    <div class="tech-tags"><span class="tech-tag">PREMIUM</span></div>
                 </div>
                 <div class="price-container">
                     <span class="price-tag precio-prod">S/ 15</span>
-                    <span class="badge-renovacion">1 Mes</span>
                 </div>
             </div>
         </div>
@@ -262,8 +223,8 @@
         <div class="btn-trash" onclick="vaciarCarrito()"><i class="fa-solid fa-trash-can"></i></div>
         <div class="btn-send" onclick="enviarWhatsApp()">
             <span id="cart-qty" style="background:var(--primary); color:#000; padding:2px 10px; border-radius:8px;">0</span>
-            PEDIR POR WHATSAPP 
-            <span id="cart-total" style="font-weight: 800;">S/ 0.00</span>
+            ENVIAR PEDIDO
+            <span id="cart-total" style="font-weight: 800; margin-left:10px;">S/ 0.00</span>
         </div>
     </div>
 </div>
@@ -271,35 +232,14 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true });
-
     let carrito = [];
 
     function filtrarContenido() {
         const busqueda = document.getElementById('buscador').value.trim().toLowerCase();
         const tarjetas = document.querySelectorAll('.service-link');
-        
         tarjetas.forEach(t => {
             const nombre = t.querySelector('.nombre-prod').innerText.toLowerCase();
-            const desc = t.querySelector('.manual-desc').innerText.toLowerCase();
-            if(nombre.includes(busqueda) || desc.includes(busqueda)) {
-                t.classList.remove('oculto-busqueda');
-                t.style.display = "block";
-            } else {
-                t.classList.add('oculto-busqueda');
-                t.style.display = "none";
-            }
-        });
-
-        // Ocultar categorías si no hay nada
-        document.querySelectorAll('.category-title').forEach(cat => {
-            let tieneHijos = false;
-            let sig = cat.nextElementSibling;
-            while(sig && sig.classList.contains('grid-servicios')) {
-                const visibles = sig.querySelectorAll('.service-link:not(.oculto-busqueda)');
-                if(visibles.length > 0) tieneHijos = true;
-                sig = sig.nextElementSibling;
-            }
-            cat.style.display = (tieneHijos || busqueda === "") ? "flex" : "none";
+            t.style.display = nombre.includes(busqueda) ? "block" : "none";
         });
     }
 
@@ -315,16 +255,10 @@
             const precio = parseFloat(el.querySelector('.precio-prod').innerText.replace('S/ ', ''));
             carrito.push({ nombre, precio });
         });
-
-        const bar = document.getElementById('cart-bar');
-        const qty = document.getElementById('cart-qty');
-        const total = document.getElementById('cart-total');
-        
         const suma = carrito.reduce((s, p) => s + p.precio, 0);
-        
-        qty.innerText = carrito.length;
-        total.innerText = `S/ ${suma.toFixed(2)}`;
-        bar.style.display = (carrito.length > 0) ? 'block' : 'none';
+        document.getElementById('cart-qty').innerText = carrito.length;
+        document.getElementById('cart-total').innerText = `S/ ${suma.toFixed(2)}`;
+        document.getElementById('cart-bar').style.display = (carrito.length > 0) ? 'block' : 'none';
     }
 
     function vaciarCarrito() {
@@ -333,12 +267,9 @@
     }
 
     function enviarWhatsApp() {
-        if(carrito.length === 0) return;
-        let total = carrito.reduce((s, p) => s + p.precio, 0);
-        let msg = "¡Hola Alex Store! 👋 Deseo activar estos servicios IPTV:\n\n";
+        let msg = "¡Hola Alex Store! 👋 Deseo estos servicios:\n\n";
         carrito.forEach(p => msg += `✅ ${p.nombre} - S/ ${p.precio}\n`);
-        msg += `\n💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
-        
+        msg += `\n💰 *TOTAL: S/ ${carrito.reduce((s, p) => s + p.precio, 0).toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
