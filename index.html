@@ -172,6 +172,8 @@
                     const mainContent = document.querySelectorAll('header, .search-container, .grid-botones, .container, .floating-btn');
                     mainContent.forEach(el => { if(el) el.style.display = 'none'; });
                     document.getElementById('modal-login-distribuidor').style.display = 'flex';
+                    // Enfocar el input automáticamente al cargar
+                    document.getElementById('input-dist-pass').focus();
                 });
             }
         })();
@@ -183,7 +185,7 @@
     <div class="modal-content-pass">
         <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
         <h2 style="color:var(--primary); margin-bottom:10px;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8">
+        <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8" onkeydown="if(event.key === 'Enter') validarAcceso()">
         <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer; color:#000;">ENTRAR</button>
     </div>
 </div>
@@ -235,8 +237,7 @@
             </div>
         </div>
     </div>
-
-    </div>
+</div>
 
 <div id="whatsapp-btn" class="floating-btn">
     <div class="cart-content-wrapper">
@@ -261,12 +262,15 @@
     let carrito = [];
 
     function validarAcceso() {
-        const pass = document.getElementById('input-dist-pass').value;
+        const inputPass = document.getElementById('input-dist-pass');
+        const pass = inputPass.value;
         if (pass === "dis") {
             sessionStorage.setItem("acceso_distribuidor", "true");
             location.reload();
         } else {
             alert("Acceso denegado. PIN incorrecto.");
+            inputPass.value = ""; // Limpiar para reintentar
+            inputPass.focus();
         }
     }
 
