@@ -10,8 +10,8 @@
 
     <style>
         :root {
-            --primary: #39ff14; /* Verde neón para precios y Oferta */
-            --accent: #a020f0;  /* Morado neón para Logo y Botón Volver */
+            --primary: #39ff14; 
+            --accent: #a020f0;  
             --dark-bg: #050505;
             --card-bg: #0f0f0f;
             --text-main: #ffffff;
@@ -23,131 +23,86 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--dark-bg); color: var(--text-main); padding-bottom: 120px; }
 
-        /* --- NAVEGACIÓN Y CABECERA (RESTAURADA SEGÚN IMAGEN) --- */
+        /* --- CABECERA --- */
         header { padding: 40px 20px 20px; text-align: center; }
-        
-        /* Logo con brillo morado sólido */
-        .logo-container { margin-bottom: 25px; }
         .logo-container img { 
-            width: 100px; 
-            height: 100px;
-            border-radius: 50%; 
-            border: 3px solid var(--accent); 
-            background-color: #000; /* Fondo oscuro sólido */
-            object-fit: contain;
-            box-shadow: 0 0 20px rgba(160, 32, 240, 0.6); /* Brillo morado neón */
+            width: 100px; height: 100px; border-radius: 50%; 
+            border: 3px solid var(--accent); background-color: #000;
+            box-shadow: 0 0 20px rgba(160, 32, 240, 0.4);
         }
-        
-        /* Título con Mayoristas en Verde */
-        h1 { font-size: 1.8rem; text-transform: uppercase; font-weight: 800; margin-bottom: 25px; }
+        h1 { font-size: 1.8rem; text-transform: uppercase; font-weight: 800; margin: 20px 0; }
         h1 span.mayoristas { color: var(--primary); }
 
-        /* Botón Volver Morado Neón (RESTAURADO SEGÚN IMAGEN) */
+        /* BOTÓN VOLVER (Normal por defecto, Morado al pasar el mouse) */
         .btn-volver { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 10px;
-            background-color: var(--accent); /* Morado sólido */
-            color: white; 
-            text-decoration: none; 
-            font-size: 0.8rem; 
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 12px 25px;
-            border-radius: 30px;
-            transition: 0.3s;
-            box-shadow: 0 0 15px rgba(160, 32, 240, 0.8); /* Brillo neón fuerte */
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: transparent; border: 2px solid var(--accent);
+            color: white; text-decoration: none; font-size: 0.8rem; font-weight: 800;
+            padding: 12px 25px; border-radius: 30px; transition: 0.4s ease;
         }
         .btn-volver:hover { 
-            box-shadow: 0 0 25px rgba(160, 32, 240, 1); /* Brillo más fuerte al pasar el mouse */
+            background-color: var(--accent);
+            box-shadow: 0 0 25px rgba(160, 32, 240, 1);
+            transform: translateY(-2px);
         }
 
-        /* Buscador y Filtros */
-        .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
-        .search-container { max-width: 500px; margin: 0 auto 15px; padding: 0 20px; }
-        .search-container input { width: 100%; padding: 15px 20px; border-radius: 30px; border: 1px solid var(--glass-border); background: #151515; color: white; outline: none; transition: 0.3s; }
-        .search-container input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); }
-        
-        .filter-buttons { display: flex; justify-content: center; gap: 8px; flex-wrap: nowrap; overflow-x: auto; padding: 10px 20px; scrollbar-width: none; }
-        .filter-buttons::-webkit-scrollbar { display: none; }
-        .filter-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--card-bg); color: white; cursor: pointer; font-size: 0.75rem; transition: 0.3s; }
-        .filter-btn.active { background: var(--primary); color: black; font-weight: 800; border-color: var(--primary); }
+        /* --- CATEGORÍAS Y TEXTOS --- */
+        .category-header { margin: 40px 0 20px; border-left: 4px solid var(--accent); padding-left: 15px; }
+        .category-title { font-weight: 800; text-transform: uppercase; font-size: 1.2rem; color: #fff; display: block; }
+        .category-desc { color: var(--text-dim); font-size: 0.8rem; margin-top: 5px; display: block; }
 
-        /* --- COMPONENTES DE ESTADO (AUTOMÁTICOS) --- */
+        /* --- GADGETS AUTOMÁTICOS --- */
         .service-link.agotado .service-card::after {
-            content: "NO DISPONIBLE";
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            content: "NO DISPONIBLE"; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); color: white; font-weight: 900;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 100; border: 1px solid #444;
+            display: flex; justify-content: center; align-items: center; z-index: 100;
         }
-        .service-link.agotado { pointer-events: none; filter: grayscale(1); opacity: 0.8; }
-
-        .timer-flash { 
-            display: none !important; position: absolute; top: 0; left: 50%; 
-            transform: translateX(-50%); background: var(--danger); color: white; 
-            padding: 2px 12px; font-size: 0.65rem; font-weight: 800; 
-            border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px;
-        }
+        .service-link.agotado { pointer-events: none; filter: grayscale(1); }
+        .timer-flash { display: none !important; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
         .service-link.flash .timer-flash { display: flex !important; }
-
-        .badge-izq { 
-            display: none; position: absolute; top: 0; left: 0; 
-            background: var(--primary); color: #000; padding: 4px 10px; 
-            font-size: 0.6rem; font-weight: 900; z-index: 5; 
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); 
-        }
+        .badge-izq { display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 10px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
         .service-link.oferta .badge-izq { display: block; }
-
-        .badge-culminada { 
-            display: none !important; position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.95); 
-            color: var(--danger); padding: 12px; font-weight: 900; border: 2px solid var(--danger); 
-            z-index: 110; text-align: center; width: 85%;
-        }
+        .badge-culminada { display: none !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.95); color: var(--danger); padding: 12px; font-weight: 900; border: 2px solid var(--danger); z-index: 110; text-align: center; width: 85%; }
         .service-link.flash-terminado .badge-culminada { display: block !important; }
 
-        /* --- DISEÑO TARJETAS --- */
+        /* --- TARJETAS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 15px 0; }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
         .service-link { text-decoration: none; color: inherit; }
         .service-card { background: var(--card-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; transition: 0.3s; }
-        .service-card:hover { border-color: #333; }
-        
         .service-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
         .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
         .unit-price { display: block; font-size: 11px; color: var(--text-dim); font-weight: 600; }
         .price-tag { margin-left: auto; color: var(--primary); font-weight: 900; font-size: 1.1rem; }
-        .category-block { display: none; } /* Oculto por defecto para filtros */
-        .category-block.active-cat { display: block; }
+
+        /* --- BUSCADOR Y FILTROS --- */
+        .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
+        .search-container { max-width: 500px; margin: 0 auto 15px; padding: 0 20px; }
+        .search-container input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid var(--glass-border); background: #151515; color: white; outline: none; }
+        .filter-buttons { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 5px 20px; scrollbar-width: none; }
+        .filter-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--card-bg); color: white; cursor: pointer; font-size: 0.75rem; }
+        .filter-btn.active { background: var(--primary); color: black; font-weight: 800; }
 
         /* --- CARRITO --- */
-        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: white; padding: 15px 25px; border-radius: 25px; display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: white; padding: 15px 25px; border-radius: 25px; display: none; z-index: 1000; }
         .cart-info { display: flex; justify-content: space-between; align-items: center; color: black; font-weight: 800; }
-        .btn-pedido { background: black; color: white; padding: 10px 20px; border-radius: 15px; text-decoration: none; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .btn-pedido { background: black; color: white; padding: 10px 20px; border-radius: 15px; text-decoration: none; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-container">
-        <img src="../img/logo.png" alt="AlexStoree TV">
-    </div>
-    
+    <div class="logo-container"><img src="../img/logo.png" alt="AlexStoree"></div>
     <h1>SMARTERSPRO <span class="mayoristas">MAYORISTAS</span></h1>
-    
-    <div class="container">
-        <a href="../distribuidores/index.html" class="btn-volver">
-            <i class="fa-solid fa-arrow-left"></i> VOLVER A DISTRIBUIDORES
-        </a>
-    </div>
+    <a href="../distribuidores/index.html" class="btn-volver">
+        <i class="fa-solid fa-arrow-left"></i> VOLVER A DISTRIBUIDORES
+    </a>
 </header>
 
 <div class="sticky-tools">
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar plataforma o plan..." onkeyup="filterSearch()">
+        <input type="text" id="searchInput" placeholder="Buscar plataforma..." onkeyup="filterSearch()">
     </div>
-
     <div class="filter-buttons">
         <button class="filter-btn active" onclick="filterCat('all', this)">Todos</button>
         <button class="filter-btn" onclick="filterCat('unidades', this)">Unidades</button>
@@ -159,10 +114,12 @@
 
 <div class="container" id="productGrid">
 
-    <div class="category-block units units active-cat" data-cat="unidades">
-        
+    <div class="category-block active-cat" data-cat="unidades">
+        <div class="category-header">
+            <span class="category-title">Cuentas por Unidad</span>
+            <span class="category-desc">Planes mensuales directos para clientes finales.</span>
+        </div>
         <div class="grid-servicios">
-            
             <div class="service-link oferta flash" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
                 <div class="service-card">
                     <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
@@ -173,13 +130,15 @@
                     <div class="price-tag">S/ 7</div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 
-    <div class="category-block units active-cat" data-cat="flujo">
-        
+    <div class="category-block active-cat" data-cat="flujo">
+        <div class="category-header">
+            <span class="category-title">Cuentas Estables (Flujo TV)</span>
+            <span class="category-desc">La mejor estabilidad en eventos deportivos y canales en vivo.</span>
+        </div>
         <div class="grid-servicios">
-            
             <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
                 <div class="service-card">
                     <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
@@ -194,6 +153,10 @@
     </div>
 
     <div class="category-block active-cat" data-cat="equilibrado">
+        <div class="category-header">
+            <span class="category-title">Panel IPTV Equilibrado</span>
+            <span class="category-desc">Gestión de créditos con excelente relación calidad-precio.</span>
+        </div>
         <div class="grid-servicios">
             <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
                 <div class="service-card">
@@ -205,10 +168,14 @@
                     <div class="price-tag">S/ 45</div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 
     <div class="category-block active-cat" data-cat="europeo">
+        <div class="category-header">
+            <span class="category-title">Panel IPTV Europeo</span>
+            <span class="category-desc">Servidores premium con contenido optimizado para Europa y Latam.</span>
+        </div>
         <div class="grid-servicios">
             <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
                 <div class="service-card">
@@ -220,7 +187,7 @@
                     <div class="price-tag">S/ 80</div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 
 </div>
@@ -233,50 +200,22 @@
 </div>
 
 <script>
-    // --- LÓGICA DE BÚSQUEDA ---
     function filterSearch() {
         let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.querySelectorAll('.service-link');
-        let blocks = document.querySelectorAll('.category-block');
-        
-        cards.forEach(card => {
+        document.querySelectorAll('.service-link').forEach(card => {
             let title = card.querySelector('h3').innerText.toLowerCase();
             card.style.display = title.includes(input) ? "block" : "none";
         });
-
-        // Ocultar bloques vacíos tras la búsqueda
-        blocks.forEach(block => {
-            let visibleCards = block.querySelectorAll('.service-link[style="display: block;"]');
-            block.style.display = visibleCards.length > 0 ? "block" : "none";
-        });
     }
 
-    // --- LÓGICA DE CATEGORÍAS (RESTAURADA) ---
     function filterCat(cat, btn) {
-        document.getElementById('searchInput').value = ""; // Limpiar buscador
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
         document.querySelectorAll('.category-block').forEach(block => {
-            // Mostrar todas las tarjetas del bloque
-            block.querySelectorAll('.service-link').forEach(card => card.style.display = "block");
-
-            if (cat === 'all') {
-                block.classList.add('active-cat');
-                block.style.display = "block";
-            } else {
-                if (block.getAttribute('data-cat') === cat) {
-                    block.classList.add('active-cat');
-                    block.style.display = "block";
-                } else {
-                    block.classList.remove('active-cat');
-                    block.style.display = "none";
-                }
-            }
+            block.style.display = (cat === 'all' || block.getAttribute('data-cat') === cat) ? "block" : "none";
         });
     }
 
-    // --- TEMPORIZADORES ---
     function updateTimers() {
         const now = new Date().getTime();
         document.querySelectorAll('.service-link.flash').forEach(card => {
@@ -286,7 +225,6 @@
             const disp = card.querySelector('.countdown');
             if (dist <= 0) {
                 card.classList.add('flash-terminado');
-                card.classList.remove('selected');
                 if (disp) disp.innerHTML = "00:00:00";
             } else {
                 const h = Math.floor((dist % (1000*60*60*24)) / (1000*60*60));
@@ -298,45 +236,21 @@
     }
     setInterval(updateTimers, 1000);
 
-    // --- CARRITO Y SELECCIÓN (RESTAURADO) ---
     let total = 0, cant = 0;
-    let selectedItems = [];
-
     function toggleItem(el) {
         if(el.classList.contains('agotado') || el.classList.contains('flash-terminado')) return;
         el.classList.toggle('selected');
-        
         const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
-        const nombre = el.querySelector('h3').innerText;
-        
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            selectedItems.push({nombre, precio});
             el.querySelector('.service-card').style.borderColor = "var(--primary)";
         } else {
             total -= precio; cant--;
-            selectedItems = selectedItems.filter(item => item.nombre !== nombre);
             el.querySelector('.service-card').style.borderColor = "var(--glass-border)";
         }
-
         document.getElementById('cart-qty').innerText = cant;
         document.getElementById('cart-total').innerText = "S/ " + total.toFixed(2);
         document.getElementById('cart-bar').style.display = cant > 0 ? "block" : "none";
-        updateWhatsappUrl();
-    }
-
-    // --- LÓGICA PEDIDO WHATSAPP (RESTAURADA) ---
-    function updateWhatsappUrl() {
-        if (selectedItems.length === 0) return;
-        let numeroWhatsapp = "519XXXXXXXX"; // <-- CAMBIA ESTO POR TU NÚMERO
-        let mensaje = "¡Hola AlexStoree! Deseo realizar el siguiente pedido mayorista:\n\n";
-        selectedItems.forEach(item => {
-            mensaje += `• ${item.nombre} - S/ ${item.precio.toFixed(2)}\n`;
-        });
-        mensaje += `\n💰 TOTAL: S/ ${total.toFixed(2)}`;
-        
-        let url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`;
-        document.getElementById('btnWhatsappPedido').setAttribute('href', url);
     }
 </script>
 
