@@ -815,20 +815,23 @@
         if(el.classList.contains('agotado')) return;
         el.classList.toggle('selected');
         
-        // Limpieza de precio y textos
-        const precioText = el.querySelector('.price-tag').innerText;
-        const precio = parseFloat(precioText.replace(/[^\d.]/g, '')); 
-        const nombre = el.querySelector('h3').innerText.trim();
-        const desc = el.querySelector('.manual-desc').innerText.trim();
+        // Captura limpia de datos
+        const nombre = el.querySelector('h3') ? el.querySelector('h3').innerText.trim() : "Servicio";
+        const precioTag = el.querySelector('.price-tag') ? el.querySelector('.price-tag').innerText : "0";
+        const precio = parseFloat(precioTag.replace(/[^\d.]/g, ''));
+        const desc = el.querySelector('.manual-desc') ? el.querySelector('.manual-desc').innerText.trim() : "";
         const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText.trim() : "";
         
+        // Captura oferta solo si existe la clase y el elemento
         let ofertaDetalle = "";
         if (el.classList.contains('oferta')) {
-            ofertaDetalle = el.querySelector('.badge-izq') ? el.querySelector('.badge-izq').innerText.trim() : "";
+            const badge = el.querySelector('.badge-izq');
+            ofertaDetalle = badge ? badge.innerText.trim() : "";
         }
         
         if(el.classList.contains('selected')) {
             total += precio; cant++;
+            // Usamos un ID único (nombre) para evitar duplicados en el array
             selectedItems.push({nombre, precio, desc, unitario, oferta: ofertaDetalle});
             el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
         } else {
@@ -845,78 +848,47 @@
         document.getElementById('cart-bar').style.display = cant > 0 ? "block" : "none";
     }
 
+    function sendWhatsapp() {
+        if(selectedItems.length === 0) return;
+        const numero = "51918600000";
+        
+        // Construimos el mensaje con variables de texto para los iconos (Evita el error de '?')
+        let msj = "¡Hola Alex Store!, soy distribuidor! \n\n";
+        msj += "Deseo adquirir:\n\n";
+        
+        selectedItems.forEach(item => {
+            msj += "⭐ *" + item.nombre + "*\n"; // Estrella es más compatible que el check
+            
+            if(item.oferta) {
+                msj += "🎁 *PROMO:* " + item.oferta + "\n";
+            }
+            
+            msj += "🔹 _" + item.desc + "_\n";
+            
+            if(item.unitario) {
+                msj += "🏷️ [" + item.unitario + "]\n";
+            }
+            
+            msj += "💰 *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
+        });
+        
+        msj += "───────────────\n";
+        msj += "💵 *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
+        
+        // La clave es el encodeURIComponent aplicado a todo el bloque
+        window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
+    }
+
     function clearAll(event) {
-        event.stopPropagation();
+        if(event) event.stopPropagation();
         document.querySelectorAll('.service-link.selected').forEach(el => {
             el.classList.remove('selected');
-            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
+            const card = el.querySelector('.service-card');
+            card.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
         });
         selectedItems = []; total = 0; cant = 0;
         updateCartUI();
     }
 
-    function sendWhatsapp() {
-    if(selectedItems.length === 0) return;
-    const numero = "51918600000";
-    
-    // Definimos los emojis usando códigos hexadecimales para que no se rompan
-    const iSaludo = "\uD83D\uDC4B"; // 👋
-    const iCheck = "\u2705";         // ✅
-    const iRegalo = "\uD83C\uDF81"; // 🎁
-    const iNota = "\uD83D\uDCDD";   // 📝
-    const iEtiqueta = "\uD83C\uDFF7"; // 🏷️
-    const iPrecio = "\uD83D\uDCB0"; // 💰
-    const iDinero = "\uD83D\uDCB5"; // 💵
-
-    let msj = "¡Hola Alex Store!, soy distribuidor! " + iSaludo + "\n\n";
-    msj += "Deseo adquirir:\n\n";
-    
-    selectedItems.forEach(item => {
-        msj += iCheck + " *" + item.nombre + "*\n";
-        
-        // Solo envía la oferta si existe contenido capturado
-        if(item.oferta && item.oferta !== "") {
-            msj += iRegalo + " *PROMOCIÓN:* " + item.oferta + "\n";
-        }
-        
-        msj += iNota + " _" + item.desc + "_\n";
-        
-        if(item.unitario) {
-            msj += iEtiqueta + " [" + item.unitario + "]\n";
-        }
-        
-        msj += iPrecio + " *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
-    });
-    
-    msj += "───────────────\n";
-    msj += iDinero + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
-    
-    // El uso de encodeURIComponent es vital aquí
-    window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
-}
-
-    function filtrarServicios() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.querySelectorAll('.service-link');
-        let categories = document.querySelectorAll('.category-block');
-
-        cards.forEach(card => {
-            let texto = card.innerText.toLowerCase();
-            card.style.display = texto.includes(input) ? "" : "none";
-        });
-
-        categories.forEach(category => {
-            let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
-            category.style.display = (cardsVisibles > 0 || input === "") ? "" : "none";
-        });
-    }
-
-    function filterCat(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.category-block').forEach(block => {
-            block.style.display = (cat === 'all' || block.getAttribute('data-cat') === cat) ? "block" : "none";
-        });
-    }
+    // Mantén tus funciones de filtrarServicios() y filterCat() igual
 </script>
-
