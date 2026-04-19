@@ -32,11 +32,18 @@
         body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: white; padding-bottom: 200px; overflow-x: hidden; }
 
         header { 
-            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 40px 20px 20px; 
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 30px 20px 15px; 
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
-        .brand-logo { width: 75px; height: 75px; object-fit: contain; border-radius: 20px; margin-bottom: 10px; }
+        .brand-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 18px; margin-bottom: 8px; }
         
+        /* BUSCADOR */
+        .search-container { position: sticky; top: 145px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
+        .search-wrapper { position: relative; max-width: 500px; margin: auto; }
+        .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+        #buscador { width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
+        #buscador:focus { border-color: var(--primary); outline: none; background: rgba(255,255,255,0.05); }
+
         .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
         .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
@@ -54,7 +61,6 @@
 
         .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
 
-        /* BADGE OFERTA ROMBOIDE */
         .badge-oferta { 
             position: absolute; top: 0; left: 0; 
             background: #f1c40f; color: #000; 
@@ -64,26 +70,15 @@
             text-transform: uppercase;
         }
 
-        /* TEXTO PREMIUM CON BORDE */
         .premium-text { 
             display: none; 
-            border: 1px solid #bf953f;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 0.6rem; font-weight: 900; 
-            text-transform: uppercase; margin-right: 15px; margin-bottom: 4px; 
+            border: 1px solid #bf953f; padding: 2px 8px; border-radius: 4px;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 0.6rem; font-weight: 900; text-transform: uppercase; margin-right: 15px; margin-bottom: 4px; 
         }
         .premium .premium-text { display: inline-block; }
 
-        /* ESTADOS AUTOMÁTICOS */
-        .status-badge { 
-            font-size: 0.6rem; font-weight: 800; text-transform: uppercase; 
-            margin-top: 5px; margin-bottom: 2px;
-            display: flex; align-items: center; gap: 5px; 
-        }
+        .status-badge { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; margin-bottom: 2px; display: flex; align-items: center; gap: 5px; }
         .disponible .status-badge::before { content: "● DISPONIBLE"; color: var(--success-neon); }
         .pocas .status-badge::before { content: "● POCAS UNIDADES"; color: #ff3333; }
 
@@ -92,33 +87,36 @@
         .manual-desc { font-size: 0.75rem; color: #888; display: block; }
         
         .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
-
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
+        .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--vip); }
 
-        .premium .price-tag {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: var(--vip); 
-        }
-
-        .badge-renovacion { 
-            display: none; 
-            color: #f1c40f; 
-            font-size: 0.55rem; 
-            font-weight: 700; 
-            margin-top: 3px; 
-            text-transform: uppercase; 
-        }
+        .badge-renovacion { display: none; color: #f1c40f; font-size: 0.55rem; font-weight: 700; margin-top: 3px; text-transform: uppercase; }
         .renovacion .badge-renovacion { display: inline-block; }
 
-        .service-link.agotado { pointer-events: none; opacity: 0.5; }
+        /* LÓGICA DE AGOTADO - JERARQUÍA SUPERIOR */
+        .service-link.agotado { pointer-events: none; }
+        .service-link.agotado .service-card { opacity: 0.4; border-color: var(--glass-border); filter: grayscale(1); }
+        .service-link.agotado .price-container,
+        .service-link.agotado .badge-oferta,
+        .service-link.agotado .status-badge,
+        .service-link.agotado .badge-renovacion { display: none !important; }
+        
         .service-link.agotado::after { 
             content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
             font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); 
             padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; 
             z-index: 200; background: #000;
         }
+
+        /* GARANTÍA SOPORTE */
+        .garantia-section {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 20px; margin: 40px 15px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        .garantia-item { text-align: center; }
+        .garantia-item i { font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; }
+        .garantia-item p { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #bbb; }
 
         .floating-btn { 
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
@@ -135,12 +133,19 @@
     <h1>DISTRIBUIDORES VIP</h1>
 </header>
 
+<div class="search-container">
+    <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="buscador" placeholder="Buscar plataforma..." onkeyup="filtrarPlataformas()">
+    </div>
+</div>
+
 <div class="grid-botones">
     <a href="../" class="btn-universal btn-inicio"><i class="fa-solid fa-house"></i> INICIO</a>
     <a href="../promos-distribuidores/" class="btn-universal btn-promo-distri"><i class="fa-solid fa-crown"></i> PROMOS</a>
 </div>
 
-<div class="container">
+<div class="container" id="lista-productos">
     <div class="category-title"><i class="fa-solid fa-star"></i> LO MÁS VENDIDO</div>
 
     <div class="service-link premium disponible renovacion" onclick="toggleSeleccion(this)" data-aos="fade-up">
@@ -149,7 +154,8 @@
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
-                <div class="status-badge"></div> <h3 class="nombre-prod">Netflix Perfil</h3>
+                <div class="status-badge"></div>
+                <h3 class="nombre-prod">Netflix Perfil</h3>
                 <span class="manual-desc">4K UHD • Privado</span>
             </div>
             <div class="price-container">
@@ -160,13 +166,14 @@
         </div>
     </div>
 
-    <div class="service-link premium pocas renovacion agotado" onclick="toggleSeleccion(this)" data-aos="fade-up">
+    <div class="service-link premium  oferta renovacion agotado" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
-            <span class="badge-oferta">OFERTA 🔥</span>
+            <span class="badge-oferta">super solicitado🔥</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Amazon_Prime_Video_Logo.png" class="service-logo">
             <div class="service-text">
-                <div class="status-badge"></div> <h3 class="nombre-prod">Prime Video</h3>
+                <div class="status-badge"></div>
+                <h3 class="nombre-prod">Prime Video</h3>
                 <span class="manual-desc">Cuenta completa</span>
             </div>
             <div class="price-container">
@@ -174,6 +181,17 @@
                 <span class="price-tag precio-prod">S/ 7</span>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="garantia-section" data-aos="zoom-in">
+    <div class="garantia-item">
+        <i class="fa-solid fa-shield-halved"></i>
+        <p>Garantía Total<br>del Servicio</p>
+    </div>
+    <div class="garantia-item">
+        <i class="fa-solid fa-headset"></i>
+        <p>Soporte VIP<br>Personalizado</p>
     </div>
 </div>
 
@@ -193,7 +211,26 @@
     
     let carrito = [];
 
+    // BUSCADOR INTELIGENTE
+    function filtrarPlataformas() {
+        const input = document.getElementById('buscador').value.toLowerCase();
+        const tarjetas = document.querySelectorAll('.service-link');
+        
+        tarjetas.forEach(tarjeta => {
+            const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
+            if (nombre.includes(input)) {
+                tarjeta.style.display = "block";
+                // Forzamos AOS a recalcular para que no desaparezcan al filtrar
+                tarjeta.classList.add('aos-animate');
+            } else {
+                tarjeta.style.display = "none";
+            }
+        });
+    }
+
     function toggleSeleccion(elemento) {
+        if(elemento.classList.contains('agotado')) return;
+
         const nombre = elemento.querySelector('.nombre-prod').innerText;
         const precioTexto = elemento.querySelector('.precio-prod').innerText;
         const precio = parseFloat(precioTexto.replace('S/ ', ''));
