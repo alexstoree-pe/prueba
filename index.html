@@ -582,20 +582,40 @@
         updateCartUI();
     }
 
-    // Función de filtrado mejorada para evitar duplicados visuales
     function filtrarServicios() {
-        const input = document.getElementById('searchInput').value.toLowerCase();
-        const cards = document.querySelectorAll('.service-link');
-        const categories = document.querySelectorAll('.category-block');
+    // Captura el texto que escribes y lo limpia de espacios
+    let input = document.getElementById('searchInput').value.toLowerCase().trim();
+    let cards = document.querySelectorAll('.service-link');
+    let categories = document.querySelectorAll('.category-block');
 
-        cards.forEach(card => {
-            const content = card.innerText.toLowerCase();
-            card.style.display = content.includes(input) ? "" : "none";
-        });
+    // PASO 1: Filtrar productos uno por uno
+    cards.forEach(card => {
+        let textoCard = card.innerText.toLowerCase();
+        
+        // Si no hay búsqueda, mostramos todo. Si hay búsqueda, comparamos.
+        if (input === "") {
+            card.style.display = ""; 
+        } else if (textoCard.includes(input)) {
+            card.style.display = ""; 
+        } else {
+            card.style.display = "none";
+        }
+    });
 
-        categories.forEach(cat => {
-            const hasVisible = cat.querySelectorAll('.service-link:not([style*="display: none"])').length > 0;
-            cat.style.display = (hasVisible || input === "") ? "" : "none";
-        });
-    }
+    // PASO 2: Filtrar las categorías
+    categories.forEach(category => {
+        // Contamos cuántas tarjetas quedaron "visibles" en esta categoría
+        let tarjetasVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
+        
+        // REGLA DE ORO: 
+        // Si estamos buscando y NO hay productos que coincidan, ocultamos la categoría completa.
+        if (input !== "" && tarjetasVisibles === 0) {
+            category.style.display = "none";
+        } else {
+            // Si hay coincidencias o el buscador está vacío, mostramos la categoría.
+            category.style.display = ""; 
+        }
+    });
+}
+
 </script>
