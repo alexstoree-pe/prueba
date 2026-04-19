@@ -18,6 +18,8 @@
             --text-dim: #a0a0a0;
             --glass-border: rgba(255, 255, 255, 0.1);
             --danger: #ff0000;
+            --gold: #ffd700;
+            --gold-shadow: rgba(255, 215, 0, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -49,15 +51,25 @@
         /* --- GADGETS AUTOMÁTICOS --- */
         .service-link.agotado .service-card::after {
             content: "NO DISPONIBLE"; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); color: white; font-weight: 900;
-            display: flex; justify-content: center; align-items: center; z-index: 100;
+            background: rgba(0,0,0,0.95); color: white; font-weight: 900;
+            display: flex; justify-content: center; align-items: center; z-index: 200;
         }
+        .service-link.agotado .badge-izq, 
+        .service-link.agotado .timer-flash, 
+        .service-link.agotado .badge-premium,
+        .service-link.agotado .badge-culminada { display: none !important; }
+
         .timer-flash { display: none !important; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
         .service-link.flash .timer-flash { display: flex !important; }
         .badge-izq { display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 10px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
         .service-link.oferta .badge-izq { display: block; }
         .badge-culminada { display: none !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.95); color: var(--danger); padding: 12px; font-weight: 900; border: 2px solid var(--danger); z-index: 110; text-align: center; width: 85%; }
         .service-link.flash-terminado .badge-culminada { display: block !important; }
+
+        .badge-premium { display: none; position: absolute; top: 15px; right: 75px; border: 1px solid var(--gold); color: var(--gold); padding: 2px 8px; font-size: 0.55rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .service-link.premium .badge-premium { display: block; }
+        .service-link.premium .service-card { border-color: var(--gold); box-shadow: 0 0 15px var(--gold-shadow); }
+        .service-link.premium .price-tag, .service-link.premium .unit-price { color: var(--gold) !important; }
 
         /* --- TARJETAS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -69,9 +81,13 @@
         .service-link { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
         .service-card { background: var(--card-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; transition: 0.3s; }
         .service-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
+        .service-text { flex-grow: 1; }
         .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
-        .unit-price { display: block; font-size: 11px; color: var(--text-dim); font-weight: 600; }
-        .price-tag { margin-left: auto; color: var(--primary); font-weight: 900; font-size: 1.1rem; }
+        .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
+        
+        .price-container { text-align: right; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; }
+        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; line-height: 1; }
+        .unit-price { display: block; font-size: 9px; color: var(--text-dim); font-weight: 600; margin-top: 4px; }
 
         /* --- STICKY TOOLS --- */
         .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
@@ -81,21 +97,11 @@
         .filter-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--card-bg); color: white; cursor: pointer; font-size: 0.75rem; }
         .filter-btn.active { background: var(--primary); color: black; font-weight: 800; }
 
-        /* --- CARRITO / BOTÓN WHATSAPP TOTAL --- */
-        #cart-bar { 
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
-            width: 90%; max-width: 500px; background: white; border-radius: 25px; 
-            display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            overflow: hidden; cursor: pointer;
-        }
+        /* --- CARRITO --- */
+        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: white; border-radius: 25px; display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; cursor: pointer; }
         .cart-content { display: flex; align-items: center; padding: 12px 20px; width: 100%; }
         .cart-info { flex-grow: 1; color: black; font-weight: 800; font-size: 0.9rem; }
-        .btn-clear { 
-            background: #f0f0f0; color: #ff0000; border: none; 
-            width: 40px; height: 40px; border-radius: 50%; 
-            cursor: pointer; display: flex; align-items: center; 
-            justify-content: center; transition: 0.3s; margin-left: 15px;
-        }
+        .btn-clear { background: #f0f0f0; color: #ff0000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; margin-left: 15px; }
         .whatsapp-icon-float { font-size: 1.5rem; margin-right: 15px; color: #25D366; }
     </style>
 </head>
@@ -130,61 +136,290 @@
             <span class="category-desc">Planes mensuales directos para clientes finales.</span>
         </div>
         <div class="grid-servicios">
-            <div class="service-link oferta flash" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+            
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
                 <div class="service-card">
                     <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
                     <div class="badge-culminada">OFERTA CULMINADA</div>
                     <span class="badge-izq">OFERTA</span>
                     <img src="../img/u1.png" class="service-logo">
-                    <div class="service-text"><h3>IPTV Equilibrado 1 Mes</h3><span class="unit-price">3 DISP. • +6500 canales</span></div>
-                    <div class="price-tag">S/ 7</div>
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 1 Mes</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 7</div>
+                    </div>
                 </div>
             </div>
+
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 3 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 15</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 6 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 28</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 12 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 45</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV PREMIUM 1 Mes</h3>
+                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 15</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link oferta" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">+ 1 mes gratis</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV PREMIUM 3 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 45</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link oferta" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">+ 2 mes gratis</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV PREMIUM 6 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 90</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link oferta" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">+ 3 mes gratis</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV PREMIUM 12 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 180</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div class="category-block active-cat" data-cat="flujo">
         <div class="category-header">
-            <span class="category-title">Cuentas Estables (Flujo TV)</span>
-            <span class="category-desc">La mejor estabilidad en eventos deportivos.</span>
+            <span class="category-title">Cuentas Estables (Flujo TV) Antes MAGISTV</span>
+            <span class="category-desc">La mejor estabilidad en eventos deportivos • +900 canales •+10000 peliculas •+4000 series (solo compatibles con ANDROID-TV / TV BOX / FIRE STICK ).</span>
         </div>
         <div class="grid-servicios">
+            
             <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
                 <div class="service-card">
                     <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
                     <div class="badge-culminada">CULMINADA</div>
                     <span class="badge-izq">OFERTA</span>
-                    <img src="../img/flujotv.png" class="service-logo">
-                    <div class="service-text"><h3>Flujo TV Premium</h3><span class="unit-price">ANDROID / TV BOX / MAG</span></div>
-                    <div class="price-tag">S/ 15</div>
+                    <img src="../img/flujo.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>Flujo TV (1 mes)</h3>
+                        <span class="manual-desc">3 dispositivos</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 12</div>
+                    </div>
                 </div>
             </div>
+
+            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/flujo.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>Flujo TV (3 meses)</h3>
+                        <span class="manual-desc">3 dispositivos</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link oferta" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">CULMINADA</div>
+                    <span class="badge-izq">+1 mes gratis</span>
+                    <img src="../img/flujo.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>Flujo TV (6 meses)</h3>
+                        <span class="manual-desc">3 dispositivos</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 70</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link oferta" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">CULMINADA</div>
+                    <span class="badge-izq">+2 meses gratis</span>
+                    <img src="../img/flujo.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>Flujo TV (12 meses)</h3>
+                        <span class="manual-desc">3 dispositivos</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 132</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div class="category-block active-cat" data-cat="equilibrado">
         <div class="category-header">
             <span class="category-title">Panel IPTV Equilibrado</span>
-            <span class="category-desc">Gestión de créditos con excelente relación calidad-precio.</span>
+            <span class="category-desc">Gestión de créditos con excelente relación calidad-precio (+6500 canales - +25000 peliculas - +2000 series).</span>
         </div>
         <div class="grid-servicios">
+            
             <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
                 <div class="service-card">
                     <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
                     <div class="badge-culminada">CULMINADA</div>
                     <span class="badge-izq">OFERTA</span>
                     <img src="../img/n10.png" class="service-logo">
-                    <div class="service-text"><h3>Equilibrado 10 Créditos</h3><span class="unit-price">S/ 4.50 por unidad</span></div>
-                    <div class="price-tag">S/ 45</div>
+                    <div class="service-text">
+                        <h3>10 Créditos panel incluido</h3>
+                        <span class="unit-price">S/ 4.00 por unidad</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 40</div>
+                    </div>
                 </div>
             </div>
+
+            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/n10.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>50 Créditos panel incluido</h3>
+                        <span class="unit-price">S/ 3.60 por unidad</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 180</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/n10.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>70 Créditos panel incluido</h3>
+                        <span class="unit-price">S/ 3.28 por unidad</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 230</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/n10.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>100 Créditos panel super reseller</h3>
+                        <span class="unit-price">S/ 3.28 por unidad</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 300</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div class="category-block active-cat" data-cat="europeo">
         <div class="category-header">
             <span class="category-title">Panel IPTV Europeo</span>
-            <span class="category-desc">Servidores premium con contenido optimizado.</span>
+            <span class="category-desc">Servidores premium con contenido optimizado (+10000 canales - +40000 peliculas - +3000 series).</span>
         </div>
         <div class="grid-servicios">
             <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
@@ -193,8 +428,13 @@
                     <div class="badge-culminada">CULMINADA</div>
                     <span class="badge-izq">OFERTA</span>
                     <img src="../img/p10.png" class="service-logo">
-                    <div class="service-text"><h3>Europeo 10 Créditos</h3><span class="unit-price">S/ 8.00 por unidad</span></div>
-                    <div class="price-tag">S/ 80</div>
+                    <div class="service-text">
+                        <h3>Europeo 10 Créditos</h3>
+                        <span class="unit-price">S/ 15.00 por unidad</span>
+                    </div>
+                    <div class="price-container">
+                        <div class="price-tag">S/ 150</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -219,20 +459,19 @@
     let selectedItems = [];
 
     function toggleItem(el) {
-        if(el.classList.contains('agotado') || el.classList.contains('flash-terminado')) return;
+        if(el.classList.contains('agotado')) return;
         el.classList.toggle('selected');
         const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
         const nombre = el.querySelector('h3').innerText;
-        const desc = el.querySelector('.unit-price').innerText;
         
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            selectedItems.push({nombre, desc, precio});
-            el.querySelector('.service-card').style.borderColor = "var(--primary)";
+            selectedItems.push({nombre, precio});
+            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
         } else {
             total -= precio; cant--;
             selectedItems = selectedItems.filter(item => item.nombre !== nombre);
-            el.querySelector('.service-card').style.borderColor = "var(--glass-border)";
+            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
         }
         updateCartUI();
     }
@@ -247,7 +486,7 @@
         event.stopPropagation();
         document.querySelectorAll('.service-link.selected').forEach(el => {
             el.classList.remove('selected');
-            el.querySelector('.service-card').style.borderColor = "var(--glass-border)";
+            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
         });
         selectedItems = []; total = 0; cant = 0;
         updateCartUI();
@@ -255,12 +494,12 @@
 
     function sendWhatsapp() {
         if(selectedItems.length === 0) return;
-        const numero = "51918600000"; // <-- CAMBIA ESTO
-        let msj = "¡Hola Alex Store! Soy distribuidor! 👋 Deseo adquirir:\n\n";
+        const numero = "51918600000";
+        let msj = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
         selectedItems.forEach(item => {
-            msj += `✅ *${item.nombre}*\n   _${item.desc}_\n   Precio: S/ ${item.precio.toFixed(2)}\n\n`;
+            msj += `✅ *${item.nombre}* - S/ ${item.precio.toFixed(2)}\n`;
         });
-        msj += `💰 *TOTAL: S/ ${total.toFixed(2)}*`;
+        msj += `\n💰 *TOTAL: S/ ${total.toFixed(2)}*`;
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
@@ -279,25 +518,6 @@
             block.style.display = (cat === 'all' || block.getAttribute('data-cat') === cat) ? "block" : "none";
         });
     }
-
-    setInterval(() => {
-        const now = new Date().getTime();
-        document.querySelectorAll('.service-link.flash').forEach(card => {
-            const final = card.getAttribute('data-final');
-            if(!final) return;
-            const dist = new Date(final).getTime() - now;
-            const disp = card.querySelector('.countdown');
-            if (dist <= 0) {
-                card.classList.add('flash-terminado');
-                if (disp) disp.innerHTML = "00:00:00";
-            } else {
-                const h = Math.floor((dist % (1000*60*60*24)) / (1000*60*60));
-                const m = Math.floor((dist % (1000*60*60)) / (1000*60));
-                const s = Math.floor((dist % (1000*60)) / 1000);
-                if (disp) disp.innerHTML = `${h}h ${m}m ${s}s`;
-            }
-        });
-    }, 1000);
 </script>
 
 </body>
