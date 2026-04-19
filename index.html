@@ -32,23 +32,22 @@
         body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: white; padding-bottom: 200px; overflow-x: hidden; }
 
         header { 
-            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 30px 20px 15px; 
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 25px 20px 15px; 
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
         .brand-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 18px; margin-bottom: 8px; }
+        header h1 { font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 10px; }
 
-        /* GARANTÍA ESTILO FOTO (NUEVO) */
-        .garantia-section {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 15px; margin: 15px;
-            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+        /* GARANTÍA INTEGRADA Y PEQUEÑA */
+        .garantia-header {
+            display: flex; justify-content: center; gap: 15px; margin-top: 5px;
         }
-        .garantia-item { text-align: center; }
-        .garantia-item i { font-size: 1.1rem; color: var(--primary); margin-bottom: 5px; }
-        .garantia-item p { font-size: 0.52rem; font-weight: 700; text-transform: uppercase; color: #bbb; line-height: 1.2; }
+        .garantia-mini-item { text-align: center; min-width: 60px; }
+        .garantia-mini-item i { font-size: 0.9rem; color: var(--primary); margin-bottom: 2px; }
+        .garantia-mini-item p { font-size: 0.45rem; font-weight: 700; text-transform: uppercase; color: #888; line-height: 1.1; }
 
         /* BUSCADOR */
-        .search-container { position: sticky; top: 140px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
+        .search-container { position: sticky; top: 165px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
         .search-wrapper { position: relative; max-width: 500px; margin: auto; }
         .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
         #buscador { width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
@@ -59,7 +58,6 @@
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
         .btn-promo-distri { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
-        /* TODAS TUS CLASES ORIGINALES DE TARJETAS */
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
@@ -104,7 +102,6 @@
         .badge-renovacion { display: none; color: #f1c40f; font-size: 0.55rem; font-weight: 700; margin-top: 3px; text-transform: uppercase; }
         .renovacion .badge-renovacion { display: inline-block; }
 
-        /* AGOTADO - JERARQUÍA SUPERIOR */
         .service-link.agotado { pointer-events: none; }
         .service-link.agotado .service-card { opacity: 0.3; border-color: var(--glass-border); filter: grayscale(1); }
         .service-link.agotado .price-container,
@@ -133,22 +130,22 @@
 <header>
     <img src="../img/logo.png" class="brand-logo">
     <h1>DISTRIBUIDORES VIP</h1>
+    
+    <div class="garantia-header">
+        <div class="garantia-mini-item">
+            <i class="fa-solid fa-headset"></i>
+            <p>Soporte<br>24/7</p>
+        </div>
+        <div class="garantia-mini-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <p>Garantía<br>Total</p>
+        </div>
+        <div class="garantia-mini-item">
+            <i class="fa-solid fa-bolt"></i>
+            <p>Entrega<br>Rápida</p>
+        </div>
+    </div>
 </header>
-
-<div class="garantia-section" data-aos="fade-down">
-    <div class="garantia-item">
-        <i class="fa-solid fa-headset"></i>
-        <p>Soporte<br>Garantizado</p>
-    </div>
-    <div class="garantia-item">
-        <i class="fa-solid fa-shield-halved"></i>
-        <p>Garantía y<br>Compromiso</p>
-    </div>
-    <div class="garantia-item">
-        <i class="fa-solid fa-bolt"></i>
-        <p>Entrega en<br>5 Minutos</p>
-    </div>
-</div>
 
 <div class="search-container">
     <div class="search-wrapper">
@@ -221,7 +218,6 @@
     function filtrarPlataformas() {
         const input = document.getElementById('buscador').value.toLowerCase();
         const tarjetas = document.querySelectorAll('.service-link');
-        
         tarjetas.forEach(tarjeta => {
             const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
             if (nombre.includes(input)) {
@@ -235,12 +231,10 @@
 
     function toggleSeleccion(elemento) {
         if(elemento.classList.contains('agotado')) return;
-
         const nombre = elemento.querySelector('.nombre-prod').innerText;
         const precioTexto = elemento.querySelector('.precio-prod').innerText;
         const precio = parseFloat(precioTexto.replace('S/ ', ''));
         const index = carrito.findIndex(p => p.nombre === nombre);
-
         if (index > -1) {
             carrito.splice(index, 1);
             elemento.classList.remove('selected');
@@ -256,7 +250,6 @@
         const totalTxt = document.getElementById('cart-total');
         const barra = document.getElementById('whatsapp-btn');
         const totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-        
         contador.innerText = carrito.length;
         totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
         barra.style.display = carrito.length > 0 ? 'block' : 'none';
