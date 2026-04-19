@@ -244,12 +244,12 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Amazon_Prime_Video_Logo.png" class="service-logo">
             <div class="service-text">
                 <div class="status-badge"></div>
-                <h3 class="nombre-prod">Prime Video</h3>
-                <span class="manual-desc">Cuenta completa</span>
+                <h3 class="nombre-prod">Magis TV</h3>
+                <span class="manual-desc">3 dispositivos</span>
             </div>
             <div class="price-container">
                 <span class="premium-text">Premium</span>
-                <span class="price-tag precio-prod">S/ 7</span>
+                <span class="price-tag precio-prod">S/ 9</span>
                 <span class="badge-renovacion">Disponible para Renovación</span>
             </div>
         </div>
@@ -315,7 +315,14 @@
         const contador = document.getElementById('cart-count');
         const totalTxt = document.getElementById('cart-total');
         const barra = document.getElementById('whatsapp-btn');
-        const totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
+        
+        // Suma base de precios
+        let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
+        
+        // LÓGICA DE DESCUENTO: Si hay 3 o más, restar 2 soles al TOTAL
+        if (carrito.length >= 3) {
+            totalSoles = totalSoles - 2;
+        }
         
         contador.innerText = carrito.length;
         totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
@@ -333,10 +340,19 @@
             mostrarAlerta();
             return;
         }
+
+        let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
         let mensaje = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
+        
         carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
-        const totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-        mensaje += `\n💰 *TOTAL: S/ ${totalSoles.toFixed(2)}*`;
+        
+        // Agregar detalle del descuento en el mensaje de WhatsApp si aplica
+        if (carrito.length >= 3) {
+            mensaje += `\n🎁 Descuento Distri: -S/ 2.00`;
+            totalSoles = totalSoles - 2;
+        }
+
+        mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
 </script>
