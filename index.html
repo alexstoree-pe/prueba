@@ -853,7 +853,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <div id="whatsapp-btn" class="floating-btn">
     <div class="cart-content-wrapper">
@@ -890,30 +890,35 @@
         }
     }
 
-    /* BUSCADOR CORREGIDO: FILTRADO TOTAL Y SUAVE */
+    /* BUSCADOR ULTRA-REFORZADO */
     function filtrarPlataformas() {
-        const input = document.getElementById('buscador').value.toLowerCase();
-        // Usamos querySelectorAll para capturar todas las tarjetas sin excepción
+        const input = document.getElementById('buscador').value.trim().toLowerCase();
+        // Buscamos en todo el documento para asegurar que no se escape nada
         const tarjetas = document.querySelectorAll('.service-link');
         
         tarjetas.forEach(tarjeta => {
-            const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
-            const descripcion = tarjeta.querySelector('.manual-desc').innerText.toLowerCase();
+            const nombre = tarjeta.querySelector('.nombre-prod') ? tarjeta.querySelector('.nombre-prod').innerText.toLowerCase() : "";
+            const descripcion = tarjeta.querySelector('.manual-desc') ? tarjeta.querySelector('.manual-desc').innerText.toLowerCase() : "";
             
-            // Si el nombre o la descripción incluyen el texto buscado
             if (nombre.includes(input) || descripcion.includes(input)) {
                 tarjeta.classList.remove('oculto-busqueda');
+                // Forzamos que AOS no bloquee la visibilidad al buscar
+                tarjeta.style.opacity = "1"; 
+                tarjeta.style.transform = "none";
+                tarjeta.style.display = "block";
             } else {
                 tarjeta.classList.add('oculto-busqueda');
+                tarjeta.style.display = "none";
             }
         });
         
-        // CORRECCIÓN: Ocultar títulos de categorías vacías durante la búsqueda
+        // Manejo de títulos de categoría para que no queden "huérfanos"
         const categorias = document.querySelectorAll('.category-title');
         categorias.forEach(titulo => {
             let tieneHijosVisibles = false;
             let hermano = titulo.nextElementSibling;
             
+            // Revisa todos los hermanos hasta el siguiente título o el fin del contenedor
             while(hermano && !hermano.classList.contains('category-title')) {
                 if(hermano.classList.contains('service-link') && !hermano.classList.contains('oculto-busqueda')) {
                     tieneHijosVisibles = true;
@@ -960,6 +965,7 @@
         if(totalTxt) totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
         
         if(barra) {
+            // Se muestra solo si hay productos y hay acceso
             if (carrito.length > 0 && sessionStorage.getItem("acceso_distribuidor") === "true") {
                 barra.style.display = 'block';
             } else {
@@ -970,8 +976,10 @@
 
     function mostrarAlerta() {
         const alert = document.getElementById('custom-alert');
-        alert.classList.add('active');
-        setTimeout(() => alert.classList.remove('active'), 3000);
+        if(alert) {
+            alert.classList.add('active');
+            setTimeout(() => alert.classList.remove('active'), 3000);
+        }
     }
 
     function enviarPedido() {
@@ -980,7 +988,7 @@
             return;
         }
         let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-        let mensaje = "¡Hola Alex Store! soy distribuidor! 👋 Deseo adquirir:\n\n";
+        let mensaje = "¡Hola Alex Store! 👋 Deseo adquirir estos servicios para distribuidores:\n\n";
         carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
         mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
