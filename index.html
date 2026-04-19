@@ -18,6 +18,7 @@
             --danger-neon: #ff0000;
             --vip: #d4af37;
             --success-neon: #39ff14;
+            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
         }
 
         html { background-color: var(--dark); scroll-behavior: smooth; }
@@ -30,49 +31,51 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: white; padding-bottom: 200px; overflow-x: hidden; }
 
-        /* HEADER */
         header { 
             background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 40px 20px 20px; 
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
         .brand-logo { width: 75px; height: 75px; object-fit: contain; border-radius: 20px; margin-bottom: 10px; }
         
-        /* BOTONES TOP */
         .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
         .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
-        .btn-promo-distri { background: linear-gradient(45deg, #d4af37, #f1c40f); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+        .btn-promo-distri { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
-        /* TARJETAS */
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; }
-        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; }
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; overflow: visible; }
+        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
         
         /* SELECCIÓN ACTIVA */
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.08); transform: scale(0.97); }
         .check-icon { position: absolute; top: -5px; right: -5px; background: var(--primary); color: #000; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 101; border: 2px solid #000; }
         .service-link.selected .check-icon { display: flex; }
 
-        /* GADGE PREMIUM (BORDE DORADO) */
-        .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
-        .service-link.premium.selected .service-card { border-color: var(--primary); }
+        /* GADGE PREMIUM */
+        .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
 
-        /* GADGE OFERTA (ESTILO COLGANTE) */
+        /* GADGE OFERTA INTEGRADO AL BORDE */
         .badge-oferta { 
-            position: absolute; top: -10px; left: 20px; 
+            position: absolute; top: 0; left: 0; 
             background: #f1c40f; color: #000; 
-            padding: 4px 14px; border-radius: 8px 8px 8px 0; 
-            font-size: 0.65rem; font-weight: 900; z-index: 100;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            padding: 5px 15px; border-radius: 0 0 15px 0; 
+            font-size: 0.6rem; font-weight: 900; z-index: 100;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* TEXTO PREMIUM ARRIBA DEL PRECIO */
-        .premium-text { display: none; color: var(--vip); font-size: 0.65rem; font-weight: 900; text-transform: uppercase; margin-right: 12px; margin-bottom: 2px; }
+        /* TEXTO PREMIUM DORADO */
+        .premium-text { 
+            display: none; 
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 0.65rem; font-weight: 900; 
+            text-transform: uppercase; margin-right: 15px; margin-bottom: 2px; 
+        }
         .premium .premium-text { display: block; }
 
-        /* STATUS BADGES */
         .status-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
         .disponible .status-badge { color: var(--success-neon); }
         .pocas .status-badge { color: #ff3333; }
@@ -81,15 +84,21 @@
         .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .manual-desc { font-size: 0.75rem; color: #888; display: block; }
         
-        /* PRECIO EN BLANCO */
         .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
         .price-tag { color: #fff; font-weight: 800; font-size: 1.4rem; }
 
-        /* GADGE RENOVACIÓN AMARILLO */
-        .badge-renovacion { display: none; background: #f1c40f; color: #000; font-size: 0.6rem; font-weight: 900; padding: 2px 8px; border-radius: 5px; margin-top: 5px; text-transform: uppercase; }
+        /* GADGE RENOVACIÓN PEQUEÑO SIN FONDO */
+        .badge-renovacion { 
+            display: none; 
+            color: #f1c40f; 
+            font-size: 0.55rem; 
+            font-weight: 700; 
+            margin-top: 3px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
         .renovacion .badge-renovacion { display: inline-block; }
 
-        /* SIN STOCK NEÓN */
         .service-link.agotado { pointer-events: none; opacity: 0.5; }
         .service-link.agotado::after { 
             content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
@@ -98,7 +107,6 @@
             z-index: 200; background: #000;
         }
 
-        /* CARRITO FLOTANTE */
         .floating-btn { 
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
             background: linear-gradient(135deg, #25d366, #128c7e); color: white; 
@@ -123,9 +131,9 @@
     <div class="category-title"><i class="fa-solid fa-star"></i> LO MÁS VENDIDO</div>
 
     <div class="service-link premium disponible renovacion" onclick="toggleSeleccion(this)" data-aos="fade-up">
-        <span class="badge-oferta">MÁS SOLICITADO 🔥</span>
-        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card">
+            <span class="badge-oferta">OFERTA 🔥</span>
+            <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
                 <div class="status-badge">DISPONIBLE</div>
@@ -135,37 +143,23 @@
             <div class="price-container">
                 <span class="premium-text">Premium</span>
                 <span class="price-tag precio-prod">S/ 12</span>
-                <span class="badge-renovacion">Renovación</span>
+                <span class="badge-renovacion">Disponible para Renovación</span>
             </div>
         </div>
     </div>
 
     <div class="service-link pocas" onclick="toggleSeleccion(this)" data-aos="fade-up">
-        <span class="badge-oferta">OFERTA LIMITADA 🔥</span>
-        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card">
+            <span class="badge-oferta">OFERTA 🔥</span>
+            <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Amazon_Prime_Video_Logo.png" class="service-logo">
             <div class="service-text">
                 <div class="status-badge">POCAS UNIDADES</div>
                 <h3 class="nombre-prod">Prime Video</h3>
-                <span class="manual-desc">Cuenta completa • 1 Mes</span>
+                <span class="manual-desc">Cuenta completa</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 7</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="service-link agotado" data-aos="fade-up">
-        <div class="service-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" class="service-logo">
-            <div class="service-text">
-                <div class="status-badge">SIN STOCK</div>
-                <h3 class="nombre-prod">Disney+ Perfil</h3>
-                <span class="manual-desc">Calidad 4K</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 6</span>
             </div>
         </div>
     </div>
@@ -188,24 +182,18 @@
     let carrito = [];
 
     function toggleSeleccion(elemento) {
-        // Obtenemos los datos del producto
         const nombre = elemento.querySelector('.nombre-prod').innerText;
         const precioTexto = elemento.querySelector('.precio-prod').innerText;
         const precio = parseFloat(precioTexto.replace('S/ ', ''));
-
-        // Buscamos si ya está en el carrito
         const index = carrito.findIndex(p => p.nombre === nombre);
 
         if (index > -1) {
-            // Si ya existe, lo quitamos
             carrito.splice(index, 1);
             elemento.classList.remove('selected');
         } else {
-            // Si no existe, lo añadimos
             carrito.push({ nombre, precio });
             elemento.classList.add('selected');
         }
-
         actualizarCarritoUI();
     }
 
@@ -213,36 +201,22 @@
         const contador = document.getElementById('cart-count');
         const totalTxt = document.getElementById('cart-total');
         const barra = document.getElementById('whatsapp-btn');
-
         const totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
         
         contador.innerText = carrito.length;
         totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
-
-        // Mostrar u ocultar la barra
-        if (carrito.length > 0) {
-            barra.style.display = 'block';
-        } else {
-            barra.style.display = 'none';
-        }
+        barra.style.display = carrito.length > 0 ? 'block' : 'none';
     }
 
     function enviarPedido() {
         if (carrito.length === 0) return;
-
         let mensaje = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
-        carrito.forEach(p => {
-            mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`;
-        });
-        
+        carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
         const totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-        mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
-
-        const fone = "51918600000"; // Reemplaza con tu número real
-        const url = `https://wa.me/${fone}?text=${encodeURIComponent(mensaje)}`;
-        window.open(url, '_blank');
+        mensaje += `\n💰 *TOTAL: S/ ${totalSoles.toFixed(2)}*`;
+        const fone = "51918600000"; 
+        window.open(`https://wa.me/${fone}?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
 </script>
-
 </body>
 </html>
