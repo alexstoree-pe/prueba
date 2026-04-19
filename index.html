@@ -15,13 +15,15 @@
             --dark: #050505;
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
+            --whatsapp: #25d366;
             --danger-neon: #ff0000;
             --vip: #d4af37;
             --success-neon: #39ff14;
+            --gold-glow: rgba(212, 175, 55, 0.3);
         }
 
-        /* CORRECCIÓN: Quitamos el display:none inicial para que cargue */
-        html { background-color: var(--dark); scroll-behavior: smooth; }
+        /* BLOQUEO DE SEGURIDAD */
+        html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
 
         @keyframes shine-red { 
             0%, 100% { text-shadow: 0 0 10px var(--danger-neon), 0 0 20px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
@@ -31,14 +33,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: white; padding-bottom: 200px; overflow-x: hidden; }
 
-        /* HEADER */
         header { 
             background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 40px 20px 20px; 
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
         .brand-logo { width: 75px; height: 75px; object-fit: contain; border-radius: 20px; margin-bottom: 10px; }
         
-        /* BOTONES TOP */
         .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
         .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
@@ -47,14 +47,13 @@
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
-        /* TARJETAS */
         .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; }
         .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.4s; position: relative; z-index: 10; }
         
-        /* GADGE PREMIUM (BORDE DORADO) */
-        .premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+        /* MEJORA: Borde Dorado si es Premium */
+        .premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px var(--gold-glow); }
 
-        /* GADGE OFERTA (ESTILO COLGANTE) */
+        /* Badge Oferta Profesional (Colgando) */
         .badge-oferta { 
             position: absolute; top: -10px; left: 20px; 
             background: #f1c40f; color: #000; 
@@ -63,11 +62,10 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.4);
         }
 
-        /* TEXTO PREMIUM ARRIBA DEL PRECIO */
-        .premium-text { display: none; color: var(--vip); font-size: 0.65rem; font-weight: 900; text-transform: uppercase; margin-right: 15px; margin-bottom: 2px; }
-        .premium .premium-text { display: block; }
+        /* Texto Premium e Indicadores */
+        .premium-label { display: none; color: var(--vip); font-size: 0.65rem; font-weight: 900; margin-bottom: 2px; margin-right: 8px; text-transform: uppercase; }
+        .premium .premium-label { display: block; }
 
-        /* GADGE DISPONIBLE / POCAS */
         .status-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
         .disponible .status-badge { color: var(--success-neon); }
         .pocas .status-badge { color: #ff3333; }
@@ -76,17 +74,21 @@
         .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
         .manual-desc { font-size: 0.75rem; color: #888; display: block; }
         
-        /* PRECIO EN BLANCO */
+        /* Precios en Blanco */
         .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
         .price-tag { color: #fff; font-weight: 800; font-size: 1.4rem; }
 
-        /* GADGE RENOVACIÓN AMARILLO */
-        .badge-renovacion { display: none; background: #f1c40f; color: #000; font-size: 0.6rem; font-weight: 900; padding: 2px 8px; border-radius: 5px; margin-top: 5px; text-transform: uppercase; }
+        /* Badge Renovación Amarillo */
+        .badge-renovacion { display: none; background: #f1c40f; color: #000; font-size: 0.55rem; font-weight: 900; padding: 2px 8px; border-radius: 5px; margin-top: 5px; text-transform: uppercase; }
         .renovacion .badge-renovacion { display: inline-block; }
 
-        /* SIN STOCK NEÓN */
+        /* SELECCIÓN Y AGOTADO */
+        .check-icon { position: absolute; top: -5px; right: -5px; background: var(--primary); color: #000; width: 25px; height: 25px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.8rem; z-index: 101; border: 2px solid #000; }
+        .selected .check-icon { display: flex; }
+        .selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.05); }
+
         .service-link.agotado { pointer-events: none; }
-        .service-link.agotado .service-card { opacity: 0.2; }
+        .service-link.agotado .service-card { opacity: 0.3; }
         .service-link.agotado::after { 
             content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
             font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); 
@@ -94,8 +96,9 @@
             z-index: 200; background: #000;
         }
 
-        /* CARRITO */
         .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 18px; border-radius: 22px; width: 92%; max-width: 480px; z-index: 3000; display: none; }
+        .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .btn-clear-cart { color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; background: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
@@ -103,6 +106,10 @@
 <header>
     <img src="../img/logo.png" class="brand-logo">
     <h1>DISTRIBUIDORES VIP</h1>
+    <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="buscador" placeholder="¿Qué buscas hoy?">
+    </div>
 </header>
 
 <div class="grid-botones">
@@ -113,17 +120,18 @@
 <div class="container">
     <div class="category-title"><i class="fa-solid fa-user-circle"></i> PERFILES INDIVIDUALES</div>
 
-    <div class="service-link premium disponible renovacion" data-aos="fade-up">
+    <div class="service-link disponible premium renovacion" data-aos="fade-up">
         <span class="badge-oferta">MÁS SOLICITADO 🔥</span>
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card" onclick="toggleSeleccion(this)">
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
                 <div class="status-badge">DISPONIBLE</div>
                 <h3 class="nombre-prod">Netflix Perfil</h3>
-                <span class="manual-desc">4K UHD • Perfil Privado</span>
+                <span class="manual-desc">4K UHD • Perfil Privado • 30 Días</span>
             </div>
             <div class="price-container">
-                <span class="premium-text">Premium</span>
+                <span class="premium-label">Premium</span>
                 <span class="price-tag precio-prod">S/ 12</span>
                 <span class="badge-renovacion">Renovación</span>
             </div>
@@ -132,25 +140,55 @@
 
     <div class="service-link pocas" data-aos="fade-up">
         <span class="badge-oferta">OFERTA ESPECIAL 🔥</span>
+        <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card" onclick="toggleSeleccion(this)">
             <img src="../img/paramount.png" class="service-logo">
             <div class="service-text">
                 <div class="status-badge">POCAS UNIDADES</div>
                 <h3 class="nombre-prod">Paramount+</h3>
-                <span class="manual-desc">Cuenta completa</span>
+                <span class="manual-desc">6 Perfiles • 1 Mes</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 7</span>
+                <span class="badge-renovacion">Renovación</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link agotado" data-aos="fade-up">
+        <div class="service-card">
+            <img src="../img/disneys.png" class="service-logo">
+            <div class="service-text">
+                <div class="status-badge">SIN STOCK</div>
+                <h3 class="nombre-prod">Disney+ Perfil</h3>
+                <span class="manual-desc">Calidad 4K</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 6</span>
             </div>
         </div>
     </div>
 </div>
 
 <div id="whatsapp-btn" class="floating-btn">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span id="cart-count" style="background:rgba(0,0,0,0.2); padding:4px 12px; border-radius:10px;">0</span>
-        <span style="font-weight:800;">PEDIR AHORA</span>
-        <span id="cart-total" style="font-weight:800;">S/ 0</span>
+    <div class="cart-row">
+        <div class="cart-info" style="flex-grow:1; display:flex; align-items:center; cursor:pointer;" onclick="enviarPedido()">
+            <span id="cart-count" style="background:rgba(0,0,0,0.2); padding:4px 12px; border-radius:10px; font-weight:800;">0</span>
+            <span style="margin-left:10px; font-weight:800; font-size:0.9rem;">PEDIR AHORA</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <span id="cart-total" style="font-size:1.3rem; font-weight:800;">S/ 0</span>
+            <div class="btn-clear-cart" onclick="limpiarTodo()"><i class="fas fa-trash-alt"></i></div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-login" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:5000; justify-content:center; align-items:center;">
+    <div style="background:#111; padding:40px; border-radius:30px; border:1px solid var(--primary); text-align:center; width:90%; max-width:400px;">
+        <i class="fa-solid fa-lock" style="color:var(--primary); font-size:3rem; margin-bottom:20px;"></i>
+        <h2 style="margin-bottom:20px;">ACCESO PRIVADO</h2>
+        <input type="password" id="input-pass" placeholder="••••" style="width:100%; padding:15px; border-radius:12px; background:#000; color:white; border:1px solid #333; text-align:center; font-size:1.5rem; margin-bottom:20px;">
+        <button onclick="validar()" style="width:100%; padding:15px; border-radius:12px; background:var(--primary); color:#000; font-weight:800; border:none; cursor:pointer;">INGRESAR</button>
     </div>
 </div>
 
@@ -164,14 +202,8 @@
         const nombre = item.querySelector('.nombre-prod').innerText;
         const precio = parseFloat(item.querySelector('.precio-prod').innerText.replace('S/ ', ''));
         const index = carrito.findIndex(i => i.nombre === nombre);
-        
-        if (index > -1) {
-            carrito.splice(index, 1);
-            item.classList.remove('selected');
-        } else {
-            carrito.push({ nombre, precio });
-            item.classList.add('selected');
-        }
+        if (index > -1) { carrito.splice(index, 1); item.classList.remove('selected'); } 
+        else { carrito.push({ nombre, precio }); item.classList.add('selected'); }
         actualizarUI();
     }
 
@@ -180,6 +212,27 @@
         document.getElementById('cart-count').innerText = carrito.length;
         document.getElementById('cart-total').innerText = `S/ ${total.toFixed(2)}`;
         document.getElementById('whatsapp-btn').style.display = carrito.length > 0 ? 'block' : 'none';
+    }
+
+    function limpiarTodo() {
+        carrito = [];
+        document.querySelectorAll('.service-link.selected').forEach(el => el.classList.remove('selected'));
+        actualizarUI();
+    }
+
+    function enviarPedido() {
+        let msg = "Hola Alex Store, deseo adquirir:\n\n";
+        carrito.forEach(i => msg += `• ${i.nombre} (S/ ${i.precio})\n`);
+        const total = carrito.reduce((sum, item) => sum + item.precio, 0);
+        msg += `\n💰 *TOTAL: S/ ${total.toFixed(2)}*`;
+        window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function validar() {
+        if (document.getElementById('input-pass').value === "dis") {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            location.reload();
+        } else { alert("Error"); }
     }
 </script>
 </body>
