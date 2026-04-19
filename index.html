@@ -18,192 +18,173 @@
             --text-dim: #a0a0a0;
             --glass-border: rgba(255, 255, 255, 0.1);
             --danger: #ff0000;
-            --neon-red: #ff0000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--dark-bg); color: var(--text-main); padding-bottom: 120px; }
 
-        /* --- CONTROL AUTOMÁTICO (SOLUCIÓN AL NO DISPONIBLE) --- */
-        
-        /* 1. La capa NO DISPONIBLE está oculta SIEMPRE, a menos que la clase 'agotado' esté presente */
-        .capa-no-disponible { 
-            display: none !important; 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); z-index: 100; flex-direction: column; 
-            justify-content: center; align-items: center; pointer-events: none;
+        /* --- AUTOMATIZACIÓN CSS --- */
+        .service-link.agotado .service-card::after {
+            content: "NO DISPONIBLE";
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92); color: white; font-weight: 900;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100; border: 1px solid #444;
         }
-        .service-link.agotado .capa-no-disponible { display: flex !important; }
+        .service-link.agotado { pointer-events: none; filter: grayscale(1); opacity: 0.8; }
 
-        /* 2. El TEMPORIZADOR está oculto SIEMPRE, a menos que la clase 'flash' esté presente */
         .timer-flash { 
-            display: none !important; 
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%); 
-            background: var(--danger); color: white; padding: 2px 12px; 
-            font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50;
+            display: none !important; position: absolute; top: 0; left: 50%; 
+            transform: translateX(-50%); background: var(--danger); color: white; 
+            padding: 2px 12px; font-size: 0.65rem; font-weight: 800; 
+            border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px;
         }
-        .service-link.flash .timer-flash { display: flex !important; align-items: center; gap: 5px; }
+        .service-link.flash .timer-flash { display: flex !important; }
 
-        /* 3. El CARTEL CULMINADO solo aparece si el tiempo se agota (clase flash-terminado) */
+        .badge-izq { 
+            display: none; position: absolute; top: 0; left: 0; 
+            background: var(--primary); color: #000; padding: 4px 10px; 
+            font-size: 0.6rem; font-weight: 900; z-index: 5; 
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); 
+        }
+        .service-link.oferta .badge-izq { display: block; }
+
         .badge-culminada { 
-            display: none !important; 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); 
-            background: rgba(0,0,0,0.95); color: var(--neon-red); padding: 12px; 
-            font-weight: 900; border: 2px solid var(--neon-red); z-index: 110; 
-            text-align: center; width: 85%; pointer-events: none;
+            display: none !important; position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.95); 
+            color: var(--danger); padding: 12px; font-weight: 900; border: 2px solid var(--danger); 
+            z-index: 110; text-align: center; width: 85%;
         }
         .service-link.flash-terminado .badge-culminada { display: block !important; }
 
-        /* --- ESTILOS DE TARJETAS --- */
-        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 20px 0; }
-        .service-link { text-decoration: none; color: inherit; cursor: pointer; }
-        .service-card { 
-            background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; 
-            padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; 
-        }
+        /* --- DISEÑO --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .category-title { border-left: 4px solid var(--accent); padding-left: 15px; margin: 40px 0 15px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .service-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; }
         .service-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
+        .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
+        .unit-price { display: block; font-size: 11px; color: var(--text-dim); font-weight: 600; }
         .price-tag { margin-left: auto; color: var(--primary); font-weight: 900; font-size: 1.1rem; }
-        
-        .badge-izq { display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 10px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
-        .service-link.oferta .badge-izq { display: block; }
-
-        header { text-align: center; padding: 30px; }
-        .category-title { border-left: 4px solid var(--accent); padding-left: 15px; margin: 20px 0; font-weight: 800; }
-        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: white; padding: 15px; border-radius: 20px; display: none; z-index: 1000; }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>SMARTERSPRO <span>MAYORISTAS</span></h1>
-</header>
 
 <div class="container">
 
     <div class="category-title">CUENTAS POR UNIDAD</div>
     <div class="grid-servicios">
-        
         <div class="service-link oferta flash" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
             <div class="service-card">
                 <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
                 <div class="badge-culminada">OFERTA CULMINADA</div>
-                <div class="capa-no-disponible"><span>NO DISPONIBLE</span></div>
                 <span class="badge-izq">OFERTA</span>
                 <img src="../img/u1.png" class="service-logo">
-                <div class="service-text"><h3>IPTV 1 Mes</h3></div>
+                <div class="service-text"><h3>IPTV 1 Mes</h3><span class="unit-price">3 DISP. • +6500 canales</span></div>
                 <div class="price-tag">S/ 7</div>
             </div>
         </div>
-
-        <div class="service-link agotado" onclick="toggleItem(this)">
+        <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
             <div class="service-card">
                 <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
                 <div class="badge-culminada">OFERTA CULMINADA</div>
-                <div class="capa-no-disponible"><span>NO DISPONIBLE</span></div>
+                <span class="badge-izq">OFERTA</span>
                 <img src="../img/u1.png" class="service-logo">
-                <div class="service-text"><h3>IPTV 3 Meses</h3></div>
+                <div class="service-text"><h3>IPTV 3 Meses</h3><span class="unit-price">3 DISP. • AHORRO ESPECIAL</span></div>
                 <div class="price-tag">S/ 28</div>
-            </div>
-        </div>
-
-        <div class="service-link" onclick="toggleItem(this)">
-            <div class="service-card">
-                <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                <div class="badge-culminada">OFERTA CULMINADA</div>
-                <div class="capa-no-disponible"><span>NO DISPONIBLE</span></div>
-                <img src="../img/u1.png" class="service-logo">
-                <div class="service-text"><h3>IPTV 6 Meses</h3></div>
-                <div class="price-tag">S/ 50</div>
             </div>
         </div>
     </div>
 
-    <div class="category-title">FLUJO TV</div>
+    <div class="category-title">CUENTAS ESTABLES (FLUJO TV)</div>
     <div class="grid-servicios">
-        <div class="service-link" onclick="toggleItem(this)">
+        <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
             <div class="service-card">
                 <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
                 <div class="badge-culminada">OFERTA CULMINADA</div>
-                <div class="capa-no-disponible"><span>NO DISPONIBLE</span></div>
+                <span class="badge-izq">OFERTA</span>
                 <img src="../img/flujotv.png" class="service-logo">
-                <div class="service-text"><h3>Flujo TV Premium</h3></div>
+                <div class="service-text"><h3>Flujo TV Premium</h3><span class="unit-price">ANDROID / TV BOX</span></div>
                 <div class="price-tag">S/ 15</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title">PANEL IPTV EQUILIBRADO</div>
+    <div class="grid-servicios">
+        <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+            <div class="service-card">
+                <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                <div class="badge-culminada">OFERTA CULMINADA</div>
+                <span class="badge-izq">OFERTA</span>
+                <img src="../img/n10.png" class="service-logo">
+                <div class="service-text"><h3>Equilibrado 10 Créditos</h3><span class="unit-price">S/ 4.50 por unidad</span></div>
+                <div class="price-tag">S/ 45</div>
+            </div>
+        </div>
+        <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+            <div class="service-card">
+                <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                <div class="badge-culminada">OFERTA CULMINADA</div>
+                <span class="badge-izq">OFERTA</span>
+                <img src="../img/n50.png" class="service-logo">
+                <div class="service-text"><h3>Equilibrado 50 Créditos</h3><span class="unit-price">S/ 4.00 por unidad</span></div>
+                <div class="price-tag">S/ 200</div>
             </div>
         </div>
     </div>
 
     <div class="category-title">PANEL IPTV EUROPEO</div>
     <div class="grid-servicios">
-        <div class="service-link" onclick="toggleItem(this)"><div class="service-card">
-            <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-            <div class="badge-culminada">CULMINADA</div><div class="capa-no-disponible"><span>NO DISPONIBLE</span></div>
-            <img src="../img/p10.png" class="service-logo"><h3>10 Créditos</h3><div class="price-tag">S/ 80</div>
-        </div></div>
-
-        <div class="service-link" onclick="toggleItem(this)"><div class="service-card">
-            <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-            <div class="badge-culminada">CULMINADA</div><div class="capa-no-disponible"><span>NO DISPONIBLE</span></div>
-            <img src="../img/p20.png" class="service-logo"><h3>20 Créditos</h3><div class="price-tag">S/ 150</div>
-        </div></div>
-
-        <div class="service-link" onclick="toggleItem(this)"><div class="service-card">
-            <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-            <div class="badge-culminada">CULMINADA</div><div class="capa-no-disponible"><span>NO DISPONIBLE</span></div>
-            <img src="../img/p50.png" class="service-logo"><h3>50 Créditos</h3><div class="price-tag">S/ 350</div>
-        </div></div>
+        <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+            <div class="service-card">
+                <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                <div class="badge-culminada">OFERTA CULMINADA</div>
+                <span class="badge-izq">OFERTA</span>
+                <img src="../img/p10.png" class="service-logo">
+                <div class="service-text"><h3>Europeo 10 Créditos</h3><span class="unit-price">S/ 8.00 por unidad</span></div>
+                <div class="price-tag">S/ 80</div>
+            </div>
+        </div>
+        <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+            <div class="service-card">
+                <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                <div class="badge-culminada">OFERTA CULMINADA</div>
+                <span class="badge-izq">OFERTA</span>
+                <img src="../img/p20.png" class="service-logo">
+                <div class="service-text"><h3>Europeo 20 Créditos</h3><span class="unit-price">S/ 7.50 por unidad</span></div>
+                <div class="price-tag">S/ 150</div>
+            </div>
+        </div>
     </div>
 
-</div>
-
-<div id="cart-bar">
-    <div style="display:flex; justify-content:space-between; color:black; font-weight:800">
-        <span>PRODUCTOS: <span id="cart-qty">0</span></span>
-        <span>TOTAL: <span id="cart-total">S/ 0</span></span>
-    </div>
 </div>
 
 <script>
-    // Función para el Temporizador
     function updateTimers() {
         const now = new Date().getTime();
         document.querySelectorAll('.service-link.flash').forEach(card => {
-            const target = new Date(card.getAttribute('data-final')).getTime();
-            const dist = target - now;
+            const final = card.getAttribute('data-final');
+            if(!final) return;
+            const dist = new Date(final).getTime() - now;
             const disp = card.querySelector('.countdown');
-            
             if (dist <= 0) {
                 card.classList.add('flash-terminado');
                 if (disp) disp.innerHTML = "00:00:00";
             } else {
-                const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((dist % (1000 * 60)) / 1000);
+                const h = Math.floor((dist % (1000*60*60*24)) / (1000*60*60));
+                const m = Math.floor((dist % (1000*60*60)) / (1000*60));
+                const s = Math.floor((dist % (1000*60)) / 1000);
                 if (disp) disp.innerHTML = `${h}h ${m}m ${s}s`;
             }
         });
     }
     setInterval(updateTimers, 1000);
 
-    // Carrito Simple
-    let total = 0;
-    let cant = 0;
     function toggleItem(el) {
         if(el.classList.contains('agotado') || el.classList.contains('flash-terminado')) return;
-        
         el.classList.toggle('selected');
-        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
-        
-        if(el.classList.contains('selected')) {
-            total += precio; cant++;
-            el.querySelector('.service-card').style.borderColor = "var(--primary)";
-        } else {
-            total -= precio; cant--;
-            el.querySelector('.service-card').style.borderColor = "var(--glass-border)";
-        }
-
-        document.getElementById('cart-qty').innerText = cant;
-        document.getElementById('cart-total').innerText = "S/ " + total;
-        document.getElementById('cart-bar').style.display = cant > 0 ? "block" : "none";
+        el.querySelector('.service-card').style.borderColor = el.classList.contains('selected') ? "var(--primary)" : "var(--glass-border)";
     }
 </script>
 
