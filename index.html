@@ -38,105 +38,125 @@
         .brand-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 18px; margin-bottom: 8px; }
         header h1 { font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 10px; }
 
+        /* GARANTÍA INTEGRADA PEQUEÑA */
         .garantia-header { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
         .garantia-mini-item { text-align: center; min-width: 60px; }
         .garantia-mini-item i { font-size: 0.9rem; color: var(--primary); margin-bottom: 2px; }
-        .garantia-mini-item p { font-size: 0.45rem; font-weight: 700; text-transform: uppercase; color: #888; line-height: 1.1; }
+        .garantia-mini-item p { font-size: 0.45rem; font-weight: 700; text-transform: uppercase; color: #bbb; line-height: 1.1; }
 
+        /* BUSCADOR */
         .search-container { position: sticky; top: 165px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
         .search-wrapper { position: relative; max-width: 500px; margin: auto; }
         .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
         #buscador { width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
+        #buscador:focus { border-color: var(--primary); outline: none; background: rgba(255,255,255,0.05); }
 
         .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
         .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
         .btn-promo-distri { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
+        /* TODAS TUS CLASES ORIGINALES */
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
-        /* SELECCIÓN MEJORADA */
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
-        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.4s; position: relative; z-index: 10; overflow: hidden; }
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; }
+        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
         
-        .service-link.selected .service-card { 
-            border-color: var(--primary); 
-            background: rgba(0, 212, 255, 0.15); 
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
-            transform: scale(0.98);
-        }
-
-        .check-icon { 
-            position: absolute; top: 12px; right: 12px; 
-            background: var(--primary); color: #000; 
-            width: 24px; height: 24px; border-radius: 50%; 
-            display: none; align-items: center; justify-content: center; 
-            font-size: 0.75rem; z-index: 101; border: 2px solid #000;
-            animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popCheck { from { transform: scale(0); } to { transform: scale(1); } }
+        /* CORRECCIÓN SELECCIONADO (MAS CLARO) */
+        .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.15); transform: scale(0.97); }
+        
+        /* CHECK ICON */
+        .check-icon { position: absolute; top: -5px; right: -5px; background: var(--primary); color: #000; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 101; border: 2px solid #000; }
         .service-link.selected .check-icon { display: flex; }
 
-        /* CLASES DE ESTADO ORIGINALES */
-        .status-badge { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+        .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+        .service-link.premium.selected .service-card { border-color: var(--primary); }
+
+        .badge-oferta { 
+            position: absolute; top: 0; left: 0; 
+            background: #f1c40f; color: #000; 
+            padding: 3px 20px 3px 10px; 
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            font-size: 0.55rem; font-weight: 900; z-index: 100;
+            text-transform: uppercase;
+        }
+
+        .premium-text { 
+            display: none; 
+            border: 1px solid #bf953f; padding: 2px 8px; border-radius: 4px;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 0.6rem; font-weight: 900; text-transform: uppercase; margin-right: 15px; margin-bottom: 4px; 
+        }
+        .premium .premium-text { display: inline-block; }
+
+        .status-badge { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; margin-bottom: 2px; display: flex; align-items: center; gap: 5px; }
         .disponible .status-badge::before { content: "● DISPONIBLE"; color: var(--success-neon); }
         .pocas .status-badge::before { content: "● POCAS UNIDADES"; color: #ff3333; }
-        .renovacion .badge-renovacion { display: inline-block; }
-        .badge-renovacion { display: none; color: #f1c40f; font-size: 0.55rem; font-weight: 700; margin-top: 3px; text-transform: uppercase; }
 
         .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; }
-        .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; }
-        .manual-desc { font-size: 0.75rem; color: #888; }
+        .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .manual-desc { font-size: 0.75rem; color: #888; display: block; }
+        
+        .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
+        .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--vip); }
 
-        /* AGOTADO */
+        .badge-renovacion { display: none; color: #f1c40f; font-size: 0.55rem; font-weight: 700; margin-top: 3px; text-transform: uppercase; }
+        .renovacion .badge-renovacion { display: inline-block; }
+
         .service-link.agotado { pointer-events: none; }
-        .service-link.agotado .service-card { opacity: 0.3; filter: grayscale(1); }
+        .service-link.agotado .service-card { opacity: 0.3; border-color: var(--glass-border); filter: grayscale(1); }
+        .service-link.agotado .price-container,
+        .service-link.agotado .badge-oferta,
+        .service-link.agotado .status-badge,
+        .service-link.agotado .badge-renovacion,
+        .service-link.agotado .check-icon { display: none !important; }
+        
         .service-link.agotado::after { 
             content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
             font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); 
-            padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; z-index: 200; background: #000;
+            padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; 
+            z-index: 200; background: #000;
         }
 
-        /* BARRA DE WHATSAPP MEJORADA */
+        /* BARRA WHATSAPP */
         .floating-btn { 
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
             background: linear-gradient(135deg, #25d366, #128c7e); color: white; 
-            padding: 15px 20px; border-radius: 22px; width: 92%; max-width: 480px; 
+            padding: 18px 25px; border-radius: 22px; width: 92%; max-width: 480px; 
             z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: slideUp 0.4s ease;
         }
-        @keyframes slideUp { from { bottom: -100px; } to { bottom: 25px; } }
 
-        .btn-clear {
+        /* BOTÓN ELIMINAR SELECCIÓN */
+        .btn-clear-cart {
             background: rgba(255, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #ff4d4d;
-            width: 35px; height: 35px;
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 38px; height: 38px;
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s;
+            cursor: pointer; transition: 0.3s;
         }
-        .btn-clear:hover { background: #ff0000; color: #fff; }
+        .btn-clear-cart:hover { background: #ff0000; color: white; }
 
-        /* NOTIFICACIÓN ESTILO HTML */
+        /* ALERTA PERSONALIZADA */
         #custom-alert {
             position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
-            background: #1a1a1a; border: 1px solid var(--primary);
-            padding: 15px 25px; border-radius: 15px; z-index: 5000;
-            display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #111; border: 1.5px solid var(--primary);
+            padding: 15px 30px; border-radius: 20px; z-index: 5000;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.9);
+            display: flex; align-items: center; gap: 15px;
+            transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        #custom-alert.show { top: 20px; }
+        #custom-alert.active { top: 30px; }
     </style>
 </head>
 <body>
 
 <div id="custom-alert">
-    <i class="fa-solid fa-circle-exclamation" style="color: var(--primary);"></i>
-    <span style="font-weight: 600; font-size: 0.9rem;">Por favor, selecciona una plataforma.</span>
+    <i class="fa-solid fa-triangle-exclamation" style="color: var(--primary); font-size: 1.2rem;"></i>
+    <span style="font-weight: 700; font-size: 0.9rem; text-transform: uppercase;">Selecciona una plataforma</span>
 </div>
 
 <header>
@@ -166,6 +186,7 @@
 
     <div class="service-link premium disponible renovacion" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
+            <span class="badge-oferta">más solicitado 🔥</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
@@ -173,15 +194,17 @@
                 <h3 class="nombre-prod">Netflix Perfil</h3>
                 <span class="manual-desc">4K UHD • Privado</span>
             </div>
-            <div style="margin-left: auto; text-align: right;">
+            <div class="price-container">
+                <span class="premium-text">Premium</span>
                 <span class="price-tag precio-prod">S/ 12</span>
-                <span class="badge-renovacion">Renovación</span>
+                <span class="badge-renovacion">Disponible para Renovación</span>
             </div>
         </div>
     </div>
 
     <div class="service-link premium pocas renovacion" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
+            <span class="badge-oferta">super solicitado🔥</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Amazon_Prime_Video_Logo.png" class="service-logo">
             <div class="service-text">
@@ -189,9 +212,28 @@
                 <h3 class="nombre-prod">Prime Video</h3>
                 <span class="manual-desc">Cuenta completa</span>
             </div>
-            <div style="margin-left: auto; text-align: right;">
+            <div class="price-container">
+                <span class="premium-text">Premium</span>
                 <span class="price-tag precio-prod">S/ 7</span>
-                <span class="badge-renovacion">Renovación</span>
+                <span class="badge-renovacion">Disponible para Renovación</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link premium pocas renovacion agotado" onclick="toggleSeleccion(this)" data-aos="fade-up">
+        <div class="service-card">
+            <span class="badge-oferta">super solicitado🔥</span>
+            <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Amazon_Prime_Video_Logo.png" class="service-logo">
+            <div class="service-text">
+                <div class="status-badge"></div>
+                <h3 class="nombre-prod">Prime Video</h3>
+                <span class="manual-desc">Cuenta completa</span>
+            </div>
+            <div class="price-container">
+                <span class="premium-text">Premium</span>
+                <span class="price-tag precio-prod">S/ 7</span>
+                <span class="badge-renovacion">Disponible para Renovación</span>
             </div>
         </div>
     </div>
@@ -199,27 +241,31 @@
 
 <div id="whatsapp-btn" class="floating-btn">
     <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div style="display:flex; align-items:center; gap:10px;">
-            <div class="btn-clear" onclick="limpiarSeleccion(event)"><i class="fa-solid fa-trash-can"></i></div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div class="btn-clear-cart" onclick="limpiarTodo(event)" title="Limpiar selección">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
             <span id="cart-count" style="background:rgba(0,0,0,0.3); padding:5px 12px; border-radius:12px; font-weight:800;">0</span>
             <div onclick="enviarPedido()" style="cursor:pointer">
-                <span style="font-weight:800; text-transform:uppercase; font-size:0.85rem;">Pedir por WhatsApp</span>
+                <span style="font-weight:800; text-transform:uppercase; font-size:0.9rem;">Pedir WhatsApp</span>
             </div>
         </div>
-        <span id="cart-total" style="font-weight:800; font-size:1.1rem;">S/ 0.00</span>
+        <span id="cart-total" style="font-weight:800; font-size:1.2rem;">S/ 0.00</span>
     </div>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true });
+    
     let carrito = [];
 
     function filtrarPlataformas() {
         const input = document.getElementById('buscador').value.toLowerCase();
-        document.querySelectorAll('.service-link').forEach(t => {
-            const n = t.querySelector('.nombre-prod').innerText.toLowerCase();
-            t.style.display = n.includes(input) ? "block" : "none";
+        const tarjetas = document.querySelectorAll('.service-link');
+        tarjetas.forEach(tarjeta => {
+            const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
+            tarjeta.style.display = nombre.includes(input) ? "block" : "none";
         });
     }
 
@@ -227,7 +273,8 @@
         if(elemento.classList.contains('agotado')) return;
         
         const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/ ', ''));
+        const precioText = elemento.querySelector('.precio-prod').innerText;
+        const precio = parseFloat(precioText.replace('S/ ', ''));
         const index = carrito.findIndex(p => p.nombre === nombre);
 
         if (index > -1) {
@@ -240,37 +287,39 @@
         actualizarCarritoUI();
     }
 
-    function limpiarSeleccion(event) {
-        event.stopPropagation();
+    function limpiarTodo(e) {
+        e.stopPropagation();
         carrito = [];
         document.querySelectorAll('.service-link').forEach(t => t.classList.remove('selected'));
         actualizarCarritoUI();
     }
 
     function actualizarCarritoUI() {
+        const contador = document.getElementById('cart-count');
+        const totalTxt = document.getElementById('cart-total');
         const barra = document.getElementById('whatsapp-btn');
-        const total = carrito.reduce((sum, p) => sum + p.precio, 0);
+        const totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
         
-        document.getElementById('cart-count').innerText = carrito.length;
-        document.getElementById('cart-total').innerText = `S/ ${total.toFixed(2)}`;
+        contador.innerText = carrito.length;
+        totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
         barra.style.display = carrito.length > 0 ? 'block' : 'none';
     }
 
-    function mostrarAviso() {
+    function mostrarAlerta() {
         const alert = document.getElementById('custom-alert');
-        alert.classList.add('show');
-        setTimeout(() => alert.classList.remove('show'), 3000);
+        alert.classList.add('active');
+        setTimeout(() => alert.classList.remove('active'), 3000);
     }
 
     function enviarPedido() {
         if (carrito.length === 0) {
-            mostrarAviso();
+            mostrarAlerta();
             return;
         }
         let mensaje = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
         carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
-        const total = carrito.reduce((sum, p) => sum + p.precio, 0);
-        mensaje += `\n💰 *TOTAL: S/ ${total.toFixed(2)}*`;
+        const totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
+        mensaje += `\n💰 *TOTAL: S/ ${totalSoles.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
 </script>
