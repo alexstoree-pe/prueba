@@ -1,23 +1,140 @@
-<div class="category-title" data-aos="fade-right">
-        <i class="fa-solid fa-crown"></i> PLANES PARA RESELLERS (CRÉDITOS)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV VIP | AlexStoree Distribuidor</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #39ff14; /* Verde Neón */
+            --accent: #9d00ff;  /* Morado Eléctrico */
+            --dark-bg: #050505;
+            --card-bg: #0f0f0f;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--dark-bg); color: var(--text-main); overflow-x: hidden; padding-bottom: 120px; }
+
+        /* HEADER */
+        header { text-align: center; padding: 50px 20px 30px; background: linear-gradient(to bottom, rgba(57, 255, 20, 0.07), transparent); }
+        .brand-logo { width: 90px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--primary)); }
+        h1 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; text-transform: uppercase; }
+        h1 span { color: var(--primary); text-shadow: 0 0 15px rgba(57, 255, 20, 0.5); }
+
+        /* BUSCADOR */
+        .search-container { max-width: 500px; margin: 20px auto; padding: 0 20px; }
+        .search-wrapper { 
+            position: relative; background: var(--card-bg); border: 1px solid var(--glass-border); 
+            border-radius: 18px; display: flex; align-items: center; padding: 15px 20px; 
+        }
+        .search-wrapper i { color: var(--primary); margin-right: 15px; }
+        .search-wrapper input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 1rem; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; padding: 20px; }
+
+        .category-title { 
+            grid-column: 1 / -1; font-weight: 800; font-size: 1.2rem; color: var(--primary); 
+            margin: 30px 0 10px; display: flex; align-items: center; gap: 12px; text-transform: uppercase;
+            border-left: 4px solid var(--primary); padding-left: 15px;
+        }
+
+        /* TARJETAS */
+        .service-link { cursor: pointer; text-decoration: none; color: inherit; position: relative; }
+        .service-card { 
+            background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 22px; 
+            padding: 22px; display: flex; align-items: center; gap: 18px; transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .service-link.selected .service-card { border-color: var(--primary); background: rgba(57, 255, 20, 0.05); transform: translateY(-5px); }
+
+        .service-logo { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; border: 1px solid var(--glass-border); }
+        .service-text h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 5px; }
+        .manual-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.4; }
+
+        /* TECH TAGS (IPTV Info) */
+        .tech-tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+        .tech-tag { background: rgba(157, 0, 255, 0.15); color: #d199ff; font-size: 10px; padding: 4px 8px; border-radius: 6px; font-weight: 800; }
+        .tag-price { background: rgba(57, 255, 20, 0.1); color: var(--primary); }
+
+        /* PRECIOS */
+        .price-container { margin-left: auto; text-align: right; }
+        .price-tag { display: block; font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+        .sub-price { font-size: 11px; color: var(--text-dim); }
+
+        /* BADGE OFERTA MANUAL */
+        .badge-oferta { 
+            display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; 
+            padding: 5px 18px; font-size: 0.65rem; font-weight: 900; z-index: 10;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+        }
+        .service-link.oferta .badge-oferta { display: block; }
+
+        /* CHECK SELECCIÓN */
+        .check-icon { 
+            position: absolute; top: 12px; right: 12px; background: var(--primary); color: #000; 
+            width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 11px; opacity: 0; transition: 0.3s; z-index: 5;
+        }
+        .service-link.selected .check-icon { opacity: 1; }
+
+        /* BARRA FLOTANTE */
+        #whatsapp-btn { 
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
+            width: 92%; max-width: 450px; background: #fff; color: #000; 
+            border-radius: 25px; padding: 18px; display: none; z-index: 2000; box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+        }
+        .btn-flex { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .btn-send { background: #000; color: #fff; flex-grow: 1; padding: 14px; border-radius: 15px; text-align: center; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; }
+        .btn-clear { background: #ff4444; color: white; padding: 14px 18px; border-radius: 15px; cursor: pointer; }
+
+        .oculto-busqueda { display: none !important; }
+
+        @media (max-width: 480px) { .container { grid-template-columns: 1fr; } .brand-logo { width: 75px; } }
+    </style>
+</head>
+<body>
+
+<header data-aos="zoom-in">
+    <img src="../img/logo.png" class="brand-logo" alt="AlexStoree">
+    <h1>IPTV <span>RESELLER VIP</span></h1>
+    
+    <div class="search-container">
+        <div class="search-wrapper">
+            <i class="fa-solid fa-bolt"></i>
+            <input type="text" id="buscador" placeholder="¿Qué servidor buscas hoy?" onkeyup="filtrarPlataformas()">
+        </div>
+    </div>
+</header>
+
+<div class="container" id="lista-productos">
+    
+    <div class="category-title" data-aos="fade-right">
+        <i class="fa-solid fa-crown"></i> CRÉDITOS PARA DISTRIBUIDORES
     </div>
 
     <div class="service-link oferta" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
-            <span class="badge-oferta">POPULAR 🔥</span>
+            <span class="badge-oferta">INICIO RÁPIDO ⚡</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-            <img src="../img/reseller_pack.png" class="service-logo" alt="Reseller">
+            <img src="../img/pack1.png" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Pack 10 Créditos</h3>
-                <span class="manual-desc">Demos Ilimitadas • Soporte 24/7.</span>
+                <span class="manual-desc">Demos ilimitadas • Panel propio.</span>
                 <div class="tech-tags">
-                    <span class="tech-tag">RESELLER</span>
-                    <span class="tech-tag" style="background:rgba(57,255,20,0.1); color:#39ff14;">S/ 4.00 x CRÉDITO</span>
+                    <span class="tech-tag tag-price">S/ 4.00 c/u</span>
                 </div>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 40</span>
-                <span class="badge-renovacion">Total Pack</span>
+                <span class="sub-price">Total Pack</span>
             </div>
         </div>
     </div>
@@ -26,58 +143,189 @@
         <div class="service-card">
             <span class="badge-oferta">OFERTA</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-            <img src="../img/reseller_silver.png" class="service-logo">
+            <img src="../img/pack2.png" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Pack 50 Créditos</h3>
-                <span class="manual-desc">Panel Administrativo • Soporte VIP.</span>
+                <span class="manual-desc">Precio Silver • Soporte prioridad.</span>
                 <div class="tech-tags">
-                    <span class="tech-tag">RESELLER</span>
-                    <span class="tech-tag" style="background:rgba(57,255,20,0.1); color:#39ff14;">S/ 3.80 x CRÉDITO</span>
+                    <span class="tech-tag tag-price">S/ 3.80 c/u</span>
                 </div>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 190</span>
-                <span class="badge-renovacion">Total Pack</span>
+                <span class="sub-price">Total Pack</span>
             </div>
         </div>
     </div>
 
     <div class="service-link oferta" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
-            <span class="badge-oferta">SUPER PRECIO 🚀</span>
+            <span class="badge-oferta">RECOMENDADO 🚀</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-            <img src="../img/reseller_gold.png" class="service-logo">
+            <img src="../img/pack3.png" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Pack 100 Créditos</h3>
-                <span class="manual-desc">Precio Master • Control Total.</span>
+                <span class="manual-desc">Precio Master • Control total.</span>
                 <div class="tech-tags">
-                    <span class="tech-tag" style="background:#9d00ff;">SUPER RESELLER</span>
-                    <span class="tech-tag" style="background:rgba(57,255,20,0.1); color:#39ff14;">S/ 3.60 x CRÉDITO</span>
+                    <span class="tech-tag" style="background:var(--accent); color:white;">MASTER VIP</span>
+                    <span class="tech-tag tag-price">S/ 3.60 c/u</span>
                 </div>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 360</span>
-                <span class="badge-renovacion">Total Pack</span>
+                <span class="sub-price">Total Pack</span>
             </div>
         </div>
     </div>
 
     <div class="service-link" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
-            <span class="badge-oferta">MAYORISTA</span>
+            <span class="badge-oferta">MÁXIMO AHORRO</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-            <img src="../img/reseller_master.png" class="service-logo">
+            <img src="../img/pack4.png" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Pack 500 Créditos</h3>
-                <span class="manual-desc">Máximo Beneficio • Atención Directa.</span>
+                <span class="manual-desc">Socio Estratégico • Precio de fábrica.</span>
                 <div class="tech-tags">
-                    <span class="tech-tag" style="background:#9d00ff;">MASTER</span>
-                    <span class="tech-tag" style="background:rgba(57,255,20,0.1); color:#39ff14;">S/ 2.80 x CRÉDITO</span>
+                    <span class="tech-tag" style="background:#fff; color:#000;">MAYORISTA MASTER</span>
+                    <span class="tech-tag tag-price">S/ 2.80 c/u</span>
                 </div>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 1400</span>
-                <span class="badge-renovacion">Total Pack</span>
+                <span class="sub-price">Total Pack</span>
             </div>
         </div>
     </div>
+
+    <div class="category-title" data-aos="fade-right">
+        <i class="fa-solid fa-play"></i> SERVIDORES POR UNIDAD
+    </div>
+
+    <div class="service-link oferta" onclick="toggleSeleccion(this)" data-aos="fade-up">
+        <div class="service-card">
+            <span class="badge-oferta">ESTABLE 🔥</span>
+            <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+            <img src="../img/magis.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Magis TV (Mensual)</h3>
+                <span class="manual-desc">3 Pantallas • Deportes 4K • Cine.</span>
+                <div class="tech-tags">
+                    <span class="tech-tag">ANDROID</span>
+                </div>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 15</span>
+                <span class="sub-price">Renova: S/ 15</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-link" onclick="toggleSeleccion(this)" data-aos="fade-up">
+        <div class="service-card">
+            <span class="badge-oferta">NUEVO</span>
+            <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+            <img src="../img/telelatino.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Tele Latino Pro</h3>
+                <span class="manual-desc">2 Pantallas • Todo el contenido VIP.</span>
+                <div class="tech-tags">
+                    <span class="tech-tag">MULTIDEPOSITIVO</span>
+                </div>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="sub-price">Renova: S/ 12</span>
+            </div>
+        </div>
+    </div>
+
+</div> <div id="whatsapp-btn">
+    <div class="btn-flex">
+        <div class="btn-clear" onclick="limpiarSeleccion()" title="Borrar todo">
+            <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <div class="btn-send" onclick="enviarPedido()">
+            Solicitar <span id="cart-count">0</span> items - <span id="cart-total">S/ 0.00</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+
+    let carrito = [];
+
+    function filtrarPlataformas() {
+        const input = document.getElementById('buscador').value.trim().toLowerCase();
+        const tarjetas = document.querySelectorAll('.service-link');
+        
+        tarjetas.forEach(t => {
+            const nombre = t.querySelector('.nombre-prod').innerText.toLowerCase();
+            const desc = t.querySelector('.manual-desc').innerText.toLowerCase();
+            
+            if (nombre.includes(input) || desc.includes(input)) {
+                t.classList.remove('oculto-busqueda');
+                t.style.display = "block";
+                t.style.opacity = "1";
+            } else {
+                t.classList.add('oculto-busqueda');
+                t.style.display = "none";
+            }
+        });
+
+        // Ocultar categorías sin resultados
+        document.querySelectorAll('.category-title').forEach(tit => {
+            let tiene = false;
+            let sig = tit.nextElementSibling;
+            while(sig && !sig.classList.contains('category-title')) {
+                if(sig.classList.contains('service-link') && !sig.classList.contains('oculto-busqueda')) {
+                    tiene = true; break;
+                }
+                sig = sig.nextElementSibling;
+            }
+            tit.style.display = (tiene || input === "") ? "flex" : "none";
+        });
+    }
+
+    function toggleSeleccion(el) {
+        el.classList.toggle('selected');
+        actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+        carrito = [];
+        const items = document.querySelectorAll('.service-link.selected');
+        items.forEach(i => {
+            const nombre = i.querySelector('.nombre-prod').innerText;
+            const precio = parseFloat(i.querySelector('.precio-prod').innerText.replace('S/ ', ''));
+            carrito.push({ nombre, precio });
+        });
+
+        const btn = document.getElementById('whatsapp-btn');
+        const totalS = carrito.reduce((s, p) => s + p.precio, 0);
+        
+        document.getElementById('cart-count').innerText = carrito.length;
+        document.getElementById('cart-total').innerText = `S/ ${totalS.toFixed(2)}`;
+        btn.style.display = (carrito.length > 0) ? 'block' : 'none';
+    }
+
+    function limpiarSeleccion() {
+        document.querySelectorAll('.service-link').forEach(el => el.classList.remove('selected'));
+        actualizarCarrito();
+    }
+
+    function enviarPedido() {
+        let total = carrito.reduce((s, p) => s + p.precio, 0);
+        let mensaje = "¡Hola Alex Store! 👋 Deseo adquirir estos créditos/servicios IPTV:\n\n";
+        carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
+        mensaje += `\n💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
+        
+        const numero = "51918600000"; 
+        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
