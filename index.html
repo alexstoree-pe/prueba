@@ -27,56 +27,59 @@
 
         header { text-align: center; padding: 40px 20px 10px; background: linear-gradient(to bottom, rgba(157, 0, 255, 0.05), transparent); }
         .brand-logo { width: 70px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--accent)); }
+        h1 { font-size: 1.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        h1 span { color: var(--primary); }
+
+        /* BUSCADOR Y FILTROS */
+        .search-container { max-width: 600px; margin: 20px auto; padding: 0 20px; }
+        .search-wrapper { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 18px; display: flex; align-items: center; padding: 12px 20px; }
+        .search-wrapper input { background: transparent; border: none; color: white; width: 100%; outline: none; margin-left: 10px; }
         
+        .filter-nav { display: flex; justify-content: center; gap: 10px; padding: 10px 20px; overflow-x: auto; white-space: nowrap; margin-bottom: 20px; scrollbar-width: none; }
+        .filter-nav::-webkit-scrollbar { display: none; }
+        .filter-btn { background: var(--card-bg); border: 1px solid var(--glass-border); color: var(--text-dim); padding: 8px 16px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; text-decoration: none; transition: 0.3s; }
+        .filter-btn:hover { border-color: var(--primary); color: var(--text-main); }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* --- SISTEMA DE GADGETS (CLASES) --- */
-        
-        /* 1. GADGET OFERTA: Solo funciona si la clase 'oferta' está en .service-link */
-        .badge-manual { 
-            display: none; /* Oculto por defecto */
-            position: absolute; top: 0; left: 0; 
-            background: var(--primary); color: #000; 
-            padding: 4px 12px; font-size: 0.6rem; font-weight: 900; 
-            z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); 
-        }
-        /* Solo si el padre tiene la clase 'oferta', se muestra el hijo */
-        .service-link.oferta .badge-manual { 
-            display: block; 
-        }
+        /* CATEGORÍAS */
+        .category-header { margin: 20px 0 40px; scroll-margin-top: 100px; }
+        .category-title { font-weight: 800; font-size: 1.1rem; border-left: 4px solid var(--accent); padding-left: 15px; text-transform: uppercase; margin-bottom: 12px; }
+        .category-description { background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 15px; margin-bottom: 20px; border-left: 4px solid var(--primary); }
+        .category-description p { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 10px; line-height: 1.4; }
+        .info-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+        .info-item { font-size: 10px; font-weight: 700; color: var(--primary); background: rgba(57, 255, 20, 0.1); padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
+        .danger-item { color: var(--danger); background: rgba(255, 68, 68, 0.1); }
 
-        /* 2. GADGET SIN STOCK: Jerarquía máxima */
-        .badge-agotado { 
-            display: none; position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%) rotate(-15deg); 
-            background: var(--danger); color: white; padding: 5px 20px; 
-            font-weight: 900; font-size: 1.2rem; border: 2px solid white; 
-            z-index: 20; white-space: nowrap; box-shadow: 0 0 20px rgba(255,0,0,0.5); 
-        }
-        
-        /* Comportamiento cuando hay 'sin-stock' */
-        .service-link.sin-stock { cursor: not-allowed; pointer-events: none; opacity: 0.6; filter: grayscale(1); }
-        .service-link.sin-stock .badge-agotado { display: block; }
-        .service-link.sin-stock .price-container, 
-        .service-link.sin-stock .badge-manual,
-        .service-link.sin-stock .unit-price { visibility: hidden !important; }
-
-        /* Estilos generales de tarjetas */
+        /* SISTEMA DE GADGETS MANUALES */
         .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
         .service-link { cursor: pointer; position: relative; transition: 0.3s; }
         .service-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; height: 100%; position: relative; overflow: hidden; }
-        
+
+        /* GADGETS CSS */
+        .badge-izq { display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 12px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
+        .service-link.oferta .badge-izq { display: block; }
+
+        .badge-der { display: none; position: absolute; top: 0; right: 0; background: var(--accent); color: #fff; padding: 4px 12px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); }
+        .service-link.nuevo .badge-der { display: block; }
+
+        .badge-agotado { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); background: var(--danger); color: white; padding: 5px 20px; font-weight: 900; font-size: 1.2rem; border: 2px solid white; z-index: 20; white-space: nowrap; box-shadow: 0 0 20px rgba(255,0,0,0.5); }
+        .service-link.sin-stock { cursor: not-allowed; pointer-events: none; opacity: 0.5; filter: grayscale(1); }
+        .service-link.sin-stock .badge-agotado { display: block; }
+        .service-link.sin-stock .price-container, .service-link.sin-stock .badge-izq, .service-link.sin-stock .badge-der, .service-link.sin-stock .unit-price { visibility: hidden !important; }
+
+        /* ELEMENTOS TARJETA */
         .service-logo { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; }
         .service-text h3 { font-size: 0.95rem; font-weight: 800; }
         .unit-price { color: var(--primary); font-size: 10px; font-weight: 700; display: block; margin-top: 4px; }
         .price-container { margin-left: auto; text-align: right; }
         .price-tag { display: block; font-size: 1.2rem; font-weight: 900; color: var(--primary); }
+        .check-icon { position: absolute; top: 10px; right: 10px; background: var(--primary); color: #000; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; }
+        .service-link.selected .check-icon { opacity: 1; }
+        .service-link.selected .service-card { border-color: var(--primary); }
 
-        .category-header { margin: 20px 0 40px; }
-        .category-title { font-weight: 800; font-size: 1.1rem; border-left: 4px solid var(--accent); padding-left: 15px; text-transform: uppercase; margin-bottom: 12px; }
-        .category-description { background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 15px; margin-bottom: 20px; border-left: 4px solid var(--primary); }
-
-        #cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #fff; color: #000; border-radius: 25px; padding: 15px; display: none; z-index: 2000; }
+        /* CARRITO */
+        #cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #fff; color: #000; border-radius: 25px; padding: 15px; display: none; z-index: 2000; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
         .cart-flex { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .btn-send { background: #000; color: #fff; flex-grow: 1; padding: 14px; border-radius: 15px; text-align: center; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
     </style>
@@ -86,50 +89,84 @@
 <header>
     <img src="../img/logo.png" class="brand-logo">
     <h1>ALEX STORE <span>MAYORISTA VIP</span></h1>
+    <div class="search-container">
+        <div class="search-wrapper"><i class="fa-solid fa-magnifying-glass" style="color:var(--primary)"></i><input type="text" id="buscador" placeholder="Buscar créditos o servicios..." onkeyup="filtrarContenido()"></div>
+    </div>
+    <nav class="filter-nav">
+        <a href="#premium" class="filter-btn">PREMIUM</a>
+        <a href="#normal" class="filter-btn">ESTÁNDAR</a>
+        <a href="#unidades" class="filter-btn">UNIDADES</a>
+        <a href="#flujo" class="filter-btn">FLUJO TV</a>
+    </nav>
 </header>
 
 <div class="container">
 
-    <div class="category-header">
-        <div class="category-title">PANEL PREMIUM (EUROPEO)</div>
+    <div class="category-header" id="premium">
+        <div class="category-title"><i class="fa-solid fa-gem"></i> PANEL PREMIUM (EUROPEO)</div>
         <div class="category-description">
-            <p>Descripción del IPTV: Canales 4K, películas de estreno y series actualizadas diariamente.</p>
+            <p>Servidor de alto rendimiento. Estabilidad total en deportes 4K y contenido internacional.</p>
+            <div class="info-grid">
+                <div class="info-item">10,000 CANALES</div>
+                <div class="info-item">40,000 PELÍCULAS</div>
+                <div class="info-item">SERVER EUROPEO</div>
+            </div>
         </div>
-        
         <div class="grid-servicios">
-            
-            <div class="service-link oferta" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <span class="badge-manual">OFERTA 50%</span> 
-                    <span class="badge-agotado">SIN STOCK</span>
-                    <img src="../img/p10.png" class="service-logo">
-                    <div class="service-text"><h3>Premium 10 Créditos</h3><span class="unit-price">S/ 8.00 x UNID.</span></div>
-                    <div class="price-container"><span class="price-tag">S/ 80</span></div>
-                </div>
-            </div>
-
-            <div class="service-link" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <span class="badge-manual">OFERTA</span> 
-                    <span class="badge-agotado">SIN STOCK</span>
-                    <img src="../img/p20.png" class="service-logo">
-                    <div class="service-text"><h3>Premium 20 Créditos</h3><span class="unit-price">S/ 7.50 x UNID.</span></div>
-                    <div class="price-container"><span class="price-tag">S/ 150</span></div>
-                </div>
-            </div>
-
-            <div class="service-link sin-stock" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <span class="badge-manual">RECOMENDADO</span> 
-                    <span class="badge-agotado">AGOTADO</span>
-                    <img src="../img/p50.png" class="service-logo">
-                    <div class="service-text"><h3>Premium 50 Créditos</h3><span class="unit-price">S/ 7.00 x UNID.</span></div>
-                    <div class="price-container"><span class="price-tag">S/ 350</span></div>
-                </div>
-            </div>
-
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p10.png" class="service-logo"><div class="service-text"><h3>Premium 10 Créditos</h3><span class="unit-price">S/ 8.00 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 80</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p20.png" class="service-logo"><div class="service-text"><h3>Premium 20 Créditos</h3><span class="unit-price">S/ 7.50 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 150</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p50.png" class="service-logo"><div class="service-text"><h3>Premium 50 Créditos</h3><span class="unit-price">S/ 7.00 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 350</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p70.png" class="service-logo"><div class="service-text"><h3>Premium 70 Créditos</h3><span class="unit-price">S/ 6.50 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 455</span></div></div></div>
+            <div class="service-link oferta" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">RECOMENDADO</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p100.png" class="service-logo"><div class="service-text"><h3>Premium 100 Créditos</h3><span class="unit-price">S/ 6.00 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 600</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p200.png" class="service-logo"><div class="service-text"><h3>Premium 200 Créditos</h3><span class="unit-price">S/ 5.50 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 1100</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/p500.png" class="service-logo"><div class="service-text"><h3>Premium 500 Créditos</h3><span class="unit-price">S/ 5.00 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 2500</span></div></div></div>
         </div>
     </div>
+
+    <div class="category-header" id="normal">
+        <div class="category-title"><i class="fa-solid fa-bolt"></i> PANEL ESTÁNDAR (6500 CANALES)</div>
+        <div class="category-description">
+            <p>Contenido masivo y estable. Excelente relación calidad-precio para clientes generales.</p>
+            <div class="info-grid">
+                <div class="info-item">6,500 CANALES</div>
+                <div class="info-item">20,000 PELÍCULAS</div>
+                <div class="info-item">MULTIDISPOSITIVO</div>
+            </div>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n10.png" class="service-logo"><div class="service-text"><h3>Normal 10 Créditos</h3><span class="unit-price">S/ 4.50 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 45</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n20.png" class="service-logo"><div class="service-text"><h3>Normal 20 Créditos</h3><span class="unit-price">S/ 4.20 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 84</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n50.png" class="service-logo"><div class="service-text"><h3>Normal 50 Créditos</h3><span class="unit-price">S/ 4.00 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 200</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n70.png" class="service-logo"><div class="service-text"><h3>Normal 70 Créditos</h3><span class="unit-price">S/ 3.80 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 266</span></div></div></div>
+            <div class="service-link oferta" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">MEJOR PRECIO</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n100.png" class="service-logo"><div class="service-text"><h3>Normal 100 Créditos</h3><span class="unit-price">S/ 3.60 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 360</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n200.png" class="service-logo"><div class="service-text"><h3>Normal 200 Créditos</h3><span class="unit-price">S/ 3.30 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 660</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/n500.png" class="service-logo"><div class="service-text"><h3>Normal 500 Créditos</h3><span class="unit-price">S/ 3.00 x UNID.</span></div><div class="price-container"><span class="price-tag">S/ 1500</span></div></div></div>
+        </div>
+    </div>
+
+    <div class="category-header" id="unidades">
+        <div class="category-title">CUENTAS POR UNIDAD</div>
+        <div class="grid-servicios">
+            <div class="service-link nuevo" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">FLASH</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/u1.png" class="service-logo"><div class="service-text"><h3>IPTV Normal (1 Mes)</h3></div><div class="price-container"><span class="price-tag">S/ 10</span></div></div></div>
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">OFERTA</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/u2.png" class="service-logo"><div class="service-text"><h3>IPTV Premium (1 Mes)</h3></div><div class="price-container"><span class="price-tag">S/ 18</span></div></div></div>
+        </div>
+    </div>
+
+    <div class="category-header" id="flujo">
+        <div class="category-title">APPS ESTABLES (FLUJO TV)</div>
+        <div class="category-description">
+            <p>Aplicación exclusiva. Interfaz fluida y rápida.</p>
+            <div class="info-grid">
+                <div class="info-item">ANDROID TV</div>
+                <div class="info-item">FIRE STICK</div>
+                <div class="info-item danger-item">NO SMART TV</div>
+            </div>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)"><div class="service-card"><span class="badge-izq">PRO</span><span class="badge-der">NUEVO</span><span class="badge-agotado">AGOTADO</span><div class="check-icon"><i class="fa-solid fa-check"></i></div><img src="../img/flujotv.png" class="service-logo"><div class="service-text"><h3>Flujo TV Premium</h3></div><div class="price-container"><span class="price-tag">S/ 15</span></div></div></div>
+        </div>
+    </div>
+
 </div>
 
 <div id="cart-bar">
@@ -144,6 +181,14 @@
 
 <script>
     let carrito = [];
+
+    function filtrarContenido() {
+        const busqueda = document.getElementById('buscador').value.trim().toLowerCase();
+        document.querySelectorAll('.service-link').forEach(t => {
+            const nombre = t.querySelector('h3').innerText.toLowerCase();
+            t.style.display = nombre.includes(busqueda) ? "block" : "none";
+        });
+    }
 
     function toggleItem(elemento) {
         if(elemento.classList.contains('sin-stock')) return;
