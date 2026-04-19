@@ -38,35 +38,25 @@
             --card-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --whatsapp: #25d366;
-            --danger-neon: #ff0000;
+            --danger-neon: #ff0000; /* ROJO VIBRANTE PURO */
             --vip: #d4af37;
             --most-requested: #f4d03f;
         }
 
-        /* --- ANIMACIÓN NEÓN ROJO INTENSO (BRILLO Y DESENFOQUE) --- */
-        @keyframes neon-blink-extreme {
+        /* --- ANIMACIÓN NEÓN ROJO VIBRANTE (PARA SIN STOCK Y POCAS) --- */
+        @keyframes neon-glow-vibrant {
             0%, 100% { 
-                border-color: #ff0000;
+                border-color: var(--danger-neon);
+                box-shadow: 0 0 10px var(--danger-neon), inset 0 0 5px var(--danger-neon);
+                text-shadow: 0 0 8px var(--danger-neon);
                 color: #fff;
-                box-shadow: 0 0 10px #ff0000, inset 0 0 5px #ff0000;
-                text-shadow: 0 0 5px #ff0000;
             }
             50% { 
                 border-color: #fff;
+                box-shadow: 0 0 25px var(--danger-neon), 0 0 45px var(--danger-neon), inset 0 0 15px var(--danger-neon);
+                text-shadow: 0 0 10px #fff, 0 0 20px var(--danger-neon), 0 0 35px var(--danger-neon);
+                transform: scale(1.05);
                 color: #fff;
-                /* Múltiples capas de resplandor para simular neón real */
-                box-shadow: 
-                    0 0 10px #ff0000, 
-                    0 0 20px #ff0000, 
-                    0 0 40px #ff0000, 
-                    0 0 60px #ff0000,
-                    inset 0 0 15px #ff0000;
-                text-shadow: 
-                    0 0 5px #fff, 
-                    0 0 15px #ff0000, 
-                    0 0 30px #ff0000, 
-                    0 0 50px #ff0000;
-                transform: scale(1.06);
             }
         }
 
@@ -92,11 +82,11 @@
 
         .container { padding: 10px 20px; max-width: 650px; margin: auto; }
 
-        /* --- STOCK MANUAL (RESTAURADO) --- */
+        /* --- STOCK MANUAL --- */
         .stock-status { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; display: block; }
         .disponible .stock-status { color: #2ecc71; text-shadow: 0 0 12px rgba(46, 204, 113, 0.8); }
-        /* Rojo neón para Pocas Unidades */
-        .pocas .stock-status { color: #ff0000; text-shadow: 0 0 15px #ff0000, 0 0 30px rgba(255, 0, 0, 0.6); }
+        /* Rojo vibrante para Pocas Unidades */
+        .pocas .stock-status { color: #ff0000; text-shadow: 0 0 15px #ff0000, 0 0 25px rgba(255, 0, 0, 0.4); }
 
         .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 25px; transition: 0.4s; cursor: pointer; }
         .service-card { position: relative; background: var(--card-bg); border-radius: 25px; padding: 18px; display: flex; align-items: center; gap: 15px; border: 1px solid var(--glass-border); min-height: 110px; z-index: 1; }
@@ -113,24 +103,23 @@
         .price-container { text-align: right; min-width: 100px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; }
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; margin-top: 15px; }
 
-        /* --- SIN STOCK: NEÓN BRILLANTE CORREGIDO --- */
+        /* --- SIN STOCK: MISMO ROJO VIBRANTE QUE EL GADGE --- */
         .service-link.agotado { pointer-events: none; }
         .service-link.agotado .badge-maestro, .service-link.agotado .badge-premium-internal, .service-link.agotado .price-tag, .service-link.agotado .renovacion-info, .service-link.agotado .stock-status { display: none !important; }
         
-        /* La tarjeta se oscurece mucho para resaltar el neón */
-        .service-link.agotado .service-card { opacity: 0.3; filter: grayscale(1); }
+        .service-link.agotado .service-card { opacity: 0.4; filter: grayscale(1); }
 
         .service-link.agotado .price-container::after {
             content: "SIN STOCK";
             position: relative;
-            z-index: 1000;
+            z-index: 999;
             font-size: 0.8rem;
             font-weight: 900;
-            border: 2px solid #ff0000;
-            padding: 10px 16px;
+            border: 2px solid var(--danger-neon);
+            padding: 8px 14px;
             border-radius: 12px;
-            background: #000; /* Fondo negro sólido para contraste */
-            animation: neon-blink-extreme 1s infinite;
+            background: #000;
+            animation: neon-glow-vibrant 1.2s infinite; /* Aplicada la misma animación vibrante */
             display: block;
             text-align: center;
         }
@@ -185,7 +174,8 @@
         <div class="service-card">
             <img src="../img/disneys.png" class="service-logo">
             <div class="service-text">
-                <span class="stock-status">● Pocas Unidades: 2</span> <h3 class="nombre-prod">Disney Perfil</h3>
+                <span class="stock-status">● Pocas Unidades: 3</span>
+                <h3 class="nombre-prod">Disney Perfil</h3>
                 <span class="manual-desc">Calidad 4K • PIN privado.</span>
             </div>
             <div class="price-container">
