@@ -38,24 +38,43 @@
             --card-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --whatsapp: #25d366;
-            --danger-bright: #ff1a1a; /* Rojo más puro */
+            --danger-bright: #ff1a1a; /* Rojo puro intenso */
             --vip: #d4af37;
             --most-requested: #f4d03f;
         }
 
-        /* ANIMACIÓN SIN STOCK - ULTRA RESALTADO */
+        /* --- NUEVA ANIMACIÓN SIN STOCK - ROJO NEÓN INTENSO PARPADEANTE --- */
         @keyframes blink-red-bright {
             0%, 100% { 
-                text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000; 
-                color: #fff; 
-                border-color: #ff1a1a;
-                box-shadow: 0 0 10px rgba(255,0,0,0.5), inset 0 0 10px rgba(255,0,0,0.3);
+                /* Estado apagado o tenue: borde rojo sólido, texto blanco */
+                border-color: var(--danger-bright);
+                color: #fff;
+                box-shadow: 0 0 5px rgba(255, 26, 26, 0.2), inset 0 0 5px rgba(255, 26, 26, 0.1);
+                text-shadow: none;
+                transform: scale(1);
             }
             50% { 
-                text-shadow: 0 0 30px #ff0000, 0 0 50px #ff0000, 0 0 70px #ff0000; 
-                color: #fff; 
-                border-color: #fff;
-                box-shadow: 0 0 20px rgba(255,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.2);
+                /* Estado encendido: resplandor máximo */
+                border-color: #fff; /* El borde físico se vuelve blanco en el centro del glow */
+                color: #fff;
+                
+                /* Múltiples capas de sombra de caja para el resplandor exterior e interior */
+                box-shadow: 
+                    0 0 10px #ff0000, 
+                    0 0 20px #ff0000, 
+                    0 0 30px #ff0000, 
+                    0 0 40px #ff0000,
+                    inset 0 0 10px #ff0000,
+                    inset 0 0 20px #ff0000;
+                
+                /* Múltiples capas de sombra de texto para que las letras también brillen */
+                text-shadow: 
+                    0 0 5px #fff, 
+                    0 0 10px #ff0000, 
+                    0 0 15px #ff0000, 
+                    0 0 20px #ff0000;
+                
+                /* Sutil pulso de tamaño */
                 transform: scale(1.05);
             }
         }
@@ -118,7 +137,7 @@
         .renovacion-info { display: none; font-size: 0.65rem; color: var(--most-requested); font-weight: 700; }
         .service-link.con-renovacion .renovacion-info { display: block; }
 
-        /* --- SIN STOCK RESALTADO --- */
+        /* --- SIN STOCK RESALTADO CON EL NUEVO EFECTO NEÓN --- */
         .service-link.agotado { pointer-events: none; }
         .service-link.agotado .badge-maestro,
         .service-link.agotado .badge-premium-internal,
@@ -126,12 +145,18 @@
         .service-link.agotado .renovacion-info,
         .service-link.agotado .stock-status { display: none !important; }
         
-        .service-link.agotado .service-card { opacity: 0.6; filter: grayscale(0.5); border: 1px solid rgba(255,0,0,0.4) !important; }
+        .service-link.agotado .service-card { 
+            opacity: 0.7; /* Un poco menos opaco para que el brillo resalte */
+            filter: grayscale(0.3); /* Menos gris para no matar el color del logo del todo */
+            border: 1px solid rgba(255,0,0,0.4) !important; 
+        }
         .service-link.agotado .price-container::after {
             content: "SIN STOCK"; font-size: 0.8rem; font-weight: 900; 
-            border: 2px solid #ff1a1a; padding: 8px 14px; border-radius: 12px; 
-            animation: blink-red-bright 1.2s infinite; display: block;
-            background: rgba(255, 0, 0, 0.2); text-align: center;
+            border: 2px solid var(--danger-bright); /* Borde inicial */
+            padding: 8px 14px; border-radius: 12px; 
+            animation: blink-red-bright 1.5s infinite; /* Aplicamos la nueva animación */
+            display: block;
+            text-align: center;
         }
 
         .check-icon { position: absolute; left: -10px; top: 50%; transform: translateY(-50%); background: var(--primary); color: #000; width: 25px; height: 25px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 30; }
