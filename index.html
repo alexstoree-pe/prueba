@@ -497,16 +497,20 @@
         if(el.classList.contains('agotado')) return;
         el.classList.toggle('selected');
         
-        // --- EDITADO: Capturamos descripción y unitario ---
-        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
-        const nombre = el.querySelector('h3').innerText;
-        const desc = el.querySelector('.manual-desc').innerText; // Captura descripción
-        const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText : ""; // Captura unitario si existe
+        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/', '').trim());
+        const nombre = el.querySelector('h3').innerText.trim();
+        const desc = el.querySelector('.manual-desc').innerText.trim();
+        const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText.trim() : "";
+        
+        // --- MODIFICADO: Solo captura la oferta si la tarjeta tiene la clase 'oferta' ---
+        let ofertaDetalle = "";
+        if (el.classList.contains('oferta')) {
+            ofertaDetalle = el.querySelector('.badge-izq') ? el.querySelector('.badge-izq').innerText.trim() : "";
+        }
         
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            // Guardamos todo el objeto detallado
-            selectedItems.push({nombre, precio, desc, unitario});
+            selectedItems.push({nombre, precio, desc, unitario, oferta: ofertaDetalle});
             el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
         } else {
             total -= precio; cant--;
@@ -535,17 +539,29 @@
     function sendWhatsapp() {
         if(selectedItems.length === 0) return;
         const numero = "51918600000";
-        let msj = "¡Hola Alex Store!, soy distribuidor!👋 Deseo adquirir:\n\n";
         
-        // --- EDITADO: Estructura del mensaje con descripción ---
+        let msj = "¡Hola Alex Store!, soy distribuidor! 👋\n\nDeseo adquirir:\n\n";
+        
         selectedItems.forEach(item => {
             msj += `✅ *${item.nombre}*\n`;
-            msj += `   _${item.desc}_\n`; // Descripción en cursiva
-            if(item.unitario) msj += `   [${item.unitario}]\n`; // Unitario si existe
-            msj += `   *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
+            
+            // Solo se añade al mensaje si el campo oferta no está vacío
+            if(item.oferta !== "") {
+                msj += `🎁 *PROMOCIÓN:* ${item.oferta}\n`;
+            }
+            
+            msj += `📝 _${item.desc}_\n`;
+            
+            if(item.unitario) {
+                msj += `🏷️ [${item.unitario}]\n`;
+            }
+            
+            msj += `💰 *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
         });
         
-        msj += `💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
+        msj += `───────────────\n`;
+        msj += `💵 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
+        
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
@@ -561,11 +577,7 @@
 
         categories.forEach(category => {
             let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
-            if (cardsVisibles > 0 || input === "") {
-                category.style.display = ""; 
-            } else {
-                category.style.display = "none"; 
-            }
+            category.style.display = (cardsVisibles > 0 || input === "") ? "" : "none";
         });
     }
 
