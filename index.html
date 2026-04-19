@@ -70,8 +70,32 @@
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; transition: 0.4s ease; }
-        .oculto-busqueda { display: none !important; }
+       /* 1. Asegurar que el mensaje SIN STOCK esté por encima de todo */
+.service-link.agotado::after {
+    content: "SIN STOCK";
+    position: absolute;
+    top: 50%;
+    left: 50%; /* Centrado absoluto */
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    font-weight: 900;
+    border: 2.5px solid var(--danger-neon);
+    padding: 10px 20px;
+    border-radius: 12px;
+    animation: shine-red 1.5s infinite;
+    z-index: 500; /* Jerarquía máxima */
+    background: #000;
+    white-space: nowrap;
+}
+
+/* 2. OCULTAR TODO LO DEMÁS CUANDO ESTÁ AGOTADO */
+/* Esto esconderá precios, etiquetas premium, badges de oferta y renovaciones */
+.service-link.agotado .price-container,
+.service-link.agotado .badge-oferta,
+.service-link.agotado .status-badge,
+.service-link.agotado .badge-renovacion {
+    display: none !important; /* El !important asegura la jerarquía */
+}
 
         .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; position: relative; z-index: 10; overflow: hidden; }
 
