@@ -11,7 +11,7 @@
     
     <style>
         :root {
-            --primary: #00d4ff; /* Celeste */
+            --primary: #00d4ff; 
             --dark: #050505;
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
@@ -45,39 +45,47 @@
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; overflow: visible; }
-        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: visible; }
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; }
+        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
         
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.08); transform: scale(0.97); }
         .check-icon { position: absolute; top: -5px; right: -5px; background: var(--primary); color: #000; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 101; border: 2px solid #000; }
         .service-link.selected .check-icon { display: flex; }
 
-        /* ESTILO PREMIUM */
         .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
 
-        /* BADGE OFERTA INTEGRADO */
+        /* BADGE OFERTA ROMBOIDE */
         .badge-oferta { 
             position: absolute; top: 0; left: 0; 
             background: #f1c40f; color: #000; 
-            padding: 5px 15px; border-radius: 0 0 15px 0; 
-            font-size: 0.6rem; font-weight: 900; z-index: 100;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            padding: 3px 20px 3px 10px; 
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            font-size: 0.55rem; font-weight: 900; z-index: 100;
+            text-transform: uppercase;
         }
 
-        /* TEXTO PREMIUM DORADO */
+        /* TEXTO PREMIUM CON BORDE */
         .premium-text { 
             display: none; 
+            border: 1px solid #bf953f;
+            padding: 2px 8px;
+            border-radius: 4px;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 0.65rem; font-weight: 900; 
-            text-transform: uppercase; margin-right: 15px; margin-bottom: 2px; 
+            font-size: 0.6rem; font-weight: 900; 
+            text-transform: uppercase; margin-right: 15px; margin-bottom: 4px; 
         }
-        .premium .premium-text { display: block; }
+        .premium .premium-text { display: inline-block; }
 
-        .status-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
-        .disponible .status-badge { color: var(--success-neon); }
-        .pocas .status-badge { color: #ff3333; }
+        /* ESTADOS AUTOMÁTICOS */
+        .status-badge { 
+            font-size: 0.6rem; font-weight: 800; text-transform: uppercase; 
+            margin-top: 5px; margin-bottom: 2px;
+            display: flex; align-items: center; gap: 5px; 
+        }
+        .disponible .status-badge::before { content: "● DISPONIBLE"; color: var(--success-neon); }
+        .pocas .status-badge::before { content: "● POCAS UNIDADES"; color: #ff3333; }
 
         .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; }
         .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
@@ -85,18 +93,15 @@
         
         .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
 
-        /* PRECIO CELESTE POR DEFECTO */
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
 
-        /* PRECIO DORADO SI ES PREMIUM */
         .premium .price-tag {
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: var(--vip); /* Fallback */
+            color: var(--vip); 
         }
 
-        /* RENOVACIÓN SIN FONDO */
         .badge-renovacion { 
             display: none; 
             color: #f1c40f; 
@@ -104,7 +109,6 @@
             font-weight: 700; 
             margin-top: 3px; 
             text-transform: uppercase; 
-            letter-spacing: 0.5px;
         }
         .renovacion .badge-renovacion { display: inline-block; }
 
@@ -141,12 +145,11 @@
 
     <div class="service-link premium disponible renovacion" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
-            <span class="badge-oferta">mas solicitado 🔥</span>
+            <span class="badge-oferta">más solicitado 🔥</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
-                <div class="status-badge">DISPONIBLE</div>
-                <h3 class="nombre-prod">Netflix Perfil</h3>
+                <div class="status-badge"></div> <h3 class="nombre-prod">Netflix Perfil</h3>
                 <span class="manual-desc">4K UHD • Privado</span>
             </div>
             <div class="price-container">
@@ -157,17 +160,17 @@
         </div>
     </div>
 
-    <div class="service-link premium disponible renovacion agotado" onclick="toggleSeleccion(this)" data-aos="fade-up">
+    <div class="service-link premium pocas renovacion" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
             <span class="badge-oferta">OFERTA 🔥</span>
             <div class="check-icon"><i class="fa-solid fa-check"></i></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Amazon_Prime_Video_Logo.png" class="service-logo">
             <div class="service-text">
-                <div class="status-badge">POCAS UNIDADES</div>
-                <h3 class="nombre-prod">Prime Video</h3>
+                <div class="status-badge"></div> <h3 class="nombre-prod">Prime Video</h3>
                 <span class="manual-desc">Cuenta completa</span>
             </div>
             <div class="price-container">
+                <span class="premium-text">Premium</span>
                 <span class="price-tag precio-prod">S/ 7</span>
             </div>
         </div>
