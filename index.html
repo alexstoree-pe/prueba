@@ -120,23 +120,43 @@
             z-index: 200; background: #000;
         }
 
-        /* BARRA WHATSAPP */
+        /* BARRA WHATSAPP MEJORADA */
         .floating-btn { 
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
             background: linear-gradient(135deg, #25d366, #128c7e); color: white; 
-            padding: 18px 25px; border-radius: 22px; width: 92%; max-width: 480px; 
+            padding: 0; border-radius: 22px; width: 92%; max-width: 480px; 
             z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .cart-content-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 70px; /* Altura fija para mejor click */
+        }
+
+        .btn-send-order {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            cursor: pointer;
+            height: 100%;
         }
 
         /* BOTÓN ELIMINAR SELECCIÓN */
         .btn-clear-cart {
             background: rgba(255, 0, 0, 0.2);
             color: #ff4d4d;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 38px; height: 38px;
-            border-radius: 12px;
+            border: none;
+            width: 50px; height: 50px;
+            border-radius: 15px;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: 0.3s;
+            margin-left: 10px;
+            z-index: 3001;
         }
         .btn-clear-cart:hover { background: #ff0000; color: white; }
 
@@ -255,37 +275,21 @@
             </div>
         </div>
     </div>
-    <div class="service-link pocas renovacion oferta" onclick="toggleSeleccion(this)" data-aos="fade-up">
-        <div class="service-card">
-            <span class="badge-oferta">super solicitado🔥</span>
-            <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Amazon_Prime_Video_Logo.png" class="service-logo">
-            <div class="service-text">
-                <div class="status-badge"></div>
-                <h3 class="nombre-prod">Magis TV</h3>
-                <span class="manual-desc">3 dispositivos</span>
-            </div>
-            <div class="price-container">
-                <span class="premium-text">Premium</span>
-                <span class="price-tag precio-prod">S/ 9</span>
-                <span class="badge-renovacion">Disponible para Renovación</span>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div id="whatsapp-btn" class="floating-btn">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div style="display:flex; align-items:center; gap:12px;">
-            <div class="btn-clear-cart" onclick="limpiarTodo(event)" title="Limpiar selección">
-                <i class="fa-solid fa-trash-can"></i>
-            </div>
-            <span id="cart-count" style="background:rgba(0,0,0,0.3); padding:5px 12px; border-radius:12px; font-weight:800;">0</span>
-            <div onclick="enviarPedido()" style="cursor:pointer">
+    <div class="cart-content-wrapper">
+        <div class="btn-clear-cart" onclick="limpiarTodo(event)" title="Limpiar selección">
+            <i class="fa-solid fa-trash-can"></i>
+        </div>
+
+        <div class="btn-send-order" onclick="enviarPedido()">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span id="cart-count" style="background:rgba(0,0,0,0.3); padding:5px 12px; border-radius:12px; font-weight:800;">0</span>
                 <span style="font-weight:800; text-transform:uppercase; font-size:0.9rem;">Pedir WhatsApp</span>
             </div>
+            <span id="cart-total" style="font-weight:800; font-size:1.2rem;">S/ 0.00</span>
         </div>
-        <span id="cart-total" style="font-weight:800; font-size:1.2rem;">S/ 0.00</span>
     </div>
 </div>
 
@@ -306,26 +310,19 @@
 
     function toggleSeleccion(elemento) {
         if(elemento.classList.contains('agotado')) return;
-        
-        // Simplemente alternamos la clase 'selected' en el elemento clickeado
         elemento.classList.toggle('selected');
-        
-        // Llamamos a la actualización para reconstruir el carrito
         reconstruirCarritoDesdeUI();
     }
 
     function reconstruirCarritoDesdeUI() {
         carrito = [];
-        // Buscamos todos los elementos que tienen la clase 'selected' en ese momento
         const seleccionados = document.querySelectorAll('.service-link.selected');
-        
         seleccionados.forEach(el => {
             const nombre = el.querySelector('.nombre-prod').innerText;
             const precioText = el.querySelector('.precio-prod').innerText;
             const precio = parseFloat(precioText.replace('S/ ', ''));
             carrito.push({ nombre, precio });
         });
-
         actualizarCarritoUI();
     }
 
@@ -340,10 +337,7 @@
         const contador = document.getElementById('cart-count');
         const totalTxt = document.getElementById('cart-total');
         const barra = document.getElementById('whatsapp-btn');
-        
-        // Suma directa sin lógica de descuentos
         let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-        
         contador.innerText = carrito.length;
         totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
         barra.style.display = carrito.length > 0 ? 'block' : 'none';
@@ -360,12 +354,9 @@
             mostrarAlerta();
             return;
         }
-
         let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
         let mensaje = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
-        
         carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
-        
         mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
