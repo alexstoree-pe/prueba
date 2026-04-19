@@ -360,35 +360,43 @@
     }
 
     function sendWhatsapp() {
-        if(selectedItems.length === 0) return;
-        const numero = "51918600000";
+    if(selectedItems.length === 0) return;
+    const numero = "51918600000"; // Tu número
+    
+    // Usamos códigos que WhatsApp entiende directamente
+    const saludo = "%F0%9F%91%8B"; // 👋
+    const check = "%E2%9C%85";     // ✅
+    const promo = "%F0%9F%8E%81";  // 🎁
+    const nota = "%F0%9F%93%9D";    // 📝
+    const precioIcon = "%F0%9F%92%B0"; // 💰
+    const totalIcon = "%F0%9F%92%B5";  // 💵
+
+    let msj = "¡Hola Alex Store!, soy distribuidor! " + decodeURIComponent(saludo) + "\n\n";
+    msj += "Deseo adquirir:\n\n";
+    
+    selectedItems.forEach(item => {
+        msj += decodeURIComponent(check) + " *" + item.nombre + "*\n";
         
-        // Construimos el mensaje con variables de texto para los iconos (Evita el error de '?')
-        let msj = "¡Hola Alex Store!, soy distribuidor! \n\n";
-        msj += "Deseo adquirir:\n\n";
+        // Si tiene la clase 'oferta' capturada
+        if(item.oferta) {
+            msj += decodeURIComponent(promo) + " *PROMOCIÓN:* " + item.oferta + "\n";
+        }
         
-        selectedItems.forEach(item => {
-            msj += "⭐ *" + item.nombre + "*\n"; // Estrella es más compatible que el check
-            
-            if(item.oferta) {
-                msj += "🎁 *PROMO:* " + item.oferta + "\n";
-            }
-            
-            msj += "🔹 _" + item.desc + "_\n";
-            
-            if(item.unitario) {
-                msj += "🏷️ [" + item.unitario + "]\n";
-            }
-            
-            msj += "💰 *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
-        });
+        msj += decodeURIComponent(nota) + " _" + item.desc + "_\n";
         
-        msj += "───────────────\n";
-        msj += "💵 *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
+        if(item.unitario) {
+            msj += "🏷️ [" + item.unitario + "]\n";
+        }
         
-        // La clave es el encodeURIComponent aplicado a todo el bloque
-        window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
-    }
+        msj += decodeURIComponent(precioIcon) + " *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
+    });
+    
+    msj += "───────────────\n";
+    msj += decodeURIComponent(totalIcon) + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
+    
+    // Abrimos con el mensaje totalmente codificado
+    window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
+}
 
     function clearAll(event) {
         if(event) event.stopPropagation();
