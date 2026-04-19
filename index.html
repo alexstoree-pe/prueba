@@ -38,44 +38,35 @@
             --card-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --whatsapp: #25d366;
-            --danger-bright: #ff1a1a; /* Rojo puro intenso */
+            --danger-neon: #ff0000;
             --vip: #d4af37;
             --most-requested: #f4d03f;
         }
 
-        /* --- NUEVA ANIMACIÓN SIN STOCK - ROJO NEÓN INTENSO PARPADEANTE --- */
-        @keyframes blink-red-bright {
+        /* --- ANIMACIÓN NEÓN ROJO INTENSO (BRILLO Y DESENFOQUE) --- */
+        @keyframes neon-blink-extreme {
             0%, 100% { 
-                /* Estado apagado o tenue: borde rojo sólido, texto blanco */
-                border-color: var(--danger-bright);
+                border-color: #ff0000;
                 color: #fff;
-                box-shadow: 0 0 5px rgba(255, 26, 26, 0.2), inset 0 0 5px rgba(255, 26, 26, 0.1);
-                text-shadow: none;
-                transform: scale(1);
+                box-shadow: 0 0 10px #ff0000, inset 0 0 5px #ff0000;
+                text-shadow: 0 0 5px #ff0000;
             }
             50% { 
-                /* Estado encendido: resplandor máximo */
-                border-color: #fff; /* El borde físico se vuelve blanco en el centro del glow */
+                border-color: #fff;
                 color: #fff;
-                
-                /* Múltiples capas de sombra de caja para el resplandor exterior e interior */
+                /* Múltiples capas de resplandor para simular neón real */
                 box-shadow: 
                     0 0 10px #ff0000, 
                     0 0 20px #ff0000, 
-                    0 0 30px #ff0000, 
-                    0 0 40px #ff0000,
-                    inset 0 0 10px #ff0000,
-                    inset 0 0 20px #ff0000;
-                
-                /* Múltiples capas de sombra de texto para que las letras también brillen */
+                    0 0 40px #ff0000, 
+                    0 0 60px #ff0000,
+                    inset 0 0 15px #ff0000;
                 text-shadow: 
                     0 0 5px #fff, 
-                    0 0 10px #ff0000, 
                     0 0 15px #ff0000, 
-                    0 0 20px #ff0000;
-                
-                /* Sutil pulso de tamaño */
-                transform: scale(1.05);
+                    0 0 30px #ff0000, 
+                    0 0 50px #ff0000;
+                transform: scale(1.06);
             }
         }
 
@@ -85,14 +76,14 @@
         /* BOTÓN VOLVER INICIO */
         .btn-back-home {
             position: absolute; top: 20px; left: 20px;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-            color: white; padding: 10px 15px; border-radius: 15px;
-            text-decoration: none; font-size: 0.8rem; font-weight: 600;
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border);
+            color: white; padding: 10px 18px; border-radius: 15px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 700;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s; z-index: 999;
         }
         .btn-back-home:hover { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        header { position: relative; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px); padding: 50px 20px 40px; text-align: center; border-bottom: 2px solid var(--glass-border); border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; margin-bottom: 30px; }
+        header { position: relative; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px); padding: 80px 20px 40px; text-align: center; border-bottom: 2px solid var(--glass-border); border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; margin-bottom: 30px; }
         header h1 { font-size: 2.2rem; font-weight: 800; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
@@ -101,30 +92,18 @@
 
         .container { padding: 10px 20px; max-width: 650px; margin: auto; }
 
-        /* --- TARJETAS --- */
+        /* --- STOCK MANUAL (RESTAURADO) --- */
+        .stock-status { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; display: block; }
+        .disponible .stock-status { color: #2ecc71; text-shadow: 0 0 12px rgba(46, 204, 113, 0.8); }
+        /* Rojo neón para Pocas Unidades */
+        .pocas .stock-status { color: #ff0000; text-shadow: 0 0 15px #ff0000, 0 0 30px rgba(255, 0, 0, 0.6); }
+
         .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 25px; transition: 0.4s; cursor: pointer; }
         .service-card { position: relative; background: var(--card-bg); border-radius: 25px; padding: 18px; display: flex; align-items: center; gap: 15px; border: 1px solid var(--glass-border); min-height: 110px; z-index: 1; }
 
-        .service-link.premium .service-card { border: 1px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
-
-        .badge-maestro.solicitado { 
-            position: absolute; top: -12px; left: 20px; 
-            background: var(--most-requested); color: #000; 
-            font-size: 0.65rem; font-weight: 900; padding: 4px 12px; 
-            border-radius: 50px; z-index: 20; box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
-        }
-
-        .badge-premium-internal { 
-            display: none; position: absolute; top: 18px; right: 55px; 
-            background: #000; color: var(--vip); border: 1px solid var(--vip); 
-            padding: 2px 8px; border-radius: 6px; font-size: 0.5rem; 
-            font-weight: 800; letter-spacing: 1px; z-index: 5;
-        }
+        .badge-maestro.solicitado { position: absolute; top: -12px; left: 20px; background: var(--most-requested); color: #000; font-size: 0.65rem; font-weight: 900; padding: 4px 12px; border-radius: 50px; z-index: 20; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .badge-premium-internal { display: none; position: absolute; top: 18px; right: 55px; background: #000; color: var(--vip); border: 1px solid var(--vip); padding: 2px 8px; border-radius: 6px; font-size: 0.5rem; font-weight: 800; letter-spacing: 1px; z-index: 5; }
         .service-link.premium .badge-premium-internal { display: block; }
-
-        .stock-status { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
-        .disponible .stock-status::before { content: "● DISPONIBLE"; color: #2ecc71; text-shadow: 0 0 12px rgba(46, 204, 113, 0.8); }
-        .pocas .stock-status::before { content: "● POCAS UNIDADES"; color: #ff3333; text-shadow: 0 0 12px rgba(255, 51, 51, 0.8); }
 
         .service-logo { width: 60px; height: 60px; border-radius: 15px; object-fit: contain; }
         .service-text { flex-grow: 1; }
@@ -133,28 +112,25 @@
 
         .price-container { text-align: right; min-width: 100px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; }
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; margin-top: 15px; }
-        .service-link.premium .price-tag { color: var(--vip); }
-        .renovacion-info { display: none; font-size: 0.65rem; color: var(--most-requested); font-weight: 700; }
-        .service-link.con-renovacion .renovacion-info { display: block; }
 
-        /* --- SIN STOCK RESALTADO CON EL NUEVO EFECTO NEÓN --- */
+        /* --- SIN STOCK: NEÓN BRILLANTE CORREGIDO --- */
         .service-link.agotado { pointer-events: none; }
-        .service-link.agotado .badge-maestro,
-        .service-link.agotado .badge-premium-internal,
-        .service-link.agotado .price-tag,
-        .service-link.agotado .renovacion-info,
-        .service-link.agotado .stock-status { display: none !important; }
+        .service-link.agotado .badge-maestro, .service-link.agotado .badge-premium-internal, .service-link.agotado .price-tag, .service-link.agotado .renovacion-info, .service-link.agotado .stock-status { display: none !important; }
         
-        .service-link.agotado .service-card { 
-            opacity: 0.7; /* Un poco menos opaco para que el brillo resalte */
-            filter: grayscale(0.3); /* Menos gris para no matar el color del logo del todo */
-            border: 1px solid rgba(255,0,0,0.4) !important; 
-        }
+        /* La tarjeta se oscurece mucho para resaltar el neón */
+        .service-link.agotado .service-card { opacity: 0.3; filter: grayscale(1); }
+
         .service-link.agotado .price-container::after {
-            content: "SIN STOCK"; font-size: 0.8rem; font-weight: 900; 
-            border: 2px solid var(--danger-bright); /* Borde inicial */
-            padding: 8px 14px; border-radius: 12px; 
-            animation: blink-red-bright 1.5s infinite; /* Aplicamos la nueva animación */
+            content: "SIN STOCK";
+            position: relative;
+            z-index: 1000;
+            font-size: 0.8rem;
+            font-weight: 900;
+            border: 2px solid #ff0000;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: #000; /* Fondo negro sólido para contraste */
+            animation: neon-blink-extreme 1s infinite;
             display: block;
             text-align: center;
         }
@@ -162,8 +138,6 @@
         .check-icon { position: absolute; left: -10px; top: 50%; transform: translateY(-50%); background: var(--primary); color: #000; width: 25px; height: 25px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 30; }
         .service-link.selected .check-icon { display: flex; }
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0,212,255,0.05); }
-
-        .category-title { margin: 40px 0 15px; font-weight: 800; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px; }
 
         .floating-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 450px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
         .floating-btn { flex-grow: 1; background: var(--whatsapp); color: white; padding: 18px; border-radius: 20px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-decoration: none; }
@@ -189,41 +163,38 @@
 <div class="container">
     <div class="category-title" data-aos="fade-right">👤 ZONA PERFILES</div>
 
-    <div class="service-link disponible premium con-renovacion" data-aos="fade-up">
+    <div class="service-link disponible premium" data-aos="fade-up">
         <span class="badge-maestro solicitado">MÁS SOLICITADO 🔥</span>
         <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card">
             <span class="badge-premium-internal">PREMIUM</span>
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
-                <span class="stock-status"></span>
+                <span class="stock-status">● Disponible</span>
                 <h3 class="nombre-prod">Netflix Perfil</h3>
                 <span class="manual-desc">Ultra HD 4K • 1 Pantalla • Renovable.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 12</span>
-                <span class="renovacion-info">🔄 Renova: S/ 12.00</span>
             </div>
         </div>
     </div>
 
-    <div class="service-link pocas con-renovacion" data-aos="fade-up">
+    <div class="service-link pocas" data-aos="fade-up">
         <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         <div class="service-card">
             <img src="../img/disneys.png" class="service-logo">
             <div class="service-text">
-                <span class="stock-status">pocas unidades</span>
-                <h3 class="nombre-prod">Disney Standar Perfil</h3>
-                <span class="manual-desc">Sin ESPN • Calidad 4K • PIN privado.</span>
+                <span class="stock-status">● Pocas Unidades: 2</span> <h3 class="nombre-prod">Disney Perfil</h3>
+                <span class="manual-desc">Calidad 4K • PIN privado.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 4</span>
-                <span class="renovacion-info">🔄 Renova: S/ 5.00</span>
+                <span class="price-tag precio-prod">S/ 5</span>
             </div>
         </div>
     </div>
 
-    <div class="service-link disponible premium con-renovacion agotado" data-aos="fade-up">
+    <div class="service-link agotado" data-aos="fade-up">
         <div class="service-card">
             <img src="../img/prime.png" class="service-logo">
             <div class="service-text">
