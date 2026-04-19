@@ -237,6 +237,7 @@
             </div>
         </div>
     </div>
+
     <div class="service-link pocas renovacion oferta" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
             <span class="badge-oferta">super solicitado🔥</span>
@@ -289,18 +290,25 @@
     function toggleSeleccion(elemento) {
         if(elemento.classList.contains('agotado')) return;
         
-        const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precioText = elemento.querySelector('.precio-prod').innerText;
-        const precio = parseFloat(precioText.replace('S/ ', ''));
-        const index = carrito.findIndex(p => p.nombre === nombre);
+        // Simplemente alternamos la clase 'selected' en el elemento clickeado
+        elemento.classList.toggle('selected');
+        
+        // Llamamos a la actualización para reconstruir el carrito
+        reconstruirCarritoDesdeUI();
+    }
 
-        if (index > -1) {
-            carrito.splice(index, 1);
-            elemento.classList.remove('selected');
-        } else {
+    function reconstruirCarritoDesdeUI() {
+        carrito = [];
+        // Buscamos todos los elementos que tienen la clase 'selected' en ese momento
+        const seleccionados = document.querySelectorAll('.service-link.selected');
+        
+        seleccionados.forEach(el => {
+            const nombre = el.querySelector('.nombre-prod').innerText;
+            const precioText = el.querySelector('.precio-prod').innerText;
+            const precio = parseFloat(precioText.replace('S/ ', ''));
             carrito.push({ nombre, precio });
-            elemento.classList.add('selected');
-        }
+        });
+
         actualizarCarritoUI();
     }
 
@@ -316,13 +324,8 @@
         const totalTxt = document.getElementById('cart-total');
         const barra = document.getElementById('whatsapp-btn');
         
-        // Suma base de precios
+        // Suma directa sin lógica de descuentos
         let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-        
-        // LÓGICA DE DESCUENTO: Si hay 3 o más, restar 2 soles al TOTAL
-        if (carrito.length >= 3) {
-            totalSoles = totalSoles - 2;
-        }
         
         contador.innerText = carrito.length;
         totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
@@ -346,12 +349,6 @@
         
         carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
         
-        // Agregar detalle del descuento en el mensaje de WhatsApp si aplica
-        if (carrito.length >= 3) {
-            mensaje += `\n🎁 Descuento Distri: -S/ 2.00`;
-            totalSoles = totalSoles - 2;
-        }
-
         mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
