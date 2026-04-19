@@ -98,8 +98,8 @@
         .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
         .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
         
-        .price-container { text-align: right; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; }
-        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; line-height: 1; }
+        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; white-space: nowrap; /* Esto evita que el número baje */display: inline-block; }
+        .price-container { text-align: right; margin-left: auto;  display: flex; flex-direction: column;  align-items: flex-end;  min-width: fit-content; /* Asegura que el contenedor se ajuste al texto */ }
         .unit-price { display: block; font-size: 9px; color: var(--text-dim); font-weight: 600; margin-top: 4px; }
 
         /* --- STICKY TOOLS --- */
