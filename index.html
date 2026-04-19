@@ -355,7 +355,7 @@
             return;
         }
         let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-        let mensaje = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
+        let mensaje = "¡Hola Alex Store! soy distribuidor! 👋 Deseo adquirir:\n\n";
         carrito.forEach(p => mensaje += `✅ ${p.nombre} - S/ ${p.precio}\n`);
         mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
