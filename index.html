@@ -489,28 +489,336 @@
     </div>
 </div>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV DISTRIBUIDOR | AlexStoree</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #39ff14; 
+            --accent: #a020f0;  
+            --dark-bg: #050505;
+            --card-bg: #0f0f0f;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --danger: #ff0000;
+            --gold: #ffd700;
+            --gold-shadow: rgba(255, 215, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--dark-bg); color: var(--text-main); padding-bottom: 140px; }
+
+        header { padding: 40px 20px 20px; text-align: center; }
+        .logo-container img { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            border: 3px solid var(--accent); background-color: #000;
+            box-shadow: 0 0 20px rgba(160, 32, 240, 0.4);
+        }
+        h1 { font-size: 1.8rem; text-transform: uppercase; font-weight: 800; margin: 20px 0; }
+        h1 span.mayoristas { color: var(--primary); }
+
+        .btn-volver { 
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: transparent; border: 2px solid var(--accent);
+            color: white; text-decoration: none; font-size: 0.8rem; font-weight: 800;
+            padding: 12px 25px; border-radius: 30px; transition: 0.4s ease;
+        }
+
+        /* AJUSTE PREMIUM SOLICITADO */
+        .premium-tag { 
+            display: none; 
+            font-size: 0.5rem; 
+            font-weight: 800; 
+            color: var(--gold); 
+            border: 1px solid var(--gold); 
+            padding: 1px 4px; 
+            border-radius: 3px; 
+            text-transform: uppercase; 
+            margin-bottom: 2px;
+            margin-right: 15px;
+            letter-spacing: 0.5px;
+        }
+        .service-link.premium .premium-tag { display: inline-block; }
+        .service-link.premium .service-card { border-color: var(--gold); box-shadow: 0 0 15px var(--gold-shadow); }
+
+        .timer-flash { display: none !important; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
+        .service-link.flash .timer-flash { display: flex !important; }
+        .badge-izq { display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 10px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
+        .service-link.oferta .badge-izq { display: block; }
+        .badge-culminada { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.9); color: var(--danger); padding: 10px; font-weight: 900; border: 2px solid var(--danger); z-index: 110; text-align: center; width: 80%; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .category-header { margin: 40px 0 20px; border-left: 4px solid var(--accent); padding-left: 15px; }
+        .category-title { font-weight: 800; text-transform: uppercase; font-size: 1.1rem; color: #fff; }
+        .category-desc { color: var(--text-dim); font-size: 0.75rem; margin-top: 5px; display: block; }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
+        
+        .service-link { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; }
+        .service-card { background: var(--card-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; }
+        .service-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
+        .service-text { flex-grow: 1; }
+        .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
+        .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
+        
+        .price-container { text-align: right; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; }
+        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; }
+        .unit-price { display: block; font-size: 9px; color: var(--text-dim); font-weight: 600; margin-bottom: 2px; }
+
+        .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
+        .search-container { max-width: 500px; margin: 0 auto 15px; padding: 0 20px; }
+        .search-container input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid var(--glass-border); background: #151515; color: white; outline: none; }
+        .filter-buttons { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 5px 20px; scrollbar-width: none; }
+        .filter-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--card-bg); color: white; cursor: pointer; font-size: 0.75rem; }
+        .filter-btn.active { background: var(--primary); color: black; font-weight: 800; }
+
+        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: white; border-radius: 25px; display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; cursor: pointer; }
+        .cart-content { display: flex; align-items: center; padding: 12px 20px; width: 100%; }
+        .cart-info { flex-grow: 1; color: black; font-weight: 800; font-size: 0.9rem; }
+        .btn-clear { background: #f0f0f0; color: #ff0000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 15px; }
+        .whatsapp-icon-float { font-size: 1.5rem; margin-right: 15px; color: #25D366; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-container"><img src="../img/logo.png" alt="AlexStoree"></div>
+    <h1>SMARTERSPRO <span class="mayoristas">MAYORISTAS</span></h1>
+    <a href="../distribuidores/index.html" class="btn-volver">
+        <i class="fa-solid fa-arrow-left"></i> VOLVER A DISTRIBUIDORES
+    </a>
+</header>
+
+<div class="sticky-tools">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Buscar plataforma..." onkeyup="filterSearch()">
+    </div>
+    <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterCat('all', this)">Todos</button>
+        <button class="filter-btn" onclick="filterCat('unidades', this)">Unidades</button>
+        <button class="filter-btn" onclick="filterCat('flujo', this)">Flujo TV</button>
+        <button class="filter-btn" onclick="filterCat('equilibrado', this)">Equilibrado</button>
+        <button class="filter-btn" onclick="filterCat('europeo', this)">Europeo</button>
+    </div>
+</div>
+
+<div class="container" id="productGrid">
+
+    <div class="category-block active-cat" data-cat="unidades">
+        <div class="category-header">
+            <span class="category-title">Cuentas por Unidad</span>
+            <span class="category-desc">Planes mensuales directos para clientes finales.</span>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
+                    <div class="badge-culminada">OFERTA CULMINADA</div>
+                    <span class="badge-izq">OFERTA</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 1 Mes</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 7</div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 3 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 15</div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 6 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 28</div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV Equilibrado 12 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 45</div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV PREMIUM 1 Mes</h3>
+                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 15</div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-link oferta" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <span class="badge-izq">+ 1 mes gratis</span>
+                    <img src="../img/u1.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>IPTV PREMIUM 3 Meses</h3>
+                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 45</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-block active-cat" data-cat="flujo">
+        <div class="category-header">
+            <span class="category-title">Cuentas Estables (Flujo TV) Antes MAGISTV</span>
+            <span class="category-desc">La mejor estabilidad en eventos deportivos.</span>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/flujo.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>Flujo TV (1 mes)</h3>
+                        <span class="manual-desc">3 dispositivos</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 12</div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/flujo.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>Flujo TV (12 meses)</h3>
+                        <span class="manual-desc">3 dispositivos</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 132</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-block active-cat" data-cat="equilibrado">
+        <div class="category-header">
+            <span class="category-title">Panel IPTV Equilibrado</span>
+            <span class="category-desc">Gestión de créditos con excelente relación calidad-precio.</span>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/n10.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>10 Créditos panel incluido</h3>
+                        <span class="unit-price">S/ 4.00 por unidad</span>
+                        <span class="manual-desc">Panel reseller gestión inmediata</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 40</div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/n10.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>100 Créditos super reseller</h3>
+                        <span class="unit-price">S/ 3.28 por unidad</span>
+                        <span class="manual-desc">Permite crear sub-paneles</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 300</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-block active-cat" data-cat="europeo">
+        <div class="category-header">
+            <span class="category-title">Panel IPTV Europeo</span>
+            <span class="category-desc">Servidores premium con contenido optimizado.</span>
+        </div>
+        <div class="grid-servicios">
+            <div class="service-link premium" onclick="toggleItem(this)">
+                <div class="service-card">
+                    <img src="../img/p10.png" class="service-logo">
+                    <div class="service-text">
+                        <h3>Europeo 10 Créditos</h3>
+                        <span class="unit-price">S/ 15.00 por unidad</span>
+                        <span class="manual-desc">Calidad Premium 4K estable</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="premium-tag">Premium</span>
+                        <div class="price-tag">S/ 150</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="cart-bar" onclick="sendWhatsapp()">
+    <div class="cart-content">
+        <i class="fa-brands fa-whatsapp whatsapp-icon-float"></i>
+        <div class="cart-info">PEDIR <span id="cart-qty">0</span> ITEMS | TOTAL: <span id="cart-total">S/ 0.00</span></div>
+        <button class="btn-clear" onclick="clearAll(event)"><i class="fa-solid fa-trash-can"></i></button>
+    </div>
+</div>
+
 <script>
     let total = 0, cant = 0;
     let selectedItems = [];
 
     function toggleItem(el) {
-        if(el.classList.contains('agotado')) return;
         el.classList.toggle('selected');
-        
-        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/', '').trim());
-        const nombre = el.querySelector('h3').innerText.trim();
-        const desc = el.querySelector('.manual-desc').innerText.trim();
-        const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText.trim() : "";
-        
-        // Captura oferta solo si la tarjeta tiene la clase 'oferta'
-        let ofertaDetalle = "";
-        if (el.classList.contains('oferta')) {
-            ofertaDetalle = el.querySelector('.badge-izq') ? el.querySelector('.badge-izq').innerText.trim() : "";
-        }
+        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
+        const nombre = el.querySelector('h3').innerText;
         
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            selectedItems.push({nombre, precio, desc, unitario, oferta: ofertaDetalle});
+            selectedItems.push({nombre, precio});
             el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
         } else {
             total -= precio; cant--;
@@ -537,46 +845,18 @@
     }
 
     function sendWhatsapp() {
-        if(selectedItems.length === 0) return;
         const numero = "51918600000";
-        
-        // Usamos códigos Hex para asegurar que WhatsApp lea bien los iconos
-        let msj = "¡Hola Alex Store!, soy distribuidor! \uD83D\uDC4B\n\nDeseo adquirir:\n\n";
-        
-        selectedItems.forEach(item => {
-            msj += `\u2705 *${item.nombre}*\n`; // Icono Check
-            
-            if(item.oferta !== "") {
-                msj += `\uD83C\uDF81 *PROMOCIÓN:* ${item.oferta}\n`; // Icono Regalo
-            }
-            
-            msj += `\uD83D\uDCDD _${item.desc}_\n`; // Icono Nota
-            
-            if(item.unitario) {
-                msj += `\uD83C\uDFF7\uFE0F [${item.unitario}]\n`; // Icono Etiqueta
-            }
-            
-            msj += `\uD83D\uDCB0 *Precio:* S/ ${item.precio.toFixed(2)}\n\n`; // Icono Bolsa dinero
-        });
-        
-        msj += `───────────────\n`;
-        msj += `\uD83D\uDCB5 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`; // Icono Billete
-        
+        let msj = "¡Hola! Deseo adquirir:\n\n";
+        selectedItems.forEach(item => msj += `✅ *${item.nombre}* - S/ ${item.precio}\n`);
+        msj += `\n💰 *TOTAL: S/ ${total.toFixed(2)}*`;
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
-    // ... resto de tus funciones (filtrarServicios, filterCat) se mantienen igual ...
-    function filtrarServicios() {
+    function filterSearch() {
         let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.querySelectorAll('.service-link');
-        let categories = document.querySelectorAll('.category-block');
-        cards.forEach(card => {
-            let texto = card.innerText.toLowerCase();
-            card.style.display = texto.includes(input) ? "" : "none";
-        });
-        categories.forEach(category => {
-            let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
-            category.style.display = (cardsVisibles > 0 || input === "") ? "" : "none";
+        document.querySelectorAll('.service-link').forEach(card => {
+            let text = card.querySelector('h3').innerText.toLowerCase();
+            card.style.display = text.includes(input) ? "block" : "none";
         });
     }
 
