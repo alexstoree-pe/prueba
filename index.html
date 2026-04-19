@@ -502,7 +502,7 @@
         const desc = el.querySelector('.manual-desc').innerText.trim();
         const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText.trim() : "";
         
-        // --- MODIFICADO: Solo captura la oferta si la tarjeta tiene la clase 'oferta' ---
+        // Captura oferta solo si la tarjeta tiene la clase 'oferta'
         let ofertaDetalle = "";
         if (el.classList.contains('oferta')) {
             ofertaDetalle = el.querySelector('.badge-izq') ? el.querySelector('.badge-izq').innerText.trim() : "";
@@ -540,41 +540,40 @@
         if(selectedItems.length === 0) return;
         const numero = "51918600000";
         
-        let msj = "¡Hola Alex Store!, soy distribuidor! 👋\n\nDeseo adquirir:\n\n";
+        // Usamos códigos Hex para asegurar que WhatsApp lea bien los iconos
+        let msj = "¡Hola Alex Store!, soy distribuidor! \uD83D\uDC4B\n\nDeseo adquirir:\n\n";
         
         selectedItems.forEach(item => {
-            msj += `✅ *${item.nombre}*\n`;
+            msj += `\u2705 *${item.nombre}*\n`; // Icono Check
             
-            // Solo se añade al mensaje si el campo oferta no está vacío
             if(item.oferta !== "") {
-                msj += `🎁 *PROMOCIÓN:* ${item.oferta}\n`;
+                msj += `\uD83C\uDF81 *PROMOCIÓN:* ${item.oferta}\n`; // Icono Regalo
             }
             
-            msj += `📝 _${item.desc}_\n`;
+            msj += `\uD83D\uDCDD _${item.desc}_\n`; // Icono Nota
             
             if(item.unitario) {
-                msj += `🏷️ [${item.unitario}]\n`;
+                msj += `\uD83C\uDFF7\uFE0F [${item.unitario}]\n`; // Icono Etiqueta
             }
             
-            msj += `💰 *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
+            msj += `\uD83D\uDCB0 *Precio:* S/ ${item.precio.toFixed(2)}\n\n`; // Icono Bolsa dinero
         });
         
         msj += `───────────────\n`;
-        msj += `💵 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
+        msj += `\uD83D\uDCB5 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`; // Icono Billete
         
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
+    // ... resto de tus funciones (filtrarServicios, filterCat) se mantienen igual ...
     function filtrarServicios() {
         let input = document.getElementById('searchInput').value.toLowerCase();
         let cards = document.querySelectorAll('.service-link');
         let categories = document.querySelectorAll('.category-block');
-
         cards.forEach(card => {
             let texto = card.innerText.toLowerCase();
             card.style.display = texto.includes(input) ? "" : "none";
         });
-
         categories.forEach(category => {
             let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
             category.style.display = (cardsVisibles > 0 || input === "") ? "" : "none";
@@ -589,3 +588,6 @@
         });
     }
 </script>
+
+</body>
+</html>
