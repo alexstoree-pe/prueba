@@ -490,19 +490,23 @@
 </div>
 
 <script>
-    /* Lógica original sin cambios */
     let total = 0, cant = 0;
     let selectedItems = [];
 
     function toggleItem(el) {
         if(el.classList.contains('agotado')) return;
         el.classList.toggle('selected');
+        
+        // --- EDITADO: Capturamos descripción y unitario ---
         const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
         const nombre = el.querySelector('h3').innerText;
+        const desc = el.querySelector('.manual-desc').innerText; // Captura descripción
+        const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText : ""; // Captura unitario si existe
         
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            selectedItems.push({nombre, precio});
+            // Guardamos todo el objeto detallado
+            selectedItems.push({nombre, precio, desc, unitario});
             el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
         } else {
             total -= precio; cant--;
@@ -532,40 +536,38 @@
         if(selectedItems.length === 0) return;
         const numero = "51918600000";
         let msj = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
+        
+        // --- EDITADO: Estructura del mensaje con descripción ---
         selectedItems.forEach(item => {
-            msj += `✅ *${item.nombre}* - S/ ${item.precio.toFixed(2)}\n`;
+            msj += `✅ *${item.nombre}*\n`;
+            msj += `   _${item.desc}_\n`; // Descripción en cursiva
+            if(item.unitario) msj += `   [${item.unitario}]\n`; // Unitario si existe
+            msj += `   *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
         });
-        msj += `\n💰 *TOTAL: S/ ${total.toFixed(2)}*`;
+        
+        msj += `💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
     function filtrarServicios() {
-    let input = document.getElementById('searchInput').value.toLowerCase();
-    let cards = document.querySelectorAll('.service-link');
-    let categories = document.querySelectorAll('.category-block');
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.querySelectorAll('.service-link');
+        let categories = document.querySelectorAll('.category-block');
 
-    // 1. Filtrar las tarjetas individuales
-    cards.forEach(card => {
-        let texto = card.innerText.toLowerCase();
-        if (texto.includes(input)) {
-            card.style.display = ""; // Mostrar
-        } else {
-            card.style.display = "none"; // Ocultar
-        }
-    });
+        cards.forEach(card => {
+            let texto = card.innerText.toLowerCase();
+            card.style.display = texto.includes(input) ? "" : "none";
+        });
 
-    // 2. Ocultar categorías que no tengan ninguna tarjeta visible
-    categories.forEach(category => {
-        // Contamos cuántas tarjetas dentro de esta categoría NO tienen display "none"
-        let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
-        
-        if (cardsVisibles > 0 || input === "") {
-            category.style.display = ""; // Mostrar bloque de categoría
-        } else {
-            category.style.display = "none"; // Ocultar bloque vacío
-        }
-    });
-}
+        categories.forEach(category => {
+            let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
+            if (cardsVisibles > 0 || input === "") {
+                category.style.display = ""; 
+            } else {
+                category.style.display = "none"; 
+            }
+        });
+    }
 
     function filterCat(cat, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -575,6 +577,3 @@
         });
     }
 </script>
-
-</body>
-</html>
