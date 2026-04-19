@@ -856,36 +856,44 @@
     }
 
     function sendWhatsapp() {
-        if(selectedItems.length === 0) return;
-        const numero = "51918600000";
+    if(selectedItems.length === 0) return;
+    const numero = "51918600000";
+    
+    // Definimos los emojis usando códigos hexadecimales para que no se rompan
+    const iSaludo = "\uD83D\uDC4B"; // 👋
+    const iCheck = "\u2705";         // ✅
+    const iRegalo = "\uD83C\uDF81"; // 🎁
+    const iNota = "\uD83D\uDCDD";   // 📝
+    const iEtiqueta = "\uD83C\uDFF7"; // 🏷️
+    const iPrecio = "\uD83D\uDCB0"; // 💰
+    const iDinero = "\uD83D\uDCB5"; // 💵
+
+    let msj = "¡Hola Alex Store!, soy distribuidor! " + iSaludo + "\n\n";
+    msj += "Deseo adquirir:\n\n";
+    
+    selectedItems.forEach(item => {
+        msj += iCheck + " *" + item.nombre + "*\n";
         
-        // Usamos emojis directos pero dentro de una sola cadena limpia
-        let msj = "¡Hola Alex Store!, soy distribuidor! 👋\n\n";
-        msj += "Deseo adquirir:\n\n";
+        // Solo envía la oferta si existe contenido capturado
+        if(item.oferta && item.oferta !== "") {
+            msj += iRegalo + " *PROMOCIÓN:* " + item.oferta + "\n";
+        }
         
-        selectedItems.forEach(item => {
-            msj += "✅ *" + item.nombre + "*\n";
-            
-            if(item.oferta !== "") {
-                msj += "🎁 *PROMOCIÓN:* " + item.oferta + "\n";
-            }
-            
-            msj += "📝 _" + item.desc + "_\n";
-            
-            if(item.unitario) {
-                msj += "🏷️ [" + item.unitario + "]\n";
-            }
-            
-            msj += "💰 *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
-        });
+        msj += iNota + " _" + item.desc + "_\n";
         
-        msj += "───────────────\n";
-        msj += "💵 *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
+        if(item.unitario) {
+            msj += iEtiqueta + " [" + item.unitario + "]\n";
+        }
         
-        // IMPORTANTE: Usamos un enlace directo a wa.me sin caracteres extraños fuera del encode
-        const url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(msj);
-        window.open(url, '_blank');
-    }
+        msj += iPrecio + " *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
+    });
+    
+    msj += "───────────────\n";
+    msj += iDinero + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
+    
+    // El uso de encodeURIComponent es vital aquí
+    window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
+}
 
     function filtrarServicios() {
         let input = document.getElementById('searchInput').value.toLowerCase();
@@ -911,5 +919,4 @@
         });
     }
 </script>
-</body>
-</html>
+
