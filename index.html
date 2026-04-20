@@ -776,25 +776,30 @@
     
     let carrito = [];
 
-    // --- FILTRADO POR BOTONES ---
-    function filtrarPorBtn(cat, btn) {
-        // 1. Marcar botón activo
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    function filtrarPorBtn(categoria, boton) {
+    // 1. Gestionar estado visual de los botones
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    boton.classList.add('active');
 
-        // 2. Limpiar el buscador para evitar conflictos visuales al cambiar de sección
-        document.getElementById('buscador').value = "";
-        
-        // 3. Ejecutamos la lógica de visibilidad
-        filtrarPlataformas();
+    // 2. Filtrar los contenedores (categoria-wrapper)
+    const grupos = document.querySelectorAll('.categoria-wrapper');
+    
+    grupos.forEach(grupo => {
+        if (categoria === 'todos') {
+            grupo.style.display = 'block';
+        } else {
+            // Compara el data-categoria del div con el parámetro del botón
+            if (grupo.getAttribute('data-categoria') === categoria) {
+                grupo.style.display = 'block';
+            } else {
+                grupo.style.display = 'none';
+            }
+        }
+    });
 
-        // 4. Forzar a AOS a recalcular posiciones y hacer scroll suave al inicio de productos
-        setTimeout(() => {
-            AOS.refresh();
-        }, 100);
-        
-        window.scrollTo({ top: 160, behavior: 'smooth' });
-    }
+    // 3. Resetear el buscador de texto para no crear conflictos
+    document.getElementById('buscador').value = "";
+}
 
     // --- BUSCADOR E INTEGRACIÓN DE CATEGORÍAS ---
     function filtrarPlataformas() {
