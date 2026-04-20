@@ -21,8 +21,16 @@
             --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
         }
 
-        /* SEGURIDAD: Ocultar HTML inicialmente */
-        html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
+        /* Cambia el display:none por opacidad para evitar bloqueos visuales */
+html { 
+    background-color: var(--dark); 
+    scroll-behavior: smooth; 
+}
+
+/* Esta clase asegurará que el contenido se oculte correctamente */
+.contenido-protegido {
+    display: none !important;
+}
 
         @keyframes shine-red { 
             0%, 100% { text-shadow: 0 0 10px var(--danger-neon), 0 0 20px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
@@ -188,50 +196,44 @@
     </style>
 
     <script>
-    /* CONFIGURACIÓN: Cambia aquí tu PIN */
-    const PIN_CORRECTO = "dis"; 
+(function() {
+    const acceso = sessionStorage.getItem("acceso_distribuidor");
+    const PIN_CORRECTO = "dis"; // Edita tu PIN aquí
 
-    (function() {
-        const acceso = sessionStorage.getItem("acceso_distribuidor");
-        
-        // 1. Si ya tiene acceso guardado, mostramos todo y no hacemos nada más
-        if (acceso === "true") {
-            document.documentElement.style.display = "block";
-            return;
-        }
-
-        // 2. Si no tiene acceso, esperamos a que cargue el DOM para configurar el modal
+    if (acceso === "true") {
+        // Si hay acceso, no hacemos nada, dejamos que todo cargue normal
+        return;
+    } else {
+        // Si NO hay acceso, ocultamos todo apenas el DOM esté listo
         document.addEventListener("DOMContentLoaded", function() {
-            document.documentElement.style.display = "block";
-            
-            // Ocultamos el contenido principal
-            const mainContent = document.querySelectorAll('header, .search-container, .grid-botones, .container, .floating-btn');
-            mainContent.forEach(el => { if(el) el.style.display = 'none'; });
-            
-            // Mostramos el modal de PIN
+            // Seleccionamos TODO lo que debe esconderse (incluyendo los botones de tu foto)
+            const elementos = document.querySelectorAll('header, .search-container, .grid-botones, .contenedor-iptv, .container, .floating-btn');
+            elementos.forEach(el => {
+                if(el) el.classList.add('contenido-protegido');
+            });
+
+            // Mostramos el modal
             const modal = document.getElementById('modal-login-distribuidor');
             if(modal) {
                 modal.style.display = 'flex';
-                document.getElementById('input-dist-pass').focus();
             }
         });
-    })();
-
-    // Función que activa el botón "ENTRAR"
-    function validarAcceso() {
-        const inputPass = document.getElementById('input-dist-pass');
-        const pass = inputPass.value;
-        
-        if (pass === PIN_CORRECTO) {
-            sessionStorage.setItem("acceso_distribuidor", "true");
-            // Al recargar, la función de arriba detectará el "true" y mostrará todo
-            location.reload();
-        } else {
-            alert("PIN incorrecto. Intente de nuevo.");
-            inputPass.value = "";
-            inputPass.focus();
-        }
     }
+})();
+
+function validarAcceso() {
+    const inputPass = document.getElementById('input-dist-pass');
+    const pass = inputPass.value;
+    
+    if (pass === "dis") {
+        sessionStorage.setItem("acceso_distribuidor", "true");
+        location.reload(); 
+    } else {
+        alert("PIN incorrecto.");
+        inputPass.value = "";
+        inputPass.focus();
+    }
+}
 </script>
 </head>
 <body>
