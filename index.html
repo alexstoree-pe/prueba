@@ -798,38 +798,69 @@
     window.scrollTo({ top: 150, behavior: 'smooth' });
 }
 
-    // --- BUSCADOR ---
-    function filtrarPlataformas() {
-        const input = document.getElementById('buscador').value.trim().toLowerCase();
-        const tarjetas = document.querySelectorAll('.service-link');
-        
-        tarjetas.forEach(tarjeta => {
-            const nombre = tarjeta.querySelector('.nombre-prod') ? tarjeta.querySelector('.nombre-prod').innerText.toLowerCase() : "";
-            const descripcion = tarjeta.querySelector('.manual-desc') ? tarjeta.querySelector('.manual-desc').innerText.toLowerCase() : "";
-            
-            if (nombre.includes(input) || descripcion.includes(input)) {
-                tarjeta.classList.remove('oculto-busqueda');
-                tarjeta.style.display = "block";
-            } else {
-                tarjeta.classList.add('oculto-busqueda');
-                tarjeta.style.display = "none";
-            }
+   function filtrarPorBtn(cat, btn) {
+    // 1. Marcar botón activo
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // 2. Limpiar el buscador para evitar conflictos al cambiar de categoría
+    document.getElementById('buscador').value = "";
+    
+    const wrappers = document.querySelectorAll('.categoria-wrapper');
+
+    wrappers.forEach(wrapper => {
+        // Mostramos todas las tarjetas dentro antes de decidir si ocultamos el grupo
+        const tarjetas = wrapper.querySelectorAll('.service-link');
+        tarjetas.forEach(t => {
+            t.style.display = "block";
+            t.classList.remove('oculto-busqueda');
         });
+
+        // Lógica de filtrado por categoría
+        if (cat === 'todos' || wrapper.getAttribute('data-categoria') === cat) {
+            wrapper.style.display = "block";
+        } else {
+            wrapper.style.display = "none";
+        }
+    });
+
+    // 3. Forzar a AOS a recalcular posiciones y hacer scroll suave al inicio
+    setTimeout(() => {
+        AOS.refresh();
+    }, 100);
+    
+    window.scrollTo({ top: 160, behavior: 'smooth' });
+}
+
+// Buscador inteligente que respeta la categoría seleccionada
+function filtrarPlataformas() {
+    const input = document.getElementById('buscador').value.trim().toLowerCase();
+    const tarjetas = document.querySelectorAll('.service-link');
+    const categoriaActiva = document.querySelector('.filter-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+
+    tarjetas.forEach(tarjeta => {
+        const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
+        const desc = tarjeta.querySelector('.manual-desc').innerText.toLowerCase();
+        const wrapper = tarjeta.closest('.categoria-wrapper');
+        const perteneceACategoria = (categoriaActiva === 'todos' || wrapper.getAttribute('data-categoria') === categoriaActiva);
+
+        if ((nombre.includes(input) || desc.includes(input)) && perteneceACategoria) {
+            tarjeta.style.display = "block";
+            tarjeta.classList.remove('oculto-busqueda');
+        } else {
+            tarjeta.style.display = "none";
+            tarjeta.classList.add('oculto-busqueda');
+        }
+    });
+
+    // Ocultar títulos de categorías vacías durante la búsqueda
+    document.querySelectorAll('.categoria-wrapper').forEach(wrapper => {
+        const tieneVisibles = Array.from(wrapper.querySelectorAll('.service-link')).some(t => t.style.display !== "none");
+        const perteneceACategoria = (categoriaActiva === 'todos' || wrapper.getAttribute('data-categoria') === categoriaActiva);
         
-        const categorias = document.querySelectorAll('.category-title');
-        categorias.forEach(titulo => {
-            let tieneHijosVisibles = false;
-            let hermano = titulo.nextElementSibling;
-            while(hermano && !hermano.classList.contains('category-title')) {
-                if(hermano.classList.contains('service-link') && !hermano.classList.contains('oculto-busqueda')) {
-                    tieneHijosVisibles = true;
-                    break;
-                }
-                hermano = hermano.nextElementSibling;
-            }
-            titulo.style.display = (tieneHijosVisibles || input === "") ? "flex" : "none";
-        });
-    }
+        wrapper.style.display = (tieneVisibles && perteneceACategoria) ? "block" : "none";
+    });
+}
 
     function toggleSeleccion(elemento) {
         if(elemento.classList.contains('agotado')) return;
