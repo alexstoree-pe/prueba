@@ -87,7 +87,14 @@ body {
         #buscador { width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
         #buscador:focus { border-color: var(--primary); outline: none; background: rgba(255,255,255,0.05); }
 
-        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
+        .grid-botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 10px auto 20px; /* Reducido el margen superior */
+    max-width: 500px;
+    padding: 0 15px;
+}
         .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
         .btn-promo-distri { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
@@ -209,35 +216,46 @@ body {
         }
         #custom-alert.active { top: 30px; }
         
-        /* --- ESTILOS DE FILTROS --- */
+ /* --- AJUSTE DE FILTROS PARA PC Y MÓVIL --- */
 .filter-buttons-container {
-    padding: 10px 15px;
+    padding: 15px;
     background: #0a0a0a;
     position: sticky;
-    top: 225px; /* Ajusta según la altura de tu header */
+    top: 140px; /* Reducido para que no flote tan abajo en PC */
     z-index: 1800;
+    display: flex;
+    justify-content: center; /* Centra los botones en PC */
 }
 
 .filter-buttons {
     display: flex;
     gap: 10px;
+    max-width: 100%;
     overflow-x: auto;
-    padding-bottom: 5px;
+    padding: 5px;
     scrollbar-width: none;
+    justify-content: center; /* Centra el contenido si no hay scroll */
 }
 
-.filter-buttons::-webkit-scrollbar { display: none; }
+/* En móviles, si los botones no caben, se alinean a la izquierda para permitir el scroll */
+@media (max-width: 600px) {
+    .filter-buttons-container {
+        top: 165px; /* Altura original para móviles */
+        justify-content: flex-start;
+    }
+    .filter-buttons {
+        justify-content: flex-start;
+    }
+}
 
 .filter-btn {
-    flex: 0 0 auto;
-    padding: 8px 18px;
+    white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+    padding: 10px 20px;
     border-radius: 12px;
     border: 1px solid var(--glass-border);
     background: var(--glass);
     color: white;
-    font-family: 'Poppins';
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.8rem;
     cursor: pointer;
     transition: 0.3s;
 }
