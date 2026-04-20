@@ -924,6 +924,53 @@ body {
             setTimeout(() => alert.classList.remove('active'), 3000);
         }
     }
+    function filterCat(cat, btn) {
+    // 1. Gestionar estado activo de botones
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // 2. Filtrar los bloques de categoría
+    const blocks = document.querySelectorAll('.category-block');
+    
+    blocks.forEach(block => {
+        if (cat === 'all' || block.getAttribute('data-cat') === cat) {
+            block.style.display = "block";
+            // Si hay un buscador activo, podrías querer re-ejecutar el buscador aquí
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+// Modificación de tu función de búsqueda para que respete las categorías
+function filtrarPlataformas() {
+    let input = document.getElementById('buscador').value.toLowerCase();
+    let cards = document.querySelectorAll('.service-link');
+    let blocks = document.querySelectorAll('.category-block');
+
+    // Filtrar tarjetas individuales
+    cards.forEach(card => {
+        let texto = card.innerText.toLowerCase();
+        if (texto.includes(input)) {
+            card.classList.remove('oculto-busqueda');
+        } else {
+            card.classList.add('oculto-busqueda');
+        }
+    });
+
+    // Ocultar títulos de categorías si no tienen hijos visibles
+    blocks.forEach(block => {
+        const visibles = block.querySelectorAll('.service-link:not(.oculto-busqueda)').length;
+        // Solo mostramos el bloque si tiene items visibles Y coincide con el filtro de categoría activo
+        const btnActivo = document.querySelector('.filter-btn.active').innerText.toLowerCase();
+        const catBlock = block.getAttribute('data-cat');
+        
+        // Lógica simple: si el buscador tiene texto, mostramos el título solo si hay resultados
+        if (input !== "") {
+            block.style.display = visibles > 0 ? "block" : "none";
+        }
+    });
+}
 </script>
 </body>
 </html>
