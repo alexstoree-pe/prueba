@@ -38,6 +38,39 @@ html {
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* --- PARCHE PARA BUSCADOR Y ANIMACIONES AOS --- */
+        .service-link[style*="display: block"] {
+            opacity: 1 !important;
+            transform: none !important;
+            visibility: visible !important;
+        }
+
+        /* Ajuste de filtros para PC (Lo que pediste antes) */
+        .filter-buttons-container {
+            padding: 15px;
+            background: var(--dark);
+            position: sticky;
+            top: 140px;
+            z-index: 1800;
+            display: flex;
+            justify-content: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 5px;
+            scrollbar-width: none;
+            justify-content: center;
+        }
+
+        @media (max-width: 600px) {
+            .filter-buttons-container { top: 165px; justify-content: flex-start; }
+            .filter-buttons { justify-content: flex-start; }
+        }
         /* 1. Ocultamos TODO el cuerpo por defecto para evitar el "parpadeo" de botones */
 body { 
     font-family: 'Poppins', sans-serif; 
