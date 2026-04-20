@@ -756,27 +756,14 @@ body {
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+    // Inicialización de animaciones
     AOS.init({ duration: 800, once: true });
     
     let carrito = [];
 
-    function validarAcceso() {
-        const inputPass = document.getElementById('input-dist-pass');
-        const pass = inputPass.value;
-        if (pass === "dis") {
-            sessionStorage.setItem("acceso_distribuidor", "true");
-            location.reload();
-        } else {
-            alert("Acceso denegado. PIN incorrecto.");
-            inputPass.value = "";
-            inputPass.focus();
-        }
-    }
-
-    /* BUSCADOR ULTRA-REFORZADO */
+    // --- BUSCADOR ---
     function filtrarPlataformas() {
         const input = document.getElementById('buscador').value.trim().toLowerCase();
-        // Buscamos en todo el documento para asegurar que no se escape nada
         const tarjetas = document.querySelectorAll('.service-link');
         
         tarjetas.forEach(tarjeta => {
@@ -785,23 +772,19 @@ body {
             
             if (nombre.includes(input) || descripcion.includes(input)) {
                 tarjeta.classList.remove('oculto-busqueda');
-                // Forzamos que AOS no bloquee la visibilidad al buscar
+                tarjeta.style.display = "block";
                 tarjeta.style.opacity = "1"; 
                 tarjeta.style.transform = "none";
-                tarjeta.style.display = "block";
             } else {
                 tarjeta.classList.add('oculto-busqueda');
                 tarjeta.style.display = "none";
             }
         });
         
-        // Manejo de títulos de categoría para que no queden "huérfanos"
         const categorias = document.querySelectorAll('.category-title');
         categorias.forEach(titulo => {
             let tieneHijosVisibles = false;
             let hermano = titulo.nextElementSibling;
-            
-            // Revisa todos los hermanos hasta el siguiente título o el fin del contenedor
             while(hermano && !hermano.classList.contains('category-title')) {
                 if(hermano.classList.contains('service-link') && !hermano.classList.contains('oculto-busqueda')) {
                     tieneHijosVisibles = true;
@@ -813,6 +796,7 @@ body {
         });
     }
 
+    // --- LÓGICA DE SELECCIÓN ---
     function toggleSeleccion(elemento) {
         if(elemento.classList.contains('agotado')) return;
         elemento.classList.toggle('selected');
@@ -820,20 +804,18 @@ body {
     }
 
     function reconstruirCarritoDesdeUI() {
-    carrito = [];
-    const seleccionados = document.querySelectorAll('.service-link.selected');
-    seleccionados.forEach(el => {
-        const nombre = el.querySelector('.nombre-prod').innerText;
-        const precioText = el.querySelector('.precio-prod').innerText;
-        // Capturamos las características (descripción)
-        const caracteristicas = el.querySelector('.manual-desc') ? el.querySelector('.manual-desc').innerText : "";
-        const precio = parseFloat(precioText.replace('S/ ', ''));
-        
-        // Guardamos la descripción en el objeto del carrito
-        carrito.push({ nombre, precio, caracteristicas }); 
-    });
-    actualizarCarritoUI();
-}
+        carrito = [];
+        const seleccionados = document.querySelectorAll('.service-link.selected');
+        seleccionados.forEach(el => {
+            const nombre = el.querySelector('.nombre-prod').innerText;
+            const precioText = el.querySelector('.precio-prod').innerText;
+            const caracteristicas = el.querySelector('.manual-desc') ? el.querySelector('.manual-desc').innerText : "Sin descripción";
+            const precio = parseFloat(precioText.replace('S/ ', ''));
+            
+            carrito.push({ nombre, precio, caracteristicas }); 
+        });
+        actualizarCarritoUI();
+    }
 
     function limpiarTodo(e) {
         if(e) e.stopPropagation();
@@ -851,14 +833,34 @@ body {
         if(contador) contador.innerText = carrito.length;
         if(totalTxt) totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
         
+        // Solo mostrar si hay productos Y el acceso está validado
         if(barra) {
-            // Se muestra solo si hay productos y hay acceso
             if (carrito.length > 0 && sessionStorage.getItem("acceso_distribuidor") === "true") {
                 barra.style.display = 'block';
             } else {
                 barra.style.display = 'none';
             }
         }
+    }
+
+    // --- ENVÍO A WHATSAPP ---
+    function enviarPedido() {
+        if (carrito.length === 0) {
+            mostrarAlerta();
+            return;
+        }
+        let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
+        let mensaje = "¡Hola Alex Store! soy distribuidor 👋 Deseo adquirir:\n\n";
+        
+        carrito.forEach(p => {
+            mensaje += `⭐ *${p.nombre}*\n`;
+            mensaje += `📝 ${p.caracteristicas}\n`;
+            mensaje += `💵 Precio: S/ ${p.precio.toFixed(2)}\n`;
+            mensaje += `--------------------------\n`;
+        });
+        
+        mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
+        window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
 
     function mostrarAlerta() {
@@ -868,25 +870,6 @@ body {
             setTimeout(() => alert.classList.remove('active'), 3000);
         }
     }
-
-    ffunction enviarPedido() {
-    if (carrito.length === 0) {
-        mostrarAlerta();
-        return;
-    }
-    let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
-    let mensaje = "¡Hola Alex Store! soy distribuidor👋 Deseo adquirir:\n\n";
-    
-    carrito.forEach(p => {
-        mensaje += `⭐ *${p.nombre}*\n`;          // Nombre
-        mensaje += `📝 ${p.caracteristicas}\n`;   // Características
-        mensaje += `💵 Precio: S/ ${p.precio}\n`; // Precio
-        mensaje += `--------------------------\n`;
-    });
-    
-    mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
-    window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
-}
 </script>
 </body>
 </html>
