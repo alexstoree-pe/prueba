@@ -41,7 +41,7 @@
             padding: 12px 25px; border-radius: 30px; transition: 0.4s ease;
         }
 
-        /* --- CORRECCIÓN PREMIUM --- */
+        /* --- ESTILOS PREMIUM --- */
         .premium-tag { 
             display: none; 
             font-size: 0.5rem; 
@@ -56,10 +56,21 @@
             letter-spacing: 0.5px;
         }
         .service-link.premium .premium-tag { display: inline-block; }
-        /* Borde dorado, precio dorado y unitario dorado */
-        .service-link.premium .service-card { border-color: var(--gold) !important; box-shadow: 0 0 15px var(--gold-shadow); }
         .service-link.premium .price-tag, 
         .service-link.premium .unit-price { color: var(--gold) !important; }
+
+        /* --- ESTADOS DE SELECCIÓN (Check y Borde) --- */
+        /* Normal seleccionado */
+        .service-link.selected .service-card { 
+            border-color: var(--primary) !important; 
+            background: rgba(57, 255, 20, 0.05);
+        }
+        /* Premium seleccionado */
+        .service-link.premium.selected .service-card { 
+            border-color: var(--gold) !important; 
+            background: rgba(255, 215, 0, 0.05);
+            box-shadow: 0 0 15px var(--gold-shadow);
+        }
 
         .timer-flash { display: none !important; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
         .service-link.flash .timer-flash { display: flex !important; }
@@ -80,30 +91,9 @@
         .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
         .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
         
-        .price-container { 
-            text-align: right; 
-            margin-left: auto; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: flex-end;   
-            justify-content: center;
-            min-width: 80px;        
-        }
-
-        .price-tag { 
-            color: var(--primary); 
-            font-weight: 900; 
-            font-size: 1.1rem; 
-            white-space: nowrap;    
-        }
-
-        .unit-price { 
-            display: block; 
-            font-size: 9px; 
-            color: var(--text-dim); 
-            font-weight: 600; 
-            margin-top: 2px;        
-        }
+        .price-container { text-align: right; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; min-width: 80px; }
+        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; white-space: nowrap; }
+        .unit-price { display: block; font-size: 9px; color: var(--text-dim); font-weight: 600; margin-top: 2px; }
 
         .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
         .search-container { max-width: 500px; margin: 0 auto 15px; padding: 0 20px; }
@@ -143,14 +133,12 @@
 </div>
 
 <div class="container" id="productGrid">
-
     <div class="category-block active-cat" data-cat="unidades">
         <div class="category-header">
             <span class="category-title">Cuentas por Unidad</span>
             <span class="category-desc">Planes mensuales directos para clientes finales.</span>
         </div>
         <div class="grid-servicios">
-            
             <div class="service-link premium oferta" onclick="toggleItem(this)">
                 <div class="service-card">
                     <span class="badge-izq">OFERTA</span>
@@ -166,22 +154,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="service-link" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <img src="../img/u1.png" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV Equilibrado 3 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - Calidad 4K</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 15</div>
-                        <span class="unit-price">S/ 5.00 mes</span>
-                    </div>
-                </div>
             </div>
-        </div>
     </div>
 </div>
 
@@ -199,8 +172,6 @@
 
     function toggleItem(el) {
         if(el.classList.contains('agotado')) return;
-        
-        const cardContainer = el.querySelector('.service-card');
         el.classList.toggle('selected');
         
         const nombre = el.querySelector('h3') ? el.querySelector('h3').innerText.trim() : "Servicio";
@@ -218,74 +189,43 @@
         if(el.classList.contains('selected')) {
             total += precio; cant++;
             selectedItems.push({nombre, precio, desc, unitario, oferta: ofertaDetalle});
-            
-            // Color de selección
-            if(cardContainer) {
-                cardContainer.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
-            }
         } else {
             total -= precio; cant--;
             selectedItems = selectedItems.filter(item => item.nombre !== nombre);
-            
-            // Color original
-            if(cardContainer) {
-                cardContainer.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
-            }
         }
         updateCartUI();
     }
 
     function updateCartUI() {
-        const qtyEl = document.getElementById('cart-qty');
-        const totalEl = document.getElementById('cart-total');
-        const barEl = document.getElementById('cart-bar');
-        
-        if(qtyEl) qtyEl.innerText = cant;
-        if(totalEl) totalEl.innerText = "S/ " + total.toFixed(2);
-        if(barEl) barEl.style.display = cant > 0 ? "block" : "none";
+        document.getElementById('cart-qty').innerText = cant;
+        document.getElementById('cart-total').innerText = "S/ " + total.toFixed(2);
+        document.getElementById('cart-bar').style.display = cant > 0 ? "block" : "none";
     }
 
     function sendWhatsapp() {
         if(selectedItems.length === 0) return;
         const numero = "51918600000";
-        
-        const iSaludo = "\uD83D\uDC4B"; 
-        const iCheck  = "\u2705";       
-        const iPromo  = "\uD83C\uDF81"; 
-        const iNota   = "\uD83D\uDCDD"; 
-        const iTag    = "\uD83C\uDFF7"; 
-        const iPrecio = "\uD83D\uDCB0"; 
-        const iTotal  = "\uD83D\uDCB5"; 
+        const iSaludo = "\uD83D\uDC4B", iCheck = "\u2705", iPromo = "\uD83C\uDF81", iNota = "\uD83D\uDCDD", iTag = "\uD83C\uDFF7", iPrecio = "\uD83D\uDCB0", iTotal = "\uD83D\uDCB5"; 
 
-        let msj = "¡Hola Alex Store!, soy distribuidor! " + iSaludo + "\n\n";
-        msj += "Deseo adquirir:\n\n";
-        
+        let msj = "¡Hola Alex Store!, soy distribuidor! " + iSaludo + "\n\nDeseo adquirir:\n\n";
         selectedItems.forEach(item => {
             msj += iCheck + " *" + item.nombre + "*\n";
-            if(item.oferta !== "") msj += iPromo + " *PROMOCIÓN:* " + item.oferta + "\n";
+            if(item.oferta) msj += iPromo + " *PROMOCIÓN:* " + item.oferta + "\n";
             msj += iNota + " _" + item.desc + "_\n";
             if(item.unitario) msj += iTag + " [" + item.unitario + "]\n";
             msj += iPrecio + " *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
         });
-        
-        msj += "───────────────\n";
-        msj += iTotal + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
-        
+        msj += "───────────────\n" + iTotal + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
         window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
     }
 
     function clearAll(event) {
         if(event) event.stopPropagation();
-        document.querySelectorAll('.service-link.selected').forEach(el => {
-            el.classList.remove('selected');
-            const card = el.querySelector('.service-card');
-            if(card) card.style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
-        });
+        document.querySelectorAll('.service-link.selected').forEach(el => el.classList.remove('selected'));
         selectedItems = []; total = 0; cant = 0;
         updateCartUI();
     }
 
-    // --- CORRECCIÓN BUSCADOR ---
     function filtrarServicios() {
         let input = document.getElementById('searchInput').value.toLowerCase().trim();
         let cards = document.querySelectorAll('.service-link');
@@ -293,20 +233,12 @@
 
         cards.forEach(card => {
             let textoCard = card.innerText.toLowerCase();
-            if (input === "" || textoCard.includes(input)) {
-                card.style.display = ""; 
-            } else {
-                card.style.display = "none";
-            }
+            card.style.display = (input === "" || textoCard.includes(input)) ? "" : "none";
         });
 
         categories.forEach(category => {
-            let tarjetasVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
-            if (input !== "" && tarjetasVisibles === 0) {
-                category.style.display = "none";
-            } else {
-                category.style.display = ""; 
-            }
+            let visibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
+            category.style.display = (input !== "" && visibles === 0) ? "none" : "";
         });
     }
 
@@ -316,7 +248,6 @@
         document.querySelectorAll('.category-block').forEach(block => {
             block.style.display = (cat === 'all' || block.getAttribute('data-cat') === cat) ? "block" : "none";
         });
-        // Reset buscador al cambiar categoría
         document.getElementById('searchInput').value = "";
         filtrarServicios();
     }
