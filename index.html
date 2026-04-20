@@ -832,26 +832,36 @@
     window.scrollTo({ top: 160, behavior: 'smooth' });
 }
 
-// Buscador inteligente que respeta la categoría seleccionada
 function filtrarPlataformas() {
     const input = document.getElementById('buscador').value.trim().toLowerCase();
     const tarjetas = document.querySelectorAll('.service-link');
-    const categoriaActiva = document.querySelector('.filter-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+    
+    // Detectamos qué filtro de categoría está marcado como 'active'
+    const btnActivo = document.querySelector('.filter-btn.active');
+    const catActiva = btnActivo ? btnActivo.getAttribute('onclick').match(/'([^']+)'/)[1] : 'todos';
 
     tarjetas.forEach(tarjeta => {
         const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
-        const desc = tarjeta.querySelector('.manual-desc').innerText.toLowerCase();
+        const descripcion = tarjeta.querySelector('.manual-desc').innerText.toLowerCase();
         const wrapper = tarjeta.closest('.categoria-wrapper');
-        const perteneceACategoria = (categoriaActiva === 'todos' || wrapper.getAttribute('data-categoria') === categoriaActiva);
+        
+        // El producto debe coincidir con el texto Y con la categoría seleccionada
+        const coincideBusqueda = nombre.includes(input) || descripcion.includes(input);
+        const coincideCategoria = (catActiva === 'todos' || wrapper.getAttribute('data-categoria') === catActiva);
 
-        if ((nombre.includes(input) || desc.includes(input)) && perteneceACategoria) {
-            tarjeta.style.display = "block";
+        if (coincideBusqueda && coincideCategoria) {
             tarjeta.classList.remove('oculto-busqueda');
+            tarjeta.style.display = "block";
+            tarjeta.style.opacity = "1"; 
+            tarjeta.style.transform = "none";
         } else {
-            tarjeta.style.display = "none";
             tarjeta.classList.add('oculto-busqueda');
+            tarjeta.style.display = "none";
         }
     });
+
+    // ... (aquí sigue tu lógica de ocultar títulos de categoría)
+}
 
     // Ocultar títulos de categorías vacías durante la búsqueda
     document.querySelectorAll('.categoria-wrapper').forEach(wrapper => {
