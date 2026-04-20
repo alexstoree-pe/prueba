@@ -188,22 +188,51 @@
     </style>
 
     <script>
-        /* SCRIPT DE SEGURIDAD INTEGRADO */
-        (function() {
-            const acceso = sessionStorage.getItem("acceso_distribuidor");
-            if (acceso === "true") {
-                document.documentElement.style.display = "block";
-            } else {
-                document.addEventListener("DOMContentLoaded", function() {
-                    document.documentElement.style.display = "block";
-                    const mainContent = document.querySelectorAll('header, .search-container, .grid-botones, .container, .floating-btn');
-                    mainContent.forEach(el => { if(el) el.style.display = 'none'; });
-                    document.getElementById('modal-login-distribuidor').style.display = 'flex';
-                    document.getElementById('input-dist-pass').focus();
-                });
+    /* CONFIGURACIÓN: Cambia aquí tu PIN */
+    const PIN_CORRECTO = "dis"; 
+
+    (function() {
+        const acceso = sessionStorage.getItem("acceso_distribuidor");
+        
+        // 1. Si ya tiene acceso guardado, mostramos todo y no hacemos nada más
+        if (acceso === "true") {
+            document.documentElement.style.display = "block";
+            return;
+        }
+
+        // 2. Si no tiene acceso, esperamos a que cargue el DOM para configurar el modal
+        document.addEventListener("DOMContentLoaded", function() {
+            document.documentElement.style.display = "block";
+            
+            // Ocultamos el contenido principal
+            const mainContent = document.querySelectorAll('header, .search-container, .grid-botones, .container, .floating-btn');
+            mainContent.forEach(el => { if(el) el.style.display = 'none'; });
+            
+            // Mostramos el modal de PIN
+            const modal = document.getElementById('modal-login-distribuidor');
+            if(modal) {
+                modal.style.display = 'flex';
+                document.getElementById('input-dist-pass').focus();
             }
-        })();
-    </script>
+        });
+    })();
+
+    // Función que activa el botón "ENTRAR"
+    function validarAcceso() {
+        const inputPass = document.getElementById('input-dist-pass');
+        const pass = inputPass.value;
+        
+        if (pass === PIN_CORRECTO) {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            // Al recargar, la función de arriba detectará el "true" y mostrará todo
+            location.reload();
+        } else {
+            alert("PIN incorrecto. Intente de nuevo.");
+            inputPass.value = "";
+            inputPass.focus();
+        }
+    }
+</script>
 </head>
 <body>
 
@@ -212,7 +241,9 @@
         <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
         <h2 style="color:var(--primary); margin-bottom:10px;">ACCESO PRIVADO</h2>
         <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8" onkeydown="if(event.key === 'Enter') validarAcceso()">
-        <button onclick="validarAcceso()" style="background:var(--primary); width:100%; padding:20px; border-radius:15px; font-weight:800; border:none; cursor:pointer; color:#000;">ENTRAR</button>
+        <button onclick="validarAcceso()" class="btn-universal btn-promo-distri" style="width:100%; font-size:1rem; cursor:pointer;">
+    ENTRAR
+</button>
     </div>
 </div>
 
