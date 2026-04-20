@@ -162,6 +162,34 @@
         .cart-info { flex-grow: 1; color: black; font-weight: 800; font-size: 0.9rem; }
         .btn-clear { background: #f0f0f0; color: #ff0000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; margin-left: 15px; }
         .whatsapp-icon-float { font-size: 1.5rem; margin-right: 15px; color: #25D366; }
+        /* --- NUEVOS ESTILOS DE SELECCIÓN AGREGADOS --- */
+        .service-link.selected .service-card {
+            border-color: var(--primary) !important;
+            background: rgba(57, 255, 20, 0.05);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+
+        .service-link.selected.premium .service-card {
+            border-color: var(--gold) !important;
+            background: rgba(255, 215, 0, 0.05);
+            box-shadow: 0 0 15px var(--gold-shadow);
+        }
+
+        .service-link.selected .service-card::before {
+            content: "\f058"; /* Icono check de FontAwesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: var(--primary);
+            font-size: 1.1rem;
+            z-index: 10;
+        }
+
+        .service-link.selected.premium .service-card::before {
+            color: var(--gold);
+        }
     </style>
 </head>
 <body>
@@ -540,27 +568,26 @@
     let selectedItems = [];
 
     function toggleItem(el) {
-        if(el.classList.contains('agotado')) return;
-        el.classList.toggle('selected');
-        
-        // --- EDITADO: Capturamos descripción y unitario ---
-        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
-        const nombre = el.querySelector('h3').innerText;
-        const desc = el.querySelector('.manual-desc').innerText; // Captura descripción
-        const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText : ""; // Captura unitario si existe
-        
-        if(el.classList.contains('selected')) {
-            total += precio; cant++;
-            // Guardamos todo el objeto detallado
-            selectedItems.push({nombre, precio, desc, unitario});
-            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--primary)";
-        } else {
-            total -= precio; cant--;
-            selectedItems = selectedItems.filter(item => item.nombre !== nombre);
-            el.querySelector('.service-card').style.borderColor = el.classList.contains('premium') ? "var(--gold)" : "var(--glass-border)";
-        }
-        updateCartUI();
+    if(el.classList.contains('agotado')) return;
+    el.classList.toggle('selected');
+    
+    const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
+    const nombre = el.querySelector('h3').innerText;
+    const desc = el.querySelector('.manual-desc').innerText; 
+    const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText : ""; 
+    
+    if(el.classList.contains('selected')) {
+        total += precio; cant++;
+        selectedItems.push({nombre, precio, desc, unitario});
+    } else {
+        total -= precio; cant--;
+        selectedItems = selectedItems.filter(item => item.nombre !== nombre);
     }
+    
+    // El color del borde ahora lo manejamos por CSS con la clase .selected
+    // para que sea más fácil de mantener.
+    updateCartUI();
+}
 
     function updateCartUI() {
         document.getElementById('cart-qty').innerText = cant;
