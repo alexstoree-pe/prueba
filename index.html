@@ -970,21 +970,26 @@ body {
     });
 }
 
-// Modificación de tu función de búsqueda para que respete las categorías
-function filtrarPlataformas() {
-    let input = document.getElementById('buscador').value.toLowerCase();
-    let cards = document.querySelectorAll('.service-link');
-    let blocks = document.querySelectorAll('.category-block');
+function filtrarProductos() {
+    const texto = document.getElementById('buscar').value.toLowerCase();
+    const productos = document.querySelectorAll('.service-link');
+    const bloques = document.querySelectorAll('.category-block');
 
-    // Filtrar tarjetas individuales
-    cards.forEach(card => {
-        let texto = card.innerText.toLowerCase();
-        if (texto.includes(input)) {
-            card.classList.remove('oculto-busqueda');
+    productos.forEach(prod => {
+        const nombre = prod.querySelector('.nombre-prod').innerText.toLowerCase();
+        if (nombre.includes(texto)) {
+            prod.style.display = "block";
+            // Forzamos a que AOS detecte que el elemento ahora es visible
+            prod.classList.add('aos-animate'); 
         } else {
-            card.classList.add('oculto-busqueda');
+            prod.style.display = "none";
+            prod.classList.remove('aos-animate');
         }
     });
+
+    // IMPORTANTE: Refrescar AOS para recalcular posiciones
+    AOS.refresh();
+}
 
     // Ocultar títulos de categorías si no tienen hijos visibles
     blocks.forEach(block => {
