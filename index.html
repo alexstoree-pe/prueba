@@ -241,7 +241,7 @@
         <i class="fas fa-lock" style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;"></i>
         <h2 style="color:white; font-size: 1.2rem;">ACCESO DISTRIBUIDOR</h2>
         <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 5px;">Ingrese su PIN para ver precios de mayorista</p>
-        <input type="password" id="input-dist-pass" placeholder="····" maxlength="8">
+        <input type="password" id="input-dist-pass" placeholder="····" maxlength="8" onkeypress="if(event.key === 'Enter') validarAcceso()">
         <button onclick="validarAcceso()" class="btn-entrar-vip">VER CATÁLOGO VIP</button>
     </div>
 </div>
