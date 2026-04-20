@@ -746,14 +746,41 @@
         const desc = el.querySelector('.manual-desc').innerText; 
         const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText : ""; 
         
+        // --- NUEVA LÓGICA: CAPTURAR ETIQUETA DE OFERTA ---
+        let textoOferta = "";
+        if(el.classList.contains('oferta')) {
+            const badge = el.querySelector('.badge-izq');
+            if(badge) textoOferta = badge.innerText; // Captura "OFERTA" o lo que diga el badge
+        }
+        
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            selectedItems.push({nombre, precio, desc, unitario});
+            // Guardamos la oferta en el objeto del item
+            selectedItems.push({nombre, precio, desc, unitario, oferta: textoOferta});
         } else {
             total -= precio; cant--;
             selectedItems = selectedItems.filter(item => item.nombre !== nombre);
         }
         updateCartUI();
+    }
+
+    function sendWhatsapp() {
+        if(selectedItems.length === 0) return;
+        const numero = "51918600000";
+        let msj = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
+        
+        selectedItems.forEach(item => {
+            // Si tiene oferta, la ponemos al inicio del nombre en negrita
+            let prefijoOferta = item.oferta ? ` 🔥 *[${item.oferta}]* ` : "";
+            
+            msj += `✅${prefijoOferta}*${item.nombre}*\n`;
+            msj += `   _${item.desc}_\n`; 
+            if(item.unitario) msj += `   [${item.unitario}]\n`; 
+            msj += `   *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
+        });
+        
+        msj += `💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
+        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
     function updateCartUI() {
@@ -769,20 +796,6 @@
         document.querySelectorAll('.service-link.selected').forEach(el => el.classList.remove('selected'));
         selectedItems = []; total = 0; cant = 0;
         updateCartUI();
-    }
-
-    function sendWhatsapp() {
-        if(selectedItems.length === 0) return;
-        const numero = "51918600000";
-        let msj = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
-        selectedItems.forEach(item => {
-            msj += `✅ *${item.nombre}*\n`;
-            msj += `   _${item.desc}_\n`; 
-            if(item.unitario) msj += `   [${item.unitario}]\n`; 
-            msj += `   *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
-        });
-        msj += `💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
-        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
     function filtrarServicios() {
