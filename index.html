@@ -38,13 +38,28 @@ html {
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: white; padding-bottom: 200px; overflow-x: hidden; }
+        /* 1. Ocultamos TODO el cuerpo por defecto para evitar el "parpadeo" de botones */
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background: #0a0a0a; 
+    color: white; 
+    padding-bottom: 200px; 
+    overflow-x: hidden;
+    visibility: hidden; /* <--- Esto es la clave: invisible hasta que el PIN sea correcto */
+}
 
-        /* ESTILOS DEL MODAL DE SEGURIDAD */
-        .modal-pass { 
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
-            backdrop-filter: blur(25px); z-index: 9999; justify-content: center; align-items: center; 
-        }
+/* 2. El modal debe ser lo ÚNICO visible cuando no hay acceso */
+.modal-pass { 
+    display: none; 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.98); 
+    backdrop-filter: blur(25px); 
+    z-index: 9999; 
+    justify-content: center; 
+    align-items: center;
+    visibility: visible; /* <--- Esto permite que el modal se vea aunque el body esté oculto */
+}
         .modal-content-pass { 
             background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
             border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
@@ -196,44 +211,45 @@ html {
     </style>
 
     <script>
-(function() {
-    const acceso = sessionStorage.getItem("acceso_distribuidor");
-    const PIN_CORRECTO = "dis"; // Edita tu PIN aquí
-
-    if (acceso === "true") {
-        // Si hay acceso, no hacemos nada, dejamos que todo cargue normal
-        return;
-    } else {
-        // Si NO hay acceso, ocultamos todo apenas el DOM esté listo
-        document.addEventListener("DOMContentLoaded", function() {
-            // Seleccionamos TODO lo que debe esconderse (incluyendo los botones de tu foto)
-            const elementos = document.querySelectorAll('header, .search-container, .grid-botones, .contenedor-iptv, .container, .floating-btn');
-            elementos.forEach(el => {
-                if(el) el.classList.add('contenido-protegido');
+    // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
+    (function() {
+        const acceso = sessionStorage.getItem("acceso_distribuidor");
+        
+        if (acceso === "true") {
+            // Si tiene acceso, hacemos todo visible de inmediato
+            document.documentElement.style.visibility = "visible";
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.style.visibility = "visible";
             });
+        } else {
+            // Si no tiene acceso, esperamos al DOM solo para mostrar el modal
+            document.addEventListener("DOMContentLoaded", () => {
+                const modal = document.getElementById('modal-login-distribuidor');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    // Mantenemos el body oculto pero el modal visible
+                    document.body.style.visibility = 'hidden'; 
+                    modal.style.visibility = 'visible';
+                }
+            });
+        }
+    })();
 
-            // Mostramos el modal
-            const modal = document.getElementById('modal-login-distribuidor');
-            if(modal) {
-                modal.style.display = 'flex';
-            }
-        });
-    }
-})();
+    function validarAcceso() {
+        const inputPass = document.getElementById('input-dist-pass');
+        const pass = inputPass.value;
+        const PIN_CORRECTO = "dis"; // Tu PIN aquí
 
-function validarAcceso() {
-    const inputPass = document.getElementById('input-dist-pass');
-    const pass = inputPass.value;
-    
-    if (pass === "dis") {
-        sessionStorage.setItem("acceso_distribuidor", "true");
-        location.reload(); 
-    } else {
-        alert("PIN incorrecto.");
-        inputPass.value = "";
-        inputPass.focus();
+        if (pass === PIN_CORRECTO) {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            // Al recargar, entrará en el primer "if" y todo será visible
+            location.reload();
+        } else {
+            alert("Acceso denegado.");
+            inputPass.value = "";
+            inputPass.focus();
+        }
     }
-}
 </script>
 </head>
 <body>
