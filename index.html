@@ -162,34 +162,34 @@
         .cart-info { flex-grow: 1; color: black; font-weight: 800; font-size: 0.9rem; }
         .btn-clear { background: #f0f0f0; color: #ff0000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; margin-left: 15px; }
         .whatsapp-icon-float { font-size: 1.5rem; margin-right: 15px; color: #25D366; }
-        /* --- NUEVOS ESTILOS DE SELECCIÓN AGREGADOS --- */
-        .service-link.selected .service-card {
-            border-color: var(--primary) !important;
-            background: rgba(57, 255, 20, 0.05);
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
-        }
+        /* --- NUEVOS ESTILOS DE SELECCIÓN EN CELESTE --- */
+.service-link.selected .service-card {
+    border-color: #00d4ff !important; /* Celeste brillante */
+    background: rgba(0, 212, 255, 0.05); /* Fondo celeste sutil */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
 
-        .service-link.selected.premium .service-card {
-            border-color: var(--gold) !important;
-            background: rgba(255, 215, 0, 0.05);
-            box-shadow: 0 0 15px var(--gold-shadow);
-        }
+.service-link.selected.premium .service-card {
+    border-color: #00d4ff !important; /* También celeste al seleccionar, aunque sea premium */
+    background: rgba(0, 212, 255, 0.05);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
 
-        .service-link.selected .service-card::before {
-            content: "\f058"; /* Icono check de FontAwesome */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            color: var(--primary);
-            font-size: 1.1rem;
-            z-index: 10;
-        }
+.service-link.selected .service-card::before {
+    content: "\f058"; 
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #00d4ff; /* Check en celeste */
+    font-size: 1.1rem;
+    z-index: 10;
+}
 
-        .service-link.selected.premium .service-card::before {
-            color: var(--gold);
-        }
+.service-link.selected.premium .service-card::before {
+    color: #00d4ff; /* Check en celeste para premium también */
+}
     </style>
 </head>
 <body>
