@@ -771,107 +771,77 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+    // Inicialización de animaciones
     AOS.init({ duration: 800, once: true });
     
     let carrito = [];
 
+    // --- FILTRADO POR BOTONES ---
     function filtrarPorBtn(cat, btn) {
-    // 1. Estética de los botones
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+        // 1. Marcar botón activo
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-    const wrappers = document.querySelectorAll('.categoria-wrapper');
+        // 2. Limpiar el buscador para evitar conflictos visuales al cambiar de sección
+        document.getElementById('buscador').value = "";
+        
+        // 3. Ejecutamos la lógica de visibilidad
+        filtrarPlataformas();
 
-    wrappers.forEach(wrapper => {
-        if (cat === 'todos' || wrapper.getAttribute('data-categoria') === cat) {
-            wrapper.style.display = "block";
-            // Forzamos a AOS a detectar los elementos que ahora son visibles
-            setTimeout(() => {
-                AOS.refresh();
-            }, 100);
-        } else {
-            wrapper.style.display = "none";
-        }
-    });
+        // 4. Forzar a AOS a recalcular posiciones y hacer scroll suave al inicio de productos
+        setTimeout(() => {
+            AOS.refresh();
+        }, 100);
+        
+        window.scrollTo({ top: 160, behavior: 'smooth' });
+    }
 
-    // 2. Auto-scroll hacia arriba para que el usuario vea los resultados
-    window.scrollTo({ top: 150, behavior: 'smooth' });
-}
+    // --- BUSCADOR E INTEGRACIÓN DE CATEGORÍAS ---
+    function filtrarPlataformas() {
+        const input = document.getElementById('buscador').value.trim().toLowerCase();
+        const tarjetas = document.querySelectorAll('.service-link');
+        
+        // Detectamos qué categoría está activa en los botones
+        const btnActivo = document.querySelector('.filter-btn.active');
+        const catActiva = btnActivo ? btnActivo.getAttribute('onclick').match(/'([^']+)'/)[1] : 'todos';
 
-   function filtrarPorBtn(cat, btn) {
-    // 1. Marcar botón activo
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+        tarjetas.forEach(tarjeta => {
+            const nombre = tarjeta.querySelector('.nombre-prod') ? tarjeta.querySelector('.nombre-prod').innerText.toLowerCase() : "";
+            const descripcion = tarjeta.querySelector('.manual-desc') ? tarjeta.querySelector('.manual-desc').innerText.toLowerCase() : "";
+            const wrapper = tarjeta.closest('.categoria-wrapper');
+            
+            // Verificamos si pertenece a la categoría seleccionada
+            const perteneceACategoria = (catActiva === 'todos' || (wrapper && wrapper.getAttribute('data-categoria') === catActiva));
+            // Verificamos si coincide con el texto buscado
+            const coincideBusqueda = nombre.includes(input) || descripcion.includes(input);
 
-    // 2. Limpiar el buscador para evitar conflictos al cambiar de categoría
-    document.getElementById('buscador').value = "";
-    
-    const wrappers = document.querySelectorAll('.categoria-wrapper');
-
-    wrappers.forEach(wrapper => {
-        // Mostramos todas las tarjetas dentro antes de decidir si ocultamos el grupo
-        const tarjetas = wrapper.querySelectorAll('.service-link');
-        tarjetas.forEach(t => {
-            t.style.display = "block";
-            t.classList.remove('oculto-busqueda');
+            if (coincideBusqueda && perteneceACategoria) {
+                tarjeta.classList.remove('oculto-busqueda');
+                tarjeta.style.display = "block";
+                // Forzamos visibilidad para que AOS no las mantenga ocultas
+                tarjeta.style.opacity = "1"; 
+                tarjeta.style.transform = "none";
+            } else {
+                tarjeta.classList.add('oculto-busqueda');
+                tarjeta.style.display = "none";
+            }
         });
 
-        // Lógica de filtrado por categoría
-        if (cat === 'todos' || wrapper.getAttribute('data-categoria') === cat) {
-            wrapper.style.display = "block";
-        } else {
-            wrapper.style.display = "none";
-        }
-    });
+        // Ocultar o mostrar contenedores y títulos de categorías según resultados
+        document.querySelectorAll('.categoria-wrapper').forEach(wrapper => {
+            const tieneVisibles = Array.from(wrapper.querySelectorAll('.service-link')).some(t => t.style.display !== "none");
+            const esCategoriaActiva = (catActiva === 'todos' || wrapper.getAttribute('data-categoria') === catActiva);
+            
+            // El wrapper se muestra solo si tiene hijos visibles y es la categoría seleccionada
+            if (tieneVisibles && esCategoriaActiva) {
+                wrapper.style.display = "block";
+            } else {
+                wrapper.style.display = "none";
+            }
+        });
+    }
 
-    // 3. Forzar a AOS a recalcular posiciones y hacer scroll suave al inicio
-    setTimeout(() => {
-        AOS.refresh();
-    }, 100);
-    
-    window.scrollTo({ top: 160, behavior: 'smooth' });
-}
-
-function filtrarPlataformas() {
-    const input = document.getElementById('buscador').value.trim().toLowerCase();
-    const tarjetas = document.querySelectorAll('.service-link');
-    
-    // Detectamos qué filtro de categoría está marcado como 'active'
-    const btnActivo = document.querySelector('.filter-btn.active');
-    const catActiva = btnActivo ? btnActivo.getAttribute('onclick').match(/'([^']+)'/)[1] : 'todos';
-
-    tarjetas.forEach(tarjeta => {
-        const nombre = tarjeta.querySelector('.nombre-prod').innerText.toLowerCase();
-        const descripcion = tarjeta.querySelector('.manual-desc').innerText.toLowerCase();
-        const wrapper = tarjeta.closest('.categoria-wrapper');
-        
-        // El producto debe coincidir con el texto Y con la categoría seleccionada
-        const coincideBusqueda = nombre.includes(input) || descripcion.includes(input);
-        const coincideCategoria = (catActiva === 'todos' || wrapper.getAttribute('data-categoria') === catActiva);
-
-        if (coincideBusqueda && coincideCategoria) {
-            tarjeta.classList.remove('oculto-busqueda');
-            tarjeta.style.display = "block";
-            tarjeta.style.opacity = "1"; 
-            tarjeta.style.transform = "none";
-        } else {
-            tarjeta.classList.add('oculto-busqueda');
-            tarjeta.style.display = "none";
-        }
-    });
-
-    // ... (aquí sigue tu lógica de ocultar títulos de categoría)
-}
-
-    // Ocultar títulos de categorías vacías durante la búsqueda
-    document.querySelectorAll('.categoria-wrapper').forEach(wrapper => {
-        const tieneVisibles = Array.from(wrapper.querySelectorAll('.service-link')).some(t => t.style.display !== "none");
-        const perteneceACategoria = (categoriaActiva === 'todos' || wrapper.getAttribute('data-categoria') === categoriaActiva);
-        
-        wrapper.style.display = (tieneVisibles && perteneceACategoria) ? "block" : "none";
-    });
-}
-
+    // --- LÓGICA DEL CARRITO ---
     function toggleSeleccion(elemento) {
         if(elemento.classList.contains('agotado')) return;
         elemento.classList.toggle('selected');
@@ -909,6 +879,7 @@ function filtrarPlataformas() {
         if(totalTxt) totalTxt.innerText = `S/ ${totalSoles.toFixed(2)}`;
         
         if(barra) {
+            // Verifica si es distribuidor para mostrar el botón de pedido
             if (carrito.length > 0 && sessionStorage.getItem("acceso_distribuidor") === "true") {
                 barra.style.display = 'block';
             } else {
@@ -917,6 +888,7 @@ function filtrarPlataformas() {
         }
     }
 
+    // --- ENVÍO A WHATSAPP ---
     function enviarPedido() {
         if (carrito.length === 0) {
             mostrarAlerta();
@@ -944,5 +916,3 @@ function filtrarPlataformas() {
         }
     }
 </script>
-</body>
-</html>
