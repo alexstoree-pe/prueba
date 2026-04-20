@@ -767,13 +767,18 @@
     function sendWhatsapp() {
         if(selectedItems.length === 0) return;
         const numero = "51918600000";
-        let msj = "¡Hola Alex Store! soy distribuidor!👋 Deseo adquirir:\n\n";
+        let msj = "¡Hola Alex Store! 👋 Deseo adquirir:\n\n";
         
         selectedItems.forEach(item => {
-            // Si tiene oferta, la ponemos al inicio del nombre en negrita
-            let prefijoOferta = item.oferta ? ` 🔥 *[${item.oferta}]* ` : "";
+            // 1. Primero ponemos el nombre del item
+            msj += `✅ *${item.nombre}*\n`;
             
-            msj += `✅${prefijoOferta}*${item.nombre}*\n`;
+            // 2. Si tiene oferta, la ponemos debajo del nombre con un emoji
+            if(item.oferta) {
+                msj += `🔥 *[${item.oferta}]*\n`;
+            }
+            
+            // 3. El resto de detalles
             msj += `   _${item.desc}_\n`; 
             if(item.unitario) msj += `   [${item.unitario}]\n`; 
             msj += `   *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
