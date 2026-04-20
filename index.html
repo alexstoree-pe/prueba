@@ -269,6 +269,10 @@
                 grupo.style.display = 'none';
             }
         }
+        // ... dentro de la función filtrarPorBtn, al final:
+setTimeout(() => {
+    AOS.refresh();
+}, 100);
     });
 
     // 3. Resetear el buscador de texto para no crear conflictos
