@@ -775,21 +775,28 @@
     
     let carrito = [];
 
-    // --- LÓGICA DE FILTRADO OPCIÓN 1 (CONTENEDORES) ---
     function filtrarPorBtn(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    // 1. Estética de los botones
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-        const wrappers = document.querySelectorAll('.categoria-wrapper');
+    const wrappers = document.querySelectorAll('.categoria-wrapper');
 
-        wrappers.forEach(wrapper => {
-            if (cat === 'todos' || wrapper.getAttribute('data-categoria') === cat) {
-                wrapper.style.display = "block";
-            } else {
-                wrapper.style.display = "none";
-            }
-        });
-    }
+    wrappers.forEach(wrapper => {
+        if (cat === 'todos' || wrapper.getAttribute('data-categoria') === cat) {
+            wrapper.style.display = "block";
+            // Forzamos a AOS a detectar los elementos que ahora son visibles
+            setTimeout(() => {
+                AOS.refresh();
+            }, 100);
+        } else {
+            wrapper.style.display = "none";
+        }
+    });
+
+    // 2. Auto-scroll hacia arriba para que el usuario vea los resultados
+    window.scrollTo({ top: 150, behavior: 'smooth' });
+}
 
     // --- BUSCADOR ---
     function filtrarPlataformas() {
