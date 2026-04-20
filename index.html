@@ -20,6 +20,7 @@
             --danger: #ff0000;
             --gold: #ffd700;
             --gold-shadow: rgba(255, 215, 0, 0.3);
+            --select-blue: #00d4ff; /* Color celeste para selección */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -41,50 +42,44 @@
             padding: 12px 25px; border-radius: 30px; transition: 0.4s ease;
         }
 
-        /* --- ESTILOS PREMIUM --- */
-        .premium-tag { 
-            display: none; 
-            font-size: 0.5rem; 
-            font-weight: 800; 
-            color: var(--gold); 
-            border: 1px solid var(--gold); 
-            padding: 1px 4px; 
-            border-radius: 3px; 
-            text-transform: uppercase; 
-            margin-bottom: 2px;
-            margin-right: 15px;
-            letter-spacing: 0.5px;
-        }
-        .service-link.premium .premium-tag { display: inline-block; }
+        /* --- LÓGICA PREMIUM AUTOMÁTICA --- */
+        .service-link.premium .service-card { border-color: var(--gold) !important; box-shadow: 0 0 10px var(--gold-shadow); }
         .service-link.premium .price-tag, 
         .service-link.premium .unit-price { color: var(--gold) !important; }
+        .premium-tag { 
+            display: none; font-size: 0.5rem; font-weight: 800; color: var(--gold); border: 1px solid var(--gold); 
+            padding: 1px 4px; border-radius: 3px; text-transform: uppercase; margin-bottom: 2px; margin-right: 15px; letter-spacing: 0.5px;
+        }
+        .service-link.premium .premium-tag { display: inline-block; }
 
-        /* --- ESTADOS DE SELECCIÓN (Check y Borde) --- */
-        /* Normal seleccionado */
+        /* --- ESTADO SELECCIONADO (CELESTE + CHECK) --- */
         .service-link.selected .service-card { 
-            border-color: var(--primary) !important; 
-            background: rgba(57, 255, 20, 0.05);
+            border-color: var(--select-blue) !important; 
+            background: rgba(0, 212, 255, 0.08);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
         }
-        /* Premium seleccionado */
-        .service-link.premium.selected .service-card { 
-            border-color: var(--gold) !important; 
-            background: rgba(255, 215, 0, 0.05);
-            box-shadow: 0 0 15px var(--gold-shadow);
-        }
+        /* Check flotante al seleccionar */
+        .select-check { display: none; position: absolute; top: 10px; right: 10px; color: var(--select-blue); font-size: 1.1rem; z-index: 10; }
+        .service-link.selected .select-check { display: block; }
 
-        .timer-flash { display: none !important; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
-        .service-link.flash .timer-flash { display: flex !important; }
+        /* --- BADGES (Flash, Oferta, Culminada) --- */
+        .timer-flash { display: none; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
+        .service-link.flash .timer-flash { display: flex; }
+        
         .badge-izq { display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 10px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
         .service-link.oferta .badge-izq { display: block; }
+        
         .badge-culminada { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.9); color: var(--danger); padding: 10px; font-weight: 900; border: 2px solid var(--danger); z-index: 110; text-align: center; width: 80%; }
+        .service-link.agotado .badge-culminada { display: block; }
 
+        /* --- ESTRUCTURA --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .category-header { margin: 40px 0 20px; border-left: 4px solid var(--accent); padding-left: 15px; }
         .category-title { font-weight: 800; text-transform: uppercase; font-size: 1.1rem; color: #fff; }
         .category-desc { color: var(--text-dim); font-size: 0.75rem; margin-top: 5px; display: block; }
         .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
         
-        .service-link { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; }
+        .service-link { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; position: relative; }
         .service-card { background: var(--card-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; }
         .service-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
         .service-text { flex-grow: 1; }
@@ -139,8 +134,10 @@
             <span class="category-desc">Planes mensuales directos para clientes finales.</span>
         </div>
         <div class="grid-servicios">
-            <div class="service-link premium oferta" onclick="toggleItem(this)">
+            <div class="service-link premium oferta flash" onclick="toggleItem(this)">
+                <div class="select-check"><i class="fa-solid fa-circle-check"></i></div>
                 <div class="service-card">
+                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span>04:59:00</span></div>
                     <span class="badge-izq">OFERTA</span>
                     <img src="../img/u1.png" class="service-logo">
                     <div class="service-text">
@@ -154,44 +151,23 @@
                     </div>
                 </div>
             </div>
-          </div>
 
-     <div class="service-link premium oferta" onclick="toggleItem(this)">
+            <div class="service-link" onclick="toggleItem(this)">
+                <div class="select-check"><i class="fa-solid fa-circle-check"></i></div>
                 <div class="service-card">
-                    <span class="badge-izq">OFERTA</span>
                     <img src="../img/u1.png" class="service-logo">
                     <div class="service-text">
-                        <h3>IPTV Equilibrado 6Mes</h3>
-                        <span class="manual-desc">3 dispositivos - +6500 canales</span>
+                        <h3>IPTV Normal 3 Meses</h3>
+                        <span class="manual-desc">Servicio Estándar</span>
                     </div>
                     <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 7</div>
-                        <span class="unit-price">S/ 7.00 u.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-     <div class="service-link premium oferta" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/u1.png" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV Equilibrado 3 Mes</h3>
-                        <span class="manual-desc">3 dispositivos - +6500 canales</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 7</div>
-                        <span class="unit-price">S/ 7.00 u.</span>
+                        <div class="price-tag">S/ 15</div>
+                        <span class="unit-price">S/ 5.00 mes</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    
 </div>
 
 <div id="cart-bar" onclick="sendWhatsapp()">
