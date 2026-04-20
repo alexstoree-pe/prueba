@@ -238,14 +238,14 @@ function validarAcceso() {
 </head>
 <body>
 
-<div id="modal-login-distribuidor" class="modal-pass">
+<div id="modal-login-distribuidor" class="modal-pass" style="display:none;">
     <div class="modal-content-pass">
-        <i class="fa-solid fa-lock" style="color:var(--primary); font-size: 3rem; margin-bottom: 20px;"></i>
-        <h2 style="color:var(--primary); margin-bottom:10px;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-dist-pass" placeholder="••••" maxlength="8" onkeydown="if(event.key === 'Enter') validarAcceso()">
-        <button onclick="validarAcceso()" class="btn-universal btn-promo-distri" style="width:100%; font-size:1rem; cursor:pointer;">
-    ENTRAR
-</button>
+        <i class="fas fa-lock" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <h2 style="color:var(--primary)">ACCESO PRIVADO</h2>
+        <input type="password" id="input-dist-pass" placeholder="PIN" maxlength="8">
+        <button onclick="validarAcceso()" class="btn-universal btn-promo-distri" style="width:100%; cursor:pointer;">
+            ENTRAR
+        </button>
     </div>
 </div>
 
