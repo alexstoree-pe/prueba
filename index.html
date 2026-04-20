@@ -127,8 +127,33 @@
         .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
         .search-container { max-width: 500px; margin: 0 auto 15px; padding: 0 20px; }
         .search-container input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid var(--glass-border); background: #151515; color: white; outline: none; }
-        .filter-buttons { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 5px 20px; scrollbar-width: none; }
-        .filter-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--card-bg); color: white; cursor: pointer; font-size: 0.75rem; }
+        /* --- STICKY TOOLS CORREGIDO --- */
+.filter-buttons { 
+    display: flex; 
+    justify-content: flex-start; /* Alinea al inicio para que el scroll empiece bien */
+    gap: 10px; 
+    overflow-x: auto; /* Habilita el scroll horizontal */
+    padding: 10px 20px; 
+    scrollbar-width: none; /* Oculta barra en Firefox */
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iPhone */
+}
+
+/* Oculta la barra de scroll en Chrome, Safari y Edge */
+.filter-buttons::-webkit-scrollbar { 
+    display: none; 
+}
+        .filter-btn { 
+    flex: 0 0 auto; /* IMPORTANTE: Evita que los botones se encojan */
+    padding: 10px 20px; 
+    border-radius: 20px; 
+    border: 1px solid var(--glass-border); 
+    background: var(--card-bg); 
+    color: white; 
+    cursor: pointer; 
+    font-size: 0.8rem; /* Un poco más grande para facilitar el toque con el dedo */
+    white-space: nowrap; /* Evita que el texto del botón se rompa en dos líneas */
+    transition: 0.3s;
+}
         .filter-btn.active { background: var(--primary); color: black; font-weight: 800; }
 
         /* --- CARRITO --- */
