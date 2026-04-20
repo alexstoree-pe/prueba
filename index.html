@@ -20,7 +20,7 @@
             --danger: #ff0000;
             --gold: #ffd700;
             --gold-shadow: rgba(255, 215, 0, 0.3);
-            --select-blue: #00d4ff; /* Color celeste para selección */
+            --select-blue: #00d4ff; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -32,76 +32,67 @@
             border: 3px solid var(--accent); background-color: #000;
             box-shadow: 0 0 20px rgba(160, 32, 240, 0.4);
         }
-        h1 { font-size: 1.8rem; text-transform: uppercase; font-weight: 800; margin: 20px 0; }
-        h1 span.mayoristas { color: var(--primary); }
 
-        .btn-volver { 
-            display: inline-flex; align-items: center; gap: 10px;
-            background-color: transparent; border: 2px solid var(--accent);
-            color: white; text-decoration: none; font-size: 0.8rem; font-weight: 800;
-            padding: 12px 25px; border-radius: 30px; transition: 0.4s ease;
-        }
-
-        /* --- LÓGICA PREMIUM AUTOMÁTICA --- */
+        /* --- LÓGICA PREMIUM (Siempre Visible) --- */
         .service-link.premium .service-card { border-color: var(--gold) !important; box-shadow: 0 0 10px var(--gold-shadow); }
-        .service-link.premium .price-tag, 
-        .service-link.premium .unit-price { color: var(--gold) !important; }
+        .service-link.premium .price-tag, .service-link.premium .unit-price { color: var(--gold) !important; }
         .premium-tag { 
             display: none; font-size: 0.5rem; font-weight: 800; color: var(--gold); border: 1px solid var(--gold); 
-            padding: 1px 4px; border-radius: 3px; text-transform: uppercase; margin-bottom: 2px; margin-right: 15px; letter-spacing: 0.5px;
+            padding: 1px 4px; border-radius: 3px; text-transform: uppercase; margin-bottom: 2px;
         }
         .service-link.premium .premium-tag { display: inline-block; }
 
-        /* --- ESTADO SELECCIONADO (CELESTE + CHECK) --- */
+        /* --- SELECCIÓN (Celeste + Check) --- */
         .service-link.selected .service-card { 
             border-color: var(--select-blue) !important; 
             background: rgba(0, 212, 255, 0.08);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
         }
-        /* Check flotante al seleccionar */
-        .select-check { display: none; position: absolute; top: 10px; right: 10px; color: var(--select-blue); font-size: 1.1rem; z-index: 10; }
+        .select-check { 
+            display: none; position: absolute; top: 12px; right: 12px; 
+            color: var(--select-blue); font-size: 1.2rem; z-index: 20; 
+        }
         .service-link.selected .select-check { display: block; }
 
-        /* --- BADGES (Flash, Oferta, Culminada) --- */
-        .timer-flash { display: none; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
-        .service-link.flash .timer-flash { display: flex; }
+        /* --- TEMPORIZADOR Y BADGES --- */
+        .timer-flash { 
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%); 
+            background: var(--danger); color: white; padding: 2px 12px; 
+            font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; 
+            z-index: 50; display: flex; align-items: center; gap: 5px;
+        }
+        .badge-izq { position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 10px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
         
-        .badge-izq { display: none; position: absolute; top: 0; left: 0; background: var(--primary); color: #000; padding: 4px 10px; font-size: 0.6rem; font-weight: 900; z-index: 5; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
-        .service-link.oferta .badge-izq { display: block; }
-        
-        .badge-culminada { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.9); color: var(--danger); padding: 10px; font-weight: 900; border: 2px solid var(--danger); z-index: 110; text-align: center; width: 80%; }
+        .badge-culminada { 
+            display: none; position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.9); 
+            color: var(--danger); padding: 10px; font-weight: 900; border: 2px solid var(--danger); 
+            z-index: 110; text-align: center; width: 80%; 
+        }
         .service-link.agotado .badge-culminada { display: block; }
+        .service-link.agotado { pointer-events: none; opacity: 0.7; }
 
-        /* --- ESTRUCTURA --- */
+        /* --- GRID Y CARDS --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .category-header { margin: 40px 0 20px; border-left: 4px solid var(--accent); padding-left: 15px; }
-        .category-title { font-weight: 800; text-transform: uppercase; font-size: 1.1rem; color: #fff; }
-        .category-desc { color: var(--text-dim); font-size: 0.75rem; margin-top: 5px; display: block; }
-        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
-        
-        .service-link { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; position: relative; }
-        .service-card { background: var(--card-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; margin-top: 20px; }
+        .service-link { text-decoration: none; color: inherit; cursor: pointer; position: relative; display: block; transition: 0.3s; }
+        .service-card { background: var(--card-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; height: 100%; }
         .service-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
         .service-text { flex-grow: 1; }
         .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
-        .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
+        .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; }
         
-        .price-container { text-align: right; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; min-width: 80px; }
-        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; white-space: nowrap; }
-        .unit-price { display: block; font-size: 9px; color: var(--text-dim); font-weight: 600; margin-top: 2px; }
+        .price-container { text-align: right; display: flex; flex-direction: column; align-items: flex-end; min-width: 90px; }
+        .price-tag { color: var(--primary); font-weight: 900; font-size: 1.1rem; }
+        .unit-price { display: block; font-size: 9px; color: var(--text-dim); }
 
+        /* --- BOTONES Y BUSCADOR --- */
         .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
         .search-container { max-width: 500px; margin: 0 auto 15px; padding: 0 20px; }
         .search-container input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid var(--glass-border); background: #151515; color: white; outline: none; }
-        .filter-buttons { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 5px 20px; scrollbar-width: none; }
-        .filter-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--card-bg); color: white; cursor: pointer; font-size: 0.75rem; }
-        .filter-btn.active { background: var(--primary); color: black; font-weight: 800; }
 
-        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: white; border-radius: 25px; display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; cursor: pointer; }
-        .cart-content { display: flex; align-items: center; padding: 12px 20px; width: 100%; }
-        .cart-info { flex-grow: 1; color: black; font-weight: 800; font-size: 0.9rem; }
-        .btn-clear { background: #f0f0f0; color: #ff0000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 15px; }
-        .whatsapp-icon-float { font-size: 1.5rem; margin-right: 15px; color: #25D366; }
+        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: white; border-radius: 25px; display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; }
+        .cart-content { display: flex; align-items: center; padding: 12px 20px; color: black; font-weight: 800; }
     </style>
 </head>
 <body>
@@ -109,76 +100,72 @@
 <header>
     <div class="logo-container"><img src="../img/logo.png" alt="AlexStoree"></div>
     <h1>SMARTERSPRO <span class="mayoristas">MAYORISTAS</span></h1>
-    <a href="../distribuidores/index.html" class="btn-volver">
-        <i class="fa-solid fa-arrow-left"></i> VOLVER A DISTRIBUIDORES
-    </a>
 </header>
 
 <div class="sticky-tools">
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Buscar plataforma..." onkeyup="filtrarServicios()">
     </div>
-    <div class="filter-buttons">
-        <button class="filter-btn active" onclick="filterCat('all', this)">Todos</button>
-        <button class="filter-btn" onclick="filterCat('unidades', this)">Unidades</button>
-        <button class="filter-btn" onclick="filterCat('flujo', this)">Flujo TV</button>
-        <button class="filter-btn" onclick="filterCat('equilibrado', this)">Equilibrado</button>
-        <button class="filter-btn" onclick="filterCat('europeo', this)">Europeo</button>
-    </div>
 </div>
 
-<div class="container" id="productGrid">
-    <div class="category-block active-cat" data-cat="unidades">
-        <div class="category-header">
-            <span class="category-title">Cuentas por Unidad</span>
-            <span class="category-desc">Planes mensuales directos para clientes finales.</span>
-        </div>
-        <div class="grid-servicios">
-            <div class="service-link premium oferta flash" onclick="toggleItem(this)">
-                <div class="select-check"><i class="fa-solid fa-circle-check"></i></div>
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span>04:59:00</span></div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/u1.png" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV Equilibrado 1 Mes</h3>
-                        <span class="manual-desc">3 dispositivos - +6500 canales</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 7</div>
-                        <span class="unit-price">S/ 7.00 u.</span>
-                    </div>
+<div class="container">
+    <div class="grid-servicios">
+        
+        <div class="service-link premium" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
+            <div class="select-check"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="service-card">
+                <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">Cargando...</span></div>
+                <div class="badge-culminada">CULMINADA</div>
+                <span class="badge-izq">OFERTA</span>
+                <img src="../img/n10.png" class="service-logo">
+                <div class="service-text">
+                    <h3>70 Créditos panel incluido</h3>
+                    <span class="unit-price">S/ 3.28 por unidad</span>
+                    <span class="manual-desc">Alta rentabilidad garantizada</span>
+                </div>
+                <div class="price-container">
+                    <span class="premium-tag">Premium</span>
+                    <div class="price-tag">S/ 230</div>
                 </div>
             </div>
+        </div>
 
-            <div class="service-link" onclick="toggleItem(this)">
-                <div class="select-check"><i class="fa-solid fa-circle-check"></i></div>
-                <div class="service-card">
-                    <img src="../img/u1.png" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV Normal 3 Meses</h3>
-                        <span class="manual-desc">Servicio Estándar</span>
-                    </div>
-                    <div class="price-container">
-                        <div class="price-tag">S/ 15</div>
-                        <span class="unit-price">S/ 5.00 mes</span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <div id="cart-bar" onclick="sendWhatsapp()">
     <div class="cart-content">
-        <i class="fa-brands fa-whatsapp whatsapp-icon-float"></i>
-        <div class="cart-info">PEDIR <span id="cart-qty">0</span> ITEMS | TOTAL: <span id="cart-total">S/ 0.00</span></div>
-        <button class="btn-clear" onclick="clearAll(event)"><i class="fa-solid fa-trash-can"></i></button>
+        <i class="fa-brands fa-whatsapp" style="font-size: 1.5rem; color: #25D366; margin-right: 15px;"></i>
+        <div style="flex-grow: 1;">PEDIR <span id="cart-qty">0</span> ITEMS | TOTAL: <span id="cart-total">S/ 0.00</span></div>
     </div>
 </div>
 
 <script>
+    // --- LÓGICA DEL TEMPORIZADOR ---
+    function updateCountdowns() {
+        const now = new Date().getTime();
+        document.querySelectorAll('.service-link[data-final]').forEach(card => {
+            const finalDate = new Date(card.getAttribute('data-final')).getTime();
+            const distance = finalDate - now;
+            const display = card.querySelector('.countdown');
+
+            if (distance < 0) {
+                display.innerHTML = "00d 00h 00m 00s";
+                card.classList.add('agotado');
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            display.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        });
+    }
+    setInterval(updateCountdowns, 1000);
+
+    // --- LÓGICA DEL CARRITO ---
     let total = 0, cant = 0;
     let selectedItems = [];
 
@@ -186,82 +173,34 @@
         if(el.classList.contains('agotado')) return;
         el.classList.toggle('selected');
         
-        const nombre = el.querySelector('h3') ? el.querySelector('h3').innerText.trim() : "Servicio";
-        const precioTag = el.querySelector('.price-tag') ? el.querySelector('.price-tag').innerText : "0";
-        const precio = parseFloat(precioTag.replace(/[^\d.]/g, ''));
-        const desc = el.querySelector('.manual-desc') ? el.querySelector('.manual-desc').innerText.trim() : "";
-        const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText.trim() : "";
-        
-        let ofertaDetalle = "";
-        if (el.classList.contains('oferta')) {
-            const badge = el.querySelector('.badge-izq');
-            ofertaDetalle = badge ? badge.innerText.trim() : "";
-        }
+        const nombre = el.querySelector('h3').innerText;
+        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
         
         if(el.classList.contains('selected')) {
             total += precio; cant++;
-            selectedItems.push({nombre, precio, desc, unitario, oferta: ofertaDetalle});
+            selectedItems.push({nombre, precio});
         } else {
             total -= precio; cant--;
-            selectedItems = selectedItems.filter(item => item.nombre !== nombre);
+            selectedItems = selectedItems.filter(i => i.nombre !== nombre);
         }
-        updateCartUI();
-    }
-
-    function updateCartUI() {
+        
         document.getElementById('cart-qty').innerText = cant;
         document.getElementById('cart-total').innerText = "S/ " + total.toFixed(2);
         document.getElementById('cart-bar').style.display = cant > 0 ? "block" : "none";
     }
 
     function sendWhatsapp() {
-        if(selectedItems.length === 0) return;
-        const numero = "51918600000";
-        const iSaludo = "\uD83D\uDC4B", iCheck = "\u2705", iPromo = "\uD83C\uDF81", iNota = "\uD83D\uDCDD", iTag = "\uD83C\uDFF7", iPrecio = "\uD83D\uDCB0", iTotal = "\uD83D\uDCB5"; 
-
-        let msj = "¡Hola Alex Store!, soy distribuidor! " + iSaludo + "\n\nDeseo adquirir:\n\n";
-        selectedItems.forEach(item => {
-            msj += iCheck + " *" + item.nombre + "*\n";
-            if(item.oferta) msj += iPromo + " *PROMOCIÓN:* " + item.oferta + "\n";
-            msj += iNota + " _" + item.desc + "_\n";
-            if(item.unitario) msj += iTag + " [" + item.unitario + "]\n";
-            msj += iPrecio + " *Precio:* S/ " + item.precio.toFixed(2) + "\n\n";
-        });
-        msj += "───────────────\n" + iTotal + " *TOTAL A PAGAR: S/ " + total.toFixed(2) + "*";
-        window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(msj), '_blank');
-    }
-
-    function clearAll(event) {
-        if(event) event.stopPropagation();
-        document.querySelectorAll('.service-link.selected').forEach(el => el.classList.remove('selected'));
-        selectedItems = []; total = 0; cant = 0;
-        updateCartUI();
+        let msj = "¡Hola Alex Store! Deseo adquirir:\n\n";
+        selectedItems.forEach(i => msj += `✅ *${i.nombre}* - S/ ${i.precio}\n`);
+        msj += `\n*TOTAL: S/ ${total.toFixed(2)}*`;
+        window.open(`https://wa.me/51918600000?text=${encodeURIComponent(msj)}`, '_blank');
     }
 
     function filtrarServicios() {
-        let input = document.getElementById('searchInput').value.toLowerCase().trim();
-        let cards = document.querySelectorAll('.service-link');
-        let categories = document.querySelectorAll('.category-block');
-
-        cards.forEach(card => {
-            let textoCard = card.innerText.toLowerCase();
-            card.style.display = (input === "" || textoCard.includes(input)) ? "" : "none";
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        document.querySelectorAll('.service-link').forEach(card => {
+            card.style.display = card.innerText.toLowerCase().includes(input) ? "" : "none";
         });
-
-        categories.forEach(category => {
-            let visibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
-            category.style.display = (input !== "" && visibles === 0) ? "none" : "";
-        });
-    }
-
-    function filterCat(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.category-block').forEach(block => {
-            block.style.display = (cat === 'all' || block.getAttribute('data-cat') === cat) ? "block" : "none";
-        });
-        document.getElementById('searchInput').value = "";
-        filtrarServicios();
     }
 </script>
 </body>
