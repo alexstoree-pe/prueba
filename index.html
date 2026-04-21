@@ -837,6 +837,10 @@ body {
         productos.forEach(p => p.classList.remove('oculto-filtro'));
         titulos.forEach(t => t.style.display = 'flex');
         return;
+        // AGREGA ESTO AL FINAL:
+    setTimeout(() => {
+        AOS.refresh(); // Esto detecta las nuevas posiciones de los productos
+    }, 100);
     }
 
     // 2. Lógica de filtrado
