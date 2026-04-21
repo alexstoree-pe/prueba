@@ -379,19 +379,21 @@ function actualizarTitulos() {
     function configurarWhatsApp() {
         const tarjetas = document.querySelectorAll('.promo-link:not(.agotado)');
         tarjetas.forEach(t => {
+            const badge = t.querySelector('.batch-badge')?.innerText || '';
             const nombre = t.querySelector('.nombre-prod')?.innerText;
             const precio = t.querySelector('.precio-prod')?.innerText;
             const descripcion = t.querySelector('.manual-desc')?.innerText;
+          
             
             const msg = `Hola Alex Store, quiero la promo:\n\n` +
-                        `👑 *Promo:* ${nombre}\n` +
+                        `👑 *Promo:* ${nombre}`  [${badge}]\n` + 
                         `💰 *Precio:* ${precio}\n` +
                         `📝 *Detalle:* ${descripcion || 'Sin descripción'}`;
             
             t.href = `https://wa.me/51918600000?text=${encodeURIComponent(msg)}`;
-            t.target = "_blank";
-        });
-    }
+        t.target = "_blank";
+    });
+}
 
     window.onload = () => {
         configurarWhatsApp();
