@@ -3,385 +3,684 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promociones | Alex Store</title>
-    
+    <title>Catálogo Premium | Alex Store</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Alex Store">
+    <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#050505">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         :root {
-            --primary: #ffcc00; 
-            --secondary: #ff6600; 
+            --primary: #00d4ff;
+            --secondary: #0055ff;
             --dark: #050505;
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --danger-bright: #ff3333;
+            --whatsapp: #25d366;
+            --promo: #f4d03f;
+            --promo-dark: #d4af37;
+            --danger: #ff4444; 
+            --gold-gradient: linear-gradient(45deg, #d4af37, #f4d03f);
         }
 
         html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
             background: radial-gradient(circle at top right, #0a0a0a, #050505);
-            color: white;
-            line-height: 1.6;
-            padding-bottom: 50px;
+            color: white; 
+            line-height: 1.6; 
+            padding-bottom: 160px; 
         }
 
         header {
-            background: rgba(255, 204, 0, 0.9);
-            backdrop-filter: blur(15px);
-            padding: 30px 20px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 40px 20px 20px; 
             text-align: center;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2);
-            color: #000;
+            border-bottom: 1px solid var(--glass-border);
             position: sticky;
             top: 0;
             z-index: 2000;
         }
 
-        header h1 { font-size: 2.2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
-        header p { font-size: 0.85rem; font-weight: 500; text-align: center; line-height: 1.3; margin-bottom: 15px; transform: translateX(-15px) }
+        /* ESTILO LOGO AÑADIDO */
+        .brand-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            border-radius: 18px;
+            margin-bottom: 10px;
+        }
 
-        .search-container {
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
+        header h1 { 
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
         }
+
+        /* ESTILO BARRA CONFIANZA AÑADIDO */
+        .trust-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+        }
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .trust-item i {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .search-container { max-width: 600px; margin: 15px auto 0; position: relative; }
         #search-input {
-            width: 100%;
-            padding: 10px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.9);
-            color: #000;
-            font-family: 'Poppins';
-            outline: none;
-            font-size: 0.9rem;
+            width: 100%; padding: 12px 20px; border-radius: 15px; border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
+            outline: none; transition: 0.3s;
         }
+        #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
 
         .container { padding: 20px 15px; max-width: 600px; margin: auto; }
 
-        .back-nav { text-align: left; margin-bottom: 25px; }
-        .back-btn {
-            display: inline-block;
-            color: #888;
-            text-decoration: none;
-            font-size: 0.8rem;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
-            padding: 10px 20px;
-            border-radius: 15px;
+        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
+        .btn-universal {
+            display: flex; align-items: center; justify-content: center; padding: 15px 10px;
+            border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
+            cursor: pointer; text-align: center;
         }
+        .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
+        .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+        .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+        .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); }
 
-        .category-title {
-            margin: 45px 0 20px; 
-            font-size: 0.95rem; 
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--primary); 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+        .category-title { margin: 30px 0 15px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
+
+        .premium .service-card {
+            border: 1px solid #d4af37 !important;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
+        .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 40px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
 
-        .category-title::before {
-            content: '';
-            width: 4px; height: 18px;
-            background: var(--secondary);
-            border-radius: 4px;
-            box-shadow: 0 0 10px var(--secondary);
+        .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
+        .service-card { 
+            background: var(--glass); border-radius: 22px; padding: 18px; 
+            display: flex; align-items: center; border: 1px solid var(--glass-border); 
+            transition: 0.4s; gap: 15px; position: relative; overflow: hidden;
         }
+        /* Este código detecta cuando el mouse pasa por encima */
+.service-item:hover .service-card {
+    border-color: var(--primary) !important; /* El borde se vuelve azul brillante */
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); /* Crea un resplandor suave */
+    background: rgba(255, 255, 255, 0.06); /* Se aclara un poquito el fondo */
+    transform: translateY(-3px); /* Hace que la tarjeta "flote" ligeramente */
+}
 
-        /* --- NUEVAS ANIMACIONES DE BÚSQUEDA --- */
-        .promo-link { 
-            text-decoration: none; 
-            color: inherit; 
-            display: block; 
-            margin-bottom: 18px; 
-            outline: none;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        margin 0.4s ease;
-            transform-origin: center;
+/* Efecto suave al entrar y salir con el mouse */
+.service-card {
+    transition: all 0.3s ease-in-out;
+}
+        .service-item.premium:hover .service-card {
+    border-color: #f4d03f !important;
+    box-shadow: 0 0 20px rgba(244, 208, 63, 0.25);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0,0,0,0));
+}
+
+        .check-icon { position: absolute; top: 10px; right: 10px; background: var(--primary); color: #000; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; z-index: 10; }
+        .selected .check-icon { display: flex; }
+        .selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.08); }
+
+        .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
+        .service-item.oferta .badge-oferta { display: block; }
+
+        .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
+        .service-text { flex-grow: 1; } 
+        .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
+        .manual-desc { font-size: 0.75rem; color: #777; }
+
+        .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
+        .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
+
+        .btn-consultar-neon {
+            display: none; color: #ff3333; font-size: 0.85rem; font-weight: 900; 
+            border: 2px solid var(--danger); padding: 8px 10px; border-radius: 10px;
+            background: rgba(255, 0, 0, 0.1); text-transform: uppercase;
         }
+        .service-item.agotado .btn-consultar-neon { display: block; }
+        .service-item.agotado .price-tag { display: none; }
 
-        /* Clase para ocultar suavemente */
-        .promo-hidden {
-            opacity: 0 !important;
-            transform: translateY(20px) scale(0.95) !important;
-            pointer-events: none;
-            margin-bottom: 0;
-            height: 0;
-            overflow: hidden;
+        .floating-btn {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white; padding: 20px; border-radius: 25px;
+            width: 92%; max-width: 480px; z-index: 1000;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
         }
-
-        /* Clase para mostrar suavemente */
-        .promo-visible {
-            opacity: 1 !important;
-            transform: translateY(0) scale(1) !important;
-            height: auto;
+        .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .btn-clear-cart {
+            background: rgba(255, 68, 68, 0.2); border: 1px solid rgba(255, 68, 68, 0.4); color: #ffcccc;
+            width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; transition: 0.3s;
         }
+        .btn-clear-cart:active { transform: scale(0.8); background: var(--danger); }
+        .discount-notice { font-size: 0.7rem; color: #f4d03f; font-weight: 600; margin-top: 5px; display: none; }
+        .hidden { display: none; }
 
-        .promo-card {
-            background: var(--glass);
-            border-radius: 25px;
-            padding: 15px 20px;
-            display: grid;
-            grid-template-columns: 80px 1fr 100px; 
-            align-items: center;
-            border: 1px solid var(--glass-border);
-            gap: 10px;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            min-height: 100px;
+        .modal-overlay, .modal-pass { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; 
+            justify-content: center; align-items: flex-end; z-index: 3000;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
         }
+        .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
+        #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
 
-        .promo-link:not(.agotado):hover .promo-card {
-            border-color: var(--primary);
-            background: rgba(255, 204, 0, 0.05);
-            transform: scale(1.02);
-        }
+        /* REEMPLAZA LO ANTERIOR POR ESTO */
+.filter-wrapper { 
+    margin: 20px 0; 
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 
-        .service-logo {
-            width: 65px; height: 65px;
-            object-fit: cover;
-            border-radius: 18px;
-            border: 1px solid var(--glass-border);
-        }
+.filter-container { 
+    display: flex; 
+    gap: 10px; 
+    overflow-x: auto; 
+    padding: 10px 5px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+.filter-container::-webkit-scrollbar { display: none; }
 
-        .service-text h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
-        .manual-desc { font-size: 0.75rem; color: #999; display: block; line-height: 1.2; }
+.scroll-indicator {
+    position: absolute;
+    background: linear-gradient(to right, var(--dark), transparent);
+    height: 100%;
+    width: 40px;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    transition: 0.3s;
+}
 
-        .price-container { display: flex; align-items: center; justify-content: center; width: 100%; }
+.scroll-indicator.right {
+    left: auto;
+    right: 0;
+    background: linear-gradient(to left, var(--dark), transparent);
+    justify-content: flex-end;
+}
 
-        .price-tag { 
-            color: #000; background: var(--primary);
-            padding: 8px 0; border-radius: 10px;
-            font-weight: 800; font-size: 1rem;
-            width: 100%; text-align: center;
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
-        }
+.scroll-indicator i {
+    color: var(--primary);
+    font-size: 1rem;
+    animation: bounceHorizontal 1.5s infinite;
+}
 
-        @keyframes shine-red {
-            0% { text-shadow: 0 0 5px #ff0000; color: #ff3333; border-color: #ff3333; }
-            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #ffffff; border-color: #ffffff; }
-            100% { text-shadow: 0 0 5px #ff0000; color: #ff3333; border-color: #ff3333; }
-        }
-
-        .promo-link.agotado { cursor: default; pointer-events: none; }
-        .promo-link.agotado .service-logo { filter: grayscale(1); opacity: 0.4; }
-        .promo-link.agotado .service-text { opacity: 0.6; }
-        .promo-link.agotado .price-tag { display: none !important; }
-
-        .promo-link.agotado .price-container::after {
-            content: "SIN STOCK";
-            font-size: 0.7rem; font-weight: 900;
-            border: 2px solid var(--danger-bright);
-            padding: 8px 0; border-radius: 10px;
-            background: rgba(255, 0, 0, 0.2); 
-            animation: shine-red 1.5s infinite;
-            display: block; width: 100%; text-align: center;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-            pointer-events: auto;
-        }
-
-        /* SEGURIDAD MODAL */
-        .modal-pass { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
-            z-index: 3000; justify-content: center; align-items: flex-end; 
-        }
-        .modal-content { 
-            background: #111; padding: 40px 25px; border-radius: 35px 35px 0 0; 
-            width: 100%; max-width: 500px; border-top: 2px solid var(--primary); text-align: center;
-        }
-
-        #input-pass { 
-            width: 100%; padding: 18px; margin: 25px 0; border-radius: 15px; border: 1px solid #333; 
-            background: #000; color: var(--primary); text-align: center; font-size: 1.6rem; letter-spacing: 6px; 
-        }
-        .btn-acceso { 
-            display: block; width: 100%; padding: 18px; border-radius: 18px; border: none; 
-            background: var(--primary); color: #000; font-weight: 800; cursor: pointer;
-        }
+@keyframes bounceHorizontal {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+.btn-nav {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.btn-nav.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+}
     </style>
-
-    <script>
-        (function() {
-            const acceso = sessionStorage.getItem("acceso_concedido");
-            if (acceso === "true") {
-                document.documentElement.style.display = "block";
-            } else {
-                document.addEventListener("DOMContentLoaded", function() {
-                    document.documentElement.style.display = "block";
-                    const container = document.querySelector('.container');
-                    const header = document.querySelector('header');
-                    if(container) container.style.display = 'none';
-                    if(header) header.style.display = 'none';
-                    abrirSeguridadPromos();
-                });
-            }
-        })();
-
-        function abrirSeguridadPromos() {
-            const modal = document.getElementById('modal-password');
-            if (modal) {
-                modal.style.display = 'flex';
-                document.getElementById('input-pass').focus();
-            }
-        }
-    </script>
 </head>
 <body>
 
 <header>
-    <h1 data-aos="fade-down">COMBOS OFERTAS ⚡</h1>
-    <p>Alex Store • Máximo ahorro garantizado</p>
+    <img src="../img/logo.png" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
+    <h1 data-aos="fade-down">ALEX STORE</h1>
+    <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
+    
     <div class="search-container" data-aos="fade-up">
-        <input type="text" id="search-input" placeholder="Buscar oferta..." onkeyup="filtrarPromos()">
+    <div class="trust-bar">
+            <div class="trust-item"><i class="fas fa-headset"></i>Soporte Garantizado</div>
+            <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía y Compromiso</div>
+            <div class="trust-item"><i class="fas fa-bolt"></i>Entrega en menos de 5 minutos</div>
+        </div>
+        <input type="text" id="search-input" placeholder="Buscar plataforma (Netflix, Disney...)" onkeyup="filtrarProductos()">
+        
+    
+        <div class="filter-wrapper" data-aos="fade-up">
+            <div class="scroll-indicator"><i class="fas fa-chevron-left"></i></div>
+            
+    <div class="filter-container" id="filterScroll">
+        <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+        <button class="btn-nav" onclick="filtrarCategoria('🎬 STREAMING Y CINE', this)">PERFILES</button>
+        <button class="btn-nav" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
+        <button class="btn-nav" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">TELEVISIÓN DIGITAL</button>
+        <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button> </div>
+       <div class="scroll-indicator right"><i class="fas fa-chevron-right"></i></div>
     </div>
+        
+ </div>
+     
+    
 </header>
 
 <div class="container">
-    <div class="back-nav" data-aos="fade-right">
-        <a href="../clientes/" class="back-btn">⬅ VOLVER AL CATÁLOGO</a>
+    <div class="grid-botones" data-aos="zoom-in">
+        <a href="../" class="btn-universal btn-inicio-top">🏠 VOLVER AL INICIO</a>
+        <a href="https://drive.google.com/file/d/1MPAECoht01Udr-oa7NcerexfZMC6h-5i/view?usp=sharing" target="_blank" class="btn-universal btn-referencias">⭐ NUESTRAS REFERENCIAS</a>
+        <a href="../promociones-clientes/" class="btn-universal btn-combos-premium">🎁 VER COMBOS Y PROMOCIONES</a>
+        <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal btn-comunidad">👥 COMUNIDAD</a>
     </div>
 
-    <div class="category-title" data-aos="fade-right">🔥 COMBOS MÁS PEDIDOS</div>
+    <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
 
-    <a href="javascript:void(0)" class="promo-link agotado" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/combo1.png" class="service-logo">
+    <div class="service-item oferta premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Combo Cine Pro</h3>
-                <span class="manual-desc">Netflix + Disney • Ambos 4K Ultra HD.</span>
+                <h3 class="nombre-prod">Netflix Premium</h3>
+                <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag precio-prod">S/ 16</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <div class="category-title" data-aos="fade-right">🕒 PROMOCIONES INDIVIDUALES</div>
-
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" class="service-logo">
+    <div class="service-item oferta premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="badge-oferta">MUY SOLICITADO 🎁</div>
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/disneyp.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Spotify Premium (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Sin anuncios • Se entrega correo y contraseña.</span>
+                <h3 class="nombre-prod">Disney Premium</h3>
+                <span class="manual-desc">•Cliente nuevo (Activación a TV)• Todo los canales ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag precio-prod">S/ 10</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/youtube.png" class="service-logo">
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/disneys.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Youtube Premium (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Sin anuncios • Activacion a tu correo (correo nuevo creado).</span>
+                <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
+                <span class="manual-desc">•Cliente nuevo (Activación a TV)• No contiene canales ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 22</span>
+                <span class="price-tag precio-prod">S/ 7</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
             <img src="../img/max.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Max Standard (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Full HD • Perfil privado.</span>
+                <h3 class="nombre-prod">Max Standard</h3>
+                <span class="manual-desc">• 1 mes •Full HD • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/max.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">MAX Platino</h3>
+                <span class="manual-desc">• 1 mes • premium 4K • Perfil privado .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • Activacion solo a TV.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • se entrega correo y contraseña.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/vix.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">VIX PREMIUM</h3>
+                <span class="manual-desc">• 1 mes • perfil privado • premium.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/paramount.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PARAMOUNT</h3>
+                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 6</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/crunchyroll.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CRUNCHYROLL </h3>
+                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (1 mes) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (3 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 12</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/max.png" class="service-logo">
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
             <div class="service-text">
-                <h3 class="nombre-prod">Max Platino (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Ultra HD • Perfil privado.</span>
+                <h3 class="nombre-prod">CANVA PRO (6 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 17</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (12 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 25</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/movistar.png" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
+                <span class="manual-desc">• Canal l1 Max • Activación a TV • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 20</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/crunchyroll.png" class="service-logo">
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/dgo.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">CRUNCHYROLL (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
+                <h3 class="nombre-prod">Directv Go + l1 Max</h3>
+                <span class="manual-desc">•1 mes • Activación a TV• Todo los canales ESPN • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 20</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/flujo.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Magis TV- Fluo TV</h3>
+                <span class="manual-desc">• 1 Perfil •+1200 Canales en vivo .</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 12</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/vix.png" class="service-logo">
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/iptv.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">VIX PREMIUM (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
+                <h3 class="nombre-prod">IPTV Smarters pro (1 dis)</h3>
+                <span class="manual-desc">•1 Dispositivo •6500 Canales en vivo .</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
+                <span class="price-tag precio-prod">S/ 10</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/paramount.png" class="service-logo">
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/iptv.png" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">PARAMOUNT (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
+                <h3 class="nombre-prod">IPTV Smarters pro (3 dis)</h3>
+                <span class="manual-desc">•3 Dispositivos •6500 Canales en vivo .</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 15</span>
+                <span class="price-tag precio-prod">S/ 13</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
-    
-    <a href="javascript:void(0)" class="promo-link" data-aos="fade-up">
-        <div class="promo-card">
-            <img src="../img/netflix.png" class="service-logo">
+    </div>
+
+    <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">NETFLIX PREMIUM (3 meses)</h3>
-                <span class="manual-desc">• 3 Meses • Plan premium • Perfil privado.</span>
+                <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
+                <span class="manual-desc">• Sin anuncios • Se entrega con correo y contraseña.</span>
             </div>
             <div class="price-container">
-                <span class="price-tag precio-prod">S/ 43</span>
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
-    </a>
+    </div>
+
+    <div class="service-item premium oferta" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/youtube.png" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Youtube Premium (1 mes)</h3>
+                <span class="manual-desc">• Sin anuncios • A tu correo (correo nuevo creado).</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="whatsapp-btn" class="floating-btn hidden">
+    <div class="cart-row">
+        <div class="cart-info" onclick="abrirModalRegistro()" style="flex-grow: 1; display: flex; align-items: center; cursor: pointer;">
+            <span id="cart-count" style="background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 10px;">0</span>
+            <span style="font-size: 0.9rem; margin-left: 8px;">PEDIR AHORA</span>
+        </div>
+        <div class="total-info" style="display: flex; align-items: center;">
+            <span id="cart-total" style="font-size: 1.3rem; margin-right: 5px;">S/ 0</span>
+            <div class="btn-clear-cart" onclick="limpiarCarrito()" title="Eliminar selección">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+        </div>
+    </div>
+    <div id="discount-label" class="discount-notice"></div>
 </div>
 
 <div id="modal-password" class="modal-pass">
     <div class="modal-content">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="****">
-        <button class="btn-acceso" onclick="validarPassPromos()">ENTRAR A OFERTAS</button>
-        <button onclick="window.location.href='../clientes/'" style="background:none; border:none; color:#444; width:100%; margin-top:25px; cursor:pointer;">Regresar</button>
+        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()">
+        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
+    </div>
+</div>
+
+<div id="modal-registro" class="modal-overlay">
+    <div class="modal-content">
+        <div id="paso-1">
+            <h2 style="color:var(--primary); margin-bottom:15px;">¿Ya eres/fuiste cliente?</h2>
+            <button class="btn-universal" style="background:#222; color:#fff; width:100%; margin-bottom:10px;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
+            <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
+            <button class="btn-universal" style="background:transparent; color:#555; width:100%; margin-top:10px; font-size:0.6rem;" onclick="cerrarModalRegistro()">CANCELAR / VOLVER</button>
+        </div>
+        <div id="form-datos" style="display:none;">
+            <h2 style="color:var(--primary); margin-bottom:15px;">Registro de Pedido</h2>
+            <input type="text" id="reg-nom" placeholder="Nombre Completo" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
+            <input type="tel" id="reg-cel" placeholder="Número Celular" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
+            <input type="text" id="reg-per" placeholder="Nombre para Perfil (Opcional)" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
+            <button class="btn-universal" style="background:var(--primary); color:#000; width:100%; margin-bottom:10px;" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
+            <button class="btn-universal" style="background:#222; color:#777; width:100%; border:1px solid #333;" onclick="volverPaso1()">← VOLVER</button>
+        </div>
+        <div id="form-antiguo" style="display:none;">
+    <h2 style="color:var(--primary); margin-bottom:15px;">Confirmar Perfil</h2>
+    <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
+    <input type="text" id="antiguo-per" placeholder="Nombre para Perfil (Opcional)" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
+    <button class="btn-universal" style="background:var(--primary); color:#000; width:100%; margin-bottom:10px;" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
+    <button class="btn-universal" style="background:#222; color:#777; width:100%; border:1px solid #333;" onclick="volverPaso1_Antiguo()">← VOLVER</button>
+</div>
     </div>
 </div>
 
@@ -389,97 +688,246 @@
 <script>
     AOS.init({ duration: 800, once: true });
 
-    function filtrarPromos() {
-    const busqueda = document.getElementById('search-input').value.toLowerCase();
-    const items = document.querySelectorAll('.promo-link');
-    const titulos = document.querySelectorAll('.category-title');
+    let carrito = [];
+    const numWhatsApp = "51918600000";
 
-    // 1. Filtrar los productos
-    items.forEach((item, index) => {
+    function filtrarProductos() {
+    const busqueda = document.getElementById('search-input').value.toLowerCase();
+    const items = document.querySelectorAll('.service-item');
+    const titulos = document.querySelectorAll('.category-title');
+    
+    // 1. Primero filtramos las plataformas (items)
+    items.forEach(item => {
         const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-        const desc = item.querySelector('.manual-desc').innerText.toLowerCase();
-        
-        if (nombre.includes(busqueda) || desc.includes(busqueda)) {
-            item.classList.remove('promo-hidden');
-            item.classList.add('promo-visible');
-            item.style.transitionDelay = (index * 0.05) + "s";
-            item.style.display = 'block'; 
+        if (nombre.includes(busqueda)) {
+            item.style.display = 'block';
+            item.style.opacity = "1";
         } else {
-            item.classList.add('promo-hidden');
-            item.classList.remove('promo-visible');
-            item.style.transitionDelay = "0s";
-            // Usamos un pequeño delay para el display none para no romper la animación de salida
-            setTimeout(() => { 
-                if(item.classList.contains('promo-hidden')) item.style.display = 'none'; 
-            }, 400);
+            item.style.display = 'none';
         }
     });
 
-    // 2. MODIFICACIÓN: Lógica inteligente para los títulos
+    // 2. Lógica para mostrar títulos solo si tienen plataformas visibles debajo
     titulos.forEach(titulo => {
-        let tieneProductosVisibles = false;
+        let tieneHijosVisibles = false;
         let hermano = titulo.nextElementSibling;
 
-        // Buscamos hacia abajo hasta encontrar el siguiente título o el final
+        // Buscamos hacia abajo hasta encontrar el siguiente título o el final del contenedor
         while (hermano && !hermano.classList.contains('category-title')) {
-            // Si el hermano es un producto y no está oculto por la búsqueda
-            if (hermano.classList.contains('promo-link') && !hermano.classList.contains('promo-hidden')) {
-                tieneProductosVisibles = true;
+            if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
+                tieneHijosVisibles = true;
                 break;
             }
             hermano = hermano.nextElementSibling;
         }
 
-        // Si hay productos que coinciden, mostramos el título, si no, lo ocultamos
-        if (tieneProductosVisibles) {
-            titulo.style.display = 'flex';
-            setTimeout(() => { titulo.style.opacity = "1"; }, 10);
+        // Si hay resultados visibles en esa sección, mostramos el título
+        if (tieneHijosVisibles) {
+            titulo.style.display = 'block';
         } else {
-            titulo.style.opacity = "0";
-            setTimeout(() => { 
-                if (titulo.style.opacity === "0") titulo.style.display = 'none'; 
-            }, 400);
+            titulo.style.display = 'none';
         }
     });
 
-    // Refrescar AOS para evitar que se queden elementos invisibles
-    if (typeof AOS !== 'undefined') {
-        AOS.refreshHard();
-    }
+    // 3. Refrescar animaciones para que no se vea trabado
+    AOS.refreshHard();
 }
 
-    function validarPassPromos() {
-        const input = document.getElementById('input-pass');
-        if (input.value === "cliente") {
-            sessionStorage.setItem("acceso_concedido", "true");
-            location.reload();
-        } else {
-            input.style.borderColor = "red";
-            input.value = "";
-            setTimeout(() => { input.style.borderColor = "#333"; }, 1500);
-        }
-    }
+    function filtrarCategoria(categoria, btn) {
+    // 1. Limpiar buscador y activar botón
+    document.getElementById('search-input').value = "";
+    document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-    document.getElementById('input-pass').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') validarPassPromos();
+    const term = categoria.toUpperCase();
+    const items = document.querySelectorAll('.service-item');
+
+    items.forEach(item => {
+        // Buscamos el texto de la tarjeta O el título de la categoría que tiene arriba
+        const textoCard = item.innerText.toUpperCase();
+        
+        // Buscamos el título de la categoría más cercano hacia arriba
+        let tituloCerca = "";
+        let previo = item.previousElementSibling;
+        while (previo) {
+            if (previo.classList.contains('category-title')) {
+                tituloCerca = previo.innerText.toUpperCase();
+                break;
+            }
+            previo = previo.previousElementSibling;
+        }
+
+        if (term === 'TODOS') {
+            item.style.display = 'block';
+            item.classList.add('aos-animate'); // Fix para AOS
+        } else {
+            // Coincide si el texto de la tarjeta tiene la palabra O si el título de su categoría coincide
+            const coincide = textoCard.includes(term) || tituloCerca.includes(term);
+            
+            if (coincide) {
+                item.style.display = 'block';
+                item.style.opacity = "1";
+                item.classList.add('aos-animate'); // Fix para AOS
+            } else {
+                item.style.display = 'none';
+                item.classList.remove('aos-animate');
+            }
+        }
     });
 
-    function configurarLinksWhatsApp() {
-        const telefono = "51918600000";
-        document.querySelectorAll('.promo-link').forEach(tarjeta => {
-            if (!tarjeta.classList.contains('agotado')) {
-                const nombre = tarjeta.querySelector('.nombre-prod')?.innerText;
-                const precio = tarjeta.querySelector('.precio-prod')?.innerText;
-                const descripcion = tarjeta.querySelector('.manual-desc')?.innerText;
-                const mensaje = `Hola *Alex Store*, deseo adquirir esta promoción: \n\n📌 *${nombre}*\n📝 _${descripcion}_\n💰 *Precio:* ${precio}`;
-                
-                tarjeta.onclick = () => {
-                    window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
-                };
+    // 2. Actualizar los títulos
+    actualizarTitulos();
+    
+    // 3. Refrescar AOS con un pequeño delay para que detecte los cambios
+    setTimeout(() => {
+        AOS.refreshHard();
+    }, 100);
+}
+
+function actualizarTitulos() {
+    const titulos = document.querySelectorAll('.category-title');
+    titulos.forEach(titulo => {
+        let tieneHijosVisibles = false;
+        let hermano = titulo.nextElementSibling;
+        
+        while (hermano && !hermano.classList.contains('category-title')) {
+            if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
+                tieneHijosVisibles = true;
+                break;
             }
-        });
+            hermano = hermano.nextElementSibling;
+        }
+        
+        if (tieneHijosVisibles) {
+            titulo.style.display = 'block';
+            titulo.classList.add('aos-animate');
+        } else {
+            titulo.style.display = 'none';
+            titulo.classList.remove('aos-animate');
+        }
+    });
+}
+    // >>> EL CÓDIGO DE LAS FLECHAS PONLO AQUÍ AL FINAL <<<
+const scrollContainer = document.getElementById('filterScroll');
+const indicators = document.querySelectorAll('.scroll-indicator');
+
+if (scrollContainer) {
+    // Esto detecta cuando el usuario mueve los botones con el dedo
+    scrollContainer.addEventListener('scroll', () => {
+        const leftInd = indicators[0];
+        const rightInd = indicators[1];
+        
+        leftInd.style.opacity = scrollContainer.scrollLeft > 20 ? "1" : "0";
+        
+        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+        rightInd.style.opacity = scrollContainer.scrollLeft >= maxScroll - 20 ? "0" : "1";
+    });
+}
+    
+    (function() {
+        if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
+        else {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.documentElement.style.display = "block";
+                document.getElementById('modal-password').style.display = 'flex';
+            });
+        }
+    })();
+
+    function validarPass() {
+        if (document.getElementById('input-pass').value === "cliente") { 
+            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
+        } else { alert("Código incorrecto"); }
     }
-    window.onload = configurarLinksWhatsApp;
+
+    function toggleCarrito(elemento) {
+        if (elemento.classList.contains('agotado')) return;
+        const nombre = elemento.querySelector('.nombre-prod').innerText;
+        const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
+        const precio = parseFloat(precioText);
+        const idx = carrito.findIndex(i => i.nombre === nombre);
+
+        if (idx > -1) { 
+            carrito.splice(idx, 1); elemento.classList.remove('selected'); 
+        } else { 
+            carrito.push({nombre, precio}); elemento.classList.add('selected'); 
+        }
+        actualizarUI();
+    }
+
+    function limpiarCarrito() {
+        carrito = [];
+        document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
+        actualizarUI();
+    }
+
+    function calcularDescuento() {
+        if (carrito.length < 2) return 0;
+        let desc = 0;
+        const ordenado = [...carrito].sort((a, b) => b.precio - a.precio);
+        for (let i = 1; i < ordenado.length; i++) {
+            if (i === 1) { desc += (ordenado[i].precio >= 10 && ordenado[0].precio >= 10) ? 2 : 1; }
+            else { desc += (ordenado[i].precio >= 10) ? 2 : 1; }
+        }
+        return desc;
+    }
+
+    function actualizarUI() {
+        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
+        const desc = calcularDescuento();
+        document.getElementById('cart-count').innerText = carrito.length;
+        document.getElementById('cart-total').innerText = `S/ ${subtotal - desc}`;
+        const label = document.getElementById('discount-label');
+        if (desc > 0) {
+            label.innerText = `¡Ahorro aplicado: S/ ${desc}! 🎁`;
+            label.style.display = 'block';
+        } else { label.style.display = 'none'; }
+        document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
+    }
+
+    function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
+    function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
+    function mostrarForm() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-datos').style.display = 'block'; }
+    function mostrarFormAntiguo() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'block'; }
+    function volverPaso1_Antiguo() { document.getElementById('form-antiguo').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
+    function volverPaso1() { document.getElementById('form-datos').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
+
+    function enviarWhatsApp(tipo) {
+    let nom = document.getElementById('reg-nom').value;
+    let cel = document.getElementById('reg-cel').value;
+    // Detectamos el perfil según el formulario abierto
+    let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
+    if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { 
+        alert("Datos incompletos."); 
+        return; 
+    }
+    const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
+    const desc = calcularDescuento();
+    let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
+    // RECORREMOS EL CARRITO Y PONEMOS EL PERFIL AQUÍ
+    carrito.forEach(i => {
+        msg += `🔹 *${i.nombre}* (S/ ${i.precio})`;
+        // Si el cliente escribió un perfil, lo ponemos al lado de la plataforma
+        if(per.trim() !== "") {
+            msg += `\n 👤 *Nombre del Perfil:* ${per}`;
+        }
+        msg += `\n`;
+    });
+    if(desc > 0) msg += `\n🎁 *Ahorro:* -S/ ${desc}`;
+    msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
+    if(tipo === 'nuevo') { 
+        msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; 
+    } else { 
+        msg += `\n\n✅ *YA SOY CLIENTE*`; 
+    }
+    window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
+    cerrarModalRegistro();
+}
+    function consultarStockManual(elemento, event) {
+        event.stopPropagation();
+        const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
+        window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
+    }
 </script>
 </body>
 </html>
