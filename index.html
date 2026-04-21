@@ -113,6 +113,42 @@ body {
         .oculto-filtro {
     display: none !important;
 }
+
+        .filter-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px 15px 20px;
+    overflow-x: auto; /* Permite deslizar si hay muchos botones */
+    scrollbar-width: none; /* Oculta scroll en Firefox */
+    justify-content: center; /* Centra los botones */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.filter-container::-webkit-scrollbar {
+    display: none; /* Oculta scroll en Chrome/Safari */
+}
+
+.btn-filter {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: #888;
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap; /* Evita que el texto se parta */
+    text-transform: uppercase;
+}
+
+.btn-filter.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
         .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
         
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.15); transform: scale(0.97); }
@@ -138,6 +174,7 @@ body {
     z-index: 100;
     text-transform: uppercase;
 }
+
 
 /* SOLO si el contenedor tiene la clase "oferta", el badge se muestra */
 .service-link.oferta .badge-oferta {
@@ -321,6 +358,13 @@ body {
             <input type="text" id="buscador" placeholder="Buscar plataforma..." onkeyup="filtrarPlataformas()">
         </div>
     </div>
+    <div class="filter-container" style="padding: 0 15px; margin-bottom: 20px; display: flex; gap: 10px; overflow-x: auto; white-space: nowrap; max-width: 600px; margin: 0 auto 20px;">
+    <button class="btn-filter active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+    <button class="btn-filter" onclick="filtrarCategoria('ZONA PERFILES', this)">PERFILES</button>
+        <button class="btn-filter" onclick="filtrarCategoria('ZONA CUENTAS COMPLETAS', this)">CUENTAS COMPELTAS</button>
+    <button class="btn-filter" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
+    <button class="btn-filter" onclick="filtrarCategoria('APPS DE PAGA', this)">APPS PAGA IPTV</button> 
+         </div>
 </header>
 
 <div class="grid-botones">
@@ -807,6 +851,12 @@ body {
 
     // --- BUSCADOR ---
     function filtrarPlataformas() {
+    // Al empezar a escribir, reseteamos los filtros visualmente
+    document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+    const btnTodos = document.querySelector(".btn-filter[onclick*='TODOS']");
+    if(btnTodos) btnTodos.classList.add('active');
+    
+    // ... resto de tu código del buscador ...
         const input = document.getElementById('buscador').value.trim().toLowerCase();
         const tarjetas = document.querySelectorAll('.service-link');
         
