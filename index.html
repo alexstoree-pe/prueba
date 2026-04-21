@@ -321,60 +321,55 @@
         });
     }
 
-    // --- LÓGICA DEL BUSCADOR MEJORADA ---
+    // --- LÓGICA DEL BUSCADOR DEFINITIVA ---
 const buscador = document.getElementById('buscador');
 const noResults = document.getElementById('noResults');
 
 buscador.addEventListener('input', () => {
     const term = buscador.value.toLowerCase();
     const listaPromos = document.getElementById('lista-promos');
-    const elementos = listaPromos.children; // Obtiene títulos y tarjetas en orden
     
+    // Obtenemos todos los títulos de categoría
+    const titulos = listaPromos.querySelectorAll('.category-title');
     let hayResultadosGlobales = false;
-    let ultimoTitulo = null;
-    let tieneProductosVisibles = false;
 
-    // Recorremos todos los elementos dentro del contenedor de la lista
-    for (let i = 0; i < elementos.length; i++) {
-        const el = elementos[i];
-
-        if (el.classList.contains('category-title')) {
-            // Si es un título, lo guardamos y reseteamos el contador de productos visibles para esta sección
-            if (ultimoTitulo && !tieneProductosVisibles && term !== "") {
-                ultimoTitulo.style.display = "none";
-            }
-            ultimoTitulo = el;
-            tieneProductosVisibles = false;
-            // Por defecto, si no hay búsqueda, mostramos los títulos
-            el.style.display = term === "" ? "flex" : "none";
-        } 
+    titulos.forEach(titulo => {
+        let tieneCoincidencias = false;
         
-        else if (el.classList.contains('promo-link')) {
-            const nombre = el.querySelector('.nombre-prod').innerText.toLowerCase();
-            const desc = el.querySelector('.manual-desc').innerText.toLowerCase();
+        // Buscamos los productos que pertenecen a esta categoría 
+        // (todos los .promo-link que están después de este título hasta el siguiente título)
+        let proximoElemento = titulo.nextElementSibling;
+        
+        while (proximoElemento && proximoElemento.classList.contains('promo-link')) {
+            const nombre = proximoElemento.querySelector('.nombre-prod').innerText.toLowerCase();
+            const desc = proximoElemento.querySelector('.manual-desc').innerText.toLowerCase();
             
             if (nombre.includes(term) || desc.includes(term)) {
-                el.style.display = "block";
+                proximoElemento.style.display = "block";
+                tieneCoincidencias = true;
                 hayResultadosGlobales = true;
-                tieneProductosVisibles = true;
-                
-                // Si encontramos un producto y hay un título arriba, mostramos ese título
-                if (ultimoTitulo && term !== "") {
-                    ultimoTitulo.style.display = "flex";
-                }
             } else {
-                el.style.display = "none";
+                proximoElemento.style.display = "none";
             }
+            proximoElemento = proximoElemento.nextElementSibling;
         }
-    }
 
-    // Manejo de mensaje "Sin resultados"
+        // --- LA MAGIA ESTÁ AQUÍ ---
+        // Si el buscador está vacío, mostramos todos los títulos.
+        // Si hay búsqueda, el título solo se muestra (flex) si tiene coincidencias.
+        if (term === "") {
+            titulo.style.display = "flex";
+        } else {
+            titulo.style.display = tieneCoincidencias ? "flex" : "none";
+        }
+    });
+
+    // Mostrar/Ocultar mensaje de "No resultados"
     noResults.style.display = hayResultadosGlobales ? "none" : "block";
     
-    // Refrescar AOS para que las animaciones funcionen al filtrar
+    // Refrescar AOS para que las tarjetas aparezcan con efecto
     AOS.refresh();
 });
-
     window.onload = () => {
         configurarWhatsApp();
         setInterval(actualizarCronometros, 1000);
