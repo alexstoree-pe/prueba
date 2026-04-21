@@ -115,32 +115,27 @@ body {
 }
 
         .filter-container {
-    display: flex;
-    gap: 10px;
-    padding: 10px 15px 20px;
-    overflow-x: auto; /* Permite deslizar si hay muchos botones */
-    scrollbar-width: none; /* Oculta scroll en Firefox */
-    justify-content: center; /* Centra los botones */
-    max-width: 600px;
-    margin: 0 auto;
+  display: flex;
+  overflow-x: auto; /* Permite el scroll horizontal */
+  white-space: nowrap; /* Evita que los botones salten a la siguiente línea */
+  gap: 10px; /* Espacio entre botones */
+  padding: 10px 5px;
+  scrollbar-width: none; /* Oculta la barra en Firefox */
+  -ms-overflow-style: none; /* Oculta la barra en IE/Edge */
 }
 
+/* Oculta la barra de scroll en Chrome, Safari y Opera */
 .filter-container::-webkit-scrollbar {
-    display: none; /* Oculta scroll en Chrome/Safari */
+  display: none;
 }
 
-.btn-filter {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    color: #888;
-    padding: 8px 18px;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    white-space: nowrap; /* Evita que el texto se parta */
-    text-transform: uppercase;
+.filter-btn {
+  flex: 0 0 auto; /* Importante: evita que los botones se encojan */
+  padding: 8px 20px;
+  border-radius: 8px;
+  background-color: #1a1a1a; /* Ajusta al color de tu web */
+  color: white;
+  border: 1px solid #333;
 }
 
 .btn-filter.active {
