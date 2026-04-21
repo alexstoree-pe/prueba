@@ -676,10 +676,8 @@
 }
 
     function filtrarCategoria(categoria, btn) {
-    // Resetear buscador
+    // 1. Limpiar buscador y activar botón
     document.getElementById('search-input').value = "";
-    
-    // Cambiar estado de los botones
     document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
@@ -687,29 +685,53 @@
     const items = document.querySelectorAll('.service-item');
 
     items.forEach(item => {
+        // Buscamos el texto de la tarjeta O el título de la categoría que tiene arriba
         const textoCard = item.innerText.toUpperCase();
         
+        // Buscamos el título de la categoría más cercano hacia arriba
+        let tituloCerca = "";
+        let previo = item.previousElementSibling;
+        while (previo) {
+            if (previo.classList.contains('category-title')) {
+                tituloCerca = previo.innerText.toUpperCase();
+                break;
+            }
+            previo = previo.previousElementSibling;
+        }
+
         if (term === 'TODOS') {
             item.style.display = 'block';
+            item.classList.add('aos-animate'); // Fix para AOS
         } else {
-            // Verifica si el texto de la tarjeta contiene la categoría (Streaming, Musica, etc.)
-            // O puedes usar clases específicas si prefieres
-            const coincide = textoCard.includes(term);
-            item.style.display = coincide ? 'block' : 'none';
+            // Coincide si el texto de la tarjeta tiene la palabra O si el título de su categoría coincide
+            const coincide = textoCard.includes(term) || tituloCerca.includes(term);
+            
+            if (coincide) {
+                item.style.display = 'block';
+                item.style.opacity = "1";
+                item.classList.add('aos-animate'); // Fix para AOS
+            } else {
+                item.style.display = 'none';
+                item.classList.remove('aos-animate');
+            }
         }
     });
 
-    // Reutilizamos la lógica de títulos que ya tienes
+    // 2. Actualizar los títulos
     actualizarTitulos();
-    AOS.refreshHard();
+    
+    // 3. Refrescar AOS con un pequeño delay para que detecte los cambios
+    setTimeout(() => {
+        AOS.refreshHard();
+    }, 100);
 }
 
-// Asegúrate de tener esta función (la que creamos antes)
 function actualizarTitulos() {
     const titulos = document.querySelectorAll('.category-title');
     titulos.forEach(titulo => {
         let tieneHijosVisibles = false;
         let hermano = titulo.nextElementSibling;
+        
         while (hermano && !hermano.classList.contains('category-title')) {
             if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
                 tieneHijosVisibles = true;
@@ -717,7 +739,14 @@ function actualizarTitulos() {
             }
             hermano = hermano.nextElementSibling;
         }
-        titulo.style.display = tieneHijosVisibles ? 'block' : 'none';
+        
+        if (tieneHijosVisibles) {
+            titulo.style.display = 'block';
+            titulo.classList.add('aos-animate');
+        } else {
+            titulo.style.display = 'none';
+            titulo.classList.remove('aos-animate');
+        }
     });
 }
     (function() {
