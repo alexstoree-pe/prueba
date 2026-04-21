@@ -674,27 +674,44 @@
     function volverPaso1() { document.getElementById('form-datos').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
 
     function enviarWhatsApp(tipo) {
-        let nom = document.getElementById('reg-nom').value;
-        let cel = document.getElementById('reg-cel').value;
-        let per = document.getElementById('reg-per').value;
-        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { alert("Datos incompletos."); return; }
-        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const desc = calcularDescuento();
-        let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
-        carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
-        if(desc > 0) msg += `\n🎁 Ahorro: -S/ ${desc}`;
-        msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
-        if(tipo === 'nuevo') { msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; if(per.trim() !== "") msg += `\n👤 Perfil: ${per}`; } 
-        else { msg += `\n\n✅ *YA SOY CLIENTE*`; }
-        window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
-        cerrarModalRegistro();
-        if(tipo === 'nuevo') { 
-        msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; } else {     msg += `\n\n✅ *YA SOY CLIENTE*`; }
-        // Esta línea añade el perfil si no está vacío, sea nuevo o antiguo
-        if(per.trim() !== "") msg += `\n👤 Perfil deseado: ${per}`;
+    // 1. Definimos las variables según el tipo de cliente
+    let nom = document.getElementById('reg-nom').value;
+    let cel = document.getElementById('reg-cel').value;
+    
+    // Si es nuevo, lee 'reg-per'. Si es antiguo, lee 'antiguo-per'
+    let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
 
-        window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank'); cerrarModalRegistro(); }
+    // 2. Validación de seguridad para nuevos
+    if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { 
+        alert("Por favor, completa tu nombre y celular."); 
+        return; 
+    }
 
+    // 3. Cálculo de montos
+    const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
+    const desc = calcularDescuento();
+    
+    // 4. Construcción del mensaje
+    let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
+    carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
+    
+    if(desc > 0) msg += `\n🎁 Ahorro: -S/ ${desc}`;
+    msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
+
+    // 5. Datos del cliente y Perfil
+    if(tipo === 'nuevo') { 
+        msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; 
+    } else { 
+        msg += `\n\n✅ *YA SOY CLIENTE*`; 
+    }
+    
+    // Añade el perfil al final si el usuario escribió algo
+    if(per.trim() !== "") msg += `\n👤 Perfil deseado: ${per}`;
+
+    // 6. Envío y cierre
+    window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
+    cerrarModalRegistro();
+}
     function consultarStockManual(elemento, event) {
         event.stopPropagation();
         const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
