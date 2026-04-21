@@ -550,14 +550,11 @@
     <div id="discount-label" class="discount-notice"></div>
 </div>
 
-<div class="modal-pass" id="modal-password">
+<div id="modal-password" class="modal-pass">
     <div class="modal-content">
-        <form onsubmit="validarPass(); return false;">
-            <input type="password" id="input-pass" placeholder="Código de acceso" inputmode="numeric">
-            <button type="submit" class="btn-universal btn-referencias" style="width: 100%; margin-top: 15px;">
-                ENTRAR
-            </button>
-        </form>
+        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
+        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()">
+        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
     </div>
 </div>
 
@@ -601,24 +598,21 @@
         AOS.refreshHard();
     }
 
-    // Busca esta función en tu código y añade lo que está debajo
-function validarPass() {
-    if (document.getElementById('input-pass').value === "cliente") { 
-        sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
-    } else { alert("Código incorrecto"); }
-}
+    (function() {
+        if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
+        else {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.documentElement.style.display = "block";
+                document.getElementById('modal-password').style.display = 'flex';
+            });
+        }
+    })();
 
-// COPIA Y PEGA ESTO:
-document.addEventListener("DOMContentLoaded", () => {
-    const inputAcceso = document.getElementById('input-pass');
-    if (inputAcceso) {
-        inputAcceso.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                validarPass();
-            }
-        });
+    function validarPass() {
+        if (document.getElementById('input-pass').value === "cliente") { 
+            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
+        } else { alert("Código incorrecto"); }
     }
-});
 
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
