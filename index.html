@@ -321,35 +321,59 @@
         });
     }
 
-    // --- LÓGICA DEL BUSCADOR ---
-    const buscador = document.getElementById('buscador');
-    const promos = document.querySelectorAll('.promo-link');
-    const titulosCategorias = document.querySelectorAll('.category-title');
-    const noResults = document.getElementById('noResults');
+    // --- LÓGICA DEL BUSCADOR MEJORADA ---
+const buscador = document.getElementById('buscador');
+const noResults = document.getElementById('noResults');
 
-    buscador.addEventListener('input', () => {
-        const term = buscador.value.toLowerCase();
-        let hayResultados = false;
+buscador.addEventListener('input', () => {
+    const term = buscador.value.toLowerCase();
+    const listaPromos = document.getElementById('lista-promos');
+    const elementos = listaPromos.children; // Obtiene títulos y tarjetas en orden
+    
+    let hayResultadosGlobales = false;
+    let ultimoTitulo = null;
+    let tieneProductosVisibles = false;
 
-        promos.forEach(promo => {
-            const nombre = promo.querySelector('.nombre-prod').innerText.toLowerCase();
-            const desc = promo.querySelector('.manual-desc').innerText.toLowerCase();
+    // Recorremos todos los elementos dentro del contenedor de la lista
+    for (let i = 0; i < elementos.length; i++) {
+        const el = elementos[i];
+
+        if (el.classList.contains('category-title')) {
+            // Si es un título, lo guardamos y reseteamos el contador de productos visibles para esta sección
+            if (ultimoTitulo && !tieneProductosVisibles && term !== "") {
+                ultimoTitulo.style.display = "none";
+            }
+            ultimoTitulo = el;
+            tieneProductosVisibles = false;
+            // Por defecto, si no hay búsqueda, mostramos los títulos
+            el.style.display = term === "" ? "flex" : "none";
+        } 
+        
+        else if (el.classList.contains('promo-link')) {
+            const nombre = el.querySelector('.nombre-prod').innerText.toLowerCase();
+            const desc = el.querySelector('.manual-desc').innerText.toLowerCase();
             
             if (nombre.includes(term) || desc.includes(term)) {
-                promo.style.display = "block";
-                hayResultados = true;
+                el.style.display = "block";
+                hayResultadosGlobales = true;
+                tieneProductosVisibles = true;
+                
+                // Si encontramos un producto y hay un título arriba, mostramos ese título
+                if (ultimoTitulo && term !== "") {
+                    ultimoTitulo.style.display = "flex";
+                }
             } else {
-                promo.style.display = "none";
+                el.style.display = "none";
             }
-        });
+        }
+    }
 
-        titulosCategorias.forEach(titulo => {
-            titulo.style.display = term === "" ? "flex" : "none";
-        });
-
-        noResults.style.display = hayResultados ? "none" : "block";
-        AOS.refresh();
-    });
+    // Manejo de mensaje "Sin resultados"
+    noResults.style.display = hayResultadosGlobales ? "none" : "block";
+    
+    // Refrescar AOS para que las animaciones funcionen al filtrar
+    AOS.refresh();
+});
 
     window.onload = () => {
         configurarWhatsApp();
