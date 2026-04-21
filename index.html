@@ -234,6 +234,16 @@ body {
 .oculto-filtro {
     display: none !important;
 }
+        /* Esto asegura que los productos filtrados siempre sean visibles */
+.service-link:not(.oculto-filtro) {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.oculto-filtro {
+    display: none !important;
+}
     </style>
 
     <script>
@@ -326,7 +336,7 @@ body {
     <button class="btn-filter active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
     <button class="btn-filter" onclick="filtrarCategoria('ZONA PERFILES', this)">PERFILES</button>
     <button class="btn-filter" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
-    <button class="btn-filter" onclick="filtrarCategoria('APPS DE PAGA', this)">APPS</button>
+    <button class="btn-filter" onclick="filtrarCategoria('APPS DE PAGA', this)">APPS DE PAGA</button>
 </div>
     <div class="container" id="lista-productos">
 
