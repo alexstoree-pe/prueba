@@ -278,9 +278,9 @@
         AOS.refresh();
     }
 
-    // --- REEMPLAZA TU FUNCIÓN filtrarCategoria CON ESTA ---
+   // 1. FUNCIÓN PRINCIPAL DE FILTRADO
 function filtrarCategoria(categoria, btn) {
-    // 1. Limpiar buscador y resetear botones
+    // Limpiar buscador y resetear estado de botones
     document.getElementById('buscador').value = "";
     document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -288,7 +288,6 @@ function filtrarCategoria(categoria, btn) {
     const term = categoria.toUpperCase();
     const tarjetas = document.querySelectorAll('.promo-link');
 
-    // 2. Filtrar tarjetas
     tarjetas.forEach(t => {
         const txt = t.innerText.toUpperCase();
         
@@ -296,61 +295,63 @@ function filtrarCategoria(categoria, btn) {
             t.style.display = "block";
             t.classList.remove('oculto-busqueda');
         } else {
-            // Lógica flexible: si el botón es "PACKS", buscamos "PACK". 
-            // Si es "INDIVIDUALES", buscamos "INDIVIDUAL" o "PROMO".
+            // Lógica de palabras clave para que coincida con tus categorías
             let coincide = false;
-            if (term.includes("PACK")) {
+            
+            // Si el botón es de Cuentas Completas
+            if (term.includes("PACK") || term.includes("COMPLETAS")) {
                 coincide = txt.includes("PACK") || txt.includes("COMPLETA");
-            } else if (term.includes("INDIVIDUAL")) {
+            } 
+            // Si el botón es de Individuales o Perfiles
+            else if (term.includes("INDIVIDUAL") || term.includes("PERFIL")) {
                 coincide = txt.includes("INDIVIDUAL") || txt.includes("PERFIL") || txt.includes("PROMO");
-            } else {
-                // Para cualquier otro botón, buscamos el texto tal cual
+            } 
+            // Para otros (DISEÑO, IPTV, etc.)
+            else {
                 coincide = txt.includes(term);
             }
 
-            t.style.display = coincide ? "block" : "none";
             if (coincide) {
+                t.style.display = "block";
                 t.classList.remove('oculto-busqueda');
             } else {
+                t.style.display = "none";
                 t.classList.add('oculto-busqueda');
             }
         }
     });
 
-    // 3. Mostrar los títulos de las categorías que tengan productos visibles
+    // Llamamos a la función que muestra u oculta los títulos (ZONA PERFILES, etc.)
     actualizarTitulos();
 
-    // 4. Refrescar animaciones
-    AOS.refreshHard();
+    // Refrescar animaciones AOS
+    if (typeof AOS !== 'undefined') {
+        document.querySelectorAll('.promo-link').forEach(el => el.classList.remove('aos-animate'));
+        setTimeout(() => { AOS.refreshHard(); }, 100);
+    }
 }
-    });
-    // LLAMADA CLAVE: Esto traerá de vuelta los títulos de las categorías visibles
-    actualizarTitulos();
-    
-    // Refresco de animaciones
-    document.querySelectorAll('.promo-link').forEach(el => el.classList.remove('aos-animate'));
-    setTimeout(() => { AOS.refreshHard(); }, 100);
-}
-// --- AÑADE ESTA FUNCIÓN NUEVA AL FINAL DE TU SCRIPT ---
+
+// 2. FUNCIÓN PARA GESTIONAR LOS TÍTULOS (ESTA ES LA QUE TRAE LA CATEGORÍA)
 function actualizarTitulos() {
     const titulos = document.querySelectorAll('.category-title');
+    
     titulos.forEach(titulo => {
         let tieneHijosVisibles = false;
         let hermano = titulo.nextElementSibling;
         
-        // Revisa los elementos siguientes hasta encontrar otro título o el final
-        while(hermano && !hermano.classList.contains('category-title')) {
-            if(hermano.classList.contains('promo-link') && hermano.style.display !== "none") {
+        // Buscamos productos visibles debajo de este título
+        while (hermano && !hermano.classList.contains('category-title')) {
+            if (hermano.classList.contains('promo-link') && hermano.style.display !== "none") {
                 tieneHijosVisibles = true;
                 break;
             }
             hermano = hermano.nextElementSibling;
         }
-        // Si hay productos visibles, el título se muestra. Si no, se oculta.
+        
+        // Muestra el título (flex) si hay productos, si no, lo oculta (none)
         titulo.style.display = tieneHijosVisibles ? "flex" : "none";
     });
 }
-
     function actualizarCronometros() {
         const tarjetasConTiempo = document.querySelectorAll('.promo-link.time:not(.agotado)');
         tarjetasConTiempo.forEach(tarjeta => {
