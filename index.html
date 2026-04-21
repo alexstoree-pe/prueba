@@ -85,18 +85,55 @@
     <p>Panel Exclusivo para Mayoristas</p>
 </header>
 
-<div class="container">
+<div class="search-box">
+    <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="buscador" class="search-input" placeholder="Buscar plataforma o servicio...">
+    </div>
+</div>
+
+<div class="filter-wrapper" style="position: relative; width: 100%; margin-bottom: 25px; display: flex; align-items: center;">
     
-    <div class="back-nav">
-        <a href="../distribuidores/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Panel Principal</a>
+    <div class="arrow-filter" onclick="scrollFilters(-100)" 
+         style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10; cursor: pointer; color: var(--vip); background: rgba(0,0,0,0.7); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid var(--glass-border);">
+         <i class="fa-solid fa-chevron-left" style="font-size: 12px;"></i>
     </div>
 
-    <div class="search-box">
-        <div class="search-input-wrapper">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="buscador" class="search-input" placeholder="Buscar plataforma o servicio...">
-        </div>
+    <div class="filter-container" id="filterScroll" 
+         style="padding: 5px 35px; display: flex; gap: 10px; overflow-x: auto; white-space: nowrap; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; width: 100%;">
+        
+        <style>
+            .btn-nav {
+                background: var(--card-bg);
+                border: 1px solid var(--glass-border);
+                color: white;
+                padding: 8px 18px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: 0.3s;
+                flex: 0 0 auto;
+            }
+            .btn-nav.active {
+                background: var(--vip);
+                color: black;
+                border-color: var(--vip);
+            }
+            .filter-container::-webkit-scrollbar { display: none; }
+        </style>
+
+        <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+        <button class="btn-nav" onclick="filtrarCategoria('PACKS DE CUENTAS COMPLETAS', this)">CUENTAS COMPLETAS</button>
+        <button class="btn-nav" onclick="filtrarCategoria('PROMOCIONES INDIVIDUALES', this)">INDIVIDUALES</button>
+        
     </div>
+
+    <div class="arrow-filter" onclick="scrollFilters(100)" 
+         style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10; cursor: pointer; color: var(--vip); background: rgba(0,0,0,0.7); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid var(--glass-border);">
+         <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
+    </div>
+</div>
 
     <div class="category-title">📦 PACKS DE CUENTAS COMPLETAS</div>
 
@@ -277,6 +314,20 @@
         setInterval(actualizarCronometros, 1000);
         actualizarCronometros();
     };
+    function scrollFilters(val) {
+    const container = document.getElementById('filterScroll');
+    container.scrollBy({ left: val, behavior: 'smooth' });
+}
+
+function filtrarCategoria(categoria, btn) {
+    // Cambiar estado visual de los botones
+    document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Aquí puedes añadir la lógica de filtrado si la necesitas
+    // Por ahora, solo hace el efecto visual profesional
+    console.log("Filtrando por: " + categoria);
+}
 </script>
 
 </body>
