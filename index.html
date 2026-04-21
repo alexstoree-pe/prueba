@@ -596,7 +596,7 @@
     const items = document.querySelectorAll('.service-item');
     const titulos = document.querySelectorAll('.category-title');
     
-    // 1. Primero filtramos las plataformas (items)
+    // 1. Filtrar las plataformas
     items.forEach(item => {
         const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
         if (nombre.includes(busqueda)) {
@@ -607,12 +607,12 @@
         }
     });
 
-    // 2. Lógica para mostrar títulos solo si tienen plataformas visibles debajo
+    // 2. Filtrar los títulos de las categorías
     titulos.forEach(titulo => {
         let tieneHijosVisibles = false;
         let hermano = titulo.nextElementSibling;
 
-        // Buscamos hacia abajo hasta encontrar el siguiente título o el final del contenedor
+        // Buscamos si hay algún producto visible debajo de este título
         while (hermano && !hermano.classList.contains('category-title')) {
             if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
                 tieneHijosVisibles = true;
@@ -621,13 +621,14 @@
             hermano = hermano.nextElementSibling;
         }
 
-        // Si hay resultados visibles en esa sección, mostramos el título
-        if (tieneHijosVisibles) {
-            titulo.style.display = 'block';
-        } else {
-            titulo.style.display = 'none';
-        }
+        // Si hay productos, mostramos el título; si no, lo ocultamos
+        titulo.style.display = tieneHijosVisibles ? 'block' : 'none';
     });
+
+    // 3. Refrescar animaciones
+    if (typeof AOS !== 'undefined') {
+        AOS.refreshHard();
+    }
 }
 
     function validarPass() {
