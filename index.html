@@ -208,6 +208,30 @@ body {
             transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         #custom-alert.active { top: 30px; }
+        .btn-filter {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: #888;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-filter.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Ocultar categorías por filtro */
+.oculto-filtro {
+    display: none !important;
+}
     </style>
 
     <script>
@@ -295,6 +319,12 @@ body {
     <div class="contenedor-iptv">
     <a href="../iptv/" class="btn-universal btn-iptv">
         <i class="fa-solid fa-tv" style="margin-right: 8px;"></i> SERVICIO IPTV</a>
+</div>
+    <div class="filter-container" style="padding: 0 15px; margin-bottom: 20px; display: flex; gap: 10px; overflow-x: auto; white-space: nowrap; max-width: 600px; margin: 0 auto 20px;">
+    <button class="btn-filter active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+    <button class="btn-filter" onclick="filtrarCategoria('ZONA PERFILES', this)">PERFILES</button>
+    <button class="btn-filter" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
+    <button class="btn-filter" onclick="filtrarCategoria('APPS DE PAGA', this)">APPS</button>
 </div>
     <div class="container" id="lista-productos">
 
@@ -795,6 +825,42 @@ body {
             titulo.style.display = (tieneHijosVisibles || input === "") ? "flex" : "none";
         });
     }
+    function filtrarCategoria(categoria, boton) {
+    // 1. Gestionar estado visual de los botones
+    document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+    boton.classList.add('active');
+
+    const productos = document.querySelectorAll('.service-link');
+    const titulos = document.querySelectorAll('.category-title');
+
+    if (categoria === 'TODOS') {
+        productos.forEach(p => p.classList.remove('oculto-filtro'));
+        titulos.forEach(t => t.style.display = 'flex');
+        return;
+    }
+
+    // 2. Lógica de filtrado
+    titulos.forEach(titulo => {
+        const textoTitulo = titulo.innerText.toUpperCase();
+        const coincide = textoTitulo.includes(categoria.toUpperCase());
+        
+        // Mostrar/Ocultar el título de la categoría
+        titulo.style.display = coincide ? 'flex' : 'none';
+
+        // Buscar productos que pertenecen a este título
+        let hermano = titulo.nextElementSibling;
+        while (hermano && !hermano.classList.contains('category-title')) {
+            if (hermano.classList.contains('service-link')) {
+                if (coincide) {
+                    hermano.classList.remove('oculto-filtro');
+                } else {
+                    hermano.classList.add('oculto-filtro');
+                }
+            }
+            hermano = hermano.nextElementSibling;
+        }
+    });
+}
 
     // --- LÓGICA DE SELECCIÓN ---
     function toggleSeleccion(elemento) {
