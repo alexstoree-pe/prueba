@@ -620,18 +620,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-   // Escuchar la tecla Enter en el campo de contraseña
-document.addEventListener("DOMContentLoaded", () => {
-    const inputPass = document.getElementById('input-pass');
-    if (inputPass) {
-        inputPass.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                validarPass();
-            }
-        });
-    }
-});
-
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
         const nombre = elemento.querySelector('.nombre-prod').innerText;
