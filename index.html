@@ -790,6 +790,23 @@ function actualizarTitulos() {
         }
     });
 }
+    // >>> EL CÓDIGO DE LAS FLECHAS PONLO AQUÍ AL FINAL <<<
+const scrollContainer = document.getElementById('filterScroll');
+const indicators = document.querySelectorAll('.scroll-indicator');
+
+if (scrollContainer) {
+    // Esto detecta cuando el usuario mueve los botones con el dedo
+    scrollContainer.addEventListener('scroll', () => {
+        const leftInd = indicators[0];
+        const rightInd = indicators[1];
+        
+        leftInd.style.opacity = scrollContainer.scrollLeft > 20 ? "1" : "0";
+        
+        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+        rightInd.style.opacity = scrollContainer.scrollLeft >= maxScroll - 20 ? "0" : "1";
+    });
+}
+    
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
