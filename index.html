@@ -181,6 +181,34 @@
         }
         .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
         #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
+
+        .filter-wrapper { margin: 20px 0; position: relative; }
+.filter-container { 
+    display: flex; 
+    gap: 10px; 
+    overflow-x: auto; 
+    padding: 5px 0;
+    scrollbar-width: none; /* Ocultar scroll en Firefox */
+}
+.filter-container::-webkit-scrollbar { display: none; } /* Ocultar scroll en Chrome */
+
+.btn-nav {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.btn-nav.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+}
     </style>
 </head>
 <body>
@@ -198,6 +226,13 @@
         </div>
             </div>
         <input type="text" id="search-input" placeholder="Buscar plataforma (Netflix, Disney...)" onkeyup="filtrarProductos()">
+        <div class="filter-wrapper" data-aos="fade-up">
+    <div class="filter-container" id="filterScroll">
+        <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+        <button class="btn-nav" onclick="filtrarCategoria('STREAMING', this)">STREAMING</button>
+        <button class="btn-nav" onclick="filtrarCategoria('MUSICA', this)">MÚSICA</button>
+        </div>
+</div>
         
     
 </header>
@@ -636,6 +671,51 @@
     AOS.refreshHard();
 }
 
+    function filtrarCategoria(categoria, btn) {
+    // Resetear buscador
+    document.getElementById('search-input').value = "";
+    
+    // Cambiar estado de los botones
+    document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const term = categoria.toUpperCase();
+    const items = document.querySelectorAll('.service-item');
+
+    items.forEach(item => {
+        const textoCard = item.innerText.toUpperCase();
+        
+        if (term === 'TODOS') {
+            item.style.display = 'block';
+        } else {
+            // Verifica si el texto de la tarjeta contiene la categoría (Streaming, Musica, etc.)
+            // O puedes usar clases específicas si prefieres
+            const coincide = textoCard.includes(term);
+            item.style.display = coincide ? 'block' : 'none';
+        }
+    });
+
+    // Reutilizamos la lógica de títulos que ya tienes
+    actualizarTitulos();
+    AOS.refreshHard();
+}
+
+// Asegúrate de tener esta función (la que creamos antes)
+function actualizarTitulos() {
+    const titulos = document.querySelectorAll('.category-title');
+    titulos.forEach(titulo => {
+        let tieneHijosVisibles = false;
+        let hermano = titulo.nextElementSibling;
+        while (hermano && !hermano.classList.contains('category-title')) {
+            if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
+                tieneHijosVisibles = true;
+                break;
+            }
+            hermano = hermano.nextElementSibling;
+        }
+        titulo.style.display = tieneHijosVisibles ? 'block' : 'none';
+    });
+}
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
