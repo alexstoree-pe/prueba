@@ -836,20 +836,11 @@ body {
     const productos = document.querySelectorAll('.service-link');
     const titulos = document.querySelectorAll('.category-title');
 
-    if (categoria === 'TODOS') {
-        productos.forEach(p => p.classList.remove('oculto-filtro'));
-        titulos.forEach(t => t.style.display = 'flex');
-        return;
-        // AGREGA ESTO AL FINAL:
-    setTimeout(() => {
-        AOS.refresh(); // Esto detecta las nuevas posiciones de los productos
-    }, 100);
-    }
-
     // 2. Lógica de filtrado
     titulos.forEach(titulo => {
         const textoTitulo = titulo.innerText.toUpperCase();
-        const coincide = textoTitulo.includes(categoria.toUpperCase());
+        // Verificamos si debe mostrarse (Si es 'TODOS' o si el título coincide)
+        const coincide = (categoria === 'TODOS' || textoTitulo.includes(categoria.toUpperCase()));
         
         // Mostrar/Ocultar el título de la categoría
         titulo.style.display = coincide ? 'flex' : 'none';
@@ -860,6 +851,10 @@ body {
             if (hermano.classList.contains('service-link')) {
                 if (coincide) {
                     hermano.classList.remove('oculto-filtro');
+                    // FORZAR VISIBILIDAD: Esto quita el efecto de AOS para que no se escondan
+                    hermano.style.opacity = "1";
+                    hermano.style.transform = "none";
+                    hermano.style.visibility = "visible";
                 } else {
                     hermano.classList.add('oculto-filtro');
                 }
@@ -867,6 +862,14 @@ body {
             hermano = hermano.nextElementSibling;
         }
     });
+
+    // 3. Refrescar AOS para que reconozca los nuevos tamaños de la página
+    // IMPORTANTE: Fuera de cualquier bucle o 'if'
+    setTimeout(() => {
+        if (typeof AOS !== 'undefined') {
+            AOS.refreshHard(); 
+        }
+    }, 200);
 }
 
     // --- LÓGICA DE SELECCIÓN ---
