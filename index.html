@@ -353,20 +353,30 @@ body {
             <input type="text" id="buscador" placeholder="Buscar plataforma..." onkeyup="filtrarPlataformas()">
         </div>
     </div>
-    
+
     <div class="filter-wrapper" style="position: relative; max-width: 600px; margin: 0 auto 20px; display: flex; align-items: center;">
-    <div class="arrow-filter" onclick="scrollFilters(-100)" style="position: absolute; left: 5px; z-index: 10; cursor: pointer; color: #00e5ff; font-size: 18px; background: rgba(0,0,0,0.6); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid #333;">&#10094;</div>
+    
+    <div class="arrow-filter" onclick="scrollFilters(-100)" 
+         style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); z-index: 10; cursor: pointer; color: #00e5ff; font-size: 18px; background: rgba(0,0,0,0.6); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid #333;">
+         &#10094;
+    </div>
+
+    <div class="filter-container" id="filterScroll" 
+         style="padding: 10px 40px; display: flex; align-items: center; gap: 10px; overflow-x: auto; white-space: nowrap; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; width: 100%;">
         
-    <div class="filter-container" style="padding: 0 15px; margin-bottom: 20px; display: flex; gap: 10px; overflow-x: auto; white-space: nowrap; max-width: 600px; margin: 0 auto 20px;">
-    <button class="btn-filter active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
-    <button class="btn-filter" onclick="filtrarCategoria('ZONA PERFILES', this)">PERFILES</button>
-        <button class="btn-filter" onclick="filtrarCategoria('ZONA CUENTAS COMPLETAS', this)">CUENTAS COMPELTAS</button>
-    <button class="btn-filter" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
-    <button class="btn-filter" onclick="filtrarCategoria('APPS DE PAGA', this)">APPS PAGA IPTV</button> 
-         </div>
-        
-        <div class="arrow-filter" onclick="scrollFilters(100)" style="position: absolute; right: 5px; z-index: 10; cursor: pointer; color: #00e5ff; font-size: 18px; background: rgba(0,0,0,0.6); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid #333;">&#10095;</div>
+        <button class="btn-filter active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+        <button class="btn-filter" onclick="filtrarCategoria('ZONA PERFILES', this)">PERFILES</button>
+        <button class="btn-filter" onclick="filtrarCategoria('ZONA CUENTAS COMPLETAS', this)">CUENTAS COMPLETAS</button>
+        <button class="btn-filter" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
+        <button class="btn-filter" onclick="filtrarCategoria('APPS DE PAGA', this)">APPS PAGA IPTV</button> 
+    </div>
+
+    <div class="arrow-filter" onclick="scrollFilters(100)" 
+         style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); z-index: 10; cursor: pointer; color: #00e5ff; font-size: 18px; background: rgba(0,0,0,0.6); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid #333;">
+         &#10095;
+    </div>
 </div>
+    
 </header>
 
 <div class="grid-botones">
