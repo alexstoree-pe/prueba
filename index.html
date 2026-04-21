@@ -231,12 +231,54 @@
         container.scrollBy({ left: val, behavior: 'smooth' });
     }
 
-    // Función para Activar Filtros Visualmente
-    function filtrarCategoria(categoria, btn) {
-        document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        // Aquí puedes integrar la lógica de filtrado real si lo deseas
-    }
+   function filtrarCategoria(categoria, btn) {
+    // 1. Efecto visual: Quitar 'active' de todos y ponerlo en el clicado
+    document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const term = categoria.toUpperCase();
+    const promos = document.querySelectorAll('.promo-link');
+    const titulos = document.querySelectorAll('.category-title');
+
+    promos.forEach(promo => {
+        // Obtenemos el texto de la tarjeta (nombre y descripción)
+        const contenido = promo.innerText.toUpperCase();
+        const esAgotado = promo.classList.contains('agotado');
+
+        // LÓGICA DE FILTRADO
+        if (term === 'TODOS') {
+            promo.style.display = "block";
+        } else if (term === 'PACKS') {
+            // Filtra si dice "PACK" o "CUENTA COMPLETA"
+            promo.style.display = contenido.includes('PACK') ? "block" : "none";
+        } else if (term === 'INDIVIDUAL') {
+            // Filtra si dice "INDIVIDUAL" o "PERFIL"
+            promo.style.display = contenido.includes('INDIVIDUAL') || contenido.includes('PERFIL') ? "block" : "none";
+        } else if (term === 'RENOVABLES') {
+            // Filtra si tiene la etiqueta de renovación
+            promo.style.display = contenido.includes('RENO:') ? "block" : "none";
+        } else if (term === 'IPTV') {
+            // Filtra por palabras clave de apps
+            promo.style.display = contenido.includes('IPTV') || contenido.includes('APP') ? "block" : "none";
+        }
+    });
+
+    // 2. Manejo de Títulos: Ocultarlos si no estamos en 'TODOS' para que no estorben
+    titulos.forEach(t => {
+        t.style.display = (term === 'TODOS') ? "flex" : "none";
+    });
+
+    // 3. REPARACIÓN DE AOS (Lo más importante)
+    // Quitamos la clase 'aos-animate' y refrescamos para que las tarjetas
+    // que ahora son visibles vuelvan a hacer el efecto de subida.
+    document.querySelectorAll('.promo-link').forEach(el => {
+        el.classList.remove('aos-animate');
+    });
+    
+    setTimeout(() => {
+        AOS.refreshHard(); // Refresca posiciones y animaciones
+    }, 100);
+}
 
     function actualizarCronometros() {
         const tarjetasConTiempo = document.querySelectorAll('.promo-link.time:not(.agotado)');
