@@ -278,38 +278,53 @@
         AOS.refresh();
     }
 
-    // --- FUNCIÓN FILTRAR CATEGORÍA (BOTONES) ---
-    function filtrarCategoria(categoria, btn) {
-        // Limpiar buscador al usar botones
-        document.getElementById('buscador').value = "";
+    // --- REEMPLAZA TU FUNCIÓN filtrarCategoria CON ESTA ---
+function filtrarCategoria(categoria, btn) {
+    // Limpiamos el buscador para evitar conflictos
+    document.getElementById('buscador').value = "";
+    // Gestión visual de botones
+    document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const term = categoria.toUpperCase();
+    const tarjetas = document.querySelectorAll('.promo-link');
+    tarjetas.forEach(t => {
+        const txt = t.innerText.toUpperCase();
+        if (term === 'TODOS') {
+            t.style.display = "block";
+            t.classList.remove('oculto-busqueda');
+        } else {
+            // Ajusta aquí las palabras clave según tus botones (PACK, INDIVIDUAL, etc.)
+            const coincide = txt.includes(term.split(' ')[0]); 
+            t.style.display = coincide ? "block" : "none";
+            coincide ? t.classList.remove('oculto-busqueda') : t.classList.add('oculto-busqueda');
+        }
+    });
+    // LLAMADA CLAVE: Esto traerá de vuelta los títulos de las categorías visibles
+    actualizarTitulos();
+    
+    // Refresco de animaciones
+    document.querySelectorAll('.promo-link').forEach(el => el.classList.remove('aos-animate'));
+    setTimeout(() => { AOS.refreshHard(); }, 100);
+}
+// --- AÑADE ESTA FUNCIÓN NUEVA AL FINAL DE TU SCRIPT ---
+function actualizarTitulos() {
+    const titulos = document.querySelectorAll('.category-title');
+    titulos.forEach(titulo => {
+        let tieneHijosVisibles = false;
+        let hermano = titulo.nextElementSibling;
         
-        document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const term = categoria.toUpperCase();
-        const promos = document.querySelectorAll('.promo-link');
-        const titulos = document.querySelectorAll('.category-title');
-
-        promos.forEach(promo => {
-            const contenido = promo.innerText.toUpperCase();
-            promo.classList.remove('oculto-busqueda');
-
-            if (term === 'TODOS') {
-                promo.style.display = "block";
-            } else if (term.includes('PACKS')) {
-                promo.style.display = contenido.includes('PACK') ? "block" : "none";
-            } else if (term.includes('INDIVIDUALES')) {
-                promo.style.display = contenido.includes('INDIVIDUAL') || contenido.includes('PROMO') ? "block" : "none";
+        // Revisa los elementos siguientes hasta encontrar otro título o el final
+        while(hermano && !hermano.classList.contains('category-title')) {
+            if(hermano.classList.contains('promo-link') && hermano.style.display !== "none") {
+                tieneHijosVisibles = true;
+                break;
             }
-        });
-
-        titulos.forEach(t => {
-            t.style.display = (term === 'TODOS') ? "flex" : "none";
-        });
-
-        document.querySelectorAll('.promo-link').forEach(el => el.classList.remove('aos-animate'));
-        setTimeout(() => { AOS.refreshHard(); }, 100);
-    }
+            hermano = hermano.nextElementSibling;
+        }
+        // Si hay productos visibles, el título se muestra. Si no, se oculta.
+        titulo.style.display = tieneHijosVisibles ? "flex" : "none";
+    });
+}
 
     function actualizarCronometros() {
         const tarjetasConTiempo = document.querySelectorAll('.promo-link.time:not(.agotado)');
