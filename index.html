@@ -690,11 +690,11 @@
         msg += `🔹 *${i.nombre}* (S/ ${i.precio})`;
         // Si el cliente escribió un perfil, lo ponemos al lado de la plataforma
         if(per.trim() !== "") {
-            msg += ` - Perfil: ${per}`;
+            msg += `\n 👤 *Nombre delPerfil:* ${per}`;
         }
         msg += `\n`;
     });
-    if(desc > 0) msg += `\n🎁 Ahorro: -S/ ${desc}`;
+    if(desc > 0) msg += `\n🎁 *Ahorro:* -S/ ${desc}`;
     msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
     if(tipo === 'nuevo') { 
         msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; 
