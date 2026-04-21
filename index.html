@@ -280,24 +280,49 @@
 
     // --- REEMPLAZA TU FUNCIÓN filtrarCategoria CON ESTA ---
 function filtrarCategoria(categoria, btn) {
-    // Limpiamos el buscador para evitar conflictos
+    // 1. Limpiar buscador y resetear botones
     document.getElementById('buscador').value = "";
-    // Gestión visual de botones
     document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+
     const term = categoria.toUpperCase();
     const tarjetas = document.querySelectorAll('.promo-link');
+
+    // 2. Filtrar tarjetas
     tarjetas.forEach(t => {
         const txt = t.innerText.toUpperCase();
+        
         if (term === 'TODOS') {
             t.style.display = "block";
             t.classList.remove('oculto-busqueda');
         } else {
-            // Ajusta aquí las palabras clave según tus botones (PACK, INDIVIDUAL, etc.)
-            const coincide = txt.includes(term.split(' ')[0]); 
+            // Lógica flexible: si el botón es "PACKS", buscamos "PACK". 
+            // Si es "INDIVIDUALES", buscamos "INDIVIDUAL" o "PROMO".
+            let coincide = false;
+            if (term.includes("PACK")) {
+                coincide = txt.includes("PACK") || txt.includes("COMPLETA");
+            } else if (term.includes("INDIVIDUAL")) {
+                coincide = txt.includes("INDIVIDUAL") || txt.includes("PERFIL") || txt.includes("PROMO");
+            } else {
+                // Para cualquier otro botón, buscamos el texto tal cual
+                coincide = txt.includes(term);
+            }
+
             t.style.display = coincide ? "block" : "none";
-            coincide ? t.classList.remove('oculto-busqueda') : t.classList.add('oculto-busqueda');
+            if (coincide) {
+                t.classList.remove('oculto-busqueda');
+            } else {
+                t.classList.add('oculto-busqueda');
+            }
         }
+    });
+
+    // 3. Mostrar los títulos de las categorías que tengan productos visibles
+    actualizarTitulos();
+
+    // 4. Refrescar animaciones
+    AOS.refreshHard();
+}
     });
     // LLAMADA CLAVE: Esto traerá de vuelta los títulos de las categorías visibles
     actualizarTitulos();
