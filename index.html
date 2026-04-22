@@ -3,97 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Incidencias | Seguridad</title>
+    <title>Panel de Ciberseguridad | Privado</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="glass-container">
     <header>
-        <h1>Central de Reportes de Seguridad</h1>
-        <p>Base de datos interna para el seguimiento de fraudes y cuentas falsas.</p>
+        <div class="status-dot"></div>
+        <h1>Base de Datos de Incidencias</h1>
+        <p>Sistema de monitoreo de fraude y cuentas fraudulentas</p>
     </header>
 
-    <section class="form-section">
-        <h3>Registrar Nueva Incidencia</h3>
-        <form id="reportForm">
-            <div class="input-group">
-                <input type="text" id="phoneInput" placeholder="Número de celular (Ej: 987654321)" required>
-                <input type="text" id="typeInput" placeholder="Tipo de incidencia (Ej: Yape Fake)" required>
-                <input type="date" id="dateInput" required>
-                <button type="submit" class="btn-add">Registrar Reporte</button>
-            </div>
-        </form>
+    <section class="form-card">
+        <h3>Añadir Reporte</h3>
+        <div class="input-grid">
+            <input type="text" id="phoneInput" placeholder="Número de celular">
+            <input type="text" id="typeInput" placeholder="Tipo (ej: Robo de cuenta)">
+            <input type="date" id="dateInput">
+            <button onclick="checkAccessAndAdd()" class="btn-main">Publicar Reporte</button>
+        </div>
     </section>
 
-    <section class="search-section">
-        <input type="text" id="searchInput" placeholder="Buscar por número (formato libre)...">
-    </section>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Filtrar por número registrado...">
+    </div>
 
-    <section class="table-section">
-        <table id="reportsTable">
+    <div class="table-wrapper">
+        <table>
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Número Reportado</th>
+                    <th>Estado</th>
+                    <th>Número</th>
                     <th>Incidencia</th>
-                    <th>Fecha del Reporte</th>
+                    <th>Fecha</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
                 </tbody>
         </table>
-    </section>
+    </div>
 </div>
 
 <script>
-    const reportForm = document.getElementById('reportForm');
-    const tableBody = document.getElementById('tableBody');
-    const searchInput = document.getElementById('searchInput');
+    const ACCESS_CODE = "1234"; // Cambia este código por el que tú quieras
     let reports = [];
 
-    // Función para dar formato al número (separa números pegados)
     function formatPhoneNumber(num) {
-        // Elimina cualquier carácter que no sea número
         let clean = num.replace(/\D/g, '');
-        // Formato sugerido: XXX XXX XXX
         return clean.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
     }
 
-    // Renderizar la tabla
     function renderTable(data = reports) {
+        const tableBody = document.getElementById('tableBody');
         tableBody.innerHTML = '';
-        data.forEach((item, index) => {
-            const row = `<tr>
-                <td>${index + 1}</td>
-                <td class="phone-cell">${formatPhoneNumber(item.phone)}</td>
-                <td><span class="badge">${item.type}</span></td>
-                <td>${item.date}</td>
-            </tr>`;
-            tableBody.insertAdjacentHTML('afterbegin', row); // Orden cronológico (último arriba)
+
+        data.forEach(item => {
+            // Lógica de color: si contiene "robo", aplicamos clase 'danger'
+            const isRobo = item.type.toLowerCase().includes('robo');
+            const rowClass = isRobo ? 'row-danger' : '';
+
+            const row = `
+                <tr class="${rowClass}">
+                    <td><span class="dot ${isRobo ? 'dot-red' : 'dot-blue'}"></span></td>
+                    <td class="num-text">${formatPhoneNumber(item.phone)}</td>
+                    <td><span class="type-badge">${item.type}</span></td>
+                    <td class="date-text">${item.date}</td>
+                </tr>`;
+            tableBody.insertAdjacentHTML('afterbegin', row);
         });
     }
 
-    // Evento Guardar
-    reportForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const newReport = {
-            phone: document.getElementById('phoneInput').value,
-            type: document.getElementById('typeInput').value,
-            date: document.getElementById('dateInput').value
-        };
-        reports.push(newReport);
-        renderTable();
-        reportForm.reset();
-    });
+    function checkAccessAndAdd() {
+        const pass = prompt("Introduzca el código de autorización para reportar:");
+        
+        if (pass === ACCESS_CODE) {
+            const phone = document.getElementById('phoneInput').value;
+            const type = document.getElementById('typeInput').value;
+            const date = document.getElementById('dateInput').value;
 
-    // Lógica del Buscador (Ignora espacios y guiones)
-    searchInput.addEventListener('input', (e) => {
+            if(!phone || !type || !date) return alert("Completa todos los campos");
+
+            reports.push({ phone, type, date });
+            renderTable();
+            
+            // Limpiar campos
+            document.getElementById('phoneInput').value = '';
+            document.getElementById('typeInput').value = '';
+        } else {
+            alert("Código incorrecto. Acceso denegado.");
+        }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
         const term = e.target.value.replace(/\D/g, '');
         const filtered = reports.filter(r => r.phone.replace(/\D/g, '').includes(term));
         renderTable(filtered);
     });
 </script>
-
 </body>
 </html>
