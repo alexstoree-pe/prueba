@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
     :root {
-        --primary: #00d4ff; 
+        --primary: #00d4ff;
         --secondary: #0055ff;
         --dark: #050505;
         --glass: rgba(255, 255, 255, 0.03);
@@ -30,70 +30,77 @@
         --whatsapp: #25d366;
         --promo: #f4d03f;
         --promo-dark: #d4af37;
-        --danger: #ff4444; 
+        --danger-neon: #ff0000;
         --vip: #d4af37;
         --success-neon: #39ff14;
         --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
     }
 
-    /* --- BASE Y BODY --- */
-    html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
+    /* --- BASE ROBUSTA --- */
+    html { background-color: var(--dark); scroll-behavior: smooth; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { 
         font-family: 'Poppins', sans-serif; 
         background: radial-gradient(circle at top right, #0a0a0a, #050505);
-        color: white; line-height: 1.6; padding-bottom: 150px; 
+        color: white; line-height: 1.6; padding-bottom: 120px; 
     }
 
-    /* --- HEADER (ESTILO 1) --- */
+    /* --- HEADER PREMIUM CON BLUR --- */
     header {
-        background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(20px);
-        padding: 15px 15px 10px; text-align: center; border-bottom: 1px solid var(--glass-border);
+        background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(25px);
+        padding: 15px; text-align: center; border-bottom: 1px solid var(--glass-border);
         position: sticky; top: 0; z-index: 2000;
     }
-    .brand-logo { width: 50px; height: 50px; object-fit: contain; border-radius: 18px; margin-bottom: 5px; }
-    header h1 { font-size: 1.4rem; font-weight: 800; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header h1 { 
+        font-size: 1.4rem; font-weight: 800; 
+        background: linear-gradient(to right, #fff, var(--primary)); 
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+    }
 
-    /* --- BOTONES Y FILTROS --- */
-    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
-    .btn-universal { display: flex; align-items: center; justify-content: center; padding: 15px 10px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
-    .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; }
-    .btn-combos-premium { background: var(--gold-gradient); color: #000; }
+    /* --- BOTONES CON SOMBRAS Y DEGRADADOS --- */
+    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
+    .btn-universal { 
+        display: flex; align-items: center; justify-content: center; padding: 15px; 
+        border-radius: 15px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; 
+        border: none; cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    }
+    .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3); }
+    .btn-combos-premium { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
-    .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
-    .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-    .btn-nav.active { background: var(--primary); color: #000; }
-
-    /* --- TARJETAS (ESTILO LISTA) --- */
-    .container { padding: 20px 15px; max-width: 600px; margin: auto; transition: 0.4s; }
-    .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
-
-    .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
+    /* --- TARJETAS: EL CORAZÓN DEL DISEÑO --- */
+    .container { padding: 20px 15px; max-width: 600px; margin: auto; }
+    .service-item { position: relative; margin-bottom: 20px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    
     .service-card { 
-        background: #0f0f0f; border-radius: 25px; padding: 20px; 
+        background: #0f0f0f; border-radius: 25px; padding: 22px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        gap: 15px; position: relative; overflow: hidden; transition: 0.3s;
+        gap: 18px; position: relative; z-index: 10; overflow: hidden;
+        transition: 0.3s all;
     }
 
-    /* ESTADO SELECCIONADO (PROFESIONAL) */
-    .service-item.selected .service-card { 
-        transform: scale(0.96) translateY(2px); 
-        background: rgba(255, 255, 255, 0.03) !important;
+    /* EFECTOS HOVER Y SELECCIÓN (NEÓN ROBUSTO) */
+    .service-item:hover .service-card {
+        border-color: var(--primary);
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(0, 212, 255, 0.1);
+        transform: translateY(-5px);
+    }
+
+    .service-item.selected .service-card {
+        transform: scale(0.96) translateY(2px);
         border: 2px solid var(--primary) !important;
-        box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+        box-shadow: 0 0 35px rgba(0, 212, 255, 0.6), inset 0 0 15px rgba(0, 212, 255, 0.2) !important;
+        background: rgba(255, 255, 255, 0.04) !important;
     }
-    .service-item.premium.selected .service-card { border-color: var(--vip) !important; box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
 
-    /* CHECK ICON */
-    .check-icon { 
-        position: absolute; top: -5px; right: -5px; width: 28px; height: 28px; 
-        border-radius: 50%; display: none; align-items: center; justify-content: center; 
-        z-index: 101; border: 2px solid #000; background: var(--primary); color: #000;
+    /* VARIANTE PREMIUM (DORADA) */
+    .service-item.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+    .service-item.premium.selected .service-card {
+        border-color: var(--vip) !important;
+        box-shadow: 0 0 40px rgba(212, 175, 55, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.2) !important;
     }
-    .selected .check-icon { display: flex !important; animation: popCheck 0.3s forwards; }
-    .premium.selected .check-icon { background: var(--vip) !important; }
 
-    /* --- VISTA CUADRÍCULA (GRID MODE) - INTEGRADA DEL CÓDIGO 2 --- */
+    /* --- VISTA CUADRÍCULA (ESTRUCTURA DEL OTRO WEB) --- */
     .container.grid-mode {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -101,56 +108,57 @@
         max-width: 100% !important;
     }
 
-    .grid-mode .service-item { margin-bottom: 0 !important; height: 100%; }
-
     .grid-mode .service-card {
         flex-direction: column !important;
         text-align: center !important;
-        padding: 20px 10px !important;
+        padding: 40px 10px 20px !important; /* Espacio para el badge superior */
         height: 100% !important;
         justify-content: space-between !important;
     }
 
-    .grid-mode .service-logo { width: 65px !important; height: 65px !important; margin-bottom: 10px; margin-right: 0; }
-    
-    .grid-mode .price-container {
-        margin-left: 0 !important;
-        margin-top: 10px;
-        align-items: center !important;
-        width: 100%;
+    .grid-mode .service-logo { width: 70px !important; height: 70px !important; margin-bottom: 12px; margin-right: 0; }
+    .grid-mode .price-container { align-items: center !important; margin-top: 15px; width: 100%; }
+
+    /* --- BADGES Y ETIQUETAS --- */
+    .check-icon { 
+        position: absolute; top: -8px; right: -8px; width: 30px; height: 30px; 
+        border-radius: 50%; display: none; align-items: center; justify-content: center; 
+        z-index: 101; border: 2.5px solid #000; background: var(--primary); color: #000;
+        font-weight: 900; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .selected .check-icon { display: flex !important; animation: popCheck 0.35s forwards; }
+    .premium.selected .check-icon { background: var(--vip) !important; }
+
+    .badge-oferta { 
+        position: absolute; top: 0; left: 0; background: #f1c40f; color: #000; 
+        padding: 4px 20px 4px 10px; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+        font-size: 0.6rem; font-weight: 900; z-index: 100; text-transform: uppercase;
     }
 
-    .grid-mode .price-tag { font-size: 1.1rem !important; }
-
-    /* BADGE OFERTA EN GRID */
-    .grid-mode .badge-oferta {
-        width: 100%; left: 0; text-align: center; clip-path: none;
-        border-radius: 0 0 10px 10px; top: 0 !important;
-    }
-
-    /* --- ELEMENTOS DE TEXTO PREMIUM --- */
     .premium-text { 
-        display: none; border: 1px solid var(--vip); padding: 1px 6px; border-radius: 4px;
-        color: var(--vip); font-size: 0.55rem; font-weight: 900; text-transform: uppercase; margin-bottom: 4px;
-    }
-    .premium .premium-text { display: inline-block; }
-    .grid-mode .premium .premium-text { display: block; margin: 0 auto 5px; width: fit-content; }
-
-    /* --- ANIMACIONES Y ALERTAS --- */
-    @keyframes popCheck { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-    
-    .floating-btn { 
-        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
-        background: linear-gradient(135deg, #25d366, #128c7e); width: 92%; max-width: 480px; 
-        border-radius: 22px; z-index: 3000; display: none;
+        border: 1px solid var(--vip); padding: 2px 8px; border-radius: 4px;
+        background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-size: 0.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px;
     }
 
-    .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 18px; }
-    .price-tag { color: var(--primary); font-weight: 800; font-size: 1.3rem; }
+    /* --- ESTADO AGOTADO CON ANIMACIÓN --- */
+    .service-item.agotado::after { 
+        content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
+        font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); 
+        padding: 8px 15px; border-radius: 12px; background: #000; z-index: 200;
+        animation: shine-red 1.5s infinite;
+    }
+    @keyframes shine-red {
+        0%, 100% { box-shadow: 0 0 10px var(--danger-neon); border-color: var(--danger-neon); color: var(--danger-neon); }
+        50% { box-shadow: 0 0 25px var(--danger-neon); border-color: #fff; color: #fff; }
+    }
+
+    @keyframes popCheck { 0% { transform: scale(0) rotate(-45deg); } 100% { transform: scale(1) rotate(0); } }
+
+    /* Ajustes finales de texto */
+    .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .price-tag { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
     .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-    /* ESTADO AGOTADO (DEL CÓDIGO 2) */
-    .service-item.agotado { opacity: 0.4; filter: grayscale(1); pointer-events: none; }
 </style>
 </head>
 <body>
