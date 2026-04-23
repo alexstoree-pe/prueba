@@ -355,10 +355,25 @@ body {
 
 /* Para PC / Pantallas grandes (más de 1024px): hasta 6 columnas */
 @media (min-width: 1024px) {
+    /* 1. Expandimos el contenedor principal casi al borde de la pantalla */
+    .container {
+        max-width: 95% !important; 
+        padding: 0 30px;
+    }
+
+    /* 2. Configuramos el grid para que use todo ese nuevo ancho */
     .container.grid-mode {
-        /* Ajusta el 160px si quieres que las tarjetas sean más anchas o delgadas */
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
-        max-width: 1200px; /* Permite que la cuadrícula se expanda en PC */
+        display: grid !important;
+        /* auto-fill hará que las tarjetas ocupen todo el ancho disponible de lado a lado */
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+        gap: 20px !important;
+    }
+
+    /* 3. Ajuste para que los títulos de zona no queden volando */
+    .grid-mode .category-title {
+        grid-column: 1 / -1; 
+        width: 100%;
+        margin: 40px 0 20px;
     }
 }
 /* 3. Ajustes de la TARJETA en modo CUADRÍCULA */
