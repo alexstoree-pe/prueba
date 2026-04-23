@@ -259,35 +259,88 @@
         .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
         .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-        /* --- CORRECCIONES MODO GRID DEFINTIVAS --- */
-        .container.grid-mode { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 15px; }
-        .grid-mode .service-item { margin-bottom: 0; }
-        .grid-mode .service-card { flex-direction: column; align-items: center; text-align: center; padding: 20px 10px; min-height: 200px; justify-content: space-between; }
-        .grid-mode .service-logo { width: 60px; height: 60px; margin-bottom: 15px; margin-right: 0; }
+        /* --- CONFIGURACIÓN GRID RESPONSIVA --- */
+        .container.grid-mode { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            padding: 10px; 
+            max-width: 100%; 
+        }
 
-        /* Mantenemos el manual-desc oculto y lo mostramos con hover/selección */
+        @media (min-width: 600px) {
+            .container.grid-mode { 
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+                gap: 15px;
+            }
+        }
+
+        .grid-mode .category-title { grid-column: 1 / -1; margin-top: 20px; }
+        .grid-mode .service-item { margin-bottom: 0; }
+
+        .grid-mode .service-card { 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            padding: 15px 10px; 
+            min-height: 190px; 
+            justify-content: flex-start;
+            transition: all 0.4s ease;
+        }
+
+        .grid-mode .service-logo { 
+            width: 55px; 
+            height: 55px; 
+            margin-bottom: 10px; 
+            margin-right: 0; 
+        }
+
+        .grid-mode .service-text h3 { 
+            font-size: 0.85rem; 
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
         .grid-mode .manual-desc { 
             display: block !important; 
             max-height: 0; 
             opacity: 0; 
             overflow: hidden; 
-            transition: all 0.3s ease; 
+            transition: all 0.3s ease-in-out; 
             font-size: 0.65rem;
+            color: #aaa;
+            padding: 0 4px;
         }
 
         .grid-mode .service-item:hover .manual-desc, 
         .grid-mode .service-item.selected .manual-desc { 
-            max-height: 80px; 
+            max-height: 100px; 
             opacity: 1; 
-            margin-top: 10px; 
+            margin-top: 8px; 
+            margin-bottom: 8px;
         }
 
-        .grid-mode .price-container { margin-top: auto; width: 100%; justify-content: center; align-items: center; }
-        .grid-mode .category-title { grid-column: 1 / -1; }
+        .grid-mode .price-container { 
+            margin-top: auto; 
+            width: 100%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            padding-top: 10px;
+        }
+
+        .grid-mode .price-tag { font-size: 1.1rem; }
+
+        .grid-mode .check-icon {
+            top: 8px;
+            right: 8px;
+            width: 22px;
+            height: 22px;
+            font-size: 0.7rem;
+        }
     </style>
 </head>
 <body>
-
 <header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
