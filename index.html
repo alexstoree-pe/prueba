@@ -183,34 +183,35 @@
 
     .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
 
-   /* --- INICIO CAMBIO SELECCIÓN PROFESIONAL --- */
+  /* --- INICIO CAMBIO SELECCIÓN PROFESIONAL --- */
     
     @keyframes popCheck { 
         0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
         100% { transform: scale(1) rotate(0); opacity: 1; } 
     }
 
-    /* Forzamos que la tarjeta sea interactiva y brille */
-.service-link.selected .service-card { 
-    border: 2.5px solid var(--primary) !important; 
-    background: rgba(0, 212, 255, 0.35) !important; 
-    transform: scale(0.96) translateY(2px) !important; 
-    box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 
-                inset 0 0 25px rgba(255, 255, 255, 0.2) !important;
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 50;
-    pointer-events: auto !important; /* Asegura que responda al clic */
-}
+    /* Selector de alta prioridad para cualquier tarjeta seleccionada */
+    .service-link.selected .service-card { 
+        border: 2px solid var(--primary) !important; 
+        /* Usamos un fondo más vibrante para que no se vea negro/opaco */
+        background: rgba(0, 212, 255, 0.25) !important; 
+        transform: scale(0.96) translateY(2px) !important; 
+        /* Doble resplandor: Exterior fuerte e Interior suave para iluminar el contenido */
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.6), 
+                    inset 0 0 15px rgba(255, 255, 255, 0.2) !important;
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 50;
+    }
 
-/* Específico para Disney Premium (clase premium + selected) */
-.service-link.premium.selected .service-card { 
-    border: 2.5px solid var(--vip) !important; 
-    background: rgba(212, 175, 55, 0.4) !important; 
-    box-shadow: 0 0 35px rgba(212, 175, 55, 0.6), 
-                inset 0 0 25px rgba(255, 255, 255, 0.2) !important;
-}
+    /* Especial para Premium: Si quieres que mantenga el color Oro o cambie a Turquesa */
+    .service-link.premium.selected .service-card { 
+        border: 2px solid var(--primary) !important; /* Cambiamos a celeste para que se vea como tu foto */
+        background: rgba(0, 212, 255, 0.25) !important;
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.7), 
+                    inset 0 0 20px rgba(255, 255, 255, 0.2) !important;
+    }
 
-    /* Icono Check con animación pop */
+    /* Diseño del Check animado */
     .check-icon { 
         position: absolute; 
         top: -5px; 
@@ -227,30 +228,14 @@
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-   /* Asegurar que el check aparezca sin importar el orden de las clases */
-.service-link.selected .check-icon { 
-    display: flex !important;
-    background: var(--primary) !important;
-    color: #000 !important;
-    animation: popCheck 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    z-index: 110;
-}
-
-    .service-link.premium.selected .check-icon { 
-        background: #fff !important; /* Check blanco en premium para más lujo */
+    /* Mostrar check con prioridad */
+    .service-link.selected .check-icon { 
+        display: flex !important;
+        background: var(--primary) !important;
+        color: #000 !important;
+        animation: popCheck 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
     
-    /* Ajustes para Grid */
-    .grid-mode .service-link.selected .check-icon {
-        top: 5px !important;
-        right: 5px !important;
-        width: 22px !important;
-        height: 22px !important;
-    }
-
-    .grid-mode .service-link.selected .service-card {
-        transform: scale(0.94) !important;
-    }
     /* --- FIN CAMBIO SELECCIÓN PROFESIONAL --- */
     .badge-oferta { 
         display: none; 
@@ -905,7 +890,7 @@
         </div>
     </div>
 
-    <div class="service-link agotado renovacion oferta agotado" data-aos="fade-up">
+    <div class="service-link agotado renovacion oferta agotado" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
             <span class="badge-oferta">Mas Solicitado🔥</span>
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
@@ -929,7 +914,7 @@
             <img src="../img/disneys.webp" class="service-logo">
             <div class="service-text">
                 <div class="status-badge"></div>
-                <h3 class="nombre-prod">Disney premium Completa(SIN ESPN)</h3>
+                <h3 class="nombre-prod">Disney Completa(SIN ESPN)</h3>
                 <span class="manual-desc">1 Mes • 7 Perfiles • Sin canales ESPN.</span>
             </div>
             <div class="price-container">
