@@ -106,6 +106,47 @@
         .modal-content-pass { background: #111; padding: 40px; border-radius: 30px; text-align: center; border: 1px solid #333; }
         #input-dist-pass { background: #000; border: 1px solid #444; color: var(--primary); padding: 15px; width: 100%; border-radius: 10px; margin: 20px 0; text-align: center; font-size: 1.2rem; }
     </style>
+    <script>
+    // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
+    (function() {
+        const acceso = sessionStorage.getItem("acceso_distribuidor");
+        
+        if (acceso === "true") {
+            // Si tiene acceso, hacemos todo visible de inmediato
+            document.documentElement.style.visibility = "visible";
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.style.visibility = "visible";
+            });
+        } else {
+            // Si no tiene acceso, esperamos al DOM solo para mostrar el modal
+            document.addEventListener("DOMContentLoaded", () => {
+                const modal = document.getElementById('modal-login-distribuidor');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    // Mantenemos el body oculto pero el modal visible
+                    document.body.style.visibility = 'hidden'; 
+                    modal.style.visibility = 'visible';
+                }
+            });
+        }
+    })();
+
+    function validarAcceso() {
+        const inputPass = document.getElementById('input-dist-pass');
+        const pass = inputPass.value;
+        const PIN_CORRECTO = "dis"; // Tu PIN aquí
+
+        if (pass === PIN_CORRECTO) {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            // Al recargar, entrará en el primer "if" y todo será visible
+            location.reload();
+        } else {
+            alert("Acceso denegado.");
+            inputPass.value = "";
+            inputPass.focus();
+        }
+    }
+</script>
 </head>
 <body>
 
