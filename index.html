@@ -882,28 +882,6 @@ body {
     
     let carrito = [];
 
-     // CORRECCIÓN: Función cambiar vista para que afecte al contenedor real de productos
-function cambiarVista(vista, btn) {
-    // Apuntamos al contenedor que realmente tiene los productos
-    const container = document.getElementById('lista-productos'); 
-    const buttons = document.querySelectorAll('.btn-view');
-    
-    buttons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    if (vista === 'grid') {
-        container.classList.add('grid-mode');
-    } else {
-        container.classList.remove('grid-mode');
-    }
-    // Refrescamos AOS para que las tarjetas se acomoden bien
-    AOS.refresh();
-}
-
-// CORRECCIÓN: Asegurar que los productos destacados también sean seleccionables
-// En tu HTML de la Parte 2, el primer producto no tiene la función onclick
-// Deberías añadirlo así en el HTML:
-// <a href="javascript:void(0)" class="service-link" onclick="toggleSeleccion(this)"> ... </a>
     // --- BUSCADOR ---
     function filtrarPlataformas() {
     // Al empezar a escribir, reseteamos los filtros visualmente
