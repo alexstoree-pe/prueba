@@ -449,6 +449,17 @@
             border-color: var(--primary) !important;
             box-shadow: 0 0 25px rgba(0, 212, 255, 0.5) !important;
         }
+        /* Asegura que el texto premium esté oculto por defecto en cualquier vista */
+.grid-mode .premium-text {
+    display: none !important;
+}
+
+/* SOLO se muestra si la tarjeta tiene la clase .premium */
+.grid-mode .service-link.premium .premium-text {
+    display: block !important;
+    margin-right: 0;
+    margin-bottom: 5px;
+}
     </style>
 
     <script>
