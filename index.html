@@ -327,6 +327,75 @@ header p[style*="letter-spacing: 5px"] {
     border-color: var(--primary);
     box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
 }
+        /* Contenedor de controles */
+.view-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 10px 20px;
+}
+
+.view-label { font-size: 0.7rem; color: #666; font-weight: 800; }
+
+.btn-view {
+    background: #111;
+    border: 1px solid #333;
+    color: #666;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-view.active {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: rgba(0, 212, 255, 0.1);
+}
+
+/* --- MODO GRID --- */
+.container.grid-mode {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    padding: 15px;
+}
+
+/* Ajustes de la tarjeta en modo Grid */
+.grid-mode .service-item {
+    margin-bottom: 0;
+}
+
+.grid-mode .service-card {
+    flex-direction: column; /* Apila imagen arriba, texto abajo */
+    align-items: center;
+    text-align: center;
+    padding: 20px 10px;
+    height: 100%;
+}
+
+.grid-mode .service-logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+    margin-right: 0;
+}
+
+.grid-mode .manual-desc {
+    display: none; /* Ocultamos descripción larga en grid para ahorrar espacio */
+}
+
+.grid-mode .price-container {
+    margin-top: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Los títulos de categoría ocupan todo el ancho en modo grid */
+.grid-mode .category-title {
+    grid-column: 1 / -1;
+}
     </style>
 </head>
 <body>
@@ -356,7 +425,15 @@ header p[style*="letter-spacing: 5px"] {
         <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button> </div>
        <div class="scroll-indicator right"><i class="fas fa-chevron-right"></i></div>
     </div>
-        
+        <div class="view-controls" data-aos="fade-in">
+    <span class="view-label">VISTA:</span>
+    <button class="btn-view active" onclick="cambiarVista('list', this)" title="Vista de Lista">
+        <i class="fas fa-list"></i>
+    </button>
+    <button class="btn-view" onclick="cambiarVista('grid', this)" title="Vista de Cuadrícula">
+        <i class="fas fa-th-large"></i>
+    </button>
+</div>
  </div>
      
     
@@ -754,6 +831,24 @@ header p[style*="letter-spacing: 5px"] {
     let carrito = [];
     const numWhatsApp = "51918600000";
 
+    function cambiarVista(modo, btn) {
+    const contenedor = document.querySelector('.container');
+    const botones = document.querySelectorAll('.btn-view');
+    
+    // 1. Quitar clase activa de botones y ponerla al actual
+    botones.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // 2. Cambiar modo en el contenedor
+    if (modo === 'grid') {
+        contenedor.classList.add('grid-mode');
+    } else {
+        contenedor.classList.remove('grid-mode');
+    }
+    
+    // 3. Refrescar AOS para que las animaciones se ajusten a la nueva posición
+    AOS.refresh();
+}
     function filtrarProductos() {
     const busqueda = document.getElementById('search-input').value.toLowerCase();
     const items = document.querySelectorAll('.service-item');
