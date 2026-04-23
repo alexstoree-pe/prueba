@@ -33,119 +33,127 @@
             --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
         }
 
+        /* Base y Animaciones */
         html { background-color: var(--dark); scroll-behavior: smooth; }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         @keyframes shine-red { 
             0%, 100% { text-shadow: 0 0 10px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
             50% { text-shadow: 0 0 30px var(--danger-neon); color: #fff; border-color: #fff; box-shadow: inset 0 0 20px var(--danger-neon), 0 0 25px var(--danger-neon); } 
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body { 
             font-family: 'Poppins', sans-serif; 
-            background: #0a0a0a; 
-            color: white; 
-            padding-bottom: 200px; 
-            overflow-x: hidden;
-            visibility: hidden; 
+            background: #0a0a0a; color: white; padding-bottom: 200px; 
+            overflow-x: hidden; visibility: hidden; 
         }
 
-        /* Modal de Acceso */
+        .contenido-protegido { display: none !important; }
+
+        /* Modal Pass */
         .modal-pass { 
-            display: none; position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.98); backdrop-filter: blur(25px); 
-            z-index: 9999; justify-content: center; align-items: center;
-            visibility: visible; 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
+            backdrop-filter: blur(25px); z-index: 9999; justify-content: center; align-items: center; visibility: visible; 
         }
         .modal-content-pass { 
             background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
-            border: 1px solid var(--primary); text-align: center; 
+            border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
         }
         #input-dist-pass { 
             width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; 
             color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; letter-spacing: 5px;
         }
 
+        /* Header y Buscador */
         header { 
-            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 10px 15px; 
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 10px 15px 0px; 
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
-        .brand-logo { width: 45px; height: 45px; border-radius: 18px; }
+        .brand-logo { width: 45px; height: 45px; object-fit: contain; border-radius: 18px; margin-bottom: 5px; }
+        header h1 { font-size: 1.1rem; letter-spacing: 0.9px; margin-bottom: 5px; }
 
-        /* Buscador y Filtros */
+        .garantia-header { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
+        .garantia-mini-item { text-align: center; min-width: 60px; }
+        .garantia-mini-item i { font-size: 0.7rem; color: var(--primary); margin-bottom: 2px; }
+        .garantia-mini-item p { font-size: 0.35rem; font-weight: 700; text-transform: uppercase; color: #bbb; }
+
         .search-container { position: sticky; top: 110px; z-index: 1900; padding: 5px 15px; background: #0a0a0a; }
-        #buscador { width: 100%; padding: 8px 15px 8px 40px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; }
+        .search-wrapper { position: relative; max-width: 500px; margin: auto; }
+        .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+        #buscador { width: 100%; padding: 8px 15px 8px 40px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
 
-        .filter-wrapper { padding: 10px 15px; }
-        .filter-container { display: flex; overflow-x: auto; gap: 10px; scrollbar-width: none; }
+        /* Botones y Filtros */
+        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto; max-width: 500px; padding: 0 15px; }
+        .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
+        .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
+        .btn-promo-distri, .btn-iptv { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+
+        .filter-wrapper { display: block !important; min-height: 50px; margin-bottom: 10px; }
+        .filter-container { display: flex; overflow-x: auto; white-space: nowrap; gap: 10px; padding: 10px 5px; scrollbar-width: none; }
         .filter-container::-webkit-scrollbar { display: none; }
-
-        .btn-filter { 
-            background: var(--glass); border: 1px solid var(--glass-border); color: #888; 
-            padding: 8px 18px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; cursor: pointer; 
-        }
+        
+        .btn-filter { background: var(--glass); border: 1px solid var(--glass-border); color: #888; padding: 8px 18px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
         .btn-filter.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
 
-        /* Contenedor Principal Adaptable */
-        .container { padding: 10px 15px; margin: auto; transition: max-width 0.3s; }
+        /* Sistema de Vistas (Lista / Grid) */
+        .view-controls { display: flex; justify-content: flex-end; align-items: center; gap: 10px; max-width: 600px; margin: 5px auto; padding: 0 15px; }
+        .view-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #666; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .view-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
+
+        /* Contenedor Adaptativo */
+        .container { padding: 10px 15px; margin: auto; }
         
-        /* Vista Lista (Por defecto) */
-        .container:not(.grid-mode) { max-width: 700px !important; }
-        .container:not(.grid-mode) .service-card { width: 100%; }
-
-        /* Vista Cuadrícula */
-        .container.grid-mode { 
-            display: grid !important; gap: 15px; 
-            grid-template-columns: repeat(2, 1fr); 
-        }
-
         @media (min-width: 1024px) {
+            /* VISTA LISTA: Centrada y estrecha */
+            .container:not(.grid-mode) { max-width: 700px !important; margin: 0 auto; }
+            /* VISTA GRID: Expandida */
             .container.grid-mode { 
                 max-width: 95% !important; 
+                display: grid !important; 
                 grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
-                gap: 20px;
+                gap: 20px !important; 
             }
         }
 
-        /* Tarjetas */
-        .service-card { 
-            background: #0f0f0f; border-radius: 25px; padding: 22px; 
-            display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; 
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; 
-        }
+        /* Tarjeta Base */
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; transition: 0.4s ease; }
+        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
+        
+        /* Ajustes Modo Grid */
+        .grid-mode .service-link { margin-bottom: 0 !important; }
+        .grid-mode .service-card { flex-direction: column !important; text-align: center; padding: 15px 10px !important; height: 100%; justify-content: space-between; }
+        .grid-mode .service-logo { width: 60px !important; height: 60px !important; margin-bottom: 10px; }
+        .grid-mode .price-container { margin-left: 0 !important; margin-top: 10px; align-items: center !important; width: 100%; }
 
-        .grid-mode .service-card { flex-direction: column; text-align: center; padding: 15px 10px; height: 100%; }
-
-        /* Efectos Hover */
+        /* Efecto Brillo Hover */
         .service-link:hover .service-card {
             border-color: var(--primary) !important;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4) !important;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(0, 212, 255, 0.1) !important;
             transform: translateY(-4px) scale(1.01);
             background: rgba(255, 255, 255, 0.05) !important;
         }
 
-        .service-link.premium:hover .service-card {
-            border-color: var(--primary) !important;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5) !important;
-        }
-
-        /* Visibilidad de Filtros */
-        .oculto-filtro, .oculto-busqueda { display: none !important; }
-
-        /* Otros Estilos */
+        /* Premium y Estados */
+        .service-link.premium .service-card { border: 2px solid var(--vip); }
+        .premium-text { display: none; border: 1px solid #bf953f; padding: 2px 8px; border-radius: 4px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; }
+        .premium .premium-text { display: inline-block; }
+        
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
         .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .status-badge { font-size: 0.6rem; font-weight: 800; display: flex; align-items: center; gap: 5px; }
-        .disponible .status-badge::before { content: "● DISPONIBLE"; color: var(--success-neon); }
-        .pocas .status-badge::before { content: "● POCAS UNIDADES"; color: #ff3333; }
+
+        /* Agotado */
+        .service-link.agotado .service-card { opacity: 0.3; filter: grayscale(1); }
+        .service-link.agotado::after { content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%); font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; z-index: 200; background: #000; }
+
+        /* Utilidades */
+        .oculto-busqueda, .oculto-filtro { display: none !important; }
+        .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .grid-mode .category-title { grid-column: 1 / -1; width: 100%; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
 
     </style>
 </head>
 <body>
-
-
+    
     <script>
     // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
     (function() {
