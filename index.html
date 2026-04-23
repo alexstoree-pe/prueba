@@ -402,21 +402,34 @@
             padding-bottom: 10px;
         }
         /* Localiza o añade esta regla para el contenedor de la tarjeta sin stock */
+/* 1. Forzar el contenedor de la tarjeta a ser un eje central */
 .grid-mode .service-link.no-stock {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Centra horizontalmente */
-    justify-content: center !important; /* Centra verticalmente si es necesario */
+    align-items: center !important;  /* Centra horizontalmente */
+    justify-content: center !important; /* Centra verticalmente */
     text-align: center !important;
+    position: relative !important;
 }
 
-/* Ajuste específico para el botón/etiqueta de SIN STOCK */
-.grid-mode .no-stock-button {
-    position: relative !important; /* Asegura que no esté flotando a la derecha */
-    right: auto !important;
-    margin: 10px auto !important; /* Lo fuerza al centro */
+/* 2. Resetear cualquier propiedad que mueva el botón a los lados */
+.grid-mode .service-link.no-stock .no-stock-button {
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 15px auto !important; /* El 'auto' en los lados es la clave del centrado */
+    transform: none !important;
+    width: fit-content !important; /* Evita que ocupe todo el ancho si no es necesario */
     display: inline-block !important;
-    width: fit-content !important;
+}
+
+/* 3. Asegurar que los textos informativos debajo también se centren */
+.grid-mode .service-link.no-stock .service-name,
+.grid-mode .service-link.no-stock .service-description {
+    width: 100% !important;
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
         @media (max-width: 480px) {
