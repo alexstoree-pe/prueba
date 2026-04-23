@@ -138,34 +138,18 @@
     .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
     .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
 
-    /* 1. CONTENEDOR PRINCIPAL: Aquí se gestiona el click (escala) */
-    .service-item { 
-        cursor: pointer; 
-        margin-bottom: 15px; 
-        position: relative; 
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    }
-    /* 1. CORRECCIÓN EN LA TARJETA: Añadimos z-index y aseguramos el recorte */
-    /* TARJETA: La clave es el overflow y el z-index */
-    /* 2. TARJETA: Debe tener overflow: hidden para que el badge respete las esquinas */
+    .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
     .service-card { 
-        background: var(--glass); 
-        border-radius: 22px; 
-        padding: 18px; 
-        display: flex; 
-        align-items: center; 
-        border: 1px solid var(--glass-border); 
-        transition: all 0.3s ease; 
-        gap: 15px; 
-        position: relative; 
-        overflow: hidden; /* CRUCIAL: Recorta el badge en las esquinas */
-        z-index: 1; 
+        background: var(--glass); border-radius: 22px; padding: 18px; 
+        display: flex; align-items: center; border: 1px solid var(--glass-border); 
+        transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
     }
-    /* Hover: La tarjeta sube y el badge sube con ella */
+
     .service-item:hover .service-card {
         border-color: var(--primary) !important;
-        box-shadow: 0 10px 20px rgba(0, 212, 255, 0.15);
-        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        transform: translateY(-3px);
     }
 
     .service-item:active { transform: scale(0.95); transition: 0.1s; }
@@ -201,56 +185,14 @@
         animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-   /* Selección: La tarjeta se encoge y el badge se encoge con ella */
     .service-item.selected .service-card {
         border-color: var(--primary) !important;
         background: rgba(0, 212, 255, 0.12) !important;
-        transform: scale(0.96); /* El badge ahora se escala proporcionalmente */
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.25), inset 0 0 10px rgba(0, 212, 255, 0.1);
+        transform: scale(0.98);
     }
 
-    /* 2. CORRECCIÓN EN EL BADGE: Posicionamiento absoluto real */
-    <style>
-    /* ... (Variables y estilos generales igual) ... */
-
-    .service-item { 
-        cursor: pointer; 
-        margin-bottom: 15px; 
-        position: relative; 
-        transition: 0.3s; 
-    }
-
-    /* TARJETA: La clave es el overflow y el z-index */
-    .service-card { 
-        background: var(--glass); 
-        border-radius: 22px; 
-        padding: 18px; 
-        display: flex; 
-        align-items: center; 
-        border: 1px solid var(--glass-border); 
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        gap: 15px; 
-        position: relative; 
-        overflow: hidden; /* Esto obliga al badge a quedarse ADENTRO de la tarjeta siempre */
-        z-index: 1; 
-    }
-
-    /* 3. EL BADGE: Ahora es 100% dependiente de la tarjeta */
-    .badge-oferta { 
-        position: absolute; 
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        background: var(--promo); 
-        color: #000; 
-        padding: 4px 0; 
-        font-size: 0.6rem; 
-        font-weight: 800; 
-        text-transform: uppercase; 
-        display: none; 
-        z-index: 10; 
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+    .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
     .service-item.oferta .badge-oferta { display: block; }
 
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
@@ -337,10 +279,15 @@
     /* Ocultar el PREMIUM absoluto que aparece en la esquina superior */
     .grid-mode .service-item.premium::after { display: none !important; }
 
-   .grid-mode .badge-oferta {
-        left: 0 !important;
-        width: 100% !important;
-        border-radius: 0 !important;
+    .grid-mode .service-card {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 100% !important;
+        min-height: 330px; /* Igualamos el alto de todas las tarjetas */
+        text-align: center;
+        padding-top: 30px !important; /* Espacio para el badge si existe */
     }
 
     .grid-mode .service-logo {
@@ -384,12 +331,16 @@
 
     .grid-mode .price-tag { font-size: 1.2rem !important; color: var(--primary) !important; }
 
+    /* Badge de Oferta corregido para no tapar el contenido */
     .grid-mode .badge-oferta {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
         border-radius: 0 !important;
+        text-align: center;
+        transform: none !important;
+        z-index: 5;
     }
 
     .grid-mode .check-icon { top: 8px !important; right: 8px !important; }
@@ -406,7 +357,7 @@
 <header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
-    <p ="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
+    <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
     
     <div class="search-container" data-aos="fade-up">
     <div class="trust-bar">
