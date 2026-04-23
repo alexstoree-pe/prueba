@@ -54,6 +54,12 @@
         .filter-container::-webkit-scrollbar { display: none; }
         .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
         .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
+        /* Color dorado para el precio SOLO en tarjetas premium */
+.service-item.premium .precio-prod { color: #f4d03f !important; /* Dorado */ text-shadow: 0 0 10px rgba(244, 208, 63, 0.3); }
+/* Estilo para la etiqueta PREMIUM (evita duplicados) */
+.premium-tag { font-size: 0.55rem;border: 1px solid #d4af37; color: #d4af37; padding: 2px 5px; border-radius: 4px;font-weight: 900;  display: inline-block; margin-bottom: 5px; letter-spacing: 1px; }
+/* Ajuste del precio general */
+.precio-prod { font-size: 1.5rem;  font-weight: 800;  display: block; transition: 0.3s; }
     </style>
 </head>
 <body>
@@ -163,7 +169,7 @@
     const numWhatsApp = "51918600000";
 
     // --- 2. MOTOR DINÁMICO ---
-    function renderizar(filtro = "TODOS", busqueda = "") {
+   function renderizar(filtro = "TODOS", busqueda = "") {
     const contenedor = document.getElementById('contenedor-productos');
     let html = "";
     let ultimaCat = "";
@@ -175,7 +181,6 @@
     });
 
     filtrados.forEach(p => {
-        // Generar título de categoría si cambia
         if (p.categoria !== ultimaCat) {
             html += `<div class="category-title" data-aos="fade-right">🎬 ${p.categoria}</div>`;
             ultimaCat = p.categoria;
@@ -183,7 +188,6 @@
 
         const isSelected = carrito.some(i => i.nombre === p.nombre) ? 'selected' : '';
         
-        // El HTML ahora respeta la estructura de tu Foto 1
         html += `
             <div class="service-item ${p.premium ? 'premium' : ''} ${p.agotado ? 'agotado' : ''} ${isSelected}" 
                  onclick="toggleCarrito(this)" data-aos="fade-up">
@@ -200,27 +204,22 @@
                         <p class="manual-desc" style="font-size: 0.8rem; color: #aaa; margin: 0;">${p.descripcion}</p>
                     </div>
 
-                    <div class="price-container" style="text-align: right; min-width: 80px;">
-                        ${p.premium ? '<span class="premium-label" style="font-size: 0.5rem; border: 1px solid #d4af37; color: #d4af37; padding: 1px 4px; border-radius: 4px; font-weight: 900; display: block; margin-bottom: 5px; text-align: right; width: fit-content; margin-left: auto;">PREMIUM</span>' : ''}
+                    <div class="price-container" style="text-align: right; min-width: 90px;">
+                        ${p.premium ? '<span class="premium-tag">PREMIUM</span>' : ''}
                         
-                        <span class="price-tag precio-prod" style="font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block;">
-                            S/ ${p.precio}
+                        <span class="price-tag precio-prod">
+                            S/${p.precio}
                         </span>
                         
-                        <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)" style="font-size: 0.7rem;">SIN STOCK</div>
+                        <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK</div>
                     </div>
                 </div>
             </div>`;
     });
 
     contenedor.innerHTML = html;
-    
-    // Aplicamos AOS después de renderizar
-    setTimeout(() => {
-        AOS.refreshHard();
-    }, 100);
+    setTimeout(() => { AOS.refreshHard(); }, 100);
 }
-
     // --- 3. LÓGICA DE FUNCIONES ---
     function filtrarDinamico() {
         const busqueda = document.getElementById('search-input').value;
