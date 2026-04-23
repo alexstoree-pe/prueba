@@ -159,6 +159,11 @@ body {
     border-color: var(--primary);
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
 }
+      .filter-wrapper {
+    display: block !important;
+    min-height: 50px; /* Asegura un espacio mínimo para que se vean */
+    margin-bottom: 10px;
+}  
         .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
         
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.15); transform: scale(0.97); }
@@ -397,10 +402,27 @@ body {
 }
 
 /* Adaptación para Tablets/PC */
-@media (min-width: 768px) {
-    .container.grid-mode {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+@media (max-width: 480px) {
+    /* Si el buscador es sticky, los filtros deben bajar un poco */
+    .filter-wrapper {
+        margin-top: 5px;
+        padding-top: 5px;
     }
+    
+    .btn-filter {
+        padding: 8px 15px; /* Tamaño cómodo para tocar con el dedo */
+        font-size: 12px;
+    }
+}
+        #filterScroll {
+    display: flex !important; /* Fuerza la visibilidad */
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow-x: auto; /* Permite el scroll horizontal si son muchos */
+    white-space: nowrap;
+    gap: 10px;
+    padding: 10px 5px;
+    z-index: 100;
 }
     </style>
 
