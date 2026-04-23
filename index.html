@@ -1051,8 +1051,12 @@ body {
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // Inicialización de animaciones
-    AOS.init({ duration: 800, once: false , offset: 50    // Se activa un poco antes de llegar al elemento
-});
+    AOS.init({ 
+        duration: 800, 
+        once: true,    // <--- CAMBIA ESTO A TRUE: La animación solo ocurre una vez
+        offset: 50,
+        mirror: false  // <--- ASEGÚRATE QUE ESTÉ EN FALSE: Evita que se animen al subir
+    });
     
     let carrito = [];
 
