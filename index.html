@@ -3,494 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Premium | Alex Store</title>
-
-    <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-    <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-    <meta property="og:title" content="Alex Store | Catálogo Premium">
-    <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-
+    <title>Alex Store | Catálogo Digital Premium</title>
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    
     <style>
         :root {
-            --primary: #00d4ff;
-            --secondary: #0055ff;
-            --dark: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --whatsapp: #25d366;
-            --promo: #f4d03f;
-            --promo-dark: #d4af37;
-            --danger: #ff4444; 
-            --gold-gradient: linear-gradient(45deg, #d4af37, #f4d03f);
+            --primary: #00ffcc;
+            --bg-dark: #0a0a0a;
+            --card-bg: #111;
         }
 
-        /* Base Styles */
-        html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: radial-gradient(circle at top right, #0a0a0a, #050505);
-            color: white; line-height: 1.6; padding-bottom: 100px; 
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding-bottom: 100px;
         }
 
-        /* Header & Brand */
-        header {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(20px);
-            padding: 15px 15px 10px; 
-            text-align: center;
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky; top: 0; z-index: 2000;
-        }
-        .brand-logo { width: 50px; height: 50px; object-fit: contain; border-radius: 18px; margin-bottom: 5px; }
-        header h1 { 
-            font-size: 1.4rem; font-weight: 800; 
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
+        /* Header y Logo */
+        header { text-align: center; padding: 30px 10px; }
+        .brand-logo { width: 80px; border-radius: 50%; margin-bottom: 10px; }
+        h1 { font-size: 1.8rem; letter-spacing: 3px; margin: 0; }
+
+        /* Barra de Confianza */
+        .trust-bar { display: flex; justify-content: center; gap: 15px; font-size: 0.65rem; margin-bottom: 20px; color: #aaa; }
+        .trust-item i { color: var(--primary); margin-right: 4px; }
+
+        /* Buscador y Filtros */
+        .search-container { padding: 0 20px; max-width: 600px; margin: 0 auto; }
+        #search-input { 
+            width: 100%; padding: 15px; border-radius: 25px; border: 1px solid #333;
+            background: #1a1a1a; color: white; margin-bottom: 20px;
         }
 
-        /* Trust Bar */
-        .trust-bar {
-            display: flex; justify-content: space-around; margin-top: 10px; padding: 5px;
-            background: var(--glass); border-radius: 15px; border: 1px solid var(--glass-border);
-        }
-        .trust-item {
-            display: flex; flex-direction: column; align-items: center;
-            font-size: 0.40rem; font-weight: 600; color: #aaa; text-transform: uppercase;
-        }
-        .trust-item i { color: var(--primary); font-size: 1rem; margin-bottom: 4px; }
-
-        /* Search & Filters */
-        .search-container { max-width: 600px; margin: 10px auto 0; position: relative; }
-        #search-input {
-            width: 100%; padding: 10px 15px; border-radius: 15px; border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.05); color: white; outline: none; transition: 0.3s;
-        }
-        #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
-
-        .filter-wrapper { margin: 15px 0; display: flex; align-items: center; position: relative; }
         .filter-container { 
-            display: flex; gap: 10px; overflow-x: auto; padding: 5px;
-            scrollbar-width: none; scroll-behavior: smooth;
+            display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; 
+            scrollbar-width: none;
         }
-        .filter-container::-webkit-scrollbar { display: none; }
-        .btn-nav {
-            background: var(--glass); border: 1px solid var(--glass-border); color: white;
-            padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600;
-            cursor: pointer; white-space: nowrap; transition: 0.3s;
+        .btn-nav { 
+            white-space: nowrap; padding: 8px 18px; border-radius: 20px; 
+            border: 1px solid #333; background: #1a1a1a; color: #888; cursor: pointer;
         }
         .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        /* Service Cards (Visual Core) */
-        .container { padding: 20px 15px; max-width: 600px; margin: auto; }
-        .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
+        /* Grid de Productos */
+        .container { padding: 20px; max-width: 1000px; margin: 0 auto; }
+        .category-title { font-weight: 800; margin: 30px 0 15px; color: var(--primary); }
+        .service-item { margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
         .service-card { 
-            background: var(--glass); border-radius: 22px; padding: 18px; 
-            display: flex; align-items: center; border: 1px solid var(--glass-border); 
-            gap: 15px; position: relative; overflow: hidden; transition: 0.3s;
+            background: var(--card-bg); padding: 15px; border-radius: 18px; 
+            display: flex; align-items: center; border: 1px solid #222;
         }
-
-        /* Hover Effects */
-        .service-item:hover .service-card {
-            border-color: var(--primary) !important;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-            transform: translateY(-3px);
-        }
-
-        /* Premium Logic */
-        .service-item.premium .service-card { border-color: #d4af37 !important; }
-        .service-item.premium::after { 
-            content: 'PREMIUM'; position: absolute; top: 12px; right: 55px; /* Ajustado un poco más a la izquierda */
-            font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px;
-            border: 1px solid #d4af37; padding: 1px 6px; border-radius: 4px; z-index: 5;
-        }
+        .service-item.selected .service-card { border-color: var(--primary); background: #161616; }
+        .service-logo { width: 50px; height: 50px; border-radius: 12px; margin-right: 15px; }
         
-        .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        /* Components */
-        .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
-        .service-text { flex-grow: 1; }
-        .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
-        .manual-desc { font-size: 0.75rem; color: #777; }
-        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.3rem; }
-
-        /* States & Icons */
-        .check-icon { 
-            position: absolute; top: 10px; right: 10px; background: var(--primary); color: #000;
-            width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center;
-            justify-content: center; font-size: 0.7rem; font-weight: bold; z-index: 10;
+        /* Botones y Modales */
+        .btn-universal { padding: 12px; border-radius: 12px; text-decoration: none; font-weight: 700; text-align: center; display: block; }
+        .modal-overlay, .modal-pass { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 1000;
         }
-        .selected .check-icon { display: flex; }
-        .badge-oferta { 
-            position: absolute; top: 0; left: 20px; background: var(--promo); color: #000;
-            padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; 
-            font-weight: 800; text-transform: uppercase; display: none; z-index: 11; 
+        .modal-content { background: #111; padding: 30px; border-radius: 25px; width: 85%; max-width: 400px; text-align: center; border: 1px solid #333; }
+        
+        /* Botón Flotante */
+        .floating-btn { 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 400px; background: var(--primary); color: #000;
+            padding: 15px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,255,204,0.3);
+            z-index: 900; transition: 0.5s;
         }
-        .service-item.oferta .badge-oferta { display: block; }
-
-        /* Buttons & Cart */
-        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
-        .btn-universal {
-            display: flex; align-items: center; justify-content: center; padding: 15px 10px;
-            border-radius: 50px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase;
-            transition: 0.3s; border: none; cursor: pointer; text-decoration: none;
-        }
-        .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
-        .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; }
-        .btn-combos-premium { background: var(--gold-gradient); color: #000; }
-        .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; }
-
-        /* Agotado State */
-        .btn-consultar-neon {
-            display: none; color: #ff3333; font-size: 0.85rem; font-weight: 900; 
-            border: 2px solid var(--danger); padding: 8px 10px; border-radius: 10px;
-            background: rgba(255, 0, 0, 0.1); text-transform: uppercase;
-        }
-        .service-item.agotado .btn-consultar-neon { display: block; }
-        .service-item.agotado .price-tag { display: none; }
-
-        /* Floating Checkout */
-        .floating-btn {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: white; padding: 20px; border-radius: 25px;
-            width: 92%; max-width: 480px; z-index: 1000;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-        }
+        .hidden { bottom: -100px; opacity: 0; }
     </style>
 </head>
 <body>
 
     <header>
-    <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
-    <h1 data-aos="fade-down">ALEX STORE</h1>
-    <p style="color: #555; font-size: 0.6rem; letter-spacing: 2px; font-weight: 700; margin-top: 2px;">PREMIUM DIGITAL CATALOG</p>
-    
-    <div class="search-container" data-aos="fade-up">
-        <div class="trust-bar">
-            <div class="trust-item"><i class="fas fa-headset"></i>Soporte</div>
-            <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía</div>
-            <div class="trust-item"><i class="fas fa-bolt"></i>Entrega Rápida</div>
-        </div>
-        <input type="text" id="search-input" placeholder="Buscar plataforma (Netflix, Disney...)" onkeyup="filtrarProductos()">
+        <img src="../img/logo.webp" alt="Logo" class="brand-logo" data-aos="zoom-in">
+        <h1 data-aos="fade-down">ALEX STORE</h1>
+        <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700;">PREMIUM DIGITAL CATALOG</p>
         
-        <div class="filter-wrapper" data-aos="fade-up">
-            <div class="scroll-indicator"><i class="fas fa-chevron-left"></i></div>
+        <div class="search-container" data-aos="fade-up">
+            <div class="trust-bar">
+                <div class="trust-item"><i class="fas fa-headset"></i>Soporte</div>
+                <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía</div>
+                <div class="trust-item"><i class="fas fa-bolt"></i>Entrega < 5 min</div>
+            </div>
+            <input type="text" id="search-input" placeholder="Buscar plataforma..." onkeyup="filtrarProductos()">
+            
             <div class="filter-container" id="filterScroll">
                 <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
                 <button class="btn-nav" onclick="filtrarCategoria('🎬 STREAMING Y CINE', this)">PERFILES</button>
                 <button class="btn-nav" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
                 <button class="btn-nav" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">TV DIGITAL</button>
-                <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button> 
             </div>
-            <div class="scroll-indicator right"><i class="fas fa-chevron-right"></i></div>
         </div>
-    </div>
-</header>
+    </header>
 
-<div class="container">
-    <div class="grid-botones" data-aos="zoom-in">
-        <a href="../" class="btn-universal btn-inicio-top">🏠 INICIO</a>
-        <a href="https://drive.google.com/file/d/1MPAECoht01Udr-oa7NcerexfZMC6h-5i/view?usp=sharing" target="_blank" class="btn-universal btn-referencias">⭐ REFERENCIAS</a>
-        <a href="../promociones-clientes/" class="btn-universal btn-combos-premium">🎁 PROMOCIONES</a>
-        <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal btn-comunidad">👥 COMUNIDAD</a>
-    </div>
-
-    <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
-
-    <div class="service-item oferta premium" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
-        <div class="service-card">
-            <div class="check-icon">✓</div>
-            <img src="../img/netflix.webp" class="service-logo" alt="Netflix">
-            <div class="service-text">
-                <h3 class="nombre-prod">Netflix Premium</h3>
-                <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
+    <div class="container">
+        <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
+        
+        <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+            <div class="service-card">
+                <img src="../img/netflix.webp" class="service-logo">
+                <div class="service-text" style="flex-grow:1;">
+                    <h3 class="nombre-prod" style="margin:0; font-size:1rem;">Netflix Premium</h3>
+                    <span class="manual-desc" style="color:#777; font-size:0.8rem;">• Perfil Privado • 4K UHD.</span>
+                </div>
+                <div class="price-tag precio-prod" style="font-weight:800;">S/ 16</div>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 16</span>
-                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+        </div>
+        
+        </div>
+
+    <div id="whatsapp-btn" class="floating-btn hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div onclick="abrirModalRegistro()" style="cursor:pointer;">
+                <span id="cart-count" style="background:rgba(0,0,0,0.2); padding:5px 12px; border-radius:10px; font-weight:800;">0</span>
+                <span style="margin-left:8px; font-weight:800;">PEDIR AHORA</span>
             </div>
+            <span id="cart-total" style="font-size:1.2rem; font-weight:800;">S/ 0</span>
         </div>
     </div>
 
-    <div class="service-item oferta premium" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="badge-oferta">MUY SOLICITADO 🎁</div>
-        <div class="service-card">
-            <div class="check-icon">✓</div>
-            <img src="../img/disneyp.webp" class="service-logo" alt="Disney">
-            <div class="service-text">
-                <h3 class="nombre-prod">Disney Premium</h3>
-                <span class="manual-desc">• Activación a TV • Canales ESPN.</span>
-            </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 10</span>
-                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
-            </div>
+    <div id="modal-password" class="modal-pass">
+        <div class="modal-content">
+            <h2 style="color:var(--primary);">ACCESO PRIVADO</h2>
+            <input type="password" id="input-pass" placeholder="****" style="width:80%; padding:15px; border-radius:15px; border:none; background:#000; color:#fff; text-align:center;">
+            <button onclick="validarPass()" class="btn-universal" style="background:var(--primary); width:100%; margin-top:15px; border:none;">INGRESAR</button>
         </div>
     </div>
 
-    <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
-    <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
-    <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO</div>
-    </div>
-
-<div id="whatsapp-btn" class="floating-btn hidden">
-    <div class="cart-row">
-        <div class="cart-info" onclick="abrirModalRegistro()" style="flex-grow: 1; display: flex; align-items: center; cursor: pointer;">
-            <span id="cart-count" style="background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 10px;">0</span>
-            <span style="font-size: 0.9rem; margin-left: 8px; font-weight: 800;">PEDIR AHORA</span>
-        </div>
-        <div class="total-info" style="display: flex; align-items: center;">
-            <span id="cart-total" style="font-size: 1.3rem; margin-right: 5px; font-weight: 800;">S/ 0</span>
-            <div class="btn-clear-cart" onclick="limpiarCarrito()" title="Eliminar selección">
-                <i class="fas fa-trash-alt"></i>
+    <div id="modal-registro" class="modal-overlay">
+        <div class="modal-content">
+            <div id="paso-1">
+                <h2 style="color:var(--primary);">¿Ya eres cliente?</h2>
+                <button class="btn-universal" style="background:#222; color:#fff; width:100%; margin-bottom:10px;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
+                <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
+                <button onclick="cerrarModalRegistro()" style="background:none; border:none; color:#555; margin-top:15px; cursor:pointer;">Cerrar</button>
+            </div>
+            <div id="form-datos" style="display:none;">
+                <input type="text" id="reg-nom" placeholder="Nombre Completo" style="width:100%; padding:12px; margin-bottom:10px; border-radius:10px; background:#000; color:#fff; border:1px solid #333;">
+                <button class="btn-universal" style="background:var(--primary); width:100%; border:none;" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
             </div>
         </div>
     </div>
-    <div id="discount-label" class="discount-notice"></div>
-</div>
-
-<div id="modal-password" class="modal-pass">
-    <div class="modal-content">
-        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()">
-        <button onclick="validarPass()" class="btn-universal" style="background:var(--primary); color:#000; width:100%; margin-top:10px;">INGRESAR</button>
-    </div>
-</div>
-
-<div id="modal-registro" class="modal-overlay">
-    <div class="modal-content">
-        <div id="paso-1">
-            <h2 style="color:var(--primary); margin-bottom:15px;">¿Ya eres cliente?</h2>
-            <button class="btn-universal" style="background:#222; color:#fff; width:100%; margin-bottom:10px;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
-            <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
-            <button class="btn-universal" style="background:transparent; color:#555; width:100%; margin-top:10px; font-size:0.6rem;" onclick="cerrarModalRegistro()">CANCELAR</button>
-        </div>
-
-        <div id="form-datos" style="display:none;">
-            <h2 style="color:var(--primary); margin-bottom:15px;">Registro</h2>
-            <input type="text" id="reg-nom" placeholder="Nombre Completo" class="input-estilizado">
-            <input type="tel" id="reg-cel" placeholder="Número Celular" class="input-estilizado">
-            <input type="text" id="reg-per" placeholder="Nombre para Perfil" class="input-estilizado">
-            <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="enviarWhatsApp('nuevo')">FINALIZAR PEDIDO</button>
-        </div>
-    </div>
-</div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    // Inicialización de Animaciones
-    AOS.init({ duration: 800, once: true });
+    <script>
+        AOS.init({ duration: 800, once: true });
+        let carrito = [];
+        const numWhatsApp = "51918600000";
 
-    let carrito = [];
-    const numWhatsApp = "51918600000"; // Asegúrate de que este sea tu número real
-
-    // --- LÓGICA DE FILTRADO ---
-    function filtrarProductos() {
-        const busqueda = document.getElementById('search-input').value.toLowerCase();
-        const items = document.querySelectorAll('.service-item');
-        
-        items.forEach(item => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            if (nombre.includes(busqueda)) {
-                item.style.display = 'block';
-                item.style.opacity = "1";
-            } else {
-                item.style.display = 'none';
+        // Control de Acceso (Previene pantalla en blanco)
+        document.addEventListener("DOMContentLoaded", () => {
+            if (sessionStorage.getItem("acceso_concedido") !== "true") {
+                document.getElementById('modal-password').style.display = 'flex';
             }
         });
-        actualizarTitulos();
-        AOS.refreshHard();
-    }
 
-    function filtrarCategoria(categoria, btn) {
-        document.getElementById('search-input').value = "";
-        document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        function validarPass() {
+            if (document.getElementById('input-pass').value.toLowerCase() === "cliente") { 
+                sessionStorage.setItem("acceso_concedido", "true"); 
+                location.reload(); 
+            } else { alert("Error"); }
+        }
 
-        const term = categoria.toUpperCase();
-        const items = document.querySelectorAll('.service-item');
+        // Filtrado
+        function filtrarProductos() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            document.querySelectorAll('.service-item').forEach(item => {
+                const text = item.querySelector('.nombre-prod').innerText.toLowerCase();
+                item.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        }
 
-        items.forEach(item => {
-            let tituloCerca = "";
-            let previo = item.previousElementSibling;
-            while (previo) {
-                if (previo.classList.contains('category-title')) {
-                    tituloCerca = previo.innerText.toUpperCase();
-                    break;
+        function filtrarCategoria(cat, btn) {
+            document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.service-item').forEach(item => {
+                item.style.display = (cat === 'TODOS' || item.innerText.includes(cat)) ? 'block' : 'none';
+            });
+            actualizarTitulos();
+        }
+
+        function actualizarTitulos() {
+            document.querySelectorAll('.category-title').forEach(t => {
+                let sig = t.nextElementSibling;
+                let visible = false;
+                while(sig && !sig.classList.contains('category-title')) {
+                    if(sig.style.display !== 'none') visible = true;
+                    sig = sig.nextElementSibling;
                 }
-                previo = previo.previousElementSibling;
-            }
+                t.style.display = visible ? 'block' : 'none';
+            });
+        }
 
-            if (term === 'TODOS') {
-                item.style.display = 'block';
+        // Carrito y UI
+        function toggleCarrito(el) {
+            const nombre = el.querySelector('.nombre-prod').innerText;
+            const precio = parseFloat(el.querySelector('.precio-prod').innerText.replace('S/', ''));
+            const idx = carrito.findIndex(i => i.nombre === nombre);
+            
+            if(idx > -1) {
+                carrito.splice(idx, 1);
+                el.classList.remove('selected');
             } else {
-                const coincide = item.innerText.toUpperCase().includes(term) || tituloCerca.includes(term);
-                item.style.display = coincide ? 'block' : 'none';
+                carrito.push({nombre, precio});
+                el.classList.add('selected');
             }
-        });
-
-        actualizarTitulos();
-        setTimeout(() => { AOS.refreshHard(); }, 150);
-    }
-
-    function actualizarTitulos() {
-        document.querySelectorAll('.category-title').forEach(titulo => {
-            let tieneHijosVisibles = false;
-            let hermano = titulo.nextElementSibling;
-            while (hermano && !hermano.classList.contains('category-title')) {
-                if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
-                    tieneHijosVisibles = true;
-                    break;
-                }
-                hermano = hermano.nextElementSibling;
-            }
-            titulo.style.display = tieneHijosVisibles ? 'block' : 'none';
-        });
-    }
-
-    // --- GESTIÓN DEL CARRITO ---
-    function toggleCarrito(elemento) {
-        if (elemento.classList.contains('agotado')) return;
-        const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
-        const idx = carrito.findIndex(i => i.nombre === nombre);
-
-        if (idx > -1) {
-            carrito.splice(idx, 1);
-            elemento.classList.remove('selected');
-        } else {
-            carrito.push({nombre, precio});
-            elemento.classList.add('selected');
-        }
-        actualizarUI();
-    }
-
-    function calcularDescuento() {
-        if (carrito.length < 2) return 0;
-        let desc = 0;
-        const ordenado = [...carrito].sort((a, b) => b.precio - a.precio);
-        for (let i = 1; i < ordenado.length; i++) {
-            desc += (ordenado[i].precio >= 10) ? 2 : 1;
-        }
-        return desc;
-    }
-
-    function actualizarUI() {
-        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const desc = calcularDescuento();
-        document.getElementById('cart-count').innerText = carrito.length;
-        document.getElementById('cart-total').innerText = `S/ ${subtotal - desc}`;
-        
-        const label = document.getElementById('discount-label');
-        if (desc > 0) {
-            label.innerText = `¡Ahorro aplicado: S/ ${desc}! 🎁`;
-            label.style.display = 'block';
-        } else {
-            label.style.display = 'none';
-        }
-        document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
-    }
-
-    // --- ENVÍO DE PEDIDO ---
-    function enviarWhatsApp(tipo) {
-        let nom = document.getElementById('reg-nom').value;
-        let cel = document.getElementById('reg-cel').value;
-        let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
-
-        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) {
-            alert("Por favor completa tu nombre y celular.");
-            return;
+            actualizarUI();
         }
 
-        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const desc = calcularDescuento();
-        
-        let msg = `🛍️ *NUEVO PEDIDO - ALEX STORE*\n`;
-        msg += `━━━━━━━━━━━━━━━━━━\n\n`;
-        
-        carrito.forEach(i => {
-            msg += `🔹 *${i.nombre}*\n`;
-        });
-
-        if (per.trim() !== "") msg += `\n👤 *Perfil:* ${per}\n`;
-        
-        msg += `\n━━━━━━━━━━━━━━━━━━\n`;
-        if (desc > 0) msg += `🎁 Descuento: -S/ ${desc}\n`;
-        msg += `💰 *TOTAL A PAGAR: S/ ${subtotal - desc}*\n`;
-        msg += `━━━━━━━━━━━━━━━━━━\n`;
-        
-        if (tipo === 'nuevo') {
-            msg += `\n👤 *Cliente:* ${nom}\n📞 *Cel:* ${cel}`;
-        } else {
-            msg += `\n✅ *CLIENTE RECURRENTE*`;
+        function actualizarUI() {
+            const sub = carrito.reduce((s, i) => s + i.precio, 0);
+            document.getElementById('cart-count').innerText = carrito.length;
+            document.getElementById('cart-total').innerText = `S/ ${sub}`;
+            document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
         }
 
-        window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
-        cerrarModalRegistro();
-        limpiarCarrito();
-    }
-
-    // --- UTILIDADES ---
-    function limpiarCarrito() {
-        carrito = [];
-        document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
-        actualizarUI();
-    }
-
-    function consultarStockManual(elemento, event) {
-        event.stopPropagation();
-        const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
-        window.open(`https://wa.me/${numWhatsApp}?text=Hola, ¿tienes stock de: ${nombre}?`, '_blank');
-    }
-
-    // Funciones de Modal
-    function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
-    function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
-    function mostrarForm() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-datos').style.display = 'block'; }
-    function mostrarFormAntiguo() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'block'; }
-    function volverPaso1() { 
-        document.getElementById('form-datos').style.display = 'none'; 
-        document.getElementById('form-antiguo').style.display = 'none'; 
-        document.getElementById('paso-1').style.display = 'block'; 
-    }
-
-    // Control de Acceso
-   // --- CONTROL DE ACCESO (CORREGIDO) ---
-(function() {
-    // Aseguramos que el contenido sea visible por defecto
-    document.documentElement.style.display = "block";
-    
-    document.addEventListener("DOMContentLoaded", () => {
-        const acceso = sessionStorage.getItem("acceso_concedido");
-        const modal = document.getElementById('modal-password');
-        
-        if (acceso === "true") {
-            if (modal) modal.style.display = 'none';
-        } else {
-            if (modal) modal.style.display = 'flex';
+        function enviarWhatsApp(tipo) {
+            let msg = `Hola Alex Store, quiero:\n` + carrito.map(i => `- ${i.nombre}`).join('\n');
+            window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`);
         }
-    });
-})();
 
-function validarPass() {
-    const pass = document.getElementById('input-pass').value.trim().toLowerCase();
-    // Cambia "cliente" por la clave que desees
-    if (pass === "cliente") { 
-        sessionStorage.setItem("acceso_concedido", "true");
-        location.reload(); 
-    } else { 
-        alert("Código incorrecto. Inténtalo de nuevo."); 
-    }
-}
-</script>
+        function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
+        function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
+        function mostrarForm() { 
+            document.getElementById('paso-1').style.display = 'none'; 
+            document.getElementById('form-datos').style.display = 'block'; 
+        }
+    </script>
 </body>
 </html>
