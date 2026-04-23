@@ -906,20 +906,27 @@ if (scrollContainer) {
     }
 
     function toggleCarrito(elemento) {
-        if (elemento.classList.contains('agotado')) return;
-        const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
-        const precio = parseFloat(precioText);
-        const idx = carrito.findIndex(i => i.nombre === nombre);
+    if (elemento.classList.contains('agotado')) return;
 
-        if (idx > -1) { 
-            carrito.splice(idx, 1); elemento.classList.remove('selected'); 
-        } else { 
-            carrito.push({nombre, precio}); elemento.classList.add('selected'); 
-        }
-        actualizarUI();
+    // Feedback táctil para celulares (vibración corta de 10ms)
+    if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(10);
     }
 
+    const nombre = elemento.querySelector('.nombre-prod').innerText;
+    const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
+    const precio = parseFloat(precioText);
+    const idx = carrito.findIndex(i => i.nombre === nombre);
+
+    if (idx > -1) { 
+        carrito.splice(idx, 1); 
+        elemento.classList.remove('selected'); 
+    } else { 
+        carrito.push({nombre, precio}); 
+        elemento.classList.add('selected'); 
+    }
+    actualizarUI();
+}
     function limpiarCarrito() {
         carrito = [];
         document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
