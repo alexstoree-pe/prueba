@@ -464,24 +464,33 @@
     }
 
     // Control de Acceso
-    (function() {
-        if (sessionStorage.getItem("acceso_concedido") === "true") {
-            document.getElementById('modal-password').style.display = 'none';
+   // --- CONTROL DE ACCESO (CORREGIDO) ---
+(function() {
+    // Aseguramos que el contenido sea visible por defecto
+    document.documentElement.style.display = "block";
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const acceso = sessionStorage.getItem("acceso_concedido");
+        const modal = document.getElementById('modal-password');
+        
+        if (acceso === "true") {
+            if (modal) modal.style.display = 'none';
         } else {
-            document.getElementById('modal-password').style.display = 'flex';
+            if (modal) modal.style.display = 'flex';
         }
-    })();
+    });
+})();
 
-    function validarPass() {
-        const pass = document.getElementById('input-pass').value;
-        if (pass.toLowerCase() === "cliente") { 
-            sessionStorage.setItem("acceso_concedido", "true");
-            document.getElementById('modal-password').style.fadeOut = "slow";
-            setTimeout(() => { location.reload(); }, 300);
-        } else { 
-            alert("Código incorrecto"); 
-        }
+function validarPass() {
+    const pass = document.getElementById('input-pass').value.trim().toLowerCase();
+    // Cambia "cliente" por la clave que desees
+    if (pass === "cliente") { 
+        sessionStorage.setItem("acceso_concedido", "true");
+        location.reload(); 
+    } else { 
+        alert("Código incorrecto. Inténtalo de nuevo."); 
     }
+}
 </script>
 </body>
 </html>
