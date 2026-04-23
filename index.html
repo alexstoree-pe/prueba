@@ -6,17 +6,16 @@
     <title>Catálogo Premium | Alex Store</title>
 
     <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+    <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 
-<link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-
-<meta property="og:title" content="Alex Store | Catálogo Premium">
-<meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
-<meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-<meta property="og:image:width" content="500">
-<meta property="og:image:height" content="500">
-<meta property="og:image:type" content="image/webp">
+    <meta property="og:title" content="Alex Store | Catálogo Premium">
+    <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
+    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    <meta property="og:image:type" content="image/webp">
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -58,7 +57,6 @@
             z-index: 2000;
         }
 
-        /* ESTILO LOGO AÑADIDO */
         .brand-logo {
             width: 50px;
             height: 50px;
@@ -76,14 +74,12 @@
             letter-spacing: 1px;
         }
         
-        /* Reducimos el texto secundario del logo */
-header p[style*="letter-spacing: 5px"] {
-    letter-spacing: 2px !important;
-    font-size: 0.6rem !important;
-    margin-top: 2px !important;
-}
+        header p[style*="letter-spacing: 5px"] {
+            letter-spacing: 2px !important;
+            font-size: 0.6rem !important;
+            margin-top: 2px !important;
+        }
 
-        /* ESTILO BARRA CONFIANZA AÑADIDO */
         .trust-bar {
             display: flex;
             justify-content: space-around;
@@ -147,52 +143,53 @@ header p[style*="letter-spacing: 5px"] {
             display: flex; align-items: center; border: 1px solid var(--glass-border); 
             transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
         }
-        /* Este código detecta cuando el mouse pasa por encima */
-.service-item:hover .service-card {
-    border-color: var(--primary) !important; /* El borde se vuelve azul brillante */
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); /* Crea un resplandor suave */
-    background: rgba(255, 255, 255, 0.06); /* Se aclara un poquito el fondo */
-    transform: translateY(-3px); /* Hace que la tarjeta "flote" ligeramente */
-}
-        /* Sutil escala al hacer clic (efecto botón físico) */
-.service-item:active {
-    transform: scale(0.95);
-    transition: 0.1s;
-}
 
-    /* Estado seleccionado para tarjetas PREMIUM (Dorado) */
-.service-item.premium.selected .service-card {
-    border-color: #f4d03f !important;
-    background: linear-gradient(135deg, rgba(244, 208, 63, 0.15), rgba(0,0,0,0.4)) !important;
-    box-shadow: 0 0 25px rgba(244, 208, 63, 0.3), inset 0 0 10px rgba(244, 208, 63, 0.1);
-}
-        /* Si es premium, el check también es dorado */
-.service-item.premium .check-icon {
-    background: #f4d03f;
-}
+        .service-item:hover .service-card {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-3px);
+        }
+
+        .service-item:active { transform: scale(0.95); transition: 0.1s; }
+
+        .service-item.premium.selected .service-card {
+            border-color: #f4d03f !important;
+            background: linear-gradient(135deg, rgba(244, 208, 63, 0.15), rgba(0,0,0,0.4)) !important;
+            box-shadow: 0 0 25px rgba(244, 208, 63, 0.3), inset 0 0 10px rgba(244, 208, 63, 0.1);
+        }
+
+        .service-item.premium .check-icon { background: #f4d03f; }
 
         .check-icon {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--primary); /* O #f4d03f para premium si quieres ser detallista */
-    color: #000;
-    width: 26px; /* Un poco más grande */
-    height: 26px;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    font-weight: 900;
-    z-index: 20;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-.selected .check-icon {
-    display: flex !important;
-    animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-        .selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.08); }
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--primary);
+            color: #000;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 900;
+            z-index: 20;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .selected .check-icon {
+            display: flex !important;
+            animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .service-item.selected .service-card {
+            border-color: var(--primary) !important;
+            background: rgba(0, 212, 255, 0.12) !important;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.25), inset 0 0 10px rgba(0, 212, 255, 0.1);
+            transform: scale(0.98);
+        }
 
         .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
         .service-item.oferta .badge-oferta { display: block; }
@@ -200,7 +197,7 @@ header p[style*="letter-spacing: 5px"] {
         .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
         .service-text { flex-grow: 1; } 
         .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
-        .manual-desc { font-size: 0.75rem; color: #777; }
+        .manual-desc { font-size: 0.75rem; color: #777; transition: 0.3s; }
 
         .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
         .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
@@ -235,167 +232,52 @@ header p[style*="letter-spacing: 5px"] {
             background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
         }
         .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
-        #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
+        
+        .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
+        .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scroll-behavior: smooth; scrollbar-width: none; }
+        .filter-container::-webkit-scrollbar { display: none; }
 
-        /* REEMPLAZA LO ANTERIOR POR ESTO */
-.filter-wrapper { 
-    margin: 10px 0; 
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+        .scroll-indicator {
+            position: absolute; background: linear-gradient(to right, var(--dark), transparent);
+            height: 100%; width: 40px; left: 0; z-index: 2; display: flex; align-items: center; pointer-events: none; transition: 0.3s;
+        }
+        .scroll-indicator.right { left: auto; right: 0; background: linear-gradient(to left, var(--dark), transparent); justify-content: flex-end; }
+        .scroll-indicator i { color: var(--primary); font-size: 1rem; animation: bounceHorizontal 1.5s infinite; }
 
-.filter-container { 
-    display: flex; 
-    gap: 10px; 
-    overflow-x: auto; 
-    padding: 10px 5px;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-}
-.filter-container::-webkit-scrollbar { display: none; }
+        @keyframes bounceHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+        @keyframes popCheck { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
 
-.scroll-indicator {
-    position: absolute;
-    background: linear-gradient(to right, var(--dark), transparent);
-    height: 100%;
-    width: 40px;
-    left: 0;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-    transition: 0.3s;
-}
+        .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
-.scroll-indicator.right {
-    left: auto;
-    right: 0;
-    background: linear-gradient(to left, var(--dark), transparent);
-    justify-content: flex-end;
-}
+        /* --- VISTA CONTROLES --- */
+        .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 10px 20px; }
+        .view-label { font-size: 0.7rem; color: #666; font-weight: 800; }
+        .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-.scroll-indicator i {
-    color: var(--primary);
-    font-size: 1rem;
-    animation: bounceHorizontal 1.5s infinite;
-}
+        /* --- CORRECCIONES MODO GRID --- */
+        .container.grid-mode { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 15px; max-width: 100%; }
+        .grid-mode .category-title { grid-column: 1 / -1; margin-top: 25px; }
+        .grid-mode .service-item { margin-bottom: 0; }
+        .grid-mode .service-card { 
+            flex-direction: column; align-items: center; text-align: center; 
+            padding: 20px 10px; min-height: 210px; justify-content: flex-start; 
+        }
+        .grid-mode .service-logo { width: 65px; height: 65px; margin-bottom: 12px; margin-right: 0; }
+        .grid-mode .service-text h3 { font-size: 0.95rem; }
+        
+        /* Efecto Tooltip para manual-desc en Grid */
+        .grid-mode .manual-desc { 
+            display: block !important; max-height: 0; opacity: 0; overflow: hidden; 
+            transition: all 0.3s ease; font-size: 0.65rem; margin-top: 0; 
+        }
+        .grid-mode .service-item:hover .manual-desc, 
+        .grid-mode .service-item.selected .manual-desc { 
+            max-height: 60px; opacity: 1; margin-top: 8px; 
+        }
 
-@keyframes bounceHorizontal {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(5px); }
-}
-        @keyframes popCheck {
-    0% { transform: scale(0) rotate(-45deg); opacity: 0; }
-    100% { transform: scale(1) rotate(0); opacity: 1; }
-}
-.btn-nav {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: 0.3s;
-}
-.btn-nav.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-}
-  /* Estado seleccionado para tarjetas normales */
-.service-item.selected .service-card {
-    border-color: var(--primary) !important;
-    background: rgba(0, 212, 255, 0.12) !important; /* Un azul muy suave de fondo */
-    box-shadow: 0 0 25px rgba(0, 212, 255, 0.25), inset 0 0 10px rgba(0, 212, 255, 0.1);
-    transform: scale(0.98); /* Se hunde un poquito al estar seleccionada */
-}
-/* Transición suave para cuando los productos aparecen/desaparecen */
-.service-item {
-    transition: transform 0.3s ease, opacity 0.3s ease, display 0.3s allow-discrete;
-}
-
-/* Estilo del modal de contraseña para que se vea imponente */
-#input-pass {
-    border: 2px solid #222;
-    transition: 0.3s;
-}
-#input-pass:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
-}
-        /* Contenedor de controles */
-.view-controls {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    margin: 10px 20px;
-}
-
-.view-label { font-size: 0.7rem; color: #666; font-weight: 800; }
-
-.btn-view {
-    background: #111;
-    border: 1px solid #333;
-    color: #666;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-view.active {
-    color: var(--primary);
-    border-color: var(--primary);
-    background: rgba(0, 212, 255, 0.1);
-}
-
-/* --- MODO GRID --- */
-.container.grid-mode {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 15px;
-    padding: 15px;
-}
-
-/* Ajustes de la tarjeta en modo Grid */
-.grid-mode .service-item {
-    margin-bottom: 0;
-}
-
-.grid-mode .service-card {
-    flex-direction: column; /* Apila imagen arriba, texto abajo */
-    align-items: center;
-    text-align: center;
-    padding: 20px 10px;
-    height: 100%;
-}
-
-.grid-mode .service-logo {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 15px;
-    margin-right: 0;
-}
-
-.grid-mode .manual-desc {
-    display: none; /* Ocultamos descripción larga en grid para ahorrar espacio */
-}
-
-.grid-mode .price-container {
-    margin-top: auto;
-    width: 100%;
-    justify-content: center;
-}
-
-/* Los títulos de categoría ocupan todo el ancho en modo grid */
-.grid-mode .category-title {
-    grid-column: 1 / -1;
-}
+        .grid-mode .price-container { margin-top: auto; width: 100%; align-items: center; padding-top: 10px; }
     </style>
 </head>
 <body>
