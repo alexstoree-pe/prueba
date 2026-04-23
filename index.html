@@ -253,13 +253,12 @@
         /* ============================================================
            ADAPTACIÓN GRID PROFESIONAL (CAMBIOS APLICADOS AQUÍ)
            ============================================================ */
-    /* Espaciado para los títulos de categoría en modo Grid */
-.grid-mode .category-title {
-    grid-column: 1 / -1; /* Hace que el título ocupe todo el ancho */
-    margin-top: 40px !important; /* Espacio extra arriba */
-    margin-bottom: 20px !important; /* Espacio abajo */
+    .grid-mode .category-title {
+    grid-column: 1 / -1; /* Ocupa todo el ancho */
+    margin-top: 40px !important; /* Crea el espacio necesario arriba */
+    margin-bottom: 20px !important;
+    text-align: left;
     padding-left: 10px;
-    border-left: 4px solid var(--primary); /* Un detalle estético lateral */
 }
     .container.grid-mode {
         display: grid !important;
@@ -324,18 +323,20 @@
     .grid-mode .service-item.premium::after { content: none !important; display: none !important; }
     .grid-mode .price-tag { font-size: 1.4rem !important; font-weight: 800 !important; line-height: 1 !important; color: var(--primary) !important; }
 
-    grid-mode .badge-oferta {
+    /* 5. Banner Superior "Más Solicitado" - CENTRADO TOTAL */
+.grid-mode .badge-oferta {
     width: 85% !important;
     left: 50% !important;
-    transform: translateX(-50%) !important;
+    transform: translateX(-50%) !important; /* Esto centra la etiqueta físicamente */
+    text-align: center !important;
     border-radius: 0 0 10px 10px !important;
     padding: 3px 0 !important;
+    z-index: 11 !important;
     
-    /* ESTO CENTRA EL TEXTO DENTRO DEL BADGE */
+    /* ESTO CENTRA EL TEXTO DENTRO DE LA ETIQUETA */
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    text-align: center !important;
 }
     .grid-mode .check-icon { top: 8px !important; right: 8px !important; width: 24px !important; height: 24px !important; }
 
