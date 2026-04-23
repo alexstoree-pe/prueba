@@ -185,30 +185,36 @@
 
     /* --- INICIO CAMBIO SELECCIÓN PROFESIONAL --- */
     
-    /* Animación de rebote elástico para el check */
     @keyframes popCheck { 
         0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
         100% { transform: scale(1) rotate(0); opacity: 1; } 
     }
 
-    /* Estado seleccionado: Efecto de presión y resplandor neón */
     .service-link.selected .service-card { 
         border: 2px solid var(--primary) !important; 
-        background: rgba(0, 212, 255, 0.15) !important; 
-        /* Efecto elástico de hundimiento */
+        /* Subimos la opacidad para que no se vea opaco/negro */
+        background: rgba(0, 212, 255, 0.25) !important; 
         transform: scale(0.96) translateY(2px) !important; 
-        box-shadow: 0 0 25px rgba(0, 212, 255, 0.25), inset 0 0 15px rgba(0, 212, 255, 0.1) !important;
+        /* Añadimos un resplandor interno blanco/celeste para dar luz */
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.3), 
+                    inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
         transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 50;
     }
 
-    .service-link.premium.selected .service-card { 
-        border: 2px solid var(--vip) !important; 
-        background: rgba(212, 175, 55, 0.15) !important; 
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.1) !important;
+    /* Esto evita que el logo se vea oscuro al seleccionar */
+    .service-link.selected .service-logo {
+        filter: brightness(1.2); 
     }
 
-    /* Diseño del Check con animación pop */
+    .service-link.premium.selected .service-card { 
+        border: 2px solid var(--vip) !important; 
+        background: rgba(212, 175, 55, 0.3) !important; 
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), 
+                    inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Diseño del Check */
     .check-icon { 
         position: absolute; 
         top: -5px; 
@@ -236,7 +242,6 @@
         background: #bf953f !important;
     }
 
-    /* Ajuste para el Check cuando estás en modo cuadrícula */
     .grid-mode .service-link.selected .check-icon {
         top: 5px !important;
         right: 5px !important;
