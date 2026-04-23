@@ -20,7 +20,6 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <style>
     :root {
         --primary: #00d4ff; 
@@ -57,7 +56,7 @@
     .modal-content-pass { background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
     #input-dist-pass { width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; letter-spacing: 5px; }
 
-    /* --- HEADER Y NAVEGACIÓN --- */
+    /* --- HEADER Y GARANTÍA --- */
     header { background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 10px 15px 0px; text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; }
     .brand-logo { width: 45px; height: 45px; object-fit: contain; border-radius: 18px; margin-bottom: 5px; }
     header h1 { font-size: 1.1rem; letter-spacing: 0.9px; margin-bottom: 5px; }
@@ -66,28 +65,26 @@
     .garantia-mini-item i { font-size: 0.7rem; color: var(--primary); margin-bottom: 2px; }
     .garantia-mini-item p { font-size: 0.35rem; font-weight: 700; text-transform: uppercase; color: #bbb; line-height: 1.1; }
 
-    /* --- BUSCADOR Y FILTROS --- */
+    /* --- BUSCADOR Y FILTROS (RESTAURADOS) --- */
     .search-container { position: sticky; top: 110px; z-index: 1900; padding: 5px 15px; background: #0a0a0a; }
     .search-wrapper { position: relative; max-width: 500px; margin: auto; }
     .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
     #buscador { width: 100%; padding: 8px 15px 8px 40px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
-    #buscador:focus { border-color: var(--primary); outline: none; background: rgba(255,255,255,0.05); }
 
     .filter-wrapper { display: block !important; min-height: 50px; margin-bottom: 10px; }
-    #filterScroll { display: flex !important; visibility: visible !important; opacity: 1 !important; overflow-x: auto; white-space: nowrap; gap: 10px; padding: 10px 5px; scrollbar-width: none; }
-    #filterScroll::-webkit-scrollbar { display: none; }
+    #filterScroll { display: flex !important; overflow-x: auto; white-space: nowrap; gap: 10px; padding: 10px 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .btn-filter { background: var(--glass); border: 1px solid var(--glass-border); color: #888; padding: 8px 18px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
     .btn-filter.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
 
-    /* --- GRID DE BOTONES SUPERIORES --- */
+    /* --- BOTONES DE ACCIÓN --- */
     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto; max-width: 500px; padding: 0 15px; }
-    .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
+    .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; transition: 0.3s; }
     .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
     .btn-promo-distri, .btn-iptv { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
-    /* --- TARJETAS Y SELECCIÓN PROFESIONAL --- */
+    /* --- SELECCIÓN PROFESIONAL RESTAURADA --- */
     .container { padding: 10px 15px; max-width: 600px; margin: auto; }
-    .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; transition: all 0.4s ease; }
+    .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; transition: all 0.4s ease; }
     
     .service-card { 
         background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; 
@@ -95,61 +92,40 @@
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
     }
 
-    /* 1. SELECCIÓN ESTÁNDAR (Celeste) */
+    /* Efecto Presión / Profundidad */
     .service-link.selected .service-card { 
-        border: 2px solid var(--primary) !important; 
-        background: rgba(0, 212, 255, 0.15) !important; 
+        border-width: 2px !important;
         transform: scale(0.95) translateY(2px); 
-        box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.1);
     }
 
-    /* 2. SELECCIÓN PREMIUM (Dorado) */
-    .service-link.premium.selected .service-card { 
-        border: 2px solid var(--vip) !important; 
-        background: rgba(212, 175, 55, 0.15) !important; 
-        transform: scale(0.95) translateY(2px);
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.1) !important;
-    }
+    /* Colores por Tipo */
+    .service-link.selected .service-card { border-color: var(--primary) !important; background: rgba(0, 212, 255, 0.15) !important; }
+    .service-link.premium.selected .service-card { border-color: var(--vip) !important; background: rgba(212, 175, 55, 0.15) !important; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2) !important; }
 
-    /* 3. HOVER (Efecto sutil antes de seleccionar) */
-    .service-link:hover .service-card {
-        border-color: var(--primary) !important;
-        transform: translateY(-4px) scale(1.01);
-        background: rgba(255, 255, 255, 0.05) !important;
-    }
-    .service-link.premium:hover .service-card {
-        border-color: var(--vip) !important;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3) !important;
-    }
+    /* Check Icons */
+    .check-icon { position: absolute; top: -5px; right: -5px; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; z-index: 101; border: 2px solid #000; font-size: 0.9rem; }
+    .selected .check-icon { display: flex !important; }
+    .selected .check-icon { background: var(--primary) !important; color: #000 !important; }
+    .premium.selected .check-icon { background: var(--vip) !important; }
 
-    /* --- ICONO CHECK --- */
-    .check-icon { 
-        position: absolute; top: -5px; right: -5px; width: 28px; height: 28px; border-radius: 50%; 
-        display: none; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 101; border: 2px solid #000; 
-    }
-    .service-link.selected .check-icon { display: flex !important; background: var(--primary) !important; color: #000 !important; }
-    .service-link.premium.selected .check-icon { display: flex !important; background: #bf953f !important; color: #000 !important; }
-
-    /* --- DETALLES DE PRODUCTO --- */
+    /* --- COMPONENTES DE TARJETA --- */
     .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; }
     .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
     .manual-desc { font-size: 0.75rem; color: #888; display: block; }
-    
     .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
     .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
-    .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--vip); }
-
+    .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
     .badge-oferta { display: none; position: absolute; top: 0; left: 0; background: #f1c40f; color: #000; padding: 3px 20px 3px 10px; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); font-size: 0.55rem; font-weight: 900; z-index: 100; text-transform: uppercase; }
-    .service-link.oferta .badge-oferta { display: block; }
-
-    .premium-text { display: none; border: 1px solid #bf953f; padding: 2px 8px; border-radius: 4px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
+    .oferta .badge-oferta { display: block; }
+    .premium-text { display: none; border: 1px solid var(--vip); padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; color: var(--vip); }
     .premium .premium-text { display: inline-block; }
 
+    /* --- ESTADOS Y AGOTADOS --- */
     .status-badge { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
     .disponible .status-badge::before { content: "● DISPONIBLE"; color: var(--success-neon); }
     .pocas .status-badge::before { content: "● POCAS UNIDADES"; color: #ff3333; }
 
-    /* --- AGOTADO / SIN STOCK --- */
     .service-link.agotado { pointer-events: none; }
     .service-link.agotado .service-card { opacity: 0.3; filter: grayscale(1); }
     .service-link.agotado::after { 
@@ -158,7 +134,7 @@
         padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; background: #000; z-index: 200;
     }
 
-    /* --- SISTEMA DE VISTAS (GRID/LISTA) --- */
+    /* --- VISTAS Y GRID --- */
     .view-controls { display: flex; justify-content: flex-end; gap: 10px; max-width: 600px; margin: 5px auto; padding: 0 15px; }
     .view-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #666; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
     .view-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
@@ -167,19 +143,13 @@
     .grid-mode .service-card { flex-direction: column !important; text-align: center; padding: 15px 10px !important; height: 100%; justify-content: space-between; }
     .grid-mode .service-logo { width: 60px !important; height: 60px !important; }
     .grid-mode .price-container { margin-left: 0 !important; margin-top: 10px; align-items: center !important; }
-    .grid-mode .service-link.agotado::after { top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; right: auto !important; }
 
-    /* --- BOTÓN FLOTANTE WHATSAPP --- */
-    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; border-radius: 22px; width: 92%; max-width: 480px; z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
-    .cart-content-wrapper { display: flex; align-items: center; width: 100%; height: 70px; }
-    .btn-send-order { flex-grow: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; cursor: pointer; height: 100%; font-weight: 700; }
+    /* --- BOTÓN WHATSAPP --- */
+    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; border-radius: 22px; width: 92%; max-width: 480px; z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; height: 70px; }
+    .cart-content-wrapper { display: flex; align-items: center; width: 100%; height: 100%; }
+    .btn-send-order { flex-grow: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; cursor: pointer; font-weight: 700; }
     .btn-clear-cart { background: rgba(255, 0, 0, 0.2); color: #ff4d4d; border: none; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 10px; }
-
 </style>
-</head>
-<body>
-    </body>
-</html>
     <script>
     // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
     (function() {
