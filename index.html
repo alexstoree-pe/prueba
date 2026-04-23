@@ -12,7 +12,7 @@
 <meta property="og:title" content="Alex Store | Catálogo Premium">
 <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
 <meta property="og:type" content="website">
-<meta property="og:image:secure_url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+<meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
 <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 <meta property="og:image:width" content="500">
 <meta property="og:image:height" content="500">
@@ -135,11 +135,12 @@
         .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 15px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
 
         .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
-        .service-card { 
-            background: var(--glass); border-radius: 22px; padding: 18px; 
-            display: flex; align-items: center; border: 1px solid var(--glass-border); 
-            transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
-        }
+        .service-card {
+    background: rgba(255, 255, 255, 0.03); /* Casi transparente */
+    backdrop-filter: blur(12px); /* El secreto del efecto cristal */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
         /* Este código detecta cuando el mouse pasa por encima */
 .service-item:hover .service-card {
     border-color: var(--primary) !important; /* El borde se vuelve azul brillante */
@@ -327,106 +328,6 @@
 .faq-item.active .faq-question i {
     transform: rotate(45deg);
 }
-        /* Botón que invita a hacer clic */
-.faq-floating-btn {
-    position: fixed;
-    bottom: 110px; /* Arriba del botón de WhatsApp */
-    right: 20px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 50px;
-    backdrop-filter: blur(15px);
-    z-index: 2500;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: 0.3s;
-}
-
-.faq-floating-btn {
-    position: fixed;
-    bottom: 25px; /* Lo bajamos para que no estorbe a los botones centrales */
-    right: 25px; 
-    /* El resto del código se queda igual */
-    z-index: 3000;
-}
-
-.faq-drawer {
-    position: fixed;
-    top: 0;
-    right: -100%; /* Asegúrate de que tenga el signo menos para que empiece oculto */
-    width: 100%;
-    max-width: 400px;
-    height: 100%;
-    background: #0a0a0a; /* Fondo sólido para que no se transparente el catálogo */
-    z-index: 5000;
-    transition: 0.5s ease;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.5); /* Sombra para dar profundidad */
-}
-
-.faq-drawer.open { right: 0; }
-
-.drawer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.close-drawer {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2.5rem;
-    cursor: pointer;
-}
-
-/* Estilo de tus FAQ dentro del panel */
-.faq-item {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
-
-.faq-question {
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-}
-
-.faq-question h3 { font-size: 0.9rem; color: #fff; margin: 0; }
-.faq-question i { color: var(--primary); transition: 0.3s; }
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: 0.3s;
-    background: rgba(255,255,255,0.02);
-}
-
-.faq-answer p { padding: 0 20px 20px; color: #888; font-size: 0.85rem; margin: 0; }
-
-.faq-item.active .faq-answer { max-height: 150px; }
-.faq-item.active .faq-question i { transform: rotate(45deg); color: var(--danger); }
-
-/* Fondo oscuro */
-.faq-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    z-index: 4999;
-    backdrop-filter: blur(5px);
-}
-
-.faq-overlay.show { display: block; }
     </style>
 </head>
 <body>
@@ -469,50 +370,39 @@
         <a href="../promociones-clientes/" class="btn-universal btn-combos-premium">🎁 VER COMBOS Y PROMOCIONES</a>
         <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal btn-comunidad">👥 COMUNIDAD</a>
 
-</button>
+        <div class="category-title" data-aos="fade-up">RESUELVE TUS DUDAS</div>
 
-<div id="faq-drawer" class="faq-drawer">
-    <div class="drawer-header">
-        <h3>Preguntas Frecuentes</h3>
-        <button class="close-drawer" onclick="toggleFAQ()">&times;</button>
+<div class="faq-container" data-aos="fade-up">
+    <div class="faq-item">
+        <div class="faq-question">
+            <h3>¿Cómo recibo mi cuenta?</h3>
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Tras verificar tu pago, los accesos se envían directamente a tu WhatsApp en menos de 5 a 15 minutos.</p>
+        </div>
     </div>
-    
-    <div class="drawer-content">
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>¿Cómo recibo mi cuenta?</h3>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Tras verificar tu pago, los accesos se envían directamente a tu WhatsApp en menos de 5 a 15 minutos.</p>
-                </div>
-            </div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>¿Qué pasa si la cuenta falla?</h3>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Contamos con garantía total. Si surge un inconveniente, nuestro equipo de soporte técnico lo resuelve de inmediato o te brindamos una cuenta nueva.</p>
-                </div>
-            </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <h3>¿Qué pasa si la cuenta falla?</h3>
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Contamos con garantía total. Si surge un inconveniente, nuestro equipo de soporte técnico lo resuelve de inmediato o te brindamos una cuenta nueva.</p>
+        </div>
+    </div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>¿Cuáles son los medios de pago?</h3>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Aceptamos Yape, Plin y Transferencias Bancarias (BCP, BBVA, Interbank). También métodos internacionales según disponibilidad.</p>
-                </div>
-            </div>
+    <div class="faq-item">
+        <div class="faq-question">
+            <h3>¿Cuáles son los medios de pago?</h3>
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Aceptamos Yape, Plin , (Lemon)Dale y Transferencias Bancarias (BCP e Interbank). .</p>
         </div>
     </div>
 </div>
-
-<div id="faq-overlay" class="faq-overlay" onclick="toggleFAQ()"></div>
     </div>
 
     <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
@@ -1149,19 +1039,6 @@ if (scrollContainer) {
             faqItem.classList.toggle('active');
         });
     });
-
-function toggleFAQ() {
-    document.getElementById('faq-drawer').classList.toggle('open');
-    document.getElementById('faq-overlay').classList.toggle('show');
-}
-
-// Lógica para que tus preguntas se abran y cierren
-document.querySelectorAll('.faq-question').forEach(q => {
-    q.addEventListener('click', () => {
-        const item = q.parentElement;
-        item.classList.toggle('active');
-    });
-});
 </script>
 </body>
 </html>
