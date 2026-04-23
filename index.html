@@ -327,6 +327,103 @@
 .faq-item.active .faq-question i {
     transform: rotate(45deg);
 }
+        /* Botón que invita a hacer clic */
+.faq-floating-btn {
+    position: fixed;
+    bottom: 110px; /* Arriba del botón de WhatsApp */
+    right: 20px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    backdrop-filter: blur(15px);
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+
+.faq-floating-btn i { color: var(--primary); font-size: 1.2rem; }
+
+/* El Panel Deslizable */
+.faq-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Escondido */
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background: #0a0a0a;
+    z-index: 5000;
+    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    padding: 30px 20px;
+    border-left: 1px solid var(--glass-border);
+    overflow-y: auto;
+}
+
+.faq-drawer.open { right: 0; }
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.close-drawer {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+/* Estilo de tus FAQ dentro del panel */
+.faq-item {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.faq-question {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-question h3 { font-size: 0.9rem; color: #fff; margin: 0; }
+.faq-question i { color: var(--primary); transition: 0.3s; }
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s;
+    background: rgba(255,255,255,0.02);
+}
+
+.faq-answer p { padding: 0 20px 20px; color: #888; font-size: 0.85rem; margin: 0; }
+
+.faq-item.active .faq-answer { max-height: 150px; }
+.faq-item.active .faq-question i { transform: rotate(45deg); color: var(--danger); }
+
+/* Fondo oscuro */
+.faq-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    z-index: 4999;
+    backdrop-filter: blur(5px);
+}
+
+.faq-overlay.show { display: block; }
     </style>
 </head>
 <body>
@@ -370,38 +467,53 @@
         <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal btn-comunidad">👥 COMUNIDAD</a>
 
         <div class="category-title" data-aos="fade-up">RESUELVE TUS DUDAS</div>
+<button class="faq-floating-btn" onclick="toggleFAQ()">
+    <i class="fas fa-question-circle"></i>
+    <span>Dudas</span>
+</button>
 
-<div class="faq-container" data-aos="fade-up">
-    <div class="faq-item">
-        <div class="faq-question">
-            <h3>¿Cómo recibo mi cuenta?</h3>
-            <i class="fas fa-plus"></i>
-        </div>
-        <div class="faq-answer">
-            <p>Tras verificar tu pago, los accesos se envían directamente a tu WhatsApp en menos de 5 a 15 minutos.</p>
-        </div>
+<div id="faq-drawer" class="faq-drawer">
+    <div class="drawer-header">
+        <h3>Preguntas Frecuentes</h3>
+        <button class="close-drawer" onclick="toggleFAQ()">&times;</button>
     </div>
+    
+    <div class="drawer-content">
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Cómo recibo mi cuenta?</h3>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Tras verificar tu pago, los accesos se envían directamente a tu WhatsApp en menos de 5 a 15 minutos.</p>
+                </div>
+            </div>
 
-    <div class="faq-item">
-        <div class="faq-question">
-            <h3>¿Qué pasa si la cuenta falla?</h3>
-            <i class="fas fa-plus"></i>
-        </div>
-        <div class="faq-answer">
-            <p>Contamos con garantía total. Si surge un inconveniente, nuestro equipo de soporte técnico lo resuelve de inmediato o te brindamos una cuenta nueva.</p>
-        </div>
-    </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Qué pasa si la cuenta falla?</h3>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Contamos con garantía total. Si surge un inconveniente, nuestro equipo de soporte técnico lo resuelve de inmediato o te brindamos una cuenta nueva.</p>
+                </div>
+            </div>
 
-    <div class="faq-item">
-        <div class="faq-question">
-            <h3>¿Cuáles son los medios de pago?</h3>
-            <i class="fas fa-plus"></i>
-        </div>
-        <div class="faq-answer">
-            <p>Aceptamos Yape, Plin y Transferencias Bancarias (BCP, BBVA, Interbank). También métodos internacionales según disponibilidad.</p>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Cuáles son los medios de pago?</h3>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Aceptamos Yape, Plin y Transferencias Bancarias (BCP, BBVA, Interbank). También métodos internacionales según disponibilidad.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<div id="faq-overlay" class="faq-overlay" onclick="toggleFAQ()"></div>
     </div>
 
     <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
@@ -1038,6 +1150,20 @@ if (scrollContainer) {
             faqItem.classList.toggle('active');
         });
     });
+    <script>
+function toggleFAQ() {
+    document.getElementById('faq-drawer').classList.toggle('open');
+    document.getElementById('faq-overlay').classList.toggle('show');
+}
+
+// Lógica para que tus preguntas se abran y cierren
+document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('active');
+    });
+});
+</script>
 </script>
 </body>
 </html>
