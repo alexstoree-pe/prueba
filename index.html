@@ -434,12 +434,29 @@
         border-radius: 0 0 10px 10px;
     }
 
+    /* --- CORRECCIÓN PARA VISTA CUADRÍCULA --- */
+
+    /* 1. Aseguramos que el texto premium esté oculto por defecto en el grid */
     .grid-mode .premium-text {
-        margin-right: 0;
-        margin-bottom: 5px;
-        display: block;
+        display: none !important;
     }
 
+    /* 2. Solo lo mostramos si la tarjeta tiene la clase 'premium' */
+    .grid-mode .service-link.premium .premium-text {
+        display: block !important;
+        margin-right: 0;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    /* 3. Ajuste de imagen (logo) en el grid para que no se vea vacía si falta link */
+    .grid-mode .service-logo {
+        width: 60px !important;
+        height: 60px !important;
+        margin-bottom: 10px;
+        object-fit: cover;
+        background: #222; /* Fondo por si la imagen falla */
+    }
     .grid-mode .category-title {
         grid-column: 1 / -1;
         width: 100%;
