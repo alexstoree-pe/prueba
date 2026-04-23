@@ -7,105 +7,109 @@
 
     <link rel="icon" type="image/webp" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
     <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-    <meta name="apple-mobile-web-app-title" content="Alex Distribución">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#050505">
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #00d4ff;
-            --secondary: #0055ff;
+            --primary: #00d4ff; 
             --dark: #050505;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --promo: #f4d03f;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --danger-neon: #ff0000;
+            --vip: #d4af37;
+            --success-neon: #39ff14;
+            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
         }
 
+        html { background-color: var(--dark); scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--dark); color: white; visibility: hidden; }
 
-        /* --- Contenedor Principal --- */
-        .container { 
-            padding: 20px 15px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            transition: all 0.3s ease;
-            width: 100%;
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #0a0a0a; 
+            color: white; 
+            padding-bottom: 200px; 
+            overflow-x: hidden;
+            visibility: hidden; /* Se activa con el JS del PIN */
         }
 
-        /* --- Estilos Modo Lista (Default) --- */
-        .service-link { text-decoration: none; color: inherit; display: block; margin-bottom: 15px; }
-        .service-card { 
-            background: var(--glass); 
-            border-radius: 20px; 
-            padding: 18px; 
-            display: flex; 
-            align-items: center; 
-            border: 1px solid var(--glass-border); 
-            gap: 15px; 
-            position: relative;
-            transition: 0.3s;
+        /* --- TUS ESTILOS DE HEADER Y BUSCADOR --- */
+        header { 
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 25px 20px 15px; 
+            text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
-        .service-logo { width: 60px; height: 60px; border-radius: 15px; object-fit: cover; }
-        .service-text { flex-grow: 1; }
-        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
+        .brand-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 18px; margin-bottom: 8px; }
+        .search-container { padding: 10px 15px; background: #0a0a0a; }
+        #buscador { width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; }
 
-        /* --- BOTONES DE VISTA --- */
-        .btn-view.active {
-            background: var(--primary) !important;
-            color: #000 !important;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
-        }
+        /* --- ESTILOS DE TARJETAS (MODO LISTA ORIGINAL) --- */
+        .container { padding: 10px 15px; max-width: 600px; margin: auto; transition: 0.4s; }
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 20px; transition: 0.3s; }
+        .service-card { background: #0f0f0f; border-radius: 25px; padding: 20px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; position: relative; }
+        .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; }
+        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
 
         /* ================================================================
-           MODO GRID (CUADRÍCULA) - INTEGRACIÓN
+           INTEGRACIÓN MODO GRID (CUADRÍCULA)
            ================================================================ */
         .container.grid-mode {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 12px !important;
+            max-width: 100% !important;
         }
 
-        .grid-mode .category-title { grid-column: 1 / -1 !important; }
+        .grid-mode .category-title { grid-column: 1 / -1; margin: 20px 0 10px; }
         .grid-mode .service-link { margin-bottom: 0; }
-
+        
         .grid-mode .service-card {
             flex-direction: column !important;
             text-align: center !important;
-            padding: 25px 10px 15px !important;
-            min-height: 180px;
-            justify-content: center;
+            padding: 30px 10px 15px !important;
+            height: 100%;
+            justify-content: space-between;
         }
 
-        .grid-mode .service-logo {
-            width: 65px !important;
-            height: 65px !important;
-            margin-bottom: 10px;
+        .grid-mode .service-logo { width: 60px; height: 60px; margin: 0 auto; }
+        .grid-mode .service-text h3 { font-size: 0.85rem !important; margin-top: 5px; }
+        .grid-mode .manual-desc { font-size: 0.65rem; margin-bottom: 10px; }
+        .grid-mode .price-container { align-items: center; margin: 5px 0 0 0; width: 100%; }
+        .grid-mode .price-tag { font-size: 1.1rem; }
+        
+        /* Ajuste de etiquetas en Grid */
+        .grid-mode .badge-oferta { width: 100%; left: 0; text-align: center; clip-path: none; border-radius: 10px 10px 0 0; }
+        .grid-mode .status-badge { justify-content: center; font-size: 0.5rem; }
+
+        /* --- BOTONES DE VISTA (TUS ESTILOS) --- */
+        .btn-view {
+            padding: 8px 15px; border-radius: 10px; border: 1px solid var(--glass-border);
+            background: var(--glass); color: #888; cursor: pointer; transition: 0.3s;
+        }
+        .btn-view.active {
+            background: var(--primary) !important;
+            color: #000 !important;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            border-color: var(--primary);
         }
 
-        .grid-mode .service-text h3 { font-size: 0.85rem !important; }
-        .grid-mode .price-container { margin-top: 10px; }
+        /* --- MODAL PIN (TUS ESTILOS) --- */
+        .modal-pass { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
+            display: flex; justify-content: center; align-items: center; z-index: 9999; visibility: visible;
+        }
+        .modal-content-pass { 
+            background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
+            border: 1px solid var(--primary); text-align: center;
+        }
 
-        /* Ajuste para PC */
         @media (min-width: 768px) {
             .container.grid-mode { grid-template-columns: repeat(4, 1fr) !important; }
         }
-
-        /* Estilos de Header y Filtros (Simplificado para el ejemplo) */
-        header { text-align: center; padding: 20px; background: rgba(10,10,10,0.8); backdrop-filter: blur(10px); sticky; top:0; z-index: 100; }
-        .brand-logo { width: 60px; border-radius: 15px; }
-        .btn-filter { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
-        .btn-filter.active { background: var(--primary); color: black; }
-        
-        /* Modal Pass */
-        .modal-pass { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .modal-content-pass { background: #111; padding: 40px; border-radius: 30px; text-align: center; border: 1px solid #333; }
-        #input-dist-pass { background: #000; border: 1px solid #444; color: var(--primary); padding: 15px; width: 100%; border-radius: 10px; margin: 20px 0; text-align: center; font-size: 1.2rem; }
     </style>
+</head>
+<body>
     <script>
     // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
     (function() {
