@@ -144,7 +144,12 @@
             padding: 1px 5px; border-radius: 4px; 
         }
 
-        .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
+        .service-item { 
+    cursor: pointer; 
+    margin-bottom: 15px; 
+    position: relative; /* ¡ESTO ES VITAL! */
+    transition: 0.3s; 
+}
         .service-card { 
             background: var(--glass); border-radius: 22px; padding: 18px; 
             display: flex; align-items: center; border: 1px solid var(--glass-border); 
@@ -323,20 +328,24 @@
     .grid-mode .service-item.premium::after { content: none !important; display: none !important; }
     .grid-mode .price-tag { font-size: 1.4rem !important; font-weight: 800 !important; line-height: 1 !important; color: var(--primary) !important; }
 
-    /* 5. Banner Superior "Más Solicitado" - CENTRADO TOTAL */
+  /* 5. Banner Superior "Más Solicitado" - CENTRADO Y ANCLADO */
 .grid-mode .badge-oferta {
+    position: absolute !important; /* Vital para que se mueva con la tarjeta */
+    top: 0 !important;
     width: 85% !important;
     left: 50% !important;
-    transform: translateX(-50%) !important; /* Esto centra la etiqueta físicamente */
-    text-align: center !important;
-    border-radius: 0 0 10px 10px !important;
-    padding: 3px 0 !important;
-    z-index: 11 !important;
+    transform: translateX(-50%) !important; /* Centra la etiqueta horizontalmente */
     
-    /* ESTO CENTRA EL TEXTO DENTRO DE LA ETIQUETA */
+    /* Centrado del texto interno */
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    text-align: center !important;
+    
+    border-radius: 0 0 10px 10px !important;
+    padding: 3px 0 !important;
+    z-index: 100 !important;
+    pointer-events: none; /* Evita que interfiera con los clicks */
 }
     .grid-mode .check-icon { top: 8px !important; right: 8px !important; width: 24px !important; height: 24px !important; }
 
