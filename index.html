@@ -338,12 +338,29 @@ body {
 }
 
 /* 2. Comportamiento CUADRÍCULA */
+/* 2. Comportamiento CUADRÍCULA dinámico */
 .container.grid-mode {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en móvil */
-    gap: 12px !important;
+    gap: 15px !important;
+    /* Por defecto en móviles: 2 columnas */
+    grid-template-columns: repeat(2, 1fr) !important; 
 }
 
+/* Para Tablets (más de 768px): 3 o 4 columnas */
+@media (min-width: 768px) {
+    .container.grid-mode {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+    }
+}
+
+/* Para PC / Pantallas grandes (más de 1024px): hasta 6 columnas */
+@media (min-width: 1024px) {
+    .container.grid-mode {
+        /* Ajusta el 160px si quieres que las tarjetas sean más anchas o delgadas */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+        max-width: 1200px; /* Permite que la cuadrícula se expanda en PC */
+    }
+}
 /* 3. Ajustes de la TARJETA en modo CUADRÍCULA */
 .grid-mode .service-link {
     margin-bottom: 0 !important; /* Quitamos el margen inferior de lista */
@@ -358,8 +375,8 @@ body {
 }
 
 .grid-mode .service-logo {
-    width: 55px !important;
-    height: 55px !important;
+    width: 60px !important;
+    height: 60px !important;
     margin-bottom: 10px;
 }
 
@@ -403,10 +420,11 @@ body {
 
 /* Títulos de categoría en Grid */
 .grid-mode .category-title {
-    grid-column: 1 / -1; /* El título ocupa las 2 columnas */
-    margin-top: 20px;
+    grid-column: 1 / -1;
+    width: 100%;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 10px;
 }
-
 /* Adaptación para Tablets/PC */
 @media (max-width: 480px) {
     /* Si el buscador es sticky, los filtros deben bajar un poco */
