@@ -135,11 +135,12 @@
         .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 15px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
 
         .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
-        .service-card { 
-            background: var(--glass); border-radius: 22px; padding: 18px; 
-            display: flex; align-items: center; border: 1px solid var(--glass-border); 
-            transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
-        }
+        .service-card {
+    background: rgba(255, 255, 255, 0.03); /* Casi transparente */
+    backdrop-filter: blur(12px); /* El secreto del efecto cristal */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
         /* Este código detecta cuando el mouse pasa por encima */
 .service-item:hover .service-card {
     border-color: var(--primary) !important; /* El borde se vuelve azul brillante */
@@ -266,6 +267,22 @@
     color: #000;
     border-color: var(--primary);
 }
+        .dot {
+    height: 8px;
+    width: 8px;
+    background-color: #25d366;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    box-shadow: 0 0 8px #25d366;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
     </style>
 </head>
 <body>
@@ -322,6 +339,8 @@
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 16</span>
+                <span class="status-online">
+                 <span class="dot"></span> Entrega Inmediata</span>
                 <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
