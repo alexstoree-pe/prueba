@@ -1028,21 +1028,42 @@ body {
     
     let carrito = [];
 
-    function cambiarDiseno(modo) {
-    const contenedor = document.querySelector('.container');
-    const btnList = document.getElementById('btn-list');
-    const btnGrid = document.getElementById('btn-grid');
+    function cambiarDiseno(modo, btn) {
+        const contenedor = document.querySelector('.container');
+        const btnList = document.getElementById('btn-list');
+        const btnGrid = document.getElementById('btn-grid');
 
-    if (modo === 'cuadricula') {
-        contenedor.classList.add('grid-mode');
-        btnGrid.classList.add('active');
-        btnList.classList.remove('active');
-    } else {
-        contenedor.classList.remove('grid-mode');
-        btnList.classList.add('active');
-        btnGrid.classList.remove('active');
+        // 1. Gestión de clases activas para los botones
+        if (btn) {
+            // Si pasas el botón directamente (como en la script anterior)
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        } else {
+            // Si usas la lógica de IDs (btn-list / btn-grid)
+            if (modo === 'cuadricula') {
+                btnGrid.classList.add('active');
+                btnList.classList.remove('active');
+            } else {
+                btnList.classList.add('active');
+                btnGrid.classList.remove('active');
+            }
+        }
+
+        // 2. Aplicar el modo al contenedor
+        if (modo === 'cuadricula' || modo === 'grid') {
+            contenedor.classList.add('grid-mode');
+        } else {
+            contenedor.classList.remove('grid-mode');
+        }
+
+        // 3. Refrescar AOS para ajustar animaciones a la nueva posición
+        // Esto evita que los elementos desaparezcan al cambiar de vista
+        setTimeout(() => {
+            if (typeof AOS !== 'undefined') {
+                AOS.refreshHard();
+            }
+        }, 100);
     }
-}
     // --- BUSCADOR ---
     function filtrarPlataformas() {
     // Al empezar a escribir, reseteamos los filtros visualmente
