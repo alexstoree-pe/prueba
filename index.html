@@ -317,13 +317,33 @@
         border-radius: 0 0 10px 10px;
     }
 
-    .grid-mode .premium::after {
-        position: static !important;
+    /* --- ETIQUETA PREMIUM EN MODO CUADRÍCULA --- */
+    .grid-mode .service-item.premium .service-card::after {
+        position: relative !important; /* Cambia de flotante a posición fija en el flujo */
         display: inline-block !important;
-        margin-bottom: 5px !important;
-        border: 1px solid var(--vip) !important;
-        color: var(--vip) !important;
+        content: 'PREMIUM' !important;
+        font-size: 0.55rem !important;
+        color: #f4d03f !important;
+        border: 1px solid #f4d03f !important;
         padding: 2px 8px !important;
+        border-radius: 5px !important;
+        margin-bottom: 8px !important; /* Espacio antes del precio */
+        background: transparent !important;
+        letter-spacing: 1px !important;
+        font-weight: 900 !important;
+        order: 2; /* Lo posiciona antes del price-container si usas flex */
+    }
+
+    /* Aseguramos que el contenedor de texto y precio se alineen bien */
+    .grid-mode .service-card {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .grid-mode .price-container {
+        order: 3; /* El precio siempre al final */
     }
 
     .grid-mode .check-icon { top: 8px !important; right: 8px !important; }
