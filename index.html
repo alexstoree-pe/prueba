@@ -189,35 +189,32 @@
         100% { transform: scale(1) rotate(0); opacity: 1; } 
     }
 
-    /* 1. EFECTO DE PRESIÓN (Común para todas al seleccionar) */
+    /* 1. MANTENER EL BORDE PREMIUM SIEMPRE (Incluso sin seleccionar) */
+    .service-link.premium .service-card {
+        border: 2px solid var(--vip) !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+    }
+
+    /* 2. ESTADO SELECCIONADO: Efecto de presión y fondo limpio */
     .service-link.selected .service-card { 
         transform: scale(0.96) translateY(2px) !important; 
         transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 50;
-        /* Fondo casi invisible para que NO se vea opaco por dentro */
         background: rgba(255, 255, 255, 0.03) !important; 
     }
 
-    /* 2. TARJETA NORMAL SELECCIONADA (Borde Celeste) */
+    /* 3. BRILLO NEÓN PARA TARJETAS NORMALES SELECCIONADAS (Borde celeste) */
     .service-link.selected:not(.premium) .service-card {
         border: 2px solid var(--primary) !important;
         box-shadow: 0 0 25px rgba(0, 212, 255, 0.5), 
                     inset 0 0 15px rgba(0, 212, 255, 0.1) !important;
     }
 
-    /* 3. TARJETA PREMIUM SELECCIONADA (Recuperamos el Borde Dorado) */
+    /* 4. BRILLO NEÓN PARA TARJETAS PREMIUM SELECCIONADAS (Respeta el borde VIP) */
     .service-link.premium.selected .service-card { 
-        /* Usamos tu variable --vip para el borde dorado */
-        border: 2px solid var(--vip) !important; 
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 
-                    inset 0 0 15px rgba(212, 175, 55, 0.1) !important;
-    }
-
-    /* 4. BRILLO PARA EL CONTENIDO (Para que no se vea oscuro) */
-    .service-link.selected .service-text h3,
-    .service-link.selected .price-tag {
-        filter: brightness(1.3);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        border: 2px solid var(--vip) !important; /* Aquí forzamos que siga siendo dorado */
+        box-shadow: 0 0 35px rgba(212, 175, 55, 0.6), 
+                    inset 0 0 15px rgba(212, 175, 55, 0.2) !important;
     }
 
     /* 5. DISEÑO DEL CHECK ANIMADO */
