@@ -165,20 +165,32 @@ CSS
 
     /* --- CORRECCIÓN DE COLORES DE SELECCIÓN --- */
     
-    /* SELECCIÓN ESTÁNDAR (Azul/Celeste) */
-    .service-link.selected .service-card { 
-        border: 2px solid var(--primary) !important; 
-        background: rgba(0, 212, 255, 0.15) !important; 
-        transform: scale(0.97); 
-    }
+    /* --- CORRECCIÓN DE SELECCIÓN Y EFECTO PROFESIONAL --- */
 
-    /* SELECCIÓN PREMIUM (Dorado) */
-    .service-link.premium.selected .service-card { 
-        border: 2px solid #bf953f !important; 
-        background: rgba(191, 149, 63, 0.15) !important; 
-        box-shadow: 0 0 15px rgba(191, 149, 63, 0.3) !important;
-    }
+/* 1. SELECCIÓN ESTÁNDAR (Mantiene Celeste) */
+.service-link.selected .service-card { 
+    border: 2px solid var(--primary) !important; 
+    background: rgba(0, 212, 255, 0.15) !important; 
+    /* Efecto de "irse hacia atrás" (0.95 es un poco más profundo que 0.97) */
+    transform: scale(0.95) translateY(2px); 
+    box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.1);
+}
 
+/* 2. SELECCIÓN PREMIUM (Forzado a Dorado/VIP) */
+.service-link.premium.selected .service-card { 
+    /* Aquí forzamos que el borde sea dorado de tu variable --vip o el tono #bf953f */
+    border: 2px solid var(--vip) !important; 
+    background: rgba(212, 175, 55, 0.15) !important; 
+    /* Efecto de "irse hacia atrás" también para premium */
+    transform: scale(0.95) translateY(2px);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), 
+                inset 0 0 15px rgba(212, 175, 55, 0.1) !important;
+}
+
+/* 3. TRANSICIÓN SUAVE (Asegúrate que esta línea exista para que no sea brusco) */
+.service-card { 
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+}
     /* ESTILO BASE DEL CHECK ICON */
     .check-icon { 
         position: absolute; top: -5px; right: -5px; width: 28px; height: 28px; 
