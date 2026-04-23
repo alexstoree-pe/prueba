@@ -401,6 +401,23 @@
             border-bottom: 1px solid var(--glass-border);
             padding-bottom: 10px;
         }
+        /* Localiza o añade esta regla para el contenedor de la tarjeta sin stock */
+.grid-mode .service-link.no-stock {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Centra horizontalmente */
+    justify-content: center !important; /* Centra verticalmente si es necesario */
+    text-align: center !important;
+}
+
+/* Ajuste específico para el botón/etiqueta de SIN STOCK */
+.grid-mode .no-stock-button {
+    position: relative !important; /* Asegura que no esté flotando a la derecha */
+    right: auto !important;
+    margin: 10px auto !important; /* Lo fuerza al centro */
+    display: inline-block !important;
+    width: fit-content !important;
+}
 
         @media (max-width: 480px) {
             .filter-wrapper {
