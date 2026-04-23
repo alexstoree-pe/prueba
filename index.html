@@ -190,26 +190,25 @@
         100% { transform: scale(1) rotate(0); opacity: 1; } 
     }
 
-    /* Usamos !important y un background más sólido para que no se opaque */
-    .service-link.selected .service-card { 
-        border: 2.5px solid var(--primary) !important; 
-        /* Color más opaco para que el negro de fondo no lo ensucie */
-        background: rgba(0, 212, 255, 0.35) !important; 
-        transform: scale(0.96) translateY(2px) !important; 
-        /* Resplandor exterior e INTERIOR (el inset es la clave para que no se vea oscuro) */
-        box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 
-                    inset 0 0 25px rgba(255, 255, 255, 0.2) !important;
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        z-index: 50;
-    }
+    /* Forzamos que la tarjeta sea interactiva y brille */
+.service-link.selected .service-card { 
+    border: 2.5px solid var(--primary) !important; 
+    background: rgba(0, 212, 255, 0.35) !important; 
+    transform: scale(0.96) translateY(2px) !important; 
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 
+                inset 0 0 25px rgba(255, 255, 255, 0.2) !important;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 50;
+    pointer-events: auto !important; /* Asegura que responda al clic */
+}
 
-    /* Efecto especial para PREMIUM seleccionado */
-    .service-link.premium.selected .service-card { 
-        border: 2.5px solid #fff !important; /* Borde blanco para que destaque el oro */
-        background: rgba(212, 175, 55, 0.4) !important; 
-        box-shadow: 0 0 35px rgba(212, 175, 55, 0.6), 
-                    inset 0 0 25px rgba(255, 255, 255, 0.2) !important;
-    }
+/* Específico para Disney Premium (clase premium + selected) */
+.service-link.premium.selected .service-card { 
+    border: 2.5px solid var(--vip) !important; 
+    background: rgba(212, 175, 55, 0.4) !important; 
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.6), 
+                inset 0 0 25px rgba(255, 255, 255, 0.2) !important;
+}
 
     /* Icono Check con animación pop */
     .check-icon { 
@@ -228,13 +227,14 @@
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    /* Forzar que el check aparezca siempre en seleccionados */
-    .service-link.selected .check-icon { 
-        display: flex !important;
-        background: var(--primary) !important;
-        color: #000 !important;
-        animation: popCheck 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
+   /* Asegurar que el check aparezca sin importar el orden de las clases */
+.service-link.selected .check-icon { 
+    display: flex !important;
+    background: var(--primary) !important;
+    color: #000 !important;
+    animation: popCheck 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    z-index: 110;
+}
 
     .service-link.premium.selected .check-icon { 
         background: #fff !important; /* Check blanco en premium para más lujo */
@@ -940,7 +940,7 @@
         </div>
     </div>
 
-    <div class="service-link  renovacion oferta premium" data-aos="fade-up">
+    <div class="service-link  renovacion oferta premium" onclick="toggleSeleccion(this)" data-aos="fade-up">
         <div class="service-card">
             <span class="badge-oferta">Mas Solicitado🔥 </span>
             <img src="../img/disneyp.webp" class="service-logo">
