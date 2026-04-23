@@ -10,73 +10,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* Aquí van todos tus estilos CSS originales que enviaste en la Parte 1 */
-        :root { --primary: #00d4ff; --secondary: #0055ff; --dark: #050505; --glass: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.08); --whatsapp: #25d366; --promo: #f4d03f; --promo-dark: #d4af37; --danger: #ff4444; --gold-gradient: linear-gradient(45deg, #d4af37, #f4d03f); }
+        :root { 
+            --primary: #00d4ff; 
+            --secondary: #0055ff; 
+            --dark: #050505; 
+            --glass: rgba(255, 255, 255, 0.03); 
+            --glass-border: rgba(255, 255, 255, 0.08); 
+            --whatsapp: #25d366; 
+            --promo: #f4d03f; 
+            --promo-dark: #d4af37; 
+            --danger: #ff4444; 
+            --gold-gradient: linear-gradient(45deg, #d4af37, #f4d03f); 
+        }
+
         html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: radial-gradient(circle at top right, #0a0a0a, #050505); color: white; line-height: 1.6; padding-bottom: 100px; }
+
+        /* HEADER & NAV */
         header { background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(20px); padding: 15px 15px 10px; text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; }
         .brand-logo { width: 50px; height: 50px; object-fit: contain; border-radius: 18px; margin-bottom: 5px; }
         header h1 { font-size: 1.4rem; font-weight: 800; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        
         .trust-bar { display: flex; justify-content: space-around; margin-top: 10px; padding: 5px; background: var(--glass); border-radius: 15px; border: 1px solid var(--glass-border); }
         .trust-item { display: flex; flex-direction: column; align-items: center; font-size: 0.40rem; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
         .trust-item i { color: var(--primary); font-size: 1rem; margin-bottom: 4px; }
-        .search-container { max-width: 600px; margin: 10px auto 0; position: relative; }
-        #search-input { width: 100%; padding: 8px 15px; border-radius: 15px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins'; outline: none; transition: 0.3s; }
-        .container { padding: 20px 15px; max-width: 600px; margin: auto; }
-        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
-        .btn-universal { display: flex; align-items: center; justify-content: center; padding: 15px 10px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none; cursor: pointer; text-align: center; }
-        .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
-        .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; }
-        .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; }
-        .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; }
-        .category-title { margin: 15px 0 10px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
-        .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
-        .service-card { background: var(--glass); border-radius: 22px; padding: 18px; display: flex; align-items: center; border: 1px solid var(--glass-border); transition: 0.3s; gap: 15px; position: relative; overflow: hidden; }
-        .service-item:hover .service-card { border-color: var(--primary) !important; transform: translateY(-3px); }
-        .service-item.premium .service-card { border: 1px solid #d4af37 !important; }
-        /* Etiqueta Premium única */
-.premium-tag {
-    font-size: 0.55rem;
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-weight: 900;
-    display: inline-block;
-    margin-bottom: 2px;
-}
 
-/* Colores de precios */
-.precio-regular { color: var(--primary); font-size: 1.5rem; font-weight: 800; }
-.precio-premium { color: #f4d03f; font-size: 1.5rem; font-weight: 800; text-shadow: 0 0 5px rgba(244, 208, 63, 0.2); }
-        .check-icon { position: absolute; top: 10px; right: 10px; background: var(--primary); color: #000; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; z-index: 10; }
-        .selected .check-icon { display: flex; }
-        .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; z-index: 11; }
-        .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; }
-        .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; }
-        .btn-consultar-neon { display: none; color: #ff3333; font-size: 0.85rem; font-weight: 900; border: 2px solid var(--danger); padding: 8px 10px; border-radius: 10px; background: rgba(255, 0, 0, 0.1); }
-        .service-item.agotado .btn-consultar-neon { display: block; }
-        .service-item.agotado .price-tag { display: none; }
-        .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-        .hidden { display: none; }
-        .modal-overlay, .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; justify-content: center; align-items: flex-end; z-index: 3000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
-        .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
-        #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
-        .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
-        .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
-        .filter-container::-webkit-scrollbar { display: none; }
-        .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+        .search-container { max-width: 600px; margin: 10px auto 0; position: relative; }
+        #search-input { width: 100%; padding: 10px 15px; border-radius: 15px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; outline: none; transition: 0.3s; }
+
+        /* FILTROS */
+        .filter-wrapper { margin: 12px 0; display: flex; align-items: center; justify-content: center; }
+        .filter-container { display: flex; gap: 8px; overflow-x: auto; padding: 5px; scrollbar-width: none; }
+        .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 18px; border-radius: 50px; font-size: 0.7rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
         .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
-        /* Color dorado para el precio SOLO en tarjetas premium */
-.service-item.premium .precio-prod { color: #f4d03f !important; /* Dorado */ text-shadow: 0 0 10px rgba(244, 208, 63, 0.3); }
-/* Estilo para la etiqueta PREMIUM (evita duplicados) */
-.premium-tag { font-size: 0.55rem;border: 1px solid #d4af37; color: #d4af37; padding: 2px 5px; border-radius: 4px;font-weight: 900;  display: inline-block; margin-bottom: 5px; letter-spacing: 1px; }
-/* Ajuste del precio general */
-.precio-prod { font-size: 1.5rem;  font-weight: 800;  display: block; transition: 0.3s; }
-    </style>
-</head>
-<body>
+
+        /* TARJETAS (DISEÑO FOTO 1) */
+        .container { padding: 20px 15px; max-width: 600px; margin: auto; }
+        .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
+        .service-card { background: var(--glass); border-radius: 22px; padding: 15px; display: flex; align-items: center; justify-content: space-between; border: 1
 
 <header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
@@ -183,7 +155,7 @@
     const numWhatsApp = "51918600000";
 
     // --- 2. MOTOR DINÁMICO ---
- function renderizar(filtro = "TODOS", busqueda = "") {
+function renderizar(filtro = "TODOS", busqueda = "") {
     const contenedor = document.getElementById('contenedor-productos');
     let html = "";
     let ultimaCat = "";
@@ -196,15 +168,12 @@
 
     filtrados.forEach(p => {
         if (p.categoria !== ultimaCat) {
-            html += `<div class="category-title" data-aos="fade-right">🎬 ${p.categoria}</div>`;
+            html += `<div class="category-title" data-aos="fade-right">🎬 🎬 ${p.categoria}</div>`;
             ultimaCat = p.categoria;
         }
 
         const isSelected = carrito.some(i => i.nombre === p.nombre) ? 'selected' : '';
         
-        // Usamos una clase condicional para el color del precio
-        const precioClase = p.premium ? 'precio-premium' : 'precio-regular';
-
         html += `
             <div class="service-item ${p.premium ? 'premium' : ''} ${p.agotado ? 'agotado' : ''} ${isSelected}" 
                  onclick="toggleCarrito(this)" data-aos="fade-up">
@@ -212,19 +181,24 @@
                 <div class="check-icon">✓</div>
                 ${p.badge ? `<div class="badge-oferta">${p.badge}</div>` : ''}
                 
-                <div class="service-card">
-                    <img src="${p.imagen}" class="service-logo">
+                <div class="service-card" style="display: flex; align-items: center; justify-content: space-between; padding: 15px;">
                     
-                    <div class="service-text" style="flex-grow: 1;">
-                        <h3 class="nombre-prod" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 2px;">${p.nombre}</h3>
-                        <p class="manual-desc" style="font-size: 0.8rem; color: #aaa; margin: 0;">${p.descripcion}</p>
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <img src="${p.imagen}" class="service-logo" style="width: 60px; height: 60px; border-radius: 12px; object-fit: cover;">
+                        <div class="service-text">
+                            <h3 class="nombre-prod" style="font-size: 1.2rem; margin: 0; color: white;">${p.nombre}</h3>
+                            <p class="manual-desc" style="font-size: 0.85rem; color: #888; margin: 5px 0 0;">${p.descripcion}</p>
+                        </div>
                     </div>
 
-                    <div class="price-container" style="text-align: right; min-width: 90px;">
+                    <div class="price-section" style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
                         ${p.premium ? '<span class="premium-tag">PREMIUM</span>' : ''}
-                        <span class="price-tag ${precioClase}">S/${p.precio}</span>
+                        <div style="display: flex; align-items: baseline;">
+                            <span class="price-tag ${p.premium ? 'precio-premium' : 'precio-regular'}">S/${p.precio}</span>
+                        </div>
                         <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK</div>
                     </div>
+
                 </div>
             </div>`;
     });
