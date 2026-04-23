@@ -136,269 +136,7 @@
         }
         .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
         
-        /* CORRECCIÓN: Etiqueta PREMIUM en modo Lista solo si tiene la clase .premium */
-        .service-item.premium::after { 
-            content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; font-size: 0.5rem; 
-            font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; 
-            padding: 1px 5px; border-radius: 4px; z-index: 5;
-        }
-
-        .service-item { 
-            cursor: pointer; 
-            margin-bottom: 15px; 
-            position: relative; 
-            transition: 0.3s; 
-        }
-
-        .service-card { 
-            background: var(--glass); border-radius: 22px; padding: 18px; 
-            display: flex; align-items: center; border: 1px solid var(--glass-border); 
-            transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
-        }
-
-        /* CORRECCIÓN: El Hover ahora mueve TODA la tarjeta incluyendo sus etiquetas */
-        .service-item:hover { transform: translateY(-5px); }
-        .service-item:hover .service-card {
-            border-color: var(--primary) !important;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .service-item:active { transform: scale(0.95); transition: 0.1s; }
-
-        .service-item.premium.selected .service-card {
-            border-color: #f4d03f !important;
-            background: linear-gradient(135deg, rgba(244, 208, 63, 0.15), rgba(0,0,0,0.4)) !important;
-            box-shadow: 0 0 25px rgba(244, 208, 63, 0.3), inset 0 0 10px rgba(244, 208, 63, 0.1);
-        }
-
-        .service-item.premium .check-icon { background: #f4d03f; }
-
-        .check-icon {
-            position: absolute; top: 12px; right: 12px; background: var(--primary);
-            color: #000; width: 26px; height: 26px; border-radius: 50%;
-            display: none; align-items: center; justify-content: center;
-            font-size: 0.85rem; font-weight: 900; z-index: 20; box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        .selected .check-icon {
-            display: flex !important;
-            animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .service-item.selected .service-card {
-            border-color: var(--primary) !important;
-            background: rgba(0, 212, 255, 0.12) !important;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.25), inset 0 0 10px rgba(0, 212, 255, 0.1);
-            transform: scale(0.98);
-        }
-
-        /* CORRECCIÓN: Badge centrado y anclado para ambas vistas */
-        .badge-oferta { 
-            position: absolute; 
-            top: 0; 
-            left: 50% !important; 
-            transform: translateX(-50%) !important; 
-            background: var(--promo); 
-            color: #000; 
-            padding: 2px 12px; 
-            border-radius: 0 0 10px 10px; 
-            font-size: 0.6rem; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            display: none; 
-            z-index: 100;
-            white-space: nowrap;
-            justify-content: center;
-            align-items: center;
-        }
-        .service-item.oferta .badge-oferta { display: flex; }
-
-        .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
-        .service-text { flex-grow: 1; } 
-        .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
-        .manual-desc { font-size: 0.75rem; color: #777; }
-
-        .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
-        .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
-
-        .btn-consultar-neon {
-            display: none; color: #ff3333; font-size: 0.85rem; font-weight: 900; 
-            border: 2px solid var(--danger); padding: 8px 10px; border-radius: 10px;
-            background: rgba(255, 0, 0, 0.1); text-transform: uppercase;
-        }
-        .service-item.agotado .btn-consultar-neon { display: block; }
-        .service-item.agotado .price-tag { display: none; }
-
-        .floating-btn {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: white; padding: 20px; border-radius: 25px;
-            width: 92%; max-width: 480px; z-index: 1000;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-        }
-        .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-        .btn-clear-cart {
-            background: rgba(255, 68, 68, 0.2); border: 1px solid rgba(255, 68, 68, 0.4); color: #ffcccc;
-            width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; transition: 0.3s;
-        }
-        .btn-clear-cart:active { transform: scale(0.8); background: var(--danger); }
-        .discount-notice { font-size: 0.7rem; color: #f4d03f; font-weight: 600; margin-top: 5px; display: none; }
-
-        .modal-overlay, .modal-pass { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; 
-            justify-content: center; align-items: flex-end; z-index: 3000;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-        }
-        .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
-        #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
-
-        .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
-        .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scroll-behavior: smooth; scrollbar-width: none; }
-        .filter-container::-webkit-scrollbar { display: none; }
-
-        .scroll-indicator {
-            position: absolute; background: linear-gradient(to right, var(--dark), transparent);
-            height: 100%; width: 40px; left: 0; z-index: 2; display: flex; align-items: center; pointer-events: none; transition: 0.3s;
-        }
-        .scroll-indicator.right { left: auto; right: 0; background: linear-gradient(to left, var(--dark), transparent); justify-content: flex-end; }
-        .scroll-indicator i { color: var(--primary); font-size: 1rem; animation: bounceHorizontal 1.5s infinite; }
-
-        @keyframes bounceHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
-        @keyframes popCheck { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
-
-        .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-        .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
-
-        .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 10px 20px; }
-        .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
-
-        /* ============================================================
-            ADAPTACIÓN GRID PROFESIONAL
-           ============================================================ */
-    .grid-mode .category-title {
-        grid-column: 1 / -1;
-        margin-top: 40px !important;
-        margin-bottom: 20px !important;
-        text-align: left;
-        padding-left: 10px;
-<style>
-        :root {
-            --primary: #00d4ff;
-            --secondary: #0055ff;
-            --dark: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --whatsapp: #25d366;
-            --promo: #f4d03f;
-            --promo-dark: #d4af37;
-            --danger: #ff4444; 
-            --gold-gradient: linear-gradient(45deg, #d4af37, #f4d03f);
-        }
-
-        html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: radial-gradient(circle at top right, #0a0a0a, #050505);
-            color: white; 
-            line-height: 1.6; 
-            padding-bottom: 100px; 
-        }
-
-        header {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(20px);
-            padding: 15px 15px 10px; 
-            text-align: center;
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-        }
-
-        .brand-logo {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            border-radius: 18px;
-            margin-bottom: 5px;
-        }
-
-        header h1 { 
-            font-size: 1.4rem; 
-            font-weight: 800; 
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-        }
-        
-        header p[style*="letter-spacing: 5px"] {
-            letter-spacing: 2px !important;
-            font-size: 0.6rem !important;
-            margin-top: 2px !important;
-        }
-
-        .trust-bar {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
-            padding: 5px;
-            background: var(--glass);
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-        }
-        .trust-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.40rem;
-            font-weight: 600;
-            color: #aaa;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .trust-item i {
-            color: var(--primary);
-            font-size: 1rem;
-            margin-bottom: 4px;
-        }
-
-        .search-container { max-width: 600px; margin: 10px auto 0; position: relative; }
-        #search-input {
-            width: 100%; padding: 8px 15px; border-radius: 15px; border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
-            outline: none; transition: 0.3s;
-        }
-        #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
-
-        .container { padding: 20px 15px; max-width: 600px; margin: auto; }
-
-        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
-        .btn-universal {
-            display: flex; align-items: center; justify-content: center; padding: 15px 10px;
-            border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
-            cursor: pointer; text-align: center;
-        }
-        .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
-        .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
-        .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-        .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); }
-
-        .category-title { margin: 15px 0 10px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
-
-        /* Estilos Base Premium */
-        .premium .service-card {
-            border: 1px solid #d4af37 !important;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-        }
-        .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
-        
+        /* PREMIUM solo si existe la clase .premium */
         .service-item.premium::after { 
             content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; font-size: 0.5rem; 
             font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; 
@@ -409,13 +147,11 @@
             cursor: pointer; 
             margin-bottom: 15px; 
             position: relative; 
-            transition: transform 0.3s ease; /* Movimiento integral de la tarjeta */
+            transition: 0.3s ease; 
         }
 
-        /* 1. CORRECCIÓN: El badge ahora se mueve con la tarjeta porque el transform se aplica al ITEM completo */
-        .service-item:hover {
-            transform: translateY(-5px);
-        }
+        /* Movimiento que integra el badge */
+        .service-item:hover { transform: translateY(-5px); }
 
         .service-card { 
             background: var(--glass); border-radius: 22px; padding: 18px; 
@@ -431,38 +167,11 @@
 
         .service-item:active { transform: scale(0.95); transition: 0.1s; }
 
-        .service-item.premium.selected .service-card {
-            border-color: #f4d03f !important;
-            background: linear-gradient(135deg, rgba(244, 208, 63, 0.15), rgba(0,0,0,0.4)) !important;
-            box-shadow: 0 0 25px rgba(244, 208, 63, 0.3), inset 0 0 10px rgba(244, 208, 63, 0.1);
-        }
-
-        .service-item.premium .check-icon { background: #f4d03f; }
-
-        .check-icon {
-            position: absolute; top: 12px; right: 12px; background: var(--primary);
-            color: #000; width: 26px; height: 26px; border-radius: 50%;
-            display: none; align-items: center; justify-content: center;
-            font-size: 0.85rem; font-weight: 900; z-index: 20; box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        .selected .check-icon {
-            display: flex !important;
-            animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .service-item.selected .service-card {
-            border-color: var(--primary) !important;
-            background: rgba(0, 212, 255, 0.12) !important;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.25), inset 0 0 10px rgba(0, 212, 255, 0.1);
-            transform: scale(0.98);
-        }
-
-        /* 2. CORRECCIÓN: Vista Lista - Badge a la izquierda original */
+        /* Badge Oferta - Vista Lista (Superior Izquierda) */
         .badge-oferta { 
             position: absolute; 
             top: 0; 
-            left: 20px; /* Superior Izquierdo en Lista */
+            left: 20px; 
             background: var(--promo); 
             color: #000; 
             padding: 2px 12px; 
@@ -471,7 +180,8 @@
             font-weight: 800; 
             text-transform: uppercase; 
             display: none; 
-            z-index: 11; 
+            z-index: 100;
+            white-space: nowrap;
         }
         .service-item.oferta .badge-oferta { display: block; }
 
@@ -483,50 +193,17 @@
         .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
         .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
 
-        .btn-consultar-neon {
-            display: none; color: #ff3333; font-size: 0.85rem; font-weight: 900; 
-            border: 2px solid var(--danger); padding: 8px 10px; border-radius: 10px;
-            background: rgba(255, 0, 0, 0.1); text-transform: uppercase;
+        .check-icon {
+            position: absolute; top: 12px; right: 12px; background: var(--primary);
+            color: #000; width: 26px; height: 26px; border-radius: 50%;
+            display: none; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 900; z-index: 20; box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
-        .service-item.agotado .btn-consultar-neon { display: block; }
-        .service-item.agotado .price-tag { display: none; }
-
-        .floating-btn {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: white; padding: 20px; border-radius: 25px;
-            width: 92%; max-width: 480px; z-index: 1000;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-        }
-        .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-        .btn-clear-cart {
-            background: rgba(255, 68, 68, 0.2); border: 1px solid rgba(255, 68, 68, 0.4); color: #ffcccc;
-            width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; transition: 0.3s;
-        }
-        .btn-clear-cart:active { transform: scale(0.8); background: var(--danger); }
-        .discount-notice { font-size: 0.7rem; color: #f4d03f; font-weight: 600; margin-top: 5px; display: none; }
-
-        .modal-overlay, .modal-pass { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; 
-            justify-content: center; align-items: flex-end; z-index: 3000;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-        }
-        .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
-        #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
+        .selected .check-icon { display: flex !important; animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
         .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
         .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scroll-behavior: smooth; scrollbar-width: none; }
         .filter-container::-webkit-scrollbar { display: none; }
-
-        .scroll-indicator {
-            position: absolute; background: linear-gradient(to right, var(--dark), transparent);
-            height: 100%; width: 40px; left: 0; z-index: 2; display: flex; align-items: center; pointer-events: none; transition: 0.3s;
-        }
-        .scroll-indicator.right { left: auto; right: 0; background: linear-gradient(to left, var(--dark), transparent); justify-content: flex-end; }
-        .scroll-indicator i { color: var(--primary); font-size: 1rem; animation: bounceHorizontal 1.5s infinite; }
-
-        @keyframes bounceHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
-        @keyframes popCheck { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
 
         .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
         .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
@@ -536,16 +213,8 @@
         .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
         /* ============================================================
-            ADAPTACIÓN GRID PROFESIONAL
+            ADAPTACIÓN GRID PROFESIONAL (RESTAURADA)
            ============================================================ */
-    .grid-mode .category-title {
-        grid-column: 1 / -1;
-        margin-top: 40px !important;
-        margin-bottom: 20px !important;
-        text-align: left;
-        padding-left: 10px;
-    }
-
     .container.grid-mode {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important; 
@@ -556,42 +225,50 @@
         margin: 0 !important;
     }
 
-    @media (min-width: 768px) {
-        .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important; }
+    .grid-mode .category-title {
+        grid-column: 1 / -1;
+        margin-top: 40px !important;
+        margin-bottom: 20px !important;
     }
 
-    .grid-mode .service-item { margin-bottom: 0 !important; height: 100%; display: flex; }
+    .grid-mode .service-item { margin-bottom: 0 !important; display: flex; height: 100%; }
 
     .grid-mode .service-card {
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
-        padding: 25px 10px 15px !important;
-        height: 100%;
+        padding: 30px 10px 15px !important;
         width: 100%;
         min-height: 260px;
         justify-content: space-between !important;
     }
 
-    .grid-mode .service-logo { width: 65px !important; height: 65px !important; margin-bottom: 12px !important; margin-right: 0 !important; }
+    /* Badge Oferta - Vista Cuadrícula (CENTRAD0) */
+    .grid-mode .badge-oferta {
+        display: flex !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 85% !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
 
-    .grid-mode .service-text { width: 100% !important; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-    .grid-mode .service-text h3 { font-size: 0.9rem !important; margin-bottom: 5px; }
-    .grid-mode .manual-desc { font-size: 0.65rem !important; color: #888 !important; }
+    .grid-mode .service-logo { width: 65px !important; height: 65px !important; margin-bottom: 12px !important; margin-right: 0 !important; }
+    .grid-mode .service-text { width: 100% !important; }
+    .grid-mode .service-text h3 { font-size: 0.9rem !important; }
+    .grid-mode .manual-desc { font-size: 0.65rem !important; }
 
     .grid-mode .price-container {
         margin-left: 0 !important;
         margin-top: auto !important;
-        padding-top: 10px;
         align-items: center !important;
         width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
     }
 
+    .grid-mode .service-item.premium::after { display: none !important; }
+    
     .premium-label { display: none; }
-
-    .grid-mode .premium-label {
+    .grid-mode .service-item.premium .premium-label {
         display: inline-block !important;
         border: 1px solid #d4af37 !important;
         color: #d4af37 !important;
@@ -601,28 +278,12 @@
         border-radius: 4px !important;
         margin-bottom: 5px !important;
         background: rgba(212, 175, 55, 0.1) !important;
-        text-transform: uppercase;
     }
 
-    .grid-mode .service-item.premium::after { content: none !important; display: none !important; }
-    .grid-mode .price-tag { font-size: 1.4rem !important; font-weight: 800 !important; line-height: 1 !important; color: var(--primary) !important; }
-
-    /* 3. CORRECCIÓN: Centrado de Badge solo para GRID */
-    .grid-mode .badge-oferta {
-        display: flex !important;
-        width: 85% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-    }
-    
     .grid-mode .check-icon { top: 8px !important; right: 8px !important; width: 24px !important; height: 24px !important; }
 
+    @keyframes popCheck { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 </style>
-
-
 </head>
 <body>
     
