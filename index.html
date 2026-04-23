@@ -260,7 +260,7 @@
         .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
         /* ============================================================
-           SECCIÓN CORREGIDA: GRID RESPONSIVA UNIFORME
+           SECCIÓN CORREGIDA: GRID RESPONSIVA UNIFORME Y PREMIUM
            ============================================================ */
         .container.grid-mode { 
             display: grid; 
@@ -290,6 +290,7 @@
             height: 100%;
             width: 100%;
             justify-content: space-between; 
+            position: relative; /* Importante para el badge superior */
         }
 
         .grid-mode .service-logo { 
@@ -319,6 +320,7 @@
             display: flex;
             flex-direction: column;
             align-items: center; 
+            padding-top: 10px;
         }
 
         .grid-mode .price-tag { 
@@ -329,11 +331,20 @@
             -webkit-text-fill-color: initial;
         }
 
-        /* ETIQUETA PREMIUM TIPO BOTÓN ENCIMA DEL PRECIO */
+        /* ************************************************************
+           LA CORRECCIÓN PARA EL PREMIUM EN CUADRÍCULA
+           ************************************************************ */
         .grid-mode .premium::after {
+            /* 1. ANULA EL POSICIONAMIENTO ABSOLUTO DE LA LISTA */
             position: static !important;
+            top: auto !important;
+            right: auto !important;
+            
+            /* 2. LO CONVIERTE EN UN BLOQUE PARA IR ENCIMA DEL PRECIO */
             display: inline-block !important;
             content: 'PREMIUM' !important;
+            
+            /* 3. ESTILO DE BOTÓN AMARILLO (COMO EN LA FOTO) */
             font-size: 0.55rem !important;
             color: #f4d03f !important;
             border: 1px solid #f4d03f !important;
@@ -341,19 +352,21 @@
             border-radius: 5px !important;
             margin-bottom: 5px !important;
             background: rgba(244, 208, 63, 0.05) !important;
+            letter-spacing: 1px !important;
             width: fit-content !important;
         }
 
-        /* CENTRADO DE BANNER "MÁS SOLICITADO" */
+        /* CENTRADO DE BANNER "MÁS SOLICITADO" O "OFERTA" */
         .grid-mode .service-item.oferta .badge-oferta {
             left: 50% !important;
             transform: translateX(-50%) !important;
             width: 85% !important; 
             text-align: center !important;
             top: 0 !important;
+            z-index: 10;
         }
 
-        .grid-mode .check-icon { top: 8px; right: 8px; width: 22px; height: 22px; }
+        .grid-mode .check-icon { top: 8px; right: 8px; width: 22px; height: 22px; z-index: 20; }
     </style>
 </head>
 <body>
