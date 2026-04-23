@@ -182,36 +182,45 @@
     }  
 
     .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
-
-  /* --- INICIO CAMBIO SELECCIÓN PROFESIONAL --- */
+/* --- INICIO CAMBIO SELECCIÓN PROFESIONAL --- */
     
     @keyframes popCheck { 
         0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
         100% { transform: scale(1) rotate(0); opacity: 1; } 
     }
 
-    /* Selector de alta prioridad para cualquier tarjeta seleccionada */
+    /* 1. ESTADO SELECCIONADO GENERAL (Resplandor y hundimiento) */
     .service-link.selected .service-card { 
-        border: 2px solid var(--primary) !important; 
-        /* Usamos un fondo más vibrante para que no se vea negro/opaco */
-        background: rgba(0, 212, 255, 0.25) !important; 
         transform: scale(0.96) translateY(2px) !important; 
-        /* Doble resplandor: Exterior fuerte e Interior suave para iluminar el contenido */
-        box-shadow: 0 0 25px rgba(0, 212, 255, 0.6), 
-                    inset 0 0 15px rgba(255, 255, 255, 0.2) !important;
         transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 50;
+        /* Fondo muy sutil para que NO se vea opaco */
+        background: rgba(255, 255, 255, 0.05) !important; 
     }
 
-    /* Especial para Premium: Si quieres que mantenga el color Oro o cambie a Turquesa */
+    /* 2. BORDE Y BRILLO PARA TARJETAS NORMALES SELECCIONADAS */
+    .service-link.selected:not(.premium) .service-card {
+        border: 2px solid var(--primary) !important;
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.6), 
+                    inset 0 0 15px rgba(0, 212, 255, 0.2) !important;
+    }
+
+    /* 3. BORDE Y BRILLO PARA TARJETAS PREMIUM SELECCIONADAS (Respeta el Dorado) */
     .service-link.premium.selected .service-card { 
-        border: 2px solid var(--primary) !important; /* Cambiamos a celeste para que se vea como tu foto */
-        background: rgba(0, 212, 255, 0.25) !important;
-        box-shadow: 0 0 30px rgba(0, 212, 255, 0.7), 
-                    inset 0 0 20px rgba(255, 255, 255, 0.2) !important;
+        border: 2px solid var(--vip) !important; 
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 
+                    inset 0 0 15px rgba(212, 175, 55, 0.2) !important;
     }
 
-    /* Diseño del Check animado */
+    /* 4. EVITAR QUE EL INTERIOR SE VEA OPACO */
+    .service-link.selected .service-text h3,
+    .service-link.selected .price-tag,
+    .service-link.selected .service-logo {
+        filter: brightness(1.2); /* Aclara el texto y logo al seleccionar */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    /* 5. DISEÑO DEL CHECK */
     .check-icon { 
         position: absolute; 
         top: -5px; 
@@ -228,12 +237,16 @@
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    /* Mostrar check con prioridad */
     .service-link.selected .check-icon { 
         display: flex !important;
         background: var(--primary) !important;
         color: #000 !important;
         animation: popCheck 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    /* Check dorado si es premium */
+    .service-link.premium.selected .check-icon { 
+        background: var(--vip) !important;
     }
     
     /* --- FIN CAMBIO SELECCIÓN PROFESIONAL --- */
