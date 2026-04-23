@@ -463,6 +463,23 @@ body {
     padding: 10px 5px;
     z-index: 100;
 }
+        @media (min-width: 1024px) {
+    /* Si el contenedor NO tiene la clase .grid-mode, se comporta como lista estrecha */
+    .container:not(.grid-mode) {
+        max-width: 700px !important; /* Ajusta este número a tu gusto para el ancho de la lista */
+        margin: 0 auto;
+    }
+
+    /* Solo cuando tenga .grid-mode se expande a los costados */
+    .container.grid-mode {
+        max-width: 95% !important;
+    }
+}
+        /* Esto asegura que en modo lista las tarjetas no se deformen */
+.container:not(.grid-mode) .service-card {
+    width: 100%;
+    max-width: 100%;
+}
         /* ===========================================
    EFECTO DE BRILLO AL PASAR EL MOUSE (HOVER)
    =========================================== */
