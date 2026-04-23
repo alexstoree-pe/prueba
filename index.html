@@ -283,9 +283,8 @@
             align-items: center; 
             text-align: center; 
             padding: 15px 10px; 
-            min-height: 190px; 
+            min-height: 180px; 
             justify-content: flex-start;
-            transition: all 0.4s ease;
         }
 
         .grid-mode .service-logo { 
@@ -298,25 +297,16 @@
         .grid-mode .service-text h3 { 
             font-size: 0.85rem; 
             line-height: 1.2;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
+        /* En celular, la descripción siempre está visible para que sepan qué compran */
         .grid-mode .manual-desc { 
             display: block !important; 
-            max-height: 0; 
-            opacity: 0; 
-            overflow: hidden; 
-            transition: all 0.3s ease-in-out; 
+            opacity: 1; 
             font-size: 0.65rem;
             color: #aaa;
-            padding: 0 4px;
-        }
-
-        .grid-mode .service-item:hover .manual-desc, 
-        .grid-mode .service-item.selected .manual-desc { 
-            max-height: 100px; 
-            opacity: 1; 
-            margin-top: 8px; 
+            margin-top: 4px;
             margin-bottom: 8px;
         }
 
@@ -326,7 +316,7 @@
             display: flex;
             flex-direction: column;
             align-items: center; 
-            padding-top: 10px;
+            padding-top: 5px;
         }
 
         .grid-mode .price-tag { font-size: 1.1rem; }
@@ -341,6 +331,7 @@
     </style>
 </head>
 <body>
+    
 <header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
