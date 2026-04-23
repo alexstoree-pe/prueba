@@ -11,143 +11,101 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#050505">
 
-    <meta property="og:title" content="Distribución VIP | Alex Store">
-    <meta property="og:description" content="Precios exclusivos para distribuidores. Panel de servicios streaming 24/7.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/distribuidores/"> 
-    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-   <style>
-    /* --- Base Fixes --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    /* Evita que el contenido se pegue a los bordes en pantallas grandes */
-    .container { 
-        padding: 20px 15px; 
-        max-width: 1200px; /* Aumentado para PC */
-        margin: 0 auto; 
-        transition: all 0.3s ease;
-        width: 100%;
-    }
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0055ff;
+            --dark: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --promo: #f4d03f;
+        }
 
-    /* Estructura Base de Tarjeta (Modo Lista) */
-    .service-link { 
-        text-decoration: none; 
-        color: inherit; 
-        display: block; 
-        margin-bottom: 20px; 
-        width: 100%; 
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--dark); color: white; visibility: hidden; }
 
-    .service-card { 
-        background: #0f0f0f; 
-        border-radius: 20px; 
-        padding: 20px; 
-        display: flex; 
-        align-items: center; 
-        border: 1px solid var(--glass-border); 
-        gap: 15px; 
-        position: relative;
-    }
+        /* --- Contenedor Principal --- */
+        .container { 
+            padding: 20px 15px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            transition: all 0.3s ease;
+            width: 100%;
+        }
 
-    /* ================================================================
-       CORRECCIÓN CRÍTICA: MODO GRID (CUADRÍCULA)
-       ================================================================ */
+        /* --- Estilos Modo Lista (Default) --- */
+        .service-link { text-decoration: none; color: inherit; display: block; margin-bottom: 15px; }
+        .service-card { 
+            background: var(--glass); 
+            border-radius: 20px; 
+            padding: 18px; 
+            display: flex; 
+            align-items: center; 
+            border: 1px solid var(--glass-border); 
+            gap: 15px; 
+            position: relative;
+            transition: 0.3s;
+        }
+        .service-logo { width: 60px; height: 60px; border-radius: 15px; object-fit: cover; }
+        .service-text { flex-grow: 1; }
+        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
 
-    .container.grid-mode {
-        display: grid !important;
-        /* En móvil 2 columnas, en PC 4 columnas */
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
-        gap: 15px !important;
-    }
+        /* --- BOTONES DE VISTA --- */
+        .btn-view.active {
+            background: var(--primary) !important;
+            color: #000 !important;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+        }
 
-    /* Forzar títulos a ocupar todo el ancho */
-    .grid-mode .category-title {
-        grid-column: 1 / -1 !important;
-        width: 100%;
-    }
-
-    /* Ajuste de tarjeta en Grid */
-    .grid-mode .service-card {
-        flex-direction: column !important;
-        text-align: center !important;
-        padding: 40px 10px 15px !important;
-        height: 100% !important;
-        justify-content: space-between;
-    }
-
-    .grid-mode .service-logo {
-        width: 70px !important;
-        height: 70px !important;
-        margin: 0 auto !important;
-    }
-
-    .grid-mode .service-text h3 {
-        font-size: 0.9rem !important;
-        margin-top: 10px;
-    }
-
-    /* Corregir Banners que se estiran */
-    .grid-mode .badge-oferta {
-        width: 100% !important;
-        left: 0 !important;
-        border-radius: 0 !important;
-        clip-path: none !important;
-        text-align: center;
-    }
-
-    /* Corregir Precio en Grid */
-    .grid-mode .price-container {
-        margin: 10px 0 0 0 !important;
-        align-items: center !important;
-        width: 100%;
-    }
-
-    /* Ajuste para pantallas de PC */
-    @media (min-width: 768px) {
+        /* ================================================================
+           MODO GRID (CUADRÍCULA) - INTEGRACIÓN
+           ================================================================ */
         .container.grid-mode {
-            grid-template-columns: repeat(4, 1fr) !important;
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
         }
-    }
-</style>
 
-    <script>
-    (function() {
-        const acceso = sessionStorage.getItem("acceso_distribuidor");
-        if (acceso === "true") {
-            document.documentElement.style.visibility = "visible";
-            document.addEventListener("DOMContentLoaded", () => {
-                document.body.style.visibility = "visible";
-            });
-        } else {
-            document.addEventListener("DOMContentLoaded", () => {
-                const modal = document.getElementById('modal-login-distribuidor');
-                if (modal) {
-                    modal.style.display = 'flex';
-                    document.body.style.visibility = 'hidden'; 
-                    modal.style.visibility = 'visible';
-                }
-            });
-        }
-    })();
+        .grid-mode .category-title { grid-column: 1 / -1 !important; }
+        .grid-mode .service-link { margin-bottom: 0; }
 
-    function validarAcceso() {
-        const inputPass = document.getElementById('input-dist-pass');
-        const PIN_CORRECTO = "dis";
-        if (inputPass.value === PIN_CORRECTO) {
-            sessionStorage.setItem("acceso_distribuidor", "true");
-            location.reload();
-        } else {
-            alert("Acceso denegado.");
-            inputPass.value = "";
-            inputPass.focus();
+        .grid-mode .service-card {
+            flex-direction: column !important;
+            text-align: center !important;
+            padding: 25px 10px 15px !important;
+            min-height: 180px;
+            justify-content: center;
         }
-    }
-    </script>
+
+        .grid-mode .service-logo {
+            width: 65px !important;
+            height: 65px !important;
+            margin-bottom: 10px;
+        }
+
+        .grid-mode .service-text h3 { font-size: 0.85rem !important; }
+        .grid-mode .price-container { margin-top: 10px; }
+
+        /* Ajuste para PC */
+        @media (min-width: 768px) {
+            .container.grid-mode { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+
+        /* Estilos de Header y Filtros (Simplificado para el ejemplo) */
+        header { text-align: center; padding: 20px; background: rgba(10,10,10,0.8); backdrop-filter: blur(10px); sticky; top:0; z-index: 100; }
+        .brand-logo { width: 60px; border-radius: 15px; }
+        .btn-filter { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+        .btn-filter.active { background: var(--primary); color: black; }
+        
+        /* Modal Pass */
+        .modal-pass { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+        .modal-content-pass { background: #111; padding: 40px; border-radius: 30px; text-align: center; border: 1px solid #333; }
+        #input-dist-pass { background: #000; border: 1px solid #444; color: var(--primary); padding: 15px; width: 100%; border-radius: 10px; margin: 20px 0; text-align: center; font-size: 1.2rem; }
+    </style>
 </head>
 <body>
 
@@ -156,58 +114,23 @@
         <i class="fas fa-lock" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
         <h2 style="color:var(--primary)">ACCESO PRIVADO</h2>
         <input type="password" id="input-dist-pass" placeholder="****" maxlength="8" onkeydown="if(event.key==='Enter') validarAcceso()">
-        <button onclick="validarAcceso()" class="btn-universal btn-promo-distri" style="width:100%; cursor:pointer;">
-            ENTRAR
-        </button>
+        <button onclick="validarAcceso()" style="width:100%; padding: 15px; background: var(--primary); border: none; border-radius: 10px; font-weight: 800; cursor: pointer;">ENTRAR</button>
     </div>
 </div>
 
-<div id="custom-alert">
-    <i class="fa-solid fa-triangle-exclamation" style="color: var(--primary); font-size: 1.2rem;"></i>
-    <span style="font-weight: 700; font-size: 0.9rem; text-transform: uppercase;">Selecciona una plataforma</span>
-</div>
-
-<header data-aos="fade-down">
+<header>
     <img src="../img/logo.webp" class="brand-logo">
     <h1>SOLO DISTRIBUIDORES</h1>
-    <div class="garantia-header">
-        <div class="garantia-mini-item"><i class="fa-solid fa-headset"></i><p>Soporte<br>24/7</p></div>
-        <div class="garantia-mini-item"><i class="fa-solid fa-shield-halved"></i><p>Garantía<br>Total</p></div>
-        <div class="garantia-mini-item"><i class="fa-solid fa-bolt"></i><p>Entrega<br>Rápida</p></div>
-    </div>
     
-    <div class="search-container">
-        <div class="search-wrapper">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="buscador" placeholder="Buscar plataforma..." onkeyup="filtrarPlataformas()">
+    <div class="filter-wrapper" style="margin: 20px 0;">
+        <div class="filter-container" id="filterScroll" style="display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none;">
+            <button class="btn-filter active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+            <button class="btn-filter" onclick="filtrarCategoria('ZONA PERFILES', this)">PERFILES</button>
+            <button class="btn-filter" onclick="filtrarCategoria('ZONA CUENTAS COMPLETAS', this)">CUENTAS COMPLETAS</button>
         </div>
     </div>
 
-    <div class="filter-wrapper" style="position: relative; max-width: 600px; margin: 0 auto 20px; display: flex; align-items: center;">
-    
-    <div class="arrow-filter" onclick="scrollFilters(-100)" 
-         style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); z-index: 10; cursor: pointer; color: #00e5ff; font-size: 18px; background: rgba(0,0,0,0.6); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid #333;">
-         &#10094;
-    </div>
-
-    <div class="filter-container" id="filterScroll" 
-         style="padding: 10px 40px; display: flex; align-items: center; gap: 10px; overflow-x: auto; white-space: nowrap; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; width: 100%;">
-        
-        <button class="btn-filter active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
-        <button class="btn-filter" onclick="filtrarCategoria('ZONA PERFILES', this)">PERFILES</button>
-        <button class="btn-filter" onclick="filtrarCategoria('ZONA CUENTAS COMPLETAS', this)">CUENTAS COMPLETAS</button>
-        <button class="btn-filter" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
-        <button class="btn-filter" onclick="filtrarCategoria('APPS DE PAGA', this)">APPS PAGA IPTV</button> 
-        <button class="btn-filter" onclick="filtrarCategoria('MUSICA', this)">MUSICA Y MAS</button> 
-    </div>
-
-    <div class="arrow-filter" onclick="scrollFilters(100)" 
-         style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); z-index: 10; cursor: pointer; color: #00e5ff; font-size: 18px; background: rgba(0,0,0,0.6); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid #333;">
-         &#10095;
-    </div>
-</div>
-
-    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 5px; padding-bottom: 10px;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
         <span style="font-size: 0.6rem; font-weight: 800; color: #555; letter-spacing: 1px;">VISTA:</span>
         <div style="display: flex; background: var(--glass); padding: 4px; border-radius: 10px; border: 1px solid var(--glass-border);">
             <button class="btn-view active" id="btn-list" onclick="cambiarVista('list', this)" 
@@ -222,15 +145,24 @@
     </div>
 </header>
 
-<div class="grid-botones">
-    <a href="../" class="btn-universal btn-inicio"><i class="fa-solid fa-house"></i> VOLVER AL INICIO</a>
-    <a href="../distribuidores-promos/" class="btn-universal btn-promo-distri"><i class="fa-solid fa-crown"></i> PROMOS DISTRIBUIDORES</a>
+<div class="container" id="main-container">
+    <h2 class="category-title" style="margin: 20px 0 10px; font-size: 0.8rem; color: var(--primary); letter-spacing: 2px;">PRODUCTOS DESTACADOS</h2>
+    
+    <a href="#" class="service-link">
+        <div class="service-card">
+            <img src="../img/logo.webp" class="service-logo">
+            <div class="service-text">
+                <h3>NETFLIX 1 PERFIL</h3>
+                <p style="font-size: 0.7rem; color: #777;">Garantía 30 días</p>
+            </div>
+            <div class="price-container">
+                <span class="price-tag">S/ 9.00</span>
+            </div>
+        </div>
+    </a>
 </div>
 
-    <div class="contenedor-iptv">
-    <a href="../iptv/" class="btn-universal btn-iptv">
-        <i class="fa-solid fa-tv" style="margin-right: 8px;"></i> SERVICIO IPTV</a>
-</div>
+
     
     <div class="container" id="lista-productos">
 
@@ -736,26 +668,22 @@
     
     let carrito = [];
 
-    function cambiarVista(modo, btn) {
-    const contenedor = document.querySelector('.container');
-    const botones = document.querySelectorAll('.btn-view');
-    
-    // 1. Cambiar estado visual de los botones
-    botones.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    // 2. Aplicar o quitar la clase de cuadrícula
-    if (modo === 'grid') {
-        contenedor.classList.add('grid-mode');
-    } else {
-        contenedor.classList.remove('grid-mode');
+     // FUNCIÓN PARA CAMBIAR VISTA (INTEGRADA)
+    function cambiarVista(vista, btn) {
+        const container = document.getElementById('main-container');
+        const buttons = document.querySelectorAll('.btn-view');
+        
+        // Quitar clase active de todos los botones
+        buttons.forEach(b => b.classList.remove('active'));
+        // Agregar al seleccionado
+        btn.classList.add('active');
+
+        if (vista === 'grid') {
+            container.classList.add('grid-mode');
+        } else {
+            container.classList.remove('grid-mode');
+        }
     }
-    
-    // 3. Refrescar animaciones AOS para evitar que los cuadros queden invisibles
-    if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-    }
-}
     // --- BUSCADOR ---
     function filtrarPlataformas() {
     // Al empezar a escribir, reseteamos los filtros visualmente
