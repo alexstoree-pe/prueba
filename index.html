@@ -36,16 +36,14 @@
             --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
         }
 
-        /* Cambia el display:none por opacidad para evitar bloqueos visuales */
-html { 
-    background-color: var(--dark); 
-    scroll-behavior: smooth; 
-}
+        html { 
+            background-color: var(--dark); 
+            scroll-behavior: smooth; 
+        }
 
-/* Esta clase asegurará que el contenido se oculte correctamente */
-.contenido-protegido {
-    display: none !important;
-}
+        .contenido-protegido {
+            display: none !important;
+        }
 
         @keyframes shine-red { 
             0%, 100% { text-shadow: 0 0 10px var(--danger-neon), 0 0 20px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
@@ -53,28 +51,27 @@ html {
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        /* 1. Ocultamos TODO el cuerpo por defecto para evitar el "parpadeo" de botones */
-body { 
-    font-family: 'Poppins', sans-serif; 
-    background: #0a0a0a; 
-    color: white; 
-    padding-bottom: 200px; 
-    overflow-x: hidden;
-    visibility: hidden; /* <--- Esto es la clave: invisible hasta que el PIN sea correcto */
-}
 
-/* 2. El modal debe ser lo ÚNICO visible cuando no hay acceso */
-.modal-pass { 
-    display: none; 
-    position: fixed; 
-    inset: 0; 
-    background: rgba(0,0,0,0.98); 
-    backdrop-filter: blur(25px); 
-    z-index: 9999; 
-    justify-content: center; 
-    align-items: center;
-    visibility: visible; /* <--- Esto permite que el modal se vea aunque el body esté oculto */
-}
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #0a0a0a; 
+            color: white; 
+            padding-bottom: 200px; 
+            overflow-x: hidden;
+            visibility: hidden;
+        }
+
+        .modal-pass { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.98); 
+            backdrop-filter: blur(25px); 
+            z-index: 9999; 
+            justify-content: center; 
+            align-items: center;
+            visibility: visible;
+        }
         .modal-content-pass { 
             background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
             border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
@@ -107,58 +104,57 @@ body {
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
         .btn-promo-distri { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
         .btn-iptv { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-        .contenedor-iptv { display: flex; justify-content: center; padding: 0 15px; margin-top: -8px; /* Reduce el espacio con los botones de arriba si es necesario */ margin-bottom: 20px; }
+        .contenedor-iptv { display: flex; justify-content: center; padding: 0 15px; margin-top: -8px; margin-bottom: 20px; }
 
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
-        /* TRANSICIÓN SUAVE DEL BUSCADOR */
         .service-link { 
             position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer;
             transition: opacity 0.4s ease, transform 0.4s ease, margin-bottom 0.4s ease;
         }
         
-        /* CLASE PARA OCULTAR CON SUAVE FADE */
         .oculto-busqueda {
             display: none !important;
             opacity: 0;
             transform: scale(0.95);
             margin-bottom: 0;
         }
-        .oculto-filtro {
-    display: none !important;
-}
 
         .filter-container {
-  display: flex;
-  overflow-x: auto; /* Permite el scroll horizontal */
-  white-space: nowrap; /* Evita que los botones salten a la siguiente línea */
-  gap: 10px; /* Espacio entre botones */
-  padding: 10px 5px;
-  scrollbar-width: none; /* Oculta la barra en Firefox */
-  -ms-overflow-style: none; /* Oculta la barra en IE/Edge */
-}
+          display: flex;
+          overflow-x: auto; 
+          white-space: nowrap; 
+          gap: 10px; 
+          padding: 10px 5px;
+          scrollbar-width: none; 
+          -ms-overflow-style: none; 
+        }
 
-/* Oculta la barra de scroll en Chrome, Safari y Opera */
-.filter-container::-webkit-scrollbar {
-  display: none;
-}
+        .filter-container::-webkit-scrollbar {
+          display: none;
+        }
 
-.filter-btn {
-  flex: 0 0 auto; /* Importante: evita que los botones se encojan */
-  padding: 8px 20px;
-  border-radius: 8px;
-  background-color: #1a1a1a; /* Ajusta al color de tu web */
-  color: white;
-  border: 1px solid #333;
-}
+        .btn-filter {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: #888;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
 
-.btn-filter.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-}
+        .btn-filter.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
         .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
         
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.15); transform: scale(0.97); }
@@ -167,29 +163,25 @@ body {
         .service-link.selected .check-icon { display: flex; }
 
         .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-        .service-link.premium.selected .service-card { border-color: var(--primary); }
+        
+        .badge-oferta { 
+            display: none; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            background: #f1c40f; 
+            color: #000; 
+            padding: 3px 20px 3px 10px; 
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            font-size: 0.55rem; 
+            font-weight: 900; 
+            z-index: 100;
+            text-transform: uppercase;
+        }
 
-        /* El badge está oculto por defecto */
-.badge-oferta { 
-    display: none; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    background: #f1c40f; 
-    color: #000; 
-    padding: 3px 20px 3px 10px; 
-    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-    font-size: 0.55rem; 
-    font-weight: 900; 
-    z-index: 100;
-    text-transform: uppercase;
-}
-
-
-/* SOLO si el contenedor tiene la clase "oferta", el badge se muestra */
-.service-link.oferta .badge-oferta {
-    display: block;
-}
+        .service-link.oferta .badge-oferta {
+            display: block;
+        }
 
         .premium-text { 
             display: none; 
@@ -216,11 +208,6 @@ body {
 
         .service-link.agotado { pointer-events: none; }
         .service-link.agotado .service-card { opacity: 0.3; border-color: var(--glass-border); filter: grayscale(1); }
-        .service-link.agotado .price-container,
-        .service-link.agotado .badge-oferta,
-        .service-link.agotado .status-badge,
-        .service-link.agotado .badge-renovacion,
-        .service-link.agotado .check-icon { display: none !important; }
         
         .service-link.agotado::after { 
             content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
@@ -229,205 +216,136 @@ body {
             z-index: 200; background: #000;
         }
 
-        .floating-btn { 
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
-            background: linear-gradient(135deg, #25d366, #128c7e); color: white; 
-            padding: 0; border-radius: 22px; width: 92%; max-width: 480px; 
-            z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .oculto-filtro {
+            display: none !important;
+        }
+
+        .service-link:not(.oculto-filtro) {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* ================================================================
+           CONTROL DE VISTA CUADRADA (GRID MODE CORREGIDO)
+           ================================================================ */
+
+        .container.grid-mode {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 10px;
+            max-width: 100%;
+        }
+
+        .grid-mode .service-card {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px 10px;
+            height: 100%;
+            gap: 10px;
+        }
+
+        .grid-mode .service-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+        }
+
+        .grid-mode .service-text h3 {
+            font-size: 0.9rem;
+            line-height: 1.2;
+        }
+
+        .grid-mode .manual-desc {
+            font-size: 0.65rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .cart-content-wrapper { display: flex; align-items: center; width: 100%; height: 70px; }
-
-        .btn-send-order { flex-grow: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; cursor: pointer; height: 100%; }
-
-        .btn-clear-cart {
-            background: rgba(255, 0, 0, 0.2); color: #ff4d4d; border: none;
-            width: 50px; height: 50px; border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.3s; margin-left: 10px; z-index: 3001;
+        .grid-mode .price-container {
+            margin-left: 0;
+            align-items: center;
+            margin-top: auto;
         }
 
-        #custom-alert {
-            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
-            background: #111; border: 1.5px solid var(--primary);
-            padding: 15px 30px; border-radius: 20px; z-index: 5000;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.9);
-            display: flex; align-items: center; gap: 15px;
-            transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        .grid-mode .price-tag {
+            font-size: 1.2rem;
         }
-        #custom-alert.active { top: 30px; }
-        .btn-filter {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    color: #888;
-    padding: 8px 18px;
-    border-radius: 10px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: uppercase;
-}
 
-.btn-filter.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-}
+        /* CORRECCIÓN: BANNER CENTRADO COMO EN LA FOTO 2 */
+        .grid-mode .service-link.oferta .badge-oferta {
+            display: block !important;
+            position: absolute;
+            top: 0;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 90% !important;
+            text-align: center;
+            padding: 2px 0;
+            clip-path: none !important;
+            border-radius: 0 0 10px 10px;
+            font-size: 0.55rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
 
-/* Ocultar categorías por filtro */
-.oculto-filtro {
-    display: none !important;
-}
-        /* Esto asegura que los productos filtrados siempre sean visibles */
-.service-link:not(.oculto-filtro) {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
+        /* CORRECCIÓN: ETIQUETA PREMIUM VISIBLE */
+        .grid-mode .premium .premium-text {
+            display: inline-block !important;
+            position: absolute;
+            right: 10px !important;
+            top: 35px !important; /* Debajo del banner */
+            margin-right: 0;
+            font-size: 0.45rem;
+            padding: 1px 5px;
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--vip);
+            z-index: 20;
+        }
 
-.oculto-filtro {
-    display: none !important;
-}
-        /* ================================================================
-   NUEVA SECCIÓN: CONTROL DE VISTA CUADRADA (GRID MODE)
-   ================================================================ */
+        .grid-mode .service-link.oferta.premium .premium-text {
+            top: 42px !important;
+        }
 
-/* 1. Estructura del contenedor en modo Grid */
-.container.grid-mode {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas exactas */
-    gap: 12px;
-    padding: 10px;
-}
+        .grid-mode .check-icon {
+            top: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+        }
 
-/* 2. Adaptación de la tarjeta al modo cuadrado */
-.grid-mode .service-card {
-    flex-direction: column; /* Elementos uno debajo de otro */
-    align-items: center;
-    text-align: center;
-    padding: 15px 10px;
-    height: 100%;
-    gap: 10px;
-}
+        .grid-mode .service-link.agotado::after {
+            width: 80%;
+            right: auto;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.6rem;
+        }
 
-/* 3. Ajuste de Logo y Texto en modo Grid */
-.grid-mode .service-logo {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 5px;
-}
-
-.grid-mode .service-text h3 {
-    font-size: 0.9rem;
-    line-height: 1.2;
-}
-
-.grid-mode .manual-desc {
-    font-size: 0.65rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Máximo 2 líneas de descripción */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* 4. Precio y Status en modo Grid */
-.grid-mode .price-container {
-    margin-left: 0;
-    align-items: center;
-    margin-top: auto; /* Empuja el precio al fondo */
-}
-
-.grid-mode .price-tag {
-    font-size: 1.2rem;
-}
-
-.grid-mode .status-badge {
-    justify-content: center;
-    font-size: 0.5rem;
-}
-
-/* 5. CORRECCIÓN DEL BANNER "MÁS SOLICITADO" (Centrado Mágico) */
-.grid-mode .service-link.oferta .badge-oferta {
-    display: block;
-    position: absolute;
-    top: -5px;
-    left: 50% !important;
-    transform: translateX(-50%) !important; /* Centrado perfecto */
-    width: 85% !important; /* Evita que choque con los bordes redondeados */
-    text-align: center;
-    padding: 3px 5px;
-    clip-path: none; /* Quitamos el clip-path para que sea un banner recto y limpio */
-    border-radius: 8px;
-    font-size: 0.55rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* 6. CORRECCIÓN DE ETIQUETA "PREMIUM" EN GRID */
-.grid-mode .premium .premium-text {
-    position: absolute;
-    right: 8px !important;
-    top: 35px !important; /* Se posiciona debajo del banner amarillo */
-    margin-right: 0;
-    font-size: 0.45rem;
-    padding: 1px 4px;
-    background: rgba(0, 0, 0, 0.7) !important;
-    backdrop-filter: blur(4px);
-    border: 1px solid var(--vip);
-    z-index: 15;
-}
-
-/* Si tiene oferta y premium a la vez, bajamos el premium un poco más */
-.grid-mode .service-link.oferta.premium .premium-text {
-    top: 42px !important;
-}
-
-/* 7. Ajuste del Check (✓) en modo Grid */
-.grid-mode .check-icon {
-    top: 5px;
-    right: 5px;
-    width: 24px;
-    height: 24px;
-    font-size: 0.7rem;
-}
-
-/* 8. Ajuste de "SIN STOCK" en modo Grid */
-.grid-mode .service-link.agotado::after {
-    width: 80%;
-    right: auto;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-size: 0.6rem;
-    padding: 5px;
-}
         .btn-view.active {
-    background: var(--primary) !important;
-    color: #000 !important;
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
-}
+            background: var(--primary) !important;
+            color: #000 !important;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
     </style>
 
     <script>
-    // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
     (function() {
         const acceso = sessionStorage.getItem("acceso_distribuidor");
-        
         if (acceso === "true") {
-            // Si tiene acceso, hacemos todo visible de inmediato
             document.documentElement.style.visibility = "visible";
             document.addEventListener("DOMContentLoaded", () => {
                 document.body.style.visibility = "visible";
             });
         } else {
-            // Si no tiene acceso, esperamos al DOM solo para mostrar el modal
             document.addEventListener("DOMContentLoaded", () => {
                 const modal = document.getElementById('modal-login-distribuidor');
                 if (modal) {
                     modal.style.display = 'flex';
-                    // Mantenemos el body oculto pero el modal visible
                     document.body.style.visibility = 'hidden'; 
                     modal.style.visibility = 'visible';
                 }
@@ -437,12 +355,9 @@ body {
 
     function validarAcceso() {
         const inputPass = document.getElementById('input-dist-pass');
-        const pass = inputPass.value;
-        const PIN_CORRECTO = "dis"; // Tu PIN aquí
-
-        if (pass === PIN_CORRECTO) {
+        const PIN_CORRECTO = "dis";
+        if (inputPass.value === PIN_CORRECTO) {
             sessionStorage.setItem("acceso_distribuidor", "true");
-            // Al recargar, entrará en el primer "if" y todo será visible
             location.reload();
         } else {
             alert("Acceso denegado.");
@@ -450,7 +365,7 @@ body {
             inputPass.focus();
         }
     }
-</script>
+    </script>
 </head>
 <body>
 
