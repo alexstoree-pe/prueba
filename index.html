@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
- <style>
+    <style>
     :root {
         --primary: #00d4ff;
         --secondary: #0055ff;
@@ -140,7 +140,6 @@
 
     .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
     
-    /* UNIFICADO: service-card con overflow y transición correcta */
     .service-card { 
         background: var(--glass); 
         border-radius: 22px; 
@@ -151,7 +150,8 @@
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         gap: 15px; 
         position: relative; 
-        overflow: hidden; /* Esto integra el badge dentro de los bordes redondeados */
+        overflow: hidden; /* CRUCIAL: Mantiene el badge dentro del radio del borde */
+        z-index: 1;
     }
 
     .service-item:hover .service-card {
@@ -201,7 +201,7 @@
         transform: scale(0.98);
     }
 
-    /* Badge corregido para ser parte del dinamismo */
+    /* Badge: Posicionamiento absoluto correcto dentro de .service-card */
     .badge-oferta { 
         position: absolute; 
         top: 0; 
@@ -210,12 +210,11 @@
         background: var(--promo); 
         color: #000; 
         padding: 4px 0; 
-        border-radius: 0; 
         font-size: 0.6rem; 
         font-weight: 800; 
         text-transform: uppercase; 
         display: none; 
-        z-index: 11; 
+        z-index: 10; 
         text-align: center;
         transition: 0.3s ease; 
     }
@@ -312,7 +311,7 @@
         height: 100% !important;
         min-height: 330px;
         text-align: center;
-        padding-top: 35px !important; 
+        padding-top: 40px !important; /* Espacio para que el badge no pise el logo */
     }
 
     .grid-mode .service-logo {
@@ -355,12 +354,12 @@
 
     .grid-mode .price-tag { font-size: 1.2rem !important; color: var(--primary) !important; }
 
+    /* Corrección del badge en Grid */
     .grid-mode .badge-oferta {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
-        transform: none !important;
         border-radius: 0 !important;
         margin: 0 !important;
     }
@@ -373,7 +372,6 @@
         }
     }
 
-    /* Sincronización final de animaciones */
     .service-item.selected .badge-oferta {
         transform: scale(1);
     }
