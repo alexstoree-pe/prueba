@@ -142,12 +142,11 @@ header p[style*="letter-spacing: 5px"] {
         .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 15px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
 
         .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
-        .service-card {
-    /* ... tus estilos actuales ... */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
+        .service-card { 
+            background: var(--glass); border-radius: 22px; padding: 18px; 
+            display: flex; align-items: center; border: 1px solid var(--glass-border); 
+            transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
+        }
         /* Este código detecta cuando el mouse pasa por encima */
 .service-item:hover .service-card {
     border-color: var(--primary) !important; /* El borde se vuelve azul brillante */
