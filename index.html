@@ -173,6 +173,39 @@
     </head>
 <body>
 
+    <script>
+        (function() {
+            const acceso = sessionStorage.getItem("acceso_distribuidor");
+            if (acceso === "true") {
+                document.documentElement.style.visibility = "visible";
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.style.visibility = "visible";
+                });
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    const modal = document.getElementById('modal-login-distribuidor');
+                    if (modal) {
+                        modal.style.display = 'flex';
+                        document.body.style.visibility = 'hidden'; 
+                        modal.style.visibility = 'visible';
+                    }
+                });
+            }
+        })();
+
+        function validarAcceso() {
+            const inputPass = document.getElementById('input-dist-pass');
+            if (inputPass.value === "dis") {
+                sessionStorage.setItem("acceso_distribuidor", "true");
+                location.reload();
+            } else {
+                alert("Acceso denegado.");
+                inputPass.value = "";
+                inputPass.focus();
+            }
+        }
+    </script>
+    
 <div id="modal-login-distribuidor" class="modal-pass" style="display:none;">
     <div class="modal-content-pass">
         <i class="fas fa-lock" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
