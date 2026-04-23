@@ -273,6 +273,26 @@ header p[style*="letter-spacing: 5px"] {
     color: #000;
     border-color: var(--primary);
 }
+        /* Cuando un item es seleccionado, que brille un poco */
+.service-item.selected .service-card {
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    border-color: var(--primary);
+}
+
+/* Transición suave para cuando los productos aparecen/desaparecen */
+.service-item {
+    transition: transform 0.3s ease, opacity 0.3s ease, display 0.3s allow-discrete;
+}
+
+/* Estilo del modal de contraseña para que se vea imponente */
+#input-pass {
+    border: 2px solid #222;
+    transition: 0.3s;
+}
+#input-pass:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+}
     </style>
 </head>
 <body>
@@ -819,6 +839,8 @@ function actualizarTitulos() {
     // >>> EL CÓDIGO DE LAS FLECHAS PONLO AQUÍ AL FINAL <<<
 const scrollContainer = document.getElementById('filterScroll');
 const indicators = document.querySelectorAll('.scroll-indicator');
+    indicators[0].onclick = () => scrollContainer.scrollBy({ left: -150, behavior: 'smooth' });
+indicators[1].onclick = () => scrollContainer.scrollBy({ left: 150, behavior: 'smooth' });
 
 if (scrollContainer) {
     // Esto detecta cuando el usuario mueve los botones con el dedo
