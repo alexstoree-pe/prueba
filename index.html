@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlexStore / catalogo-premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --gh-bg: #0d1117;
-            --gh-box-bg: #161b22;
+            --gh-side: #010409;
             --gh-border: #30363d;
-            --gh-text: #c9d1d9;
             --gh-blue: #58a6ff;
-            --gh-gray: #8b949e;
-            --primary: #00ff88; /* Tu color de marca para acentos */
+            --gh-text: #c9d1d9;
+            --primary-neon: #00d9ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,365 +23,327 @@
         body {
             background-color: var(--gh-bg);
             color: var(--gh-text);
-            font-family: 'Inter', -apple-system, sans-serif;
-            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Para que funcione el layout segmentado */
         }
 
-        /* --- ESTRUCTURA GITHUB --- */
-        .container-gh {
-            max-width: 1200px;
+        /* --- LAYOUT SEGMENTADO (VS CODE STYLE) --- */
+        .app-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            height: 100vh;
+        }
+
+        /* Panel Izquierdo (Explorador) */
+        .sidebar-explorer {
+            background: var(--gh-side);
+            border-right: 1px solid var(--gh-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 15px 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #8b949e;
+            letter-spacing: 1px;
+        }
+
+        .folder-title {
+            padding: 5px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: default;
+        }
+
+        .nav-item {
+            padding: 8px 30px;
+            font-size: 0.85rem;
+            color: #8b949e;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+
+        .nav-item:hover { background: #161b22; color: #fff; }
+        .nav-item.active { background: #1f2937; color: var(--gh-blue); border-left: 2px solid var(--gh-blue); }
+
+        /* Panel Derecho (Editor / Contenido) */
+        .main-editor {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .tabs-bar {
+            background: var(--gh-side);
+            display: flex;
+            border-bottom: 1px solid var(--gh-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab {
+            padding: 10px 25px;
+            background: var(--gh-bg);
+            border-right: 1px solid var(--gh-border);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-top: 1px solid var(--gh-blue);
+        }
+
+        /* --- CONTENIDO GITHUB STYLE --- */
+        .content-body {
+            padding: 40px 20px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            width: 100%;
         }
 
         .repo-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.25rem;
-            margin-bottom: 24px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
-        .repo-header strong { color: var(--gh-blue); cursor: pointer; }
-        .badge-public {
-            border: 1px solid var(--gh-border);
-            padding: 2px 12px;
-            border-radius: 20px;
+        .logo-heart {
+            width: 60px;
+            filter: drop-shadow(0 0 8px var(--primary-neon));
+        }
+
+        .repo-name { font-size: 1.2rem; font-weight: 600; }
+        .repo-name strong { color: var(--gh-blue); }
+
+        /* Botones Universales (Tus botones originales) */
+        .grid-botones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .btn-universal {
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
             font-size: 0.75rem;
-            color: var(--gh-gray);
-        }
-
-        /* --- EXPLORADOR DE ARCHIVOS (CATEGORÍAS) --- */
-        .file-explorer {
-            border: 1px solid var(--gh-border);
-            border-radius: 6px;
-            background-color: var(--gh-box-bg);
-            margin-bottom: 24px;
-        }
-
-        .file-explorer-header {
-            padding: 16px;
-            background-color: #161b22;
-            border-bottom: 1px solid var(--gh-border);
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-        }
-
-        .file-row {
-            display: grid;
-            grid-template-columns: 1.5fr 2fr 1fr;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--gh-border);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .file-row:last-child { border-bottom: none; }
-        .file-row:hover { background-color: #1c2128; }
-        .file-row i { color: var(--gh-gray); width: 20px; margin-right: 10px; }
-        .file-row .name { color: var(--gh-blue); font-weight: 500; }
-        .file-row .comment { color: var(--gh-gray); font-size: 0.85rem; }
-        .file-row .time { color: var(--gh-gray); text-align: right; font-size: 0.85rem; }
-
-        /* --- README AREA (CATÁLOGO) --- */
-        .readme-container {
-            border: 1px solid var(--gh-border);
-            border-radius: 6px;
-            background-color: var(--gh-bg);
-        }
-
-        .readme-header {
-            padding: 10px 16px;
-            background-color: var(--gh-box-bg);
-            border-bottom: 1px solid var(--gh-border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
             font-weight: 600;
+            text-align: center;
+            background: #21262d;
+            border: 1px solid var(--gh-border);
+            color: white;
+            transition: 0.3s;
         }
+        .btn-universal:hover { background: #30363d; border-color: #8b949e; }
 
-        .catalog-content {
-            padding: 32px;
-        }
-
+        /* Categorías y Tarjetas */
         .category-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-family: 'Poppins';
+            font-size: 1.3rem;
+            color: var(--primary-neon);
             margin: 40px 0 20px 0;
-            padding-bottom: 8px;
             border-bottom: 1px solid var(--gh-border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* --- TARJETAS DE SERVICIO --- */
-        .grid-products {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            padding-bottom: 10px;
         }
 
         .service-item {
-            background: var(--gh-box-bg);
+            background: #161b22;
             border: 1px solid var(--gh-border);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 15px;
-            position: relative;
+            margin-bottom: 15px;
             cursor: pointer;
+            position: relative;
             transition: 0.3s;
         }
+        .service-item:hover { border-color: var(--gh-blue); transform: translateX(5px); }
+        .service-item.selected { border-color: var(--primary-neon); background: #1c2128; }
 
-        .service-item:hover { border-color: var(--gh-blue); transform: translateY(-3px); }
-        .service-item.selected { border: 2px solid var(--primary); box-shadow: 0 0 15px rgba(0,255,136,0.2); }
-
-        .service-logo { width: 50px; height: 50px; border-radius: 10px; margin-bottom: 10px; object-fit: cover; }
-        .nombre-prod { font-size: 1.1rem; margin-bottom: 5px; color: #fff; }
-        .manual-desc { font-size: 0.85rem; color: var(--gh-gray); display: block; margin-bottom: 15px; }
-        .price-tag { font-weight: 800; color: var(--primary); font-size: 1.2rem; }
+        .service-card { display: flex; align-items: center; gap: 15px; }
+        .service-logo { width: 55px; height: 55px; border-radius: 10px; }
+        .service-text { flex-grow: 1; }
+        .nombre-prod { font-size: 1.1rem; color: #fff; margin-bottom: 4px; }
+        .manual-desc { font-size: 0.8rem; color: #8b949e; }
         
+        .price-tag {
+            font-family: 'Poppins';
+            font-weight: 800;
+            color: var(--primary-neon);
+            font-size: 1.2rem;
+        }
+
         .badge-oferta {
             position: absolute; top: -10px; right: 10px;
             background: #f85149; color: white; font-size: 0.6rem;
-            padding: 4px 8px; border-radius: 5px; font-weight: bold;
+            padding: 3px 8px; border-radius: 4px; font-weight: bold;
         }
 
-        /* --- BOTONES Y MODALES --- */
-        .btn-universal {
-            padding: 10px 20px; border-radius: 6px; border: 1px solid var(--gh-border);
-            background: var(--gh-box-bg); color: var(--gh-text); cursor: pointer; font-weight: 600;
-        }
-
-        #whatsapp-btn {
-            position: fixed; bottom: 20px; right: 20px; background: #238636;
-            color: white; padding: 15px 25px; border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 1000; cursor: pointer;
-            display: flex; gap: 15px; align-items: center;
-        }
-        .hidden { display: none !important; }
-
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8);
-            display: none; align-items: center; justify-content: center; z-index: 2000;
-        }
-
-        .modal-content {
-            background: var(--gh-box-bg); border: 1px solid var(--gh-border);
-            padding: 30px; border-radius: 12px; width: 90%; max-width: 400px;
-        }
-
-        input {
-            width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 6px;
-            background: var(--gh-bg); border: 1px solid var(--gh-border); color: white;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .file-row { grid-template-columns: 1fr 1fr; }
-            .file-row .time { display: none; }
+            .app-container { grid-template-columns: 1fr; }
+            .sidebar-explorer { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="container-gh">
-    <div class="repo-header">
-        <i class="fas fa-book-bookmark" style="color: var(--gh-gray);"></i>
-        <span><strong>AlexStore</strong> / <strong>catalogo-premium</strong></span>
-        <span class="badge-public">Public</span>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-        <input type="text" id="search-input" placeholder="Search or filter products..." onkeyup="filtrarProductos()">
-    </div>
-
-    <div class="file-explorer">
-        <div class="file-explorer-header">
-            <div><i class="fas fa-code-branch"></i> <strong>main</strong></div>
-            <div style="color: var(--gh-gray);">Total: 25 plataformas disponibles</div>
-        </div>
+<div class="app-container">
+    <aside class="sidebar-explorer">
+        <div class="sidebar-header">EXPLORADOR</div>
+        <div class="folder-title"><i class="fas fa-chevron-down"></i> ALEX STORE</div>
         
-        <div class="file-row" onclick="filtrarCategoria('TODOS', this)">
-            <span class="name"><i class="fas fa-folder-open"></i> root</span>
-            <span class="comment">Mostrar todos los servicios</span>
-            <span class="time">active</span>
-        </div>
-        <div class="file-row" onclick="filtrarCategoria('STREAMING Y CINE', this)">
-            <span class="name"><i class="fas fa-folder"></i> streaming_cine</span>
-            <span class="comment">Netflix, Disney, Max, etc.</span>
-            <span class="time">updated</span>
-        </div>
-        <div class="file-row" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">
-            <span class="name"><i class="fas fa-folder"></i> diseño_grafico</span>
-            <span class="comment">Canva Pro, Adobe, etc.</span>
-            <span class="time">updated</span>
-        </div>
-        <div class="file-row" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">
-            <span class="name"><i class="fas fa-folder"></i> tv_digital</span>
-            <span class="comment">IPTV, Magis, Movistar</span>
-            <span class="time">updated</span>
-        </div>
-    </div>
+        <nav>
+            <div class="nav-item active" onclick="filtrarCat('TODOS', this)">
+                <i class="fas fa-folder-open"></i> root
+            </div>
+            <div class="nav-item" onclick="filtrarCat('STREAMING Y CINE', this)">
+                <i class="fas fa-film"></i> streaming
+            </div>
+            <div class="nav-item" onclick="filtrarCat('DISEÑOS Y MAS', this)">
+                <i class="fas fa-palette"></i> diseño
+            </div>
+            <div class="nav-item" onclick="filtrarCat('TELEVISIÓN DIGITAL', this)">
+                <i class="fas fa-tv"></i> tv_digital
+            </div>
+            <div class="nav-item" onclick="filtrarCat('MÚSICA Y VIDEO', this)">
+                <i class="fas fa-music"></i> musica
+            </div>
+        </nav>
+    </aside>
 
-    <div class="readme-container">
-        <div class="readme-header">
-            <i class="fas fa-list"></i> README.md
+    <main class="main-editor">
+        <div class="tabs-bar">
+            <div class="tab">
+                <i class="fab fa-html5" style="color: #e34c26;"></i> catalog.html
+            </div>
         </div>
-        <div class="catalog-content">
-            
-            <div class="category-title" id="cat-streaming">🎬 STREAMING Y CINE</div>
-            <div class="grid-products">
+
+        <div class="content-body">
+            <div class="repo-header" data-aos="fade-down">
+                <img src="../img/logo-store.png" class="logo-heart">
+                <div class="repo-name">
+                    <strong>AlexStore</strong> / catalog.premium <span style="font-size: 0.7rem; color: #8b949e; border: 1px solid #30363d; padding: 2px 8px; border-radius: 10px; margin-left: 5px;">Public</span>
+                </div>
+            </div>
+
+            <div class="grid-botones" data-aos="zoom-in">
+                <a href="../" class="btn-universal">🏠 INICIO</a>
+                <a href="https://drive.google.com/..." target="_blank" class="btn-universal">⭐ REFERENCIAS</a>
+                <a href="../promociones-clientes/" class="btn-universal">🎁 COMBOS</a>
+                <a href="https://chat.whatsapp.com/..." target="_blank" class="btn-universal">👥 COMUNIDAD</a>
+            </div>
+
+            <div id="catalog">
+                <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
+                
                 <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
                     <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
-                    <img src="img/netflix.webp" class="service-logo">
-                    <h3 class="nombre-prod">Netflix Premium</h3>
-                    <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
-                    <span class="price-tag precio-prod">S/ 16</span>
+                    <div class="service-card">
+                        <img src="../img/netflix.webp" class="service-logo">
+                        <div class="service-text">
+                            <h3 class="nombre-prod">Netflix Premium</h3>
+                            <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
+                        </div>
+                        <div class="price-tag">S/ 16</div>
+                    </div>
                 </div>
 
                 <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-                    <img src="img/disneyp.webp" class="service-logo">
-                    <h3 class="nombre-prod">Disney Premium</h3>
-                    <span class="manual-desc">• Con ESPN • 4K UHD.</span>
-                    <span class="price-tag precio-prod">S/ 10</span>
+                    <div class="badge-oferta">MUY SOLICITADO 🎁</div>
+                    <div class="service-card">
+                        <img src="../img/disneyp.webp" class="service-logo">
+                        <div class="service-text">
+                            <h3 class="nombre-prod">Disney Premium</h3>
+                            <span class="manual-desc">• Con ESPN • Perfil privado.</span>
+                        </div>
+                        <div class="price-tag">S/ 10</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="category-title" id="cat-diseno">💻 DISEÑOS Y MAS</div>
-            <div class="grid-products">
+                <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
+                
                 <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-                    <img src="img/canva.webp" class="service-logo">
-                    <h3 class="nombre-prod">Canva Pro (12 meses)</h3>
-                    <span class="manual-desc">• Plan EDU • A tu correo.</span>
-                    <span class="price-tag precio-prod">S/ 25</span>
+                    <div class="service-card">
+                        <img src="../img/canva.webp" class="service-logo">
+                        <div class="service-text">
+                            <h3 class="nombre-prod">CANVA PRO (12 meses)</h3>
+                            <span class="manual-desc">• Plan EDU • Invitación a correo.</span>
+                        </div>
+                        <div class="price-tag">S/ 25</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="category-title" id="cat-tv">📺 TELEVISIÓN DIGITAL</div>
-            <div class="grid-products">
+                <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
+                
                 <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
-                    <img src="img/movistar.webp" class="service-logo">
-                    <h3 class="nombre-prod">Movistar Play + L1 Max</h3>
-                    <span class="manual-desc">• Liga 1 Max • TV activa.</span>
-                    <span class="price-tag precio-prod">S/ 20</span>
+                    <div class="service-card">
+                        <img src="../img/movistar.webp" class="service-logo">
+                        <div class="service-text">
+                            <h3 class="nombre-prod">Movistar Play + L1 Max</h3>
+                            <span class="manual-desc">• Canal L1 Max • Activación a TV.</span>
+                        </div>
+                        <div class="price-tag">S/ 20</div>
+                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
-
-<div id="whatsapp-btn" class="hidden" onclick="abrirModalRegistro()">
-    <div>
-        <span id="cart-count" style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 10px; margin-right: 10px;">0</span>
-        <strong>PEDIR AHORA</strong>
-    </div>
-    <div id="cart-total" style="font-size: 1.2rem; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 15px;">S/ 0</div>
-</div>
-
-<div id="modal-registro" class="modal-overlay">
-    <div class="modal-content">
-        <h2 style="color:var(--gh-blue); margin-bottom:15px;">Finalizar Pedido</h2>
-        <input type="text" id="reg-nom" placeholder="Tu Nombre">
-        <input type="tel" id="reg-cel" placeholder="Tu Celular">
-        <button class="btn-universal" style="background:#238636; color:white; width:100%;" onclick="enviarWhatsApp('nuevo')">Enviar a WhatsApp</button>
-        <button class="btn-universal" style="width:100%; margin-top:10px;" onclick="cerrarModalRegistro()">Cancelar</button>
-    </div>
+    </main>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 600, once: true });
 
-    let carrito = [];
-    const numWhatsApp = "51918600000";
+    function filtrarCat(categoria, element) {
+        // Estética de VS Code: Marcar el item seleccionado
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        element.classList.add('active');
 
-    function filtrarProductos() {
-        const busqueda = document.getElementById('search-input').value.toLowerCase();
-        const items = document.querySelectorAll('.service-item');
-        items.forEach(item => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            item.style.display = nombre.includes(busqueda) ? 'block' : 'none';
-        });
-        actualizarTitulos();
-    }
-
-    function filtrarCategoria(categoria, elemento) {
         const term = categoria.toUpperCase();
         const items = document.querySelectorAll('.service-item');
         const titulos = document.querySelectorAll('.category-title');
 
         items.forEach(item => {
-            let tituloCerca = "";
-            let previo = item.previousElementSibling;
-            while (previo) {
-                if (previo.classList.contains('category-title')) {
-                    tituloCerca = previo.innerText.toUpperCase();
-                    break;
-                }
-                previo = previo.previousElementSibling;
+            // Buscamos el título de categoría más cercano arriba
+            let prev = item.previousElementSibling;
+            while(prev && !prev.classList.contains('category-title')) {
+                prev = prev.previousElementSibling;
             }
+            let catName = prev ? prev.innerText.toUpperCase() : "";
 
-            if (term === 'TODOS') {
+            if (term === 'TODOS' || catName.includes(term)) {
                 item.style.display = 'block';
             } else {
-                item.style.display = tituloCerca.includes(term) ? 'block' : 'none';
+                item.style.display = 'none';
             }
         });
-        actualizarTitulos();
-        document.querySelector('.readme-container').scrollIntoView({ behavior: 'smooth' });
-    }
 
-    function actualizarTitulos() {
-        document.querySelectorAll('.category-title').forEach(titulo => {
-            let tieneHijos = false;
-            let hermano = titulo.nextElementSibling;
-            while (hermano && !hermano.classList.contains('category-title')) {
-                if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
-                    tieneHijos = true; break;
-                }
-                hermano = hermano.nextElementSibling;
+        // Ocultar títulos vacíos
+        titulos.forEach(t => {
+            let next = t.nextElementSibling;
+            let visible = false;
+            while(next && !next.classList.contains('category-title')) {
+                if(next.style.display !== 'none') visible = true;
+                next = next.nextElementSibling;
             }
-            titulo.style.display = tieneHijos ? 'flex' : 'none';
+            t.style.display = visible ? 'block' : 'none';
         });
+
+        // Scroll suave al inicio del contenido
+        document.querySelector('.main-editor').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function toggleCarrito(elemento) {
-        const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
-        const idx = carrito.findIndex(i => i.nombre === nombre);
-
-        if (idx > -1) {
-            carrito.splice(idx, 1);
-            elemento.classList.remove('selected');
-        } else {
-            carrito.push({nombre, precio});
-            elemento.classList.add('selected');
-        }
-        actualizarUI();
-    }
-
-    function actualizarUI() {
-        const total = carrito.reduce((s, i) => s + i.precio, 0);
-        document.getElementById('cart-count').innerText = carrito.length;
-        document.getElementById('cart-total').innerText = `S/ ${total}`;
-        document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
-    }
-
-    function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
-    function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
-
-    function enviarWhatsApp(tipo) {
-        let nom = document.getElementById('reg-nom').value;
-        let msg = `Hola AlexStore, deseo contratar:\n\n`;
-        carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
-        msg += `\n💰 *Total: S/ ${carrito.reduce((s,i)=>s+i.precio,0)}*`;
-        if(nom) msg += `\n👤 Cliente: ${nom}`;
-        window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
-        cerrarModalRegistro();
+        elemento.classList.toggle('selected');
+        // Aquí puedes añadir tu lógica de carrito original
     }
 </script>
-
 </body>
 </html>
