@@ -260,112 +260,80 @@
         .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
         /* ============================================================
-           SECCIÓN CORREGIDA: GRID RESPONSIVA UNIFORME Y PREMIUM
+           SECCIÓN DEFINITIVA: GRID Y PREMIUM ALINEADO
            ============================================================ */
         .container.grid-mode { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 12px; 
             padding: 10px; 
-            max-width: 100%; 
         }
 
         @media (min-width: 600px) {
-            .container.grid-mode { 
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
-                gap: 15px;
-            }
+            .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
         }
 
-        .grid-mode .category-title { grid-column: 1 / -1; margin-top: 20px; }
-        .grid-mode .service-item { margin-bottom: 0; height: 100%; display: flex; }
+        .grid-mode .service-item { margin-bottom: 0; display: flex; flex-direction: column; }
 
         .grid-mode .service-card { 
-            flex-direction: column; 
-            align-items: center; 
-            text-align: center; 
-            padding: 30px 10px 15px; 
-            /* ALTURA UNIFORME */
-            min-height: 255px; 
+            flex-direction: column !important; 
+            align-items: center !important; 
+            text-align: center !important; 
+            padding: 35px 10px 15px !important; 
+            min-height: 260px; 
             height: 100%;
-            width: 100%;
-            justify-content: space-between; 
-            position: relative; /* Importante para el badge superior */
-        }
-
-        .grid-mode .service-logo { 
-            width: 60px; height: 60px; 
-            margin-bottom: 10px; margin-right: 0; 
+            justify-content: space-between !important; 
         }
 
         .grid-mode .service-text {
-            flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin: 10px 0;
         }
 
-        .grid-mode .service-text h3 { font-size: 0.85rem; line-height: 1.2; margin-bottom: 3px; }
-
-        .grid-mode .manual-desc { 
-            display: block !important; 
-            font-size: 0.65rem; color: #aaa;
-            margin-top: 4px; margin-bottom: 8px;
-        }
-
-        /* --- PRECIO Y PREMIUM (ESTILO BOTÓN AMARILLO) --- */
-        .grid-mode .price-container { 
-            margin-top: auto; 
-            width: 100%; 
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-            padding-top: 10px;
-        }
-
-        .grid-mode .price-tag { 
-            font-size: 1.35rem; 
-            font-weight: 800;
-            color: #00d4ff !important;
-            background: none;
-            -webkit-text-fill-color: initial;
-        }
-
-        /* ************************************************************
-           LA CORRECCIÓN PARA EL PREMIUM EN CUADRÍCULA
-           ************************************************************ */
+        /* --- POSICIONAMIENTO DEL PREMIUM --- */
         .grid-mode .premium::after {
-            /* 1. ANULA EL POSICIONAMIENTO ABSOLUTO DE LA LISTA */
-            position: static !important;
-            top: auto !important;
-            right: auto !important;
-            
-            /* 2. LO CONVIERTE EN UN BLOQUE PARA IR ENCIMA DEL PRECIO */
-            display: inline-block !important;
+            position: relative !important; /* Cambiado de static a relative para mejor control */
+            display: block !important;
+            top: 0 !important;
+            right: 0 !important;
+            margin: 10px auto 5px !important; /* Lo centra y le da espacio arriba del precio */
             content: 'PREMIUM' !important;
-            
-            /* 3. ESTILO DE BOTÓN AMARILLO (COMO EN LA FOTO) */
             font-size: 0.55rem !important;
             color: #f4d03f !important;
             border: 1px solid #f4d03f !important;
-            padding: 2px 8px !important;
+            padding: 2px 10px !important;
             border-radius: 5px !important;
-            margin-bottom: 5px !important;
             background: rgba(244, 208, 63, 0.05) !important;
-            letter-spacing: 1px !important;
             width: fit-content !important;
+            order: 2; /* Fuerza que aparezca después del texto pero antes del precio */
         }
 
-        /* CENTRADO DE BANNER "MÁS SOLICITADO" O "OFERTA" */
+        .grid-mode .price-container { 
+            margin-top: auto !important; 
+            align-items: center !important; 
+            width: 100% !important;
+            order: 3;
+        }
+
+        .grid-mode .price-tag { 
+            font-size: 1.4rem !important;
+            background: none !important;
+            -webkit-text-fill-color: #00d4ff !important; 
+        }
+
+        /* AJUSTE DE LOGO Y DESCRIPCIÓN */
+        .grid-mode .service-logo { margin-right: 0 !important; margin-bottom: 10px; }
+        .grid-mode .manual-desc { font-size: 0.65rem !important; line-height: 1.2; }
+
+        /* BANNER SUPERIOR CENTRAL */
         .grid-mode .service-item.oferta .badge-oferta {
             left: 50% !important;
             transform: translateX(-50%) !important;
-            width: 85% !important; 
-            text-align: center !important;
-            top: 0 !important;
-            z-index: 10;
+            width: 80% !important;
+            border-radius: 0 0 10px 10px !important;
         }
-
         .grid-mode .check-icon { top: 8px; right: 8px; width: 22px; height: 22px; z-index: 20; }
     </style>
 </head>
