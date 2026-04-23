@@ -260,7 +260,7 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-    /* --- NUEVA VISTA CUADRÍCULA PROFESIONAL --- */
+    /* --- VISTA CUADRÍCULA PROFESIONAL ACTUALIZADA --- */
     .container.grid-mode {
         display: grid !important;
         gap: 15px !important;
@@ -268,74 +268,88 @@
         max-width: 100% !important;
     }
 
-    @media (min-width: 768px) {
-        .container.grid-mode {
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
-        }
+    .grid-mode .category-title {
+        grid-column: 1 / -1 !important; /* Fuerza a las categorías a ocupar todo el ancho */
+        width: 100%;
+        margin: 20px 0 10px 0 !important;
     }
 
     .grid-mode .service-item { margin-bottom: 0 !important; height: 100%; }
 
-    .grid-mode .service-logo {
-        width: 60px !important;
-        height: 60px !important;
-        margin-bottom: 10px;
-        margin-right: 0 !important;
-        object-fit: cover;
-    }
+    /* Ocultar el PREMIUM absoluto que aparece en la esquina superior */
+    .grid-mode .service-item.premium::after { display: none !important; }
 
-    .grid-mode .service-text { width: 100%; flex-grow: 1; }
-    .grid-mode .service-text h3 { font-size: 0.85rem !important; line-height: 1.2; }
-    .grid-mode .manual-desc { font-size: 0.65rem !important; display: block !important; margin-top: 5px; }
-
-    .grid-mode .price-container {
-        margin-left: 0 !important;
-        margin-top: 10px;
-        align-items: center !important;
-        width: 100%;
-        order: 3; /* El precio siempre al final */
-    }
-
-    .grid-mode .price-tag { font-size: 1.1rem !important; color: var(--primary) !important; }
-
-    /* Manejo de etiquetas en Grid */
-    .grid-mode .badge-oferta {
-        width: 85% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        text-align: center;
-        clip-path: none !important;
-        border-radius: 0 0 10px 10px;
-    }
-
-    /* --- ETIQUETA PREMIUM EN MODO CUADRÍCULA --- */
-    .grid-mode .service-item.premium .service-card::after {
-        position: relative !important; /* Cambia de flotante a posición fija en el flujo */
-        display: inline-block !important;
-        content: 'PREMIUM' !important;
-        font-size: 0.55rem !important;
-        color: #f4d03f !important;
-        border: 1px solid #f4d03f !important;
-        padding: 2px 8px !important;
-        border-radius: 5px !important;
-        margin-bottom: 8px !important; /* Espacio antes del precio */
-        background: transparent !important;
-        letter-spacing: 1px !important;
-        font-weight: 900 !important;
-        order: 2; /* Lo posiciona antes del price-container si usas flex */
-    }
-
-    /* Aseguramos que el contenedor de texto y precio se alineen bien */
     .grid-mode .service-card {
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
         align-items: center !important;
+        height: 100% !important;
+        min-height: 330px; /* Igualamos el alto de todas las tarjetas */
+        text-align: center;
+        padding-top: 30px !important; /* Espacio para el badge si existe */
     }
 
+    .grid-mode .service-logo {
+        width: 70px !important;
+        height: 70px !important;
+        margin-bottom: 12px;
+        margin-right: 0 !important;
+    }
+
+    .grid-mode .service-text { 
+        width: 100%; 
+        flex-grow: 1; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     
-        
+    .grid-mode .service-text h3 { font-size: 0.9rem !important; margin-bottom: 5px; }
+    .grid-mode .manual-desc { font-size: 0.65rem !important; line-height: 1.3; }
+
+    /* El nuevo Premium integrado en el flujo vertical */
+    .grid-mode .service-item.premium .service-card::before {
+        content: 'PREMIUM';
+        display: inline-block;
+        font-size: 0.55rem !important;
+        color: #f4d03f !important;
+        border: 1px solid #f4d03f !important;
+        padding: 2px 10px !important;
+        border-radius: 5px !important;
+        margin: 10px auto !important;
+        font-weight: 900 !important;
+        order: 2;
+    }
+
+    .grid-mode .price-container {
+        margin-top: auto;
+        align-items: center !important;
+        width: 100%;
+        order: 3;
+    }
+
+    .grid-mode .price-tag { font-size: 1.2rem !important; color: var(--primary) !important; }
+
+    /* Badge de Oferta corregido para no tapar el contenido */
+    .grid-mode .badge-oferta {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        text-align: center;
+        transform: none !important;
+        z-index: 5;
+    }
+
     .grid-mode .check-icon { top: 8px !important; right: 8px !important; }
+    
+    @media (min-width: 768px) {
+        .container.grid-mode {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+        }
+    }
 </style>
 </head>
 <body>
