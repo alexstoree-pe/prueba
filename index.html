@@ -12,7 +12,7 @@
 <meta property="og:title" content="Alex Store | Catálogo Premium">
 <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
+<meta property="og:image:secure_url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 <meta property="og:image:width" content="500">
 <meta property="og:image:height" content="500">
@@ -347,22 +347,25 @@
     transition: 0.3s;
 }
 
-.faq-floating-btn i { color: var(--primary); font-size: 1.2rem; }
+.faq-floating-btn {
+    position: fixed;
+    bottom: 25px; /* Lo bajamos para que no estorbe a los botones centrales */
+    right: 25px; 
+    /* El resto del código se queda igual */
+    z-index: 3000;
+}
 
-/* El Panel Deslizable */
 .faq-drawer {
     position: fixed;
     top: 0;
-    right: -100%; /* Escondido */
+    right: -100%; /* Asegúrate de que tenga el signo menos para que empiece oculto */
     width: 100%;
     max-width: 400px;
     height: 100%;
-    background: #0a0a0a;
+    background: #0a0a0a; /* Fondo sólido para que no se transparente el catálogo */
     z-index: 5000;
-    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    padding: 30px 20px;
-    border-left: 1px solid var(--glass-border);
-    overflow-y: auto;
+    transition: 0.5s ease;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5); /* Sombra para dar profundidad */
 }
 
 .faq-drawer.open { right: 0; }
@@ -466,10 +469,6 @@
         <a href="../promociones-clientes/" class="btn-universal btn-combos-premium">🎁 VER COMBOS Y PROMOCIONES</a>
         <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal btn-comunidad">👥 COMUNIDAD</a>
 
-        <div class="category-title" data-aos="fade-up">RESUELVE TUS DUDAS</div>
-<button class="faq-floating-btn" onclick="toggleFAQ()">
-    <i class="fas fa-question-circle"></i>
-    <span>Dudas</span>
 </button>
 
 <div id="faq-drawer" class="faq-drawer">
