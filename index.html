@@ -254,12 +254,12 @@
     </div>
 </div>
 
-    <div class="view-options" style="display: flex; justify-content: flex-end; gap: 10px; padding: 10px 15px;">
-    <button class="btn-filter btn-view" onclick="cambiarVista('lista')">
-        <i class="fa-solid fa-list"></i>
+    <div class="view-controls">
+    <button class="btn-view active" onclick="cambiarVista('cuadricula', this)">
+        <i class="fa-solid fa-grip"></i>
     </button>
-    <button class="btn-filter btn-view active" onclick="cambiarVista('cuadricula')">
-        <i class="fa-solid fa-grid-2"></i>
+    <button class="btn-view" onclick="cambiarVista('lista', this)">
+        <i class="fa-solid fa-list"></i>
     </button>
 </div>
 </header>
@@ -776,15 +776,13 @@
     AOS.init({ duration: 800, once: false , offset: 50    // Se activa un poco antes de llegar al elemento
 });
     
-    let carrito = [];
-
-    function cambiarVista(modo) {
+    function cambiarVista(modo, btn) {
     const contenedor = document.querySelector('.container');
     const botones = document.querySelectorAll('.btn-view');
     
-    // Quitar clase activa de todos los botones y ponerla al seleccionado
-    botones.forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    // Cambiar estado visual de botones
+    botones.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
     if (modo === 'lista') {
         contenedor.classList.add('vista-lista');
