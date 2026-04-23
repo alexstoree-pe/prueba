@@ -25,313 +25,121 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root {
-            --primary: #00d4ff; 
-            --dark: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --danger-neon: #ff0000;
-            --vip: #d4af37;
-            --success-neon: #39ff14;
-            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-        }
+    :root {
+        --primary: #00d4ff; 
+        --dark: #050505;
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --danger-neon: #ff0000;
+        --vip: #d4af37;
+        --success-neon: #39ff14;
+        --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    }
 
-        html { 
-            background-color: var(--dark); 
-            scroll-behavior: smooth; 
-        }
+    /* --- Base & Reset --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { background-color: var(--dark); scroll-behavior: smooth; }
+    body { 
+        font-family: 'Poppins', sans-serif; 
+        background: #0a0a0a; 
+        color: white; 
+        padding-bottom: 200px; 
+        overflow-x: hidden;
+        visibility: hidden;
+    }
 
-        .contenido-protegido {
-            display: none !important;
-        }
+    /* --- Animaciones --- */
+    @keyframes shine-red { 
+        0%, 100% { text-shadow: 0 0 10px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon); } 
+        50% { text-shadow: 0 0 30px var(--danger-neon); color: #fff; border-color: #fff; box-shadow: inset 0 0 20px var(--danger-neon); } 
+    }
 
-        @keyframes shine-red { 
-            0%, 100% { text-shadow: 0 0 10px var(--danger-neon), 0 0 20px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
-            50% { text-shadow: 0 0 30px var(--danger-neon), 0 0 50px var(--danger-neon); color: #fff; border-color: #fff; box-shadow: inset 0 0 20px var(--danger-neon), 0 0 25px var(--danger-neon); } 
-        }
+    /* --- Header & Search --- */
+    header { 
+        background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 25px 20px 15px; 
+        text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
+    }
+    .brand-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 18px; margin-bottom: 8px; }
+    header h1 { font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 10px; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    .search-container { position: sticky; top: 165px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
+    #buscador { 
+        width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); 
+        border: 1px solid var(--glass-border); border-radius: 12px; color: white; transition: 0.3s; 
+    }
 
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: #0a0a0a; 
-            color: white; 
-            padding-bottom: 200px; 
-            overflow-x: hidden;
-            visibility: hidden;
-        }
+    /* --- Filtros --- */
+    .filter-container { display: flex; overflow-x: auto; gap: 10px; padding: 10px 5px; scrollbar-width: none; }
+    .btn-filter { 
+        background: var(--glass); border: 1px solid var(--glass-border); color: #888; 
+        padding: 8px 18px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; 
+    }
+    .btn-filter.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        .modal-pass { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.98); 
-            backdrop-filter: blur(25px); 
-            z-index: 9999; 
-            justify-content: center; 
-            align-items: center;
-            visibility: visible;
-        }
-        .modal-content-pass { 
-            background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
-            border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
-        }
-        #input-dist-pass { 
-            width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; 
-            color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; letter-spacing: 5px;
-        }
+    /* --- Estructura de Tarjetas (Modo Lista por defecto) --- */
+    .container { padding: 10px 15px; max-width: 600px; margin: auto; transition: all 0.3s ease; }
+    .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; }
 
-        header { 
-            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 25px 20px 15px; 
-            text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
-        }
-        .brand-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 18px; margin-bottom: 8px; }
-        header h1 { font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 10px; }
+    .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 20px; }
+    .service-card { 
+        background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; 
+        align-items: center; border: 1px solid var(--glass-border); gap: 18px; 
+        transition: 0.3s; position: relative; overflow: hidden; 
+    }
 
-        .garantia-header { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
-        .garantia-mini-item { text-align: center; min-width: 60px; }
-        .garantia-mini-item i { font-size: 0.9rem; color: var(--primary); margin-bottom: 2px; }
-        .garantia-mini-item p { font-size: 0.45rem; font-weight: 700; text-transform: uppercase; color: #bbb; line-height: 1.1; }
+    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; flex-shrink: 0; }
+    .service-text h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; }
+    .manual-desc { font-size: 0.75rem; color: #888; }
+    
+    .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
+    .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
 
-        .search-container { position: sticky; top: 165px; z-index: 1900; padding: 10px 15px; background: #0a0a0a; }
-        .search-wrapper { position: relative; max-width: 500px; margin: auto; }
-        .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
-        #buscador { width: 100%; padding: 12px 15px 12px 45px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
-        #buscador:focus { border-color: var(--primary); outline: none; background: rgba(255,255,255,0.05); }
+    /* --- Banners y Badges --- */
+    .badge-oferta { 
+        display: none; position: absolute; top: 0; left: 0; background: #f1c40f; 
+        color: #000; padding: 3px 20px 3px 10px; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+        font-size: 0.55rem; font-weight: 900; z-index: 100; text-transform: uppercase;
+    }
+    .service-link.oferta .badge-oferta { display: block; }
 
-        .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
-        .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
-        .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
-        .btn-promo-distri { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-        .btn-iptv { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-        .contenedor-iptv { display: flex; justify-content: center; padding: 0 15px; margin-top: -8px; margin-bottom: 20px; }
+    .premium-text { 
+        display: none; border: 1px solid #bf953f; padding: 2px 8px; border-radius: 4px;
+        background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-size: 0.6rem; font-weight: 900; text-transform: uppercase;
+    }
+    .premium .premium-text { display: inline-block; }
+    .status-badge { font-size: 0.6rem; font-weight: 800; margin-top: 5px; }
 
-        .container { padding: 10px 15px; max-width: 600px; margin: auto; }
-        .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
+    /* ================================================================
+       CORRECCIÓN: CONTROL DE VISTA CUADRADA (GRID MODE)
+       ================================================================ */
 
-        .service-link { 
-            position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer;
-            transition: opacity 0.4s ease, transform 0.4s ease, margin-bottom 0.4s ease;
-        }
-        
-        .oculto-busqueda {
-            display: none !important;
-            opacity: 0;
-            transform: scale(0.95);
-            margin-bottom: 0;
-        }
+    .container.grid-mode {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        padding: 10px !important;
+        max-width: 100% !important;
+        align-items: start !important; /* Evita que tarjetas se estiren */
+    }
 
-        .filter-container {
-          display: flex;
-          overflow-x: auto; 
-          white-space: nowrap; 
-          gap: 10px; 
-          padding: 10px 5px;
-          scrollbar-width: none; 
-          -ms-overflow-style: none; 
-        }
+    /* Forzar que los títulos ocupen todo el ancho en Grid */
+    .grid-mode .category-title {
+        grid-column: 1 / -1 !important;
+        margin: 25px 0 10px !important;
+    }
 
-        .filter-container::-webkit-scrollbar {
-          display: none;
-        }
+    .grid-mode .service-card {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 35px 10px 15px !important; /* Espacio para el banner amarillo */
+        height: auto !important;
+        min-height: 230px;
+        gap: 8px !important;
+    }
 
-        .btn-filter {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: #888;
-            padding: 8px 18px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        .btn-filter.active {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
-        
-        .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.15); transform: scale(0.97); }
-        
-        .check-icon { position: absolute; top: -5px; right: -5px; background: var(--primary); color: #000; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 101; border: 2px solid #000; }
-        .service-link.selected .check-icon { display: flex; }
-
-        .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-        
-        .badge-oferta { 
-            display: none; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            background: #f1c40f; 
-            color: #000; 
-            padding: 3px 20px 3px 10px; 
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-            font-size: 0.55rem; 
-            font-weight: 900; 
-            z-index: 100;
-            text-transform: uppercase;
-        }
-
-        .service-link.oferta .badge-oferta {
-            display: block;
-        }
-
-        .premium-text { 
-            display: none; 
-            border: 1px solid #bf953f; padding: 2px 8px; border-radius: 4px;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-size: 0.6rem; font-weight: 900; text-transform: uppercase; margin-right: 15px; margin-bottom: 4px; 
-        }
-        .premium .premium-text { display: inline-block; }
-
-        .status-badge { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; margin-bottom: 2px; display: flex; align-items: center; gap: 5px; }
-        .disponible .status-badge::before { content: "● DISPONIBLE"; color: var(--success-neon); }
-        .pocas .status-badge::before { content: "● POCAS UNIDADES"; color: #ff3333; }
-
-        .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; }
-        .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
-        .manual-desc { font-size: 0.75rem; color: #888; display: block; }
-        
-        .price-container { display: flex; flex-direction: column; align-items: flex-end; margin-left: auto; }
-        .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
-        .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--vip); }
-
-        .badge-renovacion { display: none; color: #f1c40f; font-size: 0.55rem; font-weight: 700; margin-top: 3px; text-transform: uppercase; }
-        .renovacion .badge-renovacion { display: inline-block; }
-
-        .service-link.agotado { pointer-events: none; }
-        .service-link.agotado .service-card { opacity: 0.3; border-color: var(--glass-border); filter: grayscale(1); }
-        
-        .service-link.agotado::after { 
-            content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%);
-            font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); 
-            padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; 
-            z-index: 200; background: #000;
-        }
-
-        .oculto-filtro {
-            display: none !important;
-        }
-
-        .service-link:not(.oculto-filtro) {
-            display: block !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-
-        /* ================================================================
-           CONTROL DE VISTA CUADRADA (GRID MODE CORREGIDO)
-           ================================================================ */
-
-        .container.grid-mode {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 10px;
-            max-width: 100%;
-        }
-
-        .grid-mode .service-card {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 15px 10px;
-            height: 100%;
-            gap: 10px;
-        }
-
-        .grid-mode .service-logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 5px;
-        }
-
-        .grid-mode .service-text h3 {
-            font-size: 0.9rem;
-            line-height: 1.2;
-        }
-
-        .grid-mode .manual-desc {
-            font-size: 0.65rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .grid-mode .price-container {
-            margin-left: 0;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .grid-mode .price-tag {
-            font-size: 1.2rem;
-        }
-
-        /* CORRECCIÓN: BANNER CENTRADO COMO EN LA FOTO 2 */
-        .grid-mode .service-link.oferta .badge-oferta {
-            display: block !important;
-            position: absolute;
-            top: 0;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 90% !important;
-            text-align: center;
-            padding: 2px 0;
-            clip-path: none !important;
-            border-radius: 0 0 10px 10px;
-            font-size: 0.55rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        /* CORRECCIÓN: ETIQUETA PREMIUM VISIBLE */
-        .grid-mode .premium .premium-text {
-            display: inline-block !important;
-            position: absolute;
-            right: 10px !important;
-            top: 35px !important; /* Debajo del banner */
-            margin-right: 0;
-            font-size: 0.45rem;
-            padding: 1px 5px;
-            background: rgba(0, 0, 0, 0.8) !important;
-            backdrop-filter: blur(4px);
-            border: 1px solid var(--vip);
-            z-index: 20;
-        }
-
-        .grid-mode .service-link.oferta.premium .premium-text {
-            top: 42px !important;
-        }
-
-        .grid-mode .check-icon {
-            top: 5px;
-            right: 5px;
-            width: 24px;
-            height: 24px;
-        }
-
-        .grid-mode .service-link.agotado::after {
-            width: 80%;
-            right: auto;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 0.6rem;
-        }
-
-        .btn-view.active {
-            background: var(--primary) !important;
-            color: #000 !important;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
-        }
-    </style>
+    .grid-mode .service-logo {
 
     <script>
     (function() {
