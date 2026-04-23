@@ -192,7 +192,30 @@
         transform: scale(0.98);
     }
 
-    .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
+   /* Corrección para que el badge esté dentro y respete los bordes */
+.badge-oferta { 
+    position: absolute; 
+    top: 0; 
+    left: 0; /* Cambiado de 20px a 0 */
+    width: 100%; /* Para que cubra el ancho superior de la tarjeta */
+    background: var(--promo); 
+    color: #000; 
+    padding: 4px 0; /* Un poco más de aire */
+    border-radius: 0; /* Se adapta al overflow hidden de la tarjeta */
+    font-size: 0.6rem; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    display: none; 
+    z-index: 11; 
+    text-align: center;
+    transition: 0.3s ease; /* Para que se mueva con la tarjeta */
+}
+     /* Asegurar que la tarjeta corte lo que sobresale (como las esquinas del badge) */
+.service-card {
+    position: relative;
+    overflow: hidden; /* CRUCIAL: Esto hace que el badge no se salga de las esquinas redondeadas */
+    /* ... resto de tus estilos ... */
+}
     .service-item.oferta .badge-oferta { display: block; }
 
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
@@ -331,18 +354,21 @@
 
     .grid-mode .price-tag { font-size: 1.2rem !important; color: var(--primary) !important; }
 
-    /* Badge de Oferta corregido para no tapar el contenido */
-    .grid-mode .badge-oferta {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        border-radius: 0 !important;
-        text-align: center;
-        transform: none !important;
-        z-index: 5;
-    }
+    /* --- Ajuste específico para Cuadrícula --- */
+.grid-mode .badge-oferta {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+    border-radius: 0 !important; /* El overflow:hidden de la tarjeta hará el resto */
+    margin: 0 !important;
+}
 
+/* Ajuste de espacio para que el logo no choque con el badge en grid */
+.grid-mode .service-card {
+    padding-top: 35px !important; 
+}
     .grid-mode .check-icon { top: 8px !important; right: 8px !important; }
     
     @media (min-width: 768px) {
@@ -350,6 +376,16 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
         }
     }
+     /* Sincronizar el badge con el movimiento de selección */
+.service-item.selected .badge-oferta {
+    transform: scale(1); /* Mantiene la escala con el padre */
+}
+
+/* Si usas la animación popCheck, asegúrate de que el badge no se rompa */
+.selected .service-card {
+    transform: scale(0.98); /* El movimiento que ya tienes */
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 </style>
 </head>
 <body>
