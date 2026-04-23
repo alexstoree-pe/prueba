@@ -105,14 +105,13 @@
         margin-bottom: 4px;
     }
 
-    .search-container { max-width: 600px; margin: 10px auto 0; position: relative; }
-    #search-input {
-        width: 100%; padding: 8px 15px; border-radius: 15px; border: 1px solid var(--glass-border);
-        background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
-        outline: none; transition: 0.3s;
-    }
-    #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
-
+        .search-container { 
+        position: sticky; 
+        top: 110px; 
+        z-index: 1900; 
+        padding: 5px 15px; 
+        background: #0a0a0a; 
+        }
     .container { padding: 20px 15px; max-width: 600px; margin: auto; }
 
     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
