@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo Premium | Alex Store</title>
 
-    <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/img/logo.png">
-    
-    <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/img/logo.png">
-    <meta name="apple-mobile-web-app-title" content="Alex Store">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 
-    <meta property="og:title" content="Alex Store | Catálogo Premium">
-    <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio. Garantía y entrega rápida.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
-    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/img/logo.png">
-    <meta property="og:image:width" content="500">
-    <meta property="og:image:height" content="500">
+<link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+
+<meta property="og:title" content="Alex Store | Catálogo Premium">
+<meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
+<meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+<meta property="og:image:width" content="500">
+<meta property="og:image:height" content="500">
+<meta property="og:image:type" content="image/webp">
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -268,12 +266,73 @@
     color: #000;
     border-color: var(--primary);
 }
+        .faq-container {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.faq-item {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.faq-question {
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-question h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.faq-question i {
+    font-size: 0.8rem;
+    color: var(--primary);
+    transition: 0.4s;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.faq-answer p {
+    padding: 0 22px 18px;
+    color: #888;
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+/* Estado cuando se abre */
+.faq-item.active {
+    border-color: var(--primary);
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(45deg);
+}
     </style>
 </head>
 <body>
 
 <header>
-    <img src="../img/logo.png" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
+    <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
     <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
     
@@ -309,6 +368,40 @@
         <a href="https://drive.google.com/file/d/1MPAECoht01Udr-oa7NcerexfZMC6h-5i/view?usp=sharing" target="_blank" class="btn-universal btn-referencias">⭐ NUESTRAS REFERENCIAS</a>
         <a href="../promociones-clientes/" class="btn-universal btn-combos-premium">🎁 VER COMBOS Y PROMOCIONES</a>
         <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal btn-comunidad">👥 COMUNIDAD</a>
+
+        <div class="category-title" data-aos="fade-up">RESUELVE TUS DUDAS</div>
+
+<div class="faq-container" data-aos="fade-up">
+    <div class="faq-item">
+        <div class="faq-question">
+            <h3>¿Cómo recibo mi cuenta?</h3>
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Tras verificar tu pago, los accesos se envían directamente a tu WhatsApp en menos de 5 a 15 minutos.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">
+            <h3>¿Qué pasa si la cuenta falla?</h3>
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Contamos con garantía total. Si surge un inconveniente, nuestro equipo de soporte técnico lo resuelve de inmediato o te brindamos una cuenta nueva.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">
+            <h3>¿Cuáles son los medios de pago?</h3>
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Aceptamos Yape, Plin y Transferencias Bancarias (BCP, BBVA, Interbank). También métodos internacionales según disponibilidad.</p>
+        </div>
+    </div>
+</div>
     </div>
 
     <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
@@ -317,7 +410,7 @@
         <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="service-logo">
+            <img src="../img/netflix.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Netflix Premium</h3>
                 <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
@@ -333,7 +426,7 @@
         <div class="badge-oferta">MUY SOLICITADO 🎁</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/disneyp.png" class="service-logo">
+            <img src="../img/disneyp.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium</h3>
                 <span class="manual-desc">•Cliente nuevo (Activación a TV)• Todo los canales ESPN • Perfil privado.</span>
@@ -348,7 +441,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/disneys.png" class="service-logo">
+            <img src="../img/disneys.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
                 <span class="manual-desc">•Cliente nuevo (Activación a TV)• No contiene canales ESPN • Perfil privado.</span>
@@ -363,7 +456,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/max.png" class="service-logo">
+            <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Max Standard</h3>
                 <span class="manual-desc">• 1 mes •Full HD • Perfil privado.</span>
@@ -378,7 +471,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/max.png" class="service-logo">
+            <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">MAX Platino</h3>
                 <span class="manual-desc">• 1 mes • premium 4K • Perfil privado .</span>
@@ -393,7 +486,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/prime.png" class="service-logo">
+            <img src="../img/prime.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
                 <span class="manual-desc">• 1 mes • Perfil privado • Activacion solo a TV.</span>
@@ -408,7 +501,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/prime.png" class="service-logo">
+            <img src="../img/prime.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PRIME VIDEO</h3>
                 <span class="manual-desc">• 1 mes • Perfil privado • se entrega correo y contraseña.</span>
@@ -423,7 +516,7 @@
     <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/vix.png" class="service-logo">
+            <img src="../img/vix.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">VIX PREMIUM</h3>
                 <span class="manual-desc">• 1 mes • perfil privado • premium.</span>
@@ -438,7 +531,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/paramount.png" class="service-logo">
+            <img src="../img/paramount.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PARAMOUNT</h3>
                 <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
@@ -453,7 +546,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/crunchyroll.png" class="service-logo">
+            <img src="../img/crunchyroll.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">CRUNCHYROLL </h3>
                 <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
@@ -470,7 +563,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.png" class="service-logo"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
                 <h3 class="nombre-prod">CANVA PRO (1 mes) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
@@ -485,7 +578,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.png" class="service-logo"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
                 <h3 class="nombre-prod">CANVA PRO (3 meses) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
@@ -500,7 +593,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.png" class="service-logo"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
                 <h3 class="nombre-prod">CANVA PRO (6 meses) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
@@ -515,7 +608,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.png" class="service-logo"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
                 <h3 class="nombre-prod">CANVA PRO (12 meses) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
@@ -532,7 +625,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/movistar.png" class="service-logo"> 
+            <img src="../img/movistar.webp" class="service-logo"> 
             <div class="service-text">
                 <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
                 <span class="manual-desc">• Canal l1 Max • Activación a TV • Perfil privado.</span>
@@ -547,7 +640,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/dgo.png" class="service-logo">
+            <img src="../img/dgo.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Directv Go + l1 Max</h3>
                 <span class="manual-desc">•1 mes • Activación a TV• Todo los canales ESPN • Perfil privado.</span>
@@ -562,7 +655,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/flujo.png" class="service-logo">
+            <img src="../img/flujo.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Magis TV- Fluo TV</h3>
                 <span class="manual-desc">• 1 Perfil •+1200 Canales en vivo .</span>
@@ -577,7 +670,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/iptv.png" class="service-logo">
+            <img src="../img/iptv.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">IPTV Smarters pro (1 dis)</h3>
                 <span class="manual-desc">•1 Dispositivo •6500 Canales en vivo .</span>
@@ -592,7 +685,7 @@
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/iptv.png" class="service-logo">
+            <img src="../img/iptv.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">IPTV Smarters pro (3 dis)</h3>
                 <span class="manual-desc">•3 Dispositivos •6500 Canales en vivo .</span>
@@ -609,7 +702,7 @@
     <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" class="service-logo">
+            <img src="../img/spotify.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
                 <span class="manual-desc">• Sin anuncios • Se entrega con correo y contraseña.</span>
@@ -625,7 +718,7 @@
         <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/youtube.png" class="service-logo">
+            <img src="../img/youtube.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Youtube Premium (1 mes)</h3>
                 <span class="manual-desc">• Sin anuncios • A tu correo (correo nuevo creado).</span>
@@ -932,6 +1025,21 @@ if (scrollContainer) {
         const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
         window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
     }
+    <script>
+    // Lógica para el Acordeón de FAQ
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const faqItem = button.parentElement;
+            
+            // Opcional: Cerrar otros cuando uno se abre
+            document.querySelectorAll('.faq-item').forEach(otherItem => {
+                if (otherItem !== faqItem) otherItem.classList.remove('active');
+            });
+
+            faqItem.classList.toggle('active');
+        });
+    });
+</script>
 </script>
 </body>
 </html>
