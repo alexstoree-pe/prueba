@@ -163,10 +163,18 @@
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.15); transform: scale(0.97); }
         
         .check-icon { position: absolute; top: -5px; right: -5px; background: var(--primary); color: #000; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 101; border: 2px solid #000; }
-        .service-link.selected .check-icon { display: flex; }
-
+        /* Check celeste */
+.service-link.selected .check-icon,
+.service-link:has(input:checked) .check-icon {
+    color: #00d4ff !important;
+}
         .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-        .service-link.premium.selected .service-card { border-color: var(--primary); }
+        /* Borde celeste cuando está seleccionado (si NO es premium) */
+.service-link.selected, 
+.service-link:has(input:checked) {
+    border: 2px solid #00d4ff !important;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
 
         .badge-oferta { 
             display: none; 
@@ -432,17 +440,24 @@
     margin-right: 0 !important;
 }
         /* Ajuste manual para el aviso SIN STOCK en modo cuadrícula */
+/* Centrado absoluto y estable solo para modo cuadrícula */
 .grid-mode .service-link.agotado::after {
-    /* 1. Reseteamos el centrado que pusimos antes */
-    left: 45px !important;  /* Distancia desde el borde izquierdo de la tarjeta */
-    transform: translateY(-50%) !important; /* Solo lo centra verticalmente */
+    /* 1. Posicionamiento matemático */
+    top: 50% !important;
+    left: 50% !important;
     
-    /* 2. Posición horizontal */
-    right: auto !important; /* Anula cualquier empuje desde la derecha */
+    /* 2. El transform es vital para que el zoom no lo mueva */
+    transform: translate(-50%, -50%) !important;
     
-    /* 3. Estética opcional */
-    font-size: 1.0rem !important; /* Un poco más pequeño para que no choque con los bordes */
-    padding: 5px 10px !important;
+    /* 3. Limpieza de reglas anteriores */
+    right: auto !important;
+    margin: 0 !important;
+    
+    /* 4. Estabilidad de forma */
+    white-space: nowrap !important; /* Evita que el texto se apile */
+    width: auto !important;
+    display: block !important;
+    z-index: 100;
 }
 
         @media (max-width: 480px) {
