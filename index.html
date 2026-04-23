@@ -6,7 +6,6 @@
     <title>Distribución VIP | Alex Store</title>
 
     <link rel="icon" type="image/webp" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-
     <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
     <meta name="apple-mobile-web-app-title" content="Alex Distribución">
     <meta name="mobile-web-app-capable" content="yes">
@@ -15,7 +14,8 @@
     <meta property="og:title" content="Distribución VIP | Alex Store">
     <meta property="og:description" content="Precios exclusivos para distribuidores. Panel de servicios streaming 24/7.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/distribuidores/"> <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/distribuidores/"> 
+    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
     <meta property="og:image:width" content="500">
     <meta property="og:image:height" content="500">
     <meta property="og:image:type" content="image/png">
@@ -36,16 +36,14 @@
             --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
         }
 
-        /* Cambia el display:none por opacidad para evitar bloqueos visuales */
-html { 
-    background-color: var(--dark); 
-    scroll-behavior: smooth; 
-}
+        html { 
+            background-color: var(--dark); 
+            scroll-behavior: smooth; 
+        }
 
-/* Esta clase asegurará que el contenido se oculte correctamente */
-.contenido-protegido {
-    display: none !important;
-}
+        .contenido-protegido {
+            display: none !important;
+        }
 
         @keyframes shine-red { 
             0%, 100% { text-shadow: 0 0 10px var(--danger-neon), 0 0 20px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
@@ -53,32 +51,33 @@ html {
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        /* 1. Ocultamos TODO el cuerpo por defecto para evitar el "parpadeo" de botones */
-body { 
-    font-family: 'Poppins', sans-serif; 
-    background: #0a0a0a; 
-    color: white; 
-    padding-bottom: 200px; 
-    overflow-x: hidden;
-    visibility: hidden; /* <--- Esto es la clave: invisible hasta que el PIN sea correcto */
-}
 
-/* 2. El modal debe ser lo ÚNICO visible cuando no hay acceso */
-.modal-pass { 
-    display: none; 
-    position: fixed; 
-    inset: 0; 
-    background: rgba(0,0,0,0.98); 
-    backdrop-filter: blur(25px); 
-    z-index: 9999; 
-    justify-content: center; 
-    align-items: center;
-    visibility: visible; /* <--- Esto permite que el modal se vea aunque el body esté oculto */
-}
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #0a0a0a; 
+            color: white; 
+            padding-bottom: 200px; 
+            overflow-x: hidden;
+            visibility: hidden;
+        }
+
+        .modal-pass { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.98); 
+            backdrop-filter: blur(25px); 
+            z-index: 9999; 
+            justify-content: center; 
+            align-items: center;
+            visibility: visible;
+        }
+
         .modal-content-pass { 
             background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
             border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
         }
+
         #input-dist-pass { 
             width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; 
             color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; letter-spacing: 5px;
@@ -88,6 +87,7 @@ body {
             background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 10px 15px 0px; 
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
         }
+
         .brand-logo { width: 45px; height: 45px; object-fit: contain; border-radius: 18px; margin-bottom: 5px; }
         header h1 { font-size: 1.1rem; letter-spacing: 0.9px; margin-bottom: 5px; }
 
@@ -97,12 +97,13 @@ body {
         .garantia-mini-item p { font-size: 0.35rem; font-weight: 700; text-transform: uppercase; color: #bbb; line-height: 1.1; }
 
         .search-container { 
-    position: sticky; 
-    top: 110px; /* <--- Cambia de 165px a 110px (o menos según prefieras) */
-    z-index: 1900; 
-    padding: 5px 15px; 
-    background: #0a0a0a; 
-}
+            position: sticky; 
+            top: 110px; 
+            z-index: 1900; 
+            padding: 5px 15px; 
+            background: #0a0a0a; 
+        }
+
         .search-wrapper { position: relative; max-width: 500px; margin: auto; }
         .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
         #buscador { width: 100%; padding: 8px 15px 8px 40px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
@@ -113,63 +114,50 @@ body {
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
         .btn-promo-distri { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
         .btn-iptv { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-        .contenedor-iptv { display: flex; justify-content: center; padding: 0 15px; margin-top: -8px; /* Reduce el espacio con los botones de arriba si es necesario */ margin-bottom: 20px; }
+        .contenedor-iptv { display: flex; justify-content: center; padding: 0 15px; margin-top: -8px; margin-bottom: 20px; }
 
         .container { padding: 10px 15px; max-width: 600px; margin: auto; }
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
-        /* TRANSICIÓN SUAVE DEL BUSCADOR */
         .service-link { 
             position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer;
             transition: opacity 0.4s ease, transform 0.4s ease, margin-bottom 0.4s ease;
         }
         
-        /* CLASE PARA OCULTAR CON SUAVE FADE */
         .oculto-busqueda {
             display: none !important;
             opacity: 0;
             transform: scale(0.95);
             margin-bottom: 0;
         }
-        .oculto-filtro {
-    display: none !important;
-}
 
         .filter-container {
-  display: flex;
-  overflow-x: auto; /* Permite el scroll horizontal */
-  white-space: nowrap; /* Evita que los botones salten a la siguiente línea */
-  gap: 10px; /* Espacio entre botones */
-  padding: 10px 5px;
-  scrollbar-width: none; /* Oculta la barra en Firefox */
-  -ms-overflow-style: none; /* Oculta la barra en IE/Edge */
-}
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            gap: 10px;
+            padding: 10px 5px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
 
-/* Oculta la barra de scroll en Chrome, Safari y Opera */
-.filter-container::-webkit-scrollbar {
-  display: none;
-}
+        .filter-container::-webkit-scrollbar { display: none; }
 
-.filter-btn {
-  flex: 0 0 auto; /* Importante: evita que los botones se encojan */
-  padding: 8px 20px;
-  border-radius: 8px;
-  background-color: #1a1a1a; /* Ajusta al color de tu web */
-  color: white;
-  border: 1px solid #333;
-}
+        .filter-btn {
+            flex: 0 0 auto;
+            padding: 8px 20px;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            color: white;
+            border: 1px solid #333;
+        }
 
-.btn-filter.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-}
-      .filter-wrapper {
-    display: block !important;
-    min-height: 50px; /* Asegura un espacio mínimo para que se vean */
-    margin-bottom: 10px;
-}  
+        .filter-wrapper {
+            display: block !important;
+            min-height: 50px;
+            margin-bottom: 10px;
+        }  
+
         .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
         
         .service-link.selected .service-card { border-color: var(--primary); background: rgba(0, 212, 255, 0.15); transform: scale(0.97); }
@@ -180,27 +168,22 @@ body {
         .service-link.premium .service-card { border: 2px solid var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
         .service-link.premium.selected .service-card { border-color: var(--primary); }
 
-        /* El badge está oculto por defecto */
-.badge-oferta { 
-    display: none; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    background: #f1c40f; 
-    color: #000; 
-    padding: 3px 20px 3px 10px; 
-    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-    font-size: 0.55rem; 
-    font-weight: 900; 
-    z-index: 100;
-    text-transform: uppercase;
-}
+        .badge-oferta { 
+            display: none; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            background: #f1c40f; 
+            color: #000; 
+            padding: 3px 20px 3px 10px; 
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            font-size: 0.55rem; 
+            font-weight: 900; 
+            z-index: 100;
+            text-transform: uppercase;
+        }
 
-
-/* SOLO si el contenedor tiene la clase "oferta", el badge se muestra */
-.service-link.oferta .badge-oferta {
-    display: block;
-}
+        .service-link.oferta .badge-oferta { display: block; }
 
         .premium-text { 
             display: none; 
@@ -249,7 +232,6 @@ body {
         }
 
         .cart-content-wrapper { display: flex; align-items: center; width: 100%; height: 70px; }
-
         .btn-send-order { flex-grow: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; cursor: pointer; height: 100%; }
 
         .btn-clear-cart {
@@ -268,252 +250,205 @@ body {
             transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         #custom-alert.active { top: 30px; }
+
         .btn-filter {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    color: #888;
-    padding: 8px 18px;
-    border-radius: 10px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: uppercase;
-}
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: #888;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
 
-.btn-filter.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-}
+        .btn-filter.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
 
-/* Ocultar categorías por filtro */
-.oculto-filtro {
-    display: none !important;
-}
-        /* Esto asegura que los productos filtrados siempre sean visibles */
-.service-link:not(.oculto-filtro) {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
+        .oculto-filtro {
+            display: none !important;
+        }
 
-.oculto-filtro {
-    display: none !important;
-}
+        .service-link:not(.oculto-filtro) {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
         .btn-view.active {
-    background: var(--primary) !important;
-    color: #000 !important;
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
-}
-        /* ===========================================
-   SISTEMA DE VISTAS (LISTA / CUADRÍCULA)
-   =========================================== */
+            background: var(--primary) !important;
+            color: #000 !important;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
 
-/* 1. Botones de Control de Vista */
-.view-controls {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    max-width: 600px;
-    margin: 5px auto;
-    padding: 0 15px;
-}
-.view-btn {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    color: #666;
-    width: 35px;
-    height: 35px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.view-btn.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-}
+        /* SISTEMA DE VISTAS */
+        .view-controls {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            max-width: 600px;
+            margin: 5px auto;
+            padding: 0 15px;
+        }
 
-/* 2. Comportamiento CUADRÍCULA */
-/* 2. Comportamiento CUADRÍCULA dinámico */
-.container.grid-mode {
-    display: grid !important;
-    gap: 15px !important;
-    /* Por defecto en móviles: 2 columnas */
-    grid-template-columns: repeat(2, 1fr) !important; 
-}
+        .view-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: #666;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-/* Para Tablets (más de 768px): 3 o 4 columnas */
-@media (min-width: 768px) {
-    .container.grid-mode {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
-    }
-}
+        .view-btn.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
 
-/* Para PC / Pantallas grandes (más de 1024px): hasta 6 columnas */
-@media (min-width: 1024px) {
-    /* 1. Expandimos el contenedor principal casi al borde de la pantalla */
-    .container {
-        max-width: 95% !important; 
-        padding: 0 30px;
-    }
+        .container.grid-mode {
+            display: grid !important;
+            gap: 15px !important;
+            grid-template-columns: repeat(2, 1fr) !important; 
+        }
 
-    /* 2. Configuramos el grid para que use todo ese nuevo ancho */
-    .container.grid-mode {
-        display: grid !important;
-        /* auto-fill hará que las tarjetas ocupen todo el ancho disponible de lado a lado */
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
-        gap: 20px !important;
-    }
+        @media (min-width: 768px) {
+            .container.grid-mode {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+            }
+        }
 
-    /* 3. Ajuste para que los títulos de zona no queden volando */
-    .grid-mode .category-title {
-        grid-column: 1 / -1; 
-        width: 100%;
-        margin: 40px 0 20px;
-    }
-}
-/* 3. Ajustes de la TARJETA en modo CUADRÍCULA */
-.grid-mode .service-link {
-    margin-bottom: 0 !important; /* Quitamos el margen inferior de lista */
-}
-
-.grid-mode .service-card {
-    flex-direction: column !important; /* De horizontal a vertical */
-    text-align: center;
-    padding: 15px 10px !important;
-    height: 100%;
-    justify-content: space-between;
-}
-
-.grid-mode .service-logo {
-    width: 60px !important;
-    height: 60px !important;
-    margin-bottom: 10px;
-}
-
-.grid-mode .service-text {
-    width: 100%;
-}
-
-.grid-mode .service-text h3 {
-    font-size: 0.85rem !important;
-    line-height: 1.2;
-}
-
-.grid-mode .manual-desc {
-    font-size: 0.65rem !important;
-}
-
-.grid-mode .price-container {
-    margin-left: 0 !important;
-    margin-top: 10px;
-    align-items: center !important;
-    width: 100%;
-}
-
-.grid-mode .price-tag {
-    font-size: 1.1rem !important;
-}
-
-/* Ajuste de etiquetas en Cuadrícula */
-.grid-mode .badge-oferta {
-    width: 100%;
-    text-align: center;
-    clip-path: none; /* Se ve mejor cuadrado en grid */
-    border-radius: 0 0 10px 10px;
-}
-
-.grid-mode .premium-text {
-    margin-right: 0;
-    margin-bottom: 5px;
-    display: block;
-}
-
-/* Títulos de categoría en Grid */
-.grid-mode .category-title {
-    grid-column: 1 / -1;
-    width: 100%;
-    border-bottom: 1px solid var(--glass-border);
-    padding-bottom: 10px;
-}
-/* Adaptación para Tablets/PC */
-@media (max-width: 480px) {
-    /* Si el buscador es sticky, los filtros deben bajar un poco */
-    .filter-wrapper {
-        margin-top: 5px;
-        padding-top: 5px;
-    }
-    
-    .btn-filter {
-        padding: 8px 15px; /* Tamaño cómodo para tocar con el dedo */
-        font-size: 12px;
-    }
-}
-        #filterScroll {
-    display: flex !important; /* Fuerza la visibilidad */
-    visibility: visible !important;
-    opacity: 1 !important;
-    overflow-x: auto; /* Permite el scroll horizontal si son muchos */
-    white-space: nowrap;
-    gap: 10px;
-    padding: 10px 5px;
-    z-index: 100;
-}
         @media (min-width: 1024px) {
-    /* Si el contenedor NO tiene la clase .grid-mode, se comporta como lista estrecha */
-    .container:not(.grid-mode) {
-        max-width: 700px !important; /* Ajusta este número a tu gusto para el ancho de la lista */
-        margin: 0 auto;
-    }
+            .container {
+                max-width: 95% !important; 
+                padding: 0 30px;
+            }
 
-    /* Solo cuando tenga .grid-mode se expande a los costados */
-    .container.grid-mode {
-        max-width: 95% !important;
-    }
-}
-        /* Esto asegura que en modo lista las tarjetas no se deformen */
-.container:not(.grid-mode) .service-card {
-    width: 100%;
-    max-width: 100%;
-}
-        /* ===========================================
-   EFECTO DE BRILLO AL PASAR EL MOUSE (HOVER)
-   =========================================== */
+            .container.grid-mode {
+                display: grid !important;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+                gap: 20px !important;
+            }
 
-/* Aplicamos el efecto a la tarjeta dentro del link, asegurando alta prioridad */
-.service-link:hover .service-card {
-    /* Forzamos el color del borde a celeste (var(--primary)) */
-    border-color: var(--primary) !important;
-    
-    /* Añadimos un resplandor (neón) celeste suave */
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 
-                inset 0 0 10px rgba(0, 212, 255, 0.1) !important;
-    
-    /* Pequeña animación de elevación y cambio de fondo */
-    transform: translateY(-4px) scale(1.01);
-    background: rgba(255, 255, 255, 0.05) !important;
-    
-    /* Suavizamos la transición */
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 2; /* Asegura que la tarjeta que brilla resalte sobre las demás */
-}
+            .grid-mode .category-title {
+                grid-column: 1 / -1; 
+                width: 100%;
+                margin: 40px 0 20px;
+            }
 
-/* Ajuste específico para PC si usas Cuadrícula */
-.grid-mode .service-link:hover .service-card {
-    transform: translateY(-6px) scale(1.02); /* Un poco más de elevación en grid */
-}
+            .container:not(.grid-mode) {
+                max-width: 700px !important;
+                margin: 0 auto;
+            }
+        }
 
-/* Ajuste de brillo para las tarjetas Premium (oro) al hacer hover */
-.service-link.premium:hover .service-card {
-    /* Mantenemos el fondo dorado suave pero cambiamos el borde a celeste */
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0, 0, 0, 0.1)) !important;
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 25px rgba(0, 212, 255, 0.5) !important;
-}
+        .grid-mode .service-link {
+            margin-bottom: 0 !important;
+        }
+
+        .grid-mode .service-card {
+            flex-direction: column !important;
+            text-align: center;
+            padding: 15px 10px !important;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .grid-mode .service-logo {
+            width: 60px !important;
+            height: 60px !important;
+            margin-bottom: 10px;
+        }
+
+        .grid-mode .service-text { width: 100%; }
+        .grid-mode .service-text h3 { font-size: 0.85rem !important; line-height: 1.2; }
+        .grid-mode .manual-desc { font-size: 0.65rem !important; }
+
+        .grid-mode .price-container {
+            margin-left: 0 !important;
+            margin-top: 10px;
+            align-items: center !important;
+            width: 100%;
+        }
+
+        .grid-mode .price-tag { font-size: 1.1rem !important; }
+
+        .grid-mode .badge-oferta {
+            width: 100%;
+            text-align: center;
+            clip-path: none;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .grid-mode .premium-text {
+            margin-right: 0;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .grid-mode .category-title {
+            grid-column: 1 / -1;
+            width: 100%;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .filter-wrapper {
+                margin-top: 5px;
+                padding-top: 5px;
+            }
+            .btn-filter {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+        }
+
+        #filterScroll {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            overflow-x: auto;
+            white-space: nowrap;
+            gap: 10px;
+            padding: 10px 5px;
+            z-index: 100;
+        }
+
+        .container:not(.grid-mode) .service-card {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* EFECTO DE BRILLO HOVER */
+        .service-link:hover .service-card {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 
+                        inset 0 0 10px rgba(0, 212, 255, 0.1) !important;
+            transform: translateY(-4px) scale(1.01);
+            background: rgba(255, 255, 255, 0.05) !important;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 2;
+        }
+
+        .grid-mode .service-link:hover .service-card {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .service-link.premium:hover .service-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0, 0, 0, 0.1)) !important;
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5) !important;
+        }
     </style>
 
     <script>
