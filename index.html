@@ -16,6 +16,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/distribuidores/"> 
     <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    <meta property="og:image:type" content="image/png">
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -33,15 +36,10 @@
             --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
         }
 
-        /* Base y Animaciones */
+        /* Estructura Base */
         html { background-color: var(--dark); scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        @keyframes shine-red { 
-            0%, 100% { text-shadow: 0 0 10px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
-            50% { text-shadow: 0 0 30px var(--danger-neon); color: #fff; border-color: #fff; box-shadow: inset 0 0 20px var(--danger-neon), 0 0 25px var(--danger-neon); } 
-        }
-
         body { 
             font-family: 'Poppins', sans-serif; 
             background: #0a0a0a; color: white; padding-bottom: 200px; 
@@ -50,7 +48,12 @@
 
         .contenido-protegido { display: none !important; }
 
-        /* Modal Pass */
+        @keyframes shine-red { 
+            0%, 100% { text-shadow: 0 0 10px var(--danger-neon), 0 0 20px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
+            50% { text-shadow: 0 0 30px var(--danger-neon), 0 0 50px var(--danger-neon); color: #fff; border-color: #fff; box-shadow: inset 0 0 20px var(--danger-neon), 0 0 25px var(--danger-neon); } 
+        }
+
+        /* Modal Seguridad */
         .modal-pass { 
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
             backdrop-filter: blur(25px); z-index: 9999; justify-content: center; align-items: center; visibility: visible; 
@@ -64,7 +67,7 @@
             color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; letter-spacing: 5px;
         }
 
-        /* Header y Buscador */
+        /* Header y Navegación */
         header { 
             background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 10px 15px 0px; 
             text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
@@ -75,7 +78,7 @@
         .garantia-header { display: flex; justify-content: center; gap: 15px; margin-top: 5px; }
         .garantia-mini-item { text-align: center; min-width: 60px; }
         .garantia-mini-item i { font-size: 0.7rem; color: var(--primary); margin-bottom: 2px; }
-        .garantia-mini-item p { font-size: 0.35rem; font-weight: 700; text-transform: uppercase; color: #bbb; }
+        .garantia-mini-item p { font-size: 0.35rem; font-weight: 700; text-transform: uppercase; color: #bbb; line-height: 1.1; }
 
         .search-container { position: sticky; top: 110px; z-index: 1900; padding: 5px 15px; background: #0a0a0a; }
         .search-wrapper { position: relative; max-width: 500px; margin: auto; }
@@ -84,7 +87,7 @@
 
         /* Botones y Filtros */
         .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto; max-width: 500px; padding: 0 15px; }
-        .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
+        .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; transition: 0.3s; }
         .btn-inicio { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
         .btn-promo-distri, .btn-iptv { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
 
@@ -95,58 +98,44 @@
         .btn-filter { background: var(--glass); border: 1px solid var(--glass-border); color: #888; padding: 8px 18px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
         .btn-filter.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
 
-        /* Sistema de Vistas (Lista / Grid) */
+        /* Sistema de Vistas */
         .view-controls { display: flex; justify-content: flex-end; align-items: center; gap: 10px; max-width: 600px; margin: 5px auto; padding: 0 15px; }
-        .view-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #666; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .view-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #666; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; }
         .view-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        /* Contenedor Adaptativo */
-        .container { padding: 10px 15px; margin: auto; }
+        /* Contenedor y Grid Adaptativo (SIN DUPLICIDAD) */
+        .container { padding: 10px 15px; margin: auto; transition: 0.3s; }
         
+        /* Vista Lista en PC (Centrada) */
         @media (min-width: 1024px) {
-            /* VISTA LISTA: Centrada y estrecha */
-            .container:not(.grid-mode) { max-width: 700px !important; margin: 0 auto; }
-            /* VISTA GRID: Expandida */
-            .container.grid-mode { 
-                max-width: 95% !important; 
-                display: grid !important; 
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
-                gap: 20px !important; 
-            }
+            .container:not(.grid-mode) { max-width: 700px !important; }
+            .container.grid-mode { max-width: 95% !important; display: grid !important; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important; gap: 20px !important; }
         }
 
-        /* Tarjeta Base */
-        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; transition: 0.4s ease; }
+        /* Móvil / Tablet Grid */
+        .container.grid-mode { display: grid !important; gap: 15px !important; grid-template-columns: repeat(2, 1fr) !important; }
+        @media (min-width: 768px) { .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important; } }
+
+        /* Tarjeta de Servicio */
+        .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; transition: opacity 0.4s ease, transform 0.4s ease; }
         .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
-        
-        /* Ajustes Modo Grid */
+
+        /* Ajustes de Tarjeta en Modo Grid */
         .grid-mode .service-link { margin-bottom: 0 !important; }
         .grid-mode .service-card { flex-direction: column !important; text-align: center; padding: 15px 10px !important; height: 100%; justify-content: space-between; }
         .grid-mode .service-logo { width: 60px !important; height: 60px !important; margin-bottom: 10px; }
         .grid-mode .price-container { margin-left: 0 !important; margin-top: 10px; align-items: center !important; width: 100%; }
 
-        /* Efecto Brillo Hover */
-        .service-link:hover .service-card {
-            border-color: var(--primary) !important;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(0, 212, 255, 0.1) !important;
-            transform: translateY(-4px) scale(1.01);
-            background: rgba(255, 255, 255, 0.05) !important;
-        }
-
-        /* Premium y Estados */
+        /* Hover y Estados */
+        .service-link:hover .service-card { border-color: var(--primary) !important; box-shadow: 0 0 20px rgba(0, 212, 255, 0.4) !important; transform: translateY(-4px) scale(1.01); background: rgba(255, 255, 255, 0.05) !important; }
         .service-link.premium .service-card { border: 2px solid var(--vip); }
-        .premium-text { display: none; border: 1px solid #bf953f; padding: 2px 8px; border-radius: 4px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; }
-        .premium .premium-text { display: inline-block; }
         
         .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
         .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Agotado */
-        .service-link.agotado .service-card { opacity: 0.3; filter: grayscale(1); }
-        .service-link.agotado::after { content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%); font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; z-index: 200; background: #000; }
-
-        /* Utilidades */
         .oculto-busqueda, .oculto-filtro { display: none !important; }
+
+        /* Títulos de Categoría */
         .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; }
         .grid-mode .category-title { grid-column: 1 / -1; width: 100%; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
 
