@@ -164,43 +164,62 @@
 
     // --- 2. MOTOR DINÁMICO ---
     function renderizar(filtro = "TODOS", busqueda = "") {
-        const contenedor = document.getElementById('contenedor-productos');
-        let html = "";
-        let ultimaCat = "";
+    const contenedor = document.getElementById('contenedor-productos');
+    let html = "";
+    let ultimaCat = "";
 
-        const filtrados = PRODUCTOS.filter(p => {
-            const matchesCat = filtro === "TODOS" || p.categoria === filtro;
-            const matchesSearch = p.nombre.toLowerCase().includes(busqueda.toLowerCase());
-            return matchesCat && matchesSearch;
-        });
+    const filtrados = PRODUCTOS.filter(p => {
+        const matchesCat = filtro === "TODOS" || p.categoria === filtro;
+        const matchesSearch = p.nombre.toLowerCase().includes(busqueda.toLowerCase());
+        return matchesCat && matchesSearch;
+    });
 
-        filtrados.forEach(p => {
-            if (p.categoria !== ultimaCat) {
-                html += `<div class="category-title" data-aos="fade-right">${p.categoria}</div>`;
-                ultimaCat = p.categoria;
-            }
-            const isSelected = carrito.some(i => i.nombre === p.nombre) ? 'selected' : '';
-            html += `
-                <div class="service-item ${p.oferta?'oferta':''} ${p.premium?'premium':''} ${p.agotado?'agotado':''} ${isSelected}" 
-                     onclick="toggleCarrito(this)" data-aos="fade-up">
-                    ${p.badge ? `<div class="badge-oferta">${p.badge}</div>` : ''}
-                    <div class="service-card">
-                        <div class="check-icon">✓</div>
-                        <img src="${p.imagen}" class="service-logo">
-                        <div class="service-text">
-                            <h3 class="nombre-prod">${p.nombre}</h3>
-                            <span class="manual-desc">${p.descripcion}</span>
-                        </div>
-                        <div class="price-container">
-                            <span class="price-tag precio-prod">S/ ${p.precio}</span>
-                            <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK</div>
-                        </div>
+    filtrados.forEach(p => {
+        // Generar título de categoría si cambia
+        if (p.categoria !== ultimaCat) {
+            html += `<div class="category-title" data-aos="fade-right">🎬 ${p.categoria}</div>`;
+            ultimaCat = p.categoria;
+        }
+
+        const isSelected = carrito.some(i => i.nombre === p.nombre) ? 'selected' : '';
+        
+        // El HTML ahora respeta la estructura de tu Foto 1
+        html += `
+            <div class="service-item ${p.premium ? 'premium' : ''} ${p.agotado ? 'agotado' : ''} ${isSelected}" 
+                 onclick="toggleCarrito(this)" data-aos="fade-up">
+                
+                <div class="check-icon">✓</div>
+                
+                ${p.badge ? `<div class="badge-oferta">${p.badge}</div>` : ''}
+                
+                <div class="service-card">
+                    <img src="${p.imagen}" class="service-logo">
+                    
+                    <div class="service-text" style="flex-grow: 1;">
+                        <h3 class="nombre-prod" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 2px;">${p.nombre}</h3>
+                        <p class="manual-desc" style="font-size: 0.8rem; color: #aaa; margin: 0;">${p.descripcion}</p>
                     </div>
-                </div>`;
-        });
-        contenedor.innerHTML = html;
-        AOS.refresh();
-    }
+
+                    <div class="price-container" style="text-align: right; min-width: 80px;">
+                        ${p.premium ? '<span class="premium-label" style="font-size: 0.5rem; border: 1px solid #d4af37; color: #d4af37; padding: 1px 4px; border-radius: 4px; font-weight: 900; display: block; margin-bottom: 5px; text-align: right; width: fit-content; margin-left: auto;">PREMIUM</span>' : ''}
+                        
+                        <span class="price-tag precio-prod" style="font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block;">
+                            S/ ${p.precio}
+                        </span>
+                        
+                        <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)" style="font-size: 0.7rem;">SIN STOCK</div>
+                    </div>
+                </div>
+            </div>`;
+    });
+
+    contenedor.innerHTML = html;
+    
+    // Aplicamos AOS después de renderizar
+    setTimeout(() => {
+        AOS.refreshHard();
+    }, 100);
+}
 
     // --- 3. LÓGICA DE FUNCIONES ---
     function filtrarDinamico() {
