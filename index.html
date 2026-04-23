@@ -190,31 +190,28 @@
         100% { transform: scale(1) rotate(0); opacity: 1; } 
     }
 
+    /* Usamos selectores más fuertes para que no importe cuántas clases tenga el div */
     .service-link.selected .service-card { 
         border: 2px solid var(--primary) !important; 
-        /* Subimos la opacidad para que no se vea opaco/negro */
-        background: rgba(0, 212, 255, 0.25) !important; 
+        /* Fondo más sólido para que no se vea oscuro/opaco */
+        background-color: rgba(0, 212, 255, 0.3) !important; 
         transform: scale(0.96) translateY(2px) !important; 
-        /* Añadimos un resplandor interno blanco/celeste para dar luz */
-        box-shadow: 0 0 25px rgba(0, 212, 255, 0.3), 
-                    inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+        /* Resplandor exterior e interior para dar luz */
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.4), 
+                    inset 0 0 20px rgba(255, 255, 255, 0.2) !important;
         transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 50;
     }
 
-    /* Esto evita que el logo se vea oscuro al seleccionar */
-    .service-link.selected .service-logo {
-        filter: brightness(1.2); 
-    }
-
+    /* Si es PREMIUM y está SELECCIONADO, usamos color oro brillante */
     .service-link.premium.selected .service-card { 
         border: 2px solid var(--vip) !important; 
-        background: rgba(212, 175, 55, 0.3) !important; 
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), 
-                    inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+        background-color: rgba(212, 175, 55, 0.35) !important; 
+        box-shadow: 0 0 35px rgba(212, 175, 55, 0.5), 
+                    inset 0 0 20px rgba(255, 255, 255, 0.2) !important;
     }
 
-    /* Diseño del Check */
+    /* Icono Check animado */
     .check-icon { 
         position: absolute; 
         top: -5px; 
@@ -231,6 +228,7 @@
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
+    /* Forzamos la aparición del check con cualquier combinación de clases */
     .service-link.selected .check-icon { 
         display: flex !important;
         background: var(--primary) !important;
@@ -241,18 +239,7 @@
     .service-link.premium.selected .check-icon { 
         background: #bf953f !important;
     }
-
-    .grid-mode .service-link.selected .check-icon {
-        top: 5px !important;
-        right: 5px !important;
-        width: 22px !important;
-        height: 22px !important;
-        font-size: 0.7rem !important;
-    }
-
-    .grid-mode .service-link.selected .service-card {
-        transform: scale(0.94) !important;
-    }
+    
     /* --- FIN CAMBIO SELECCIÓN PROFESIONAL --- */
     .badge-oferta { 
         display: none; 
