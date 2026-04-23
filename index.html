@@ -448,6 +448,40 @@ body {
     padding: 10px 5px;
     z-index: 100;
 }
+        /* ===========================================
+   EFECTO DE BRILLO AL PASAR EL MOUSE (HOVER)
+   =========================================== */
+
+/* Aplicamos el efecto a la tarjeta dentro del link, asegurando alta prioridad */
+.service-link:hover .service-card {
+    /* Forzamos el color del borde a celeste (var(--primary)) */
+    border-color: var(--primary) !important;
+    
+    /* Añadimos un resplandor (neón) celeste suave */
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 
+                inset 0 0 10px rgba(0, 212, 255, 0.1) !important;
+    
+    /* Pequeña animación de elevación y cambio de fondo */
+    transform: translateY(-4px) scale(1.01);
+    background: rgba(255, 255, 255, 0.05) !important;
+    
+    /* Suavizamos la transición */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 2; /* Asegura que la tarjeta que brilla resalte sobre las demás */
+}
+
+/* Ajuste específico para PC si usas Cuadrícula */
+.grid-mode .service-link:hover .service-card {
+    transform: translateY(-6px) scale(1.02); /* Un poco más de elevación en grid */
+}
+
+/* Ajuste de brillo para las tarjetas Premium (oro) al hacer hover */
+.service-link.premium:hover .service-card {
+    /* Mantenemos el fondo dorado suave pero cambiamos el borde a celeste */
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0, 0, 0, 0.1)) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.5) !important;
+}
     </style>
 
     <script>
