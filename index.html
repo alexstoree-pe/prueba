@@ -402,6 +402,67 @@
         text-transform: uppercase;
         white-space: nowrap; 
     }
+    /* Contenedor principal más bajo y delgado */
+#whatsapp-btn {
+    height: auto;
+    padding: 8px 15px;
+    border-radius: 50px; /* Bordes más redondeados tipo píldora */
+    max-width: 320px;    /* Evita que ocupe toda la pantalla en móviles */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%); /* Centrado perfecto */
+}
+
+/* Fila del carrito */
+.cart-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Info del carrito (Izquierda) */
+.cart-info {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+#cart-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-right: 5px;
+}
+
+/* Precio y Basurero (Derecha) */
+.total-info {
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 12px;
+}
+
+#cart-total {
+    font-size: 1.1rem !important; /* Un poco más pequeño */
+    font-weight: 800;
+}
+
+/* Botón de eliminar (Basurero) */
+.btn-clear-cart {
+    background: #ff4757; /* Color rojo para resaltar */
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: 0.3s;
+}
+
+.btn-clear-cart:hover {
+    background: #ff6b81;
+    transform: scale(1.1);
+}
 </style>
 </head>
 <body>
