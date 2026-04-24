@@ -126,17 +126,22 @@
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
     /* --- TARJETAS --- */
-    .service-item {
-    margin: 15px auto; /* Separa las tarjetas y las centra */
-    max-width: 550px;  /* Ajusta este ancho a tu gusto */
-    width: 92%;        /* Deja un pequeño margen en móviles */
+   .service-item {
+    width: 90%;            /* Ocupa casi todo el ancho en celulares */
+    max-width: 500px;      /* Pero nunca más de 500px (esto evita que se estire) */
+    margin: 15px auto;     /* Centra la tarjeta y le da espacio arriba/abajo */
+    transition: transform 0.3s ease;
 }
 
+/* El contenedor interno de la tarjeta */
 .service-card {
-    border-radius: 15px; /* Redondeado igual al de la imagen 1 */
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.03); /* Fondo sutil */
+    border-radius: 20px;   /* Redondeado elegante de la imagen 1 */
+    padding: 18px;         /* Espacio interno para que no se vea apretado */
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column; /* Alinea los elementos uno bajo otro */
+    gap: 8px;
 }
 
     .service-item:hover .service-card { 
