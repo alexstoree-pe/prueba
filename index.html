@@ -140,55 +140,51 @@
 
     .service-item.selected .check-icon { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-    /* --- LÓGICA PREMIUM DINÁMICA (CORREGIDA) --- */
-    /* Borde dorado para el modo Premium */
-.service-item.premium .service-card {
-    border: 2px solid #FFD700 !important;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3) !important;
-}
-    .service-item.premium .price-tag { color: var(--premium-gold); font-weight: 800; }
+    /* --- LÓGICA PREMIUM CORREGIDA (FORZANDO DORADO) --- */
+    /* Usamos selectores más específicos para que el celeste no gane */
+    .container .service-item.premium .service-card {
+        border: 2.5px solid #FFD700 !important;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.35) !important;
+    }
+    
+    .container .service-item.premium .price-tag { 
+        color: #FFD700 !important; 
+        font-weight: 800 !important; 
+    }
 
     .service-item.premium.selected .service-card {
-        border-color: var(--premium-gold) !important;
-        background: rgba(255, 193, 7, 0.12) !important;
-        box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+        border-color: #FFD700 !important;
+        background: rgba(255, 215, 0, 0.12) !important;
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
     }
 
-    .service-item.premium.selected .check-icon {
-        background: var(--premium-gold) !important;
-        color: #000 !important;
-    }
-
-/* Estilo base del badge Premium */
-.premium-badge-tag {
-    color: #FFD700 !important;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-}
-    /* AJUSTE DE PRECISIÓN: Vista Lista */
-.container:not(.grid-mode) .premium-badge-tag {
-    margin-right: 25px; /* Empuja el precio 25px a la derecha, moviendo el texto a la izquierda */
-}
-    /* ESTILO DE LA ETIQUETA PREMIUM */
-    .premium-text {
-        display: block;
-        align-self: flex-end;
-        color: var(--premium-gold);
-        border: 1.5px solid var(--premium-gold);
-        background: rgba(255, 193, 7, 0.05);
-        font-size: 0.6rem;
-        font-weight: 900;
-        padding: 2px 8px;
-        border-radius: 5px;
-        margin-bottom: 6px;
+    /* Estilo del texto PREMIUM (Dorado y con margen de 25px en lista) */
+    .premium-badge-tag {
+        color: #FFD700 !important;
+        font-weight: 900 !important;
+        display: flex !important;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
     }
 
+    .premium-badge-tag i { color: #FFD700 !important; }
+
+    /* Ajuste de precisión para VISTA LISTA: 25px a la izquierda del precio */
+    .container:not(.grid-mode) .premium-badge-tag {
+        margin-right: 25px !important;
+    }
+
+    /* Ajuste para VISTA CUADRÍCULA: Centrado */
+    .grid-mode .premium-badge-tag {
+        justify-content: center !important;
+        margin-bottom: 8px !important;
+        width: 100%;
+    }
+
+    /* Badge Oferta (Mantiene su estilo) */
     .badge-oferta { 
         position: absolute; top: 0; left: 20px; background: var(--promo); 
         color: #000; padding: 3px 12px; border-radius: 0 0 12px 12px; 
@@ -265,24 +261,12 @@ body .grid-mode .badge-oferta {
     transform: translateX(-50%) !important; border-radius: 0 0 10px 10px !important;
 }
 
-/* Badge Premium Centrado en Grid */
-body .grid-mode .premium-text {
-    position: relative !important; display: table !important; 
-    margin: 0 auto 8px auto !important; width: fit-content !important;
-}
-
 body .grid-mode .price-container {
     display: flex !important; flex-direction: column !important; align-items: center !important; 
     justify-content: flex-end !important; width: 100% !important; margin: auto 0 0 0 !important;
 }
 
 body .grid-mode .price-tag { text-align: center !important; }
-    /* Ajuste de la corona para que no flote raro en Grid */
-.grid-mode .premium-badge-tag {
-    justify-content: center;
-    margin-bottom: 5px;
-    width: 100%;
-}
 
 </style>
 </head>
