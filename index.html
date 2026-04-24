@@ -223,37 +223,35 @@
 
     /* Animación de Neón Rojo Eléctrico */
 @keyframes parpadeoNeon {
-    0% { 
-        box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; 
-        text-shadow: 0 0 5px #fff;
+    from { 
+        opacity: 1; 
+        box-shadow: 0 0 15px #ff4444; 
     }
-    100% { 
-        box-shadow: 0 0 25px #ff0000, 0 0 50px #ff4444, 0 0 10px #fff;
-        transform: translate(-50%, -50%) scale(1.08);
+    to { 
+        opacity: 0.8; 
+        box-shadow: 0 0 35px #ff4444; 
     }
 }
-
 /* El botón ahora forzado para que no se oscurezca */
 .service-item.agotado .btn-consultar-neon {
     display: block !important;
     position: absolute;
     top: 50%;
-    /* CAMBIO CLAVE: Usamos right en lugar de left */
-    right: 15px; 
-    /* CAMBIO CLAVE: Solo centramos verticalmente (Y), eliminamos el centrado horizontal (X) */
-    transform: translateY(-20%); 
+    right: 15px; /* Mantener fijo a la derecha */
+    
+    /* CAMBIO AQUÍ: Solo centrado vertical, sin traslación X */
+    transform: translateY(-50%) !important; 
     
     z-index: 9999;
     background: #ff0000 !important;
     color: #fff !important;
     border: 2px solid #fff !important;
-    font-size: 0.7rem;
-    padding: 6px 12px;
+    padding: 8px 15px;
     border-radius: 12px;
     font-weight: 900;
-    text-transform: uppercase;
-    box-shadow: 0 0 20px #ff0000;
-    animation: parpadeoNeon 0.8s infinite alternate;
+    
+    /* Usamos la animación que ahora solo cambia el brillo */
+    animation: parpadeoNeon 1s infinite alternate; 
     filter: none !important;
     opacity: 1 !important;
 }
