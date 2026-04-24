@@ -242,7 +242,72 @@
         .grid-mode { grid-template-columns: 1fr; }
         header h1 { font-size: 1.4rem; }
     }
-</style>
+  /* --- CONFIGURACIÓN DE LA CUADRÍCULA DE BOTONES --- */
+.grid-botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+/* Estilo Base para todos los botones universales */
+.btn-universal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 10px;
+    border-radius: 18px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.btn-universal:active {
+    transform: scale(0.95);
+}
+
+/* --- COLORES ESPECÍFICOS PARA CADA BOTÓN --- */
+
+/* Botón Volver al Inicio */
+.btn-inicio-top {
+    background: #222; /* Fondo oscuro elegante */
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    grid-column: span 2; /* Este botón ocupa las dos columnas */
+}
+
+/* Botón Referencias */
+.btn-referencias {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+}
+
+/* Botón Combos y Promociones */
+.btn-combos-premium {
+    background: linear-gradient(135deg, #FF416C, #FF4B2B);
+    color: #fff;
+}
+
+/* Botón Comunidad (WhatsApp) */
+.btn-comunidad {
+    background: #25D366; /* Color oficial WhatsApp */
+    color: #fff;
+    grid-column: span 2; /* Ocupa todo el ancho */
+    margin-top: 5px;
+}
+
+/* Ajuste para móviles: si la pantalla es muy pequeña, ponerlos uno bajo otro */
+@media (max-width: 480px) {
+    .btn-universal {
+        font-size: 0.7rem;
+        padding: 12px 8px;
+    }
+}
 </head>
 <body>
     
