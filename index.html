@@ -126,12 +126,18 @@
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
     /* --- TARJETAS --- */
-    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-    .service-card { 
-        background: var(--glass); border-radius: 15px; padding: 15px; 
-        display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); gap: 18px; position: relative; overflow: hidden;
-    }
+    .service-item {
+    margin: 15px auto; /* Separa las tarjetas y las centra */
+    max-width: 550px;  /* Ajusta este ancho a tu gusto */
+    width: 92%;        /* Deja un pequeño margen en móviles */
+}
+
+.service-card {
+    border-radius: 15px; /* Redondeado igual al de la imagen 1 */
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03); /* Fondo sutil */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
     .service-item:hover .service-card { 
         border-color: #ffffff !important;
@@ -293,22 +299,24 @@
         display: none !important; 
     }
 
-    /* BOTONES UNIVERSALES */
-    .grid-botones { 
-        display: flex !important; flex-wrap: wrap; justify-content: center; gap: 12px; 
-        margin: 20px  auto; max-width: 900px; padding: 0 15px;
-    }
-
-    .btn-universal {
-        display: flex; align-items: center; justify-content: center; padding: 18px 25px;
-        border-radius: 20px; text-decoration: none; font-weight: 900; font-size: 0.9rem;
-        text-transform: uppercase; letter-spacing: 1px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: none;
-        cursor: pointer; flex: 1 1 calc(50% - 15px); width: 90%; display: block;
-    overflow: hidden;
-    /* Efecto de relieve */
-    box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 4px 6px rgba(0,0,0,0.3);
+    .grid-botones {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Crea las dos columnas */
+    gap: 15px;      /* Espacio entre botones */
+    padding: 10px;
+    max-width: 600px; /* Evita que se estiren de más */
+    margin: 0 auto;  /* Los centra en la pantalla */
 }
 
+.btn-universal {
+    width: 100%;    /* Ocupa su celda del grid */
+    padding: 12px 10px;
+    border-radius: 15px; /* Redondeado suave como la foto 1 */
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
  /* Efecto al pasar el mouse (Hover) */
 .btn-universal:hover {
     transform: translateY(-3px);
@@ -416,20 +424,21 @@
     }
     /* Contenedor principal más bajo y delgado */
 #whatsapp-btn {
-    height: auto;
-    padding: 8px 15px;
-    border-radius: 50px; /* Bordes más redondeados tipo píldora */
-    max-width: 320px;    /* Evita que ocupe toda la pantalla en móviles */
-    bottom: 20px;
+    width: auto;
+    min-width: 280px;
+    max-width: 320px;
+    height: 55px;
+    border-radius: 30px; /* Estilo cápsula */
     left: 50%;
     transform: translateX(-50%); /* Centrado perfecto */
+    padding: 0 15px;
+    bottom: 25px;
 }
 
-cart-row {
-    width: 100%;
+.cart-row {
+    justify-content: space-between;
     gap: 10px;
 }
-
 /* Info del carrito (Izquierda) */
 .cart-info {
     font-size: 0.85rem;
