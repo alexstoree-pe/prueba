@@ -727,6 +727,9 @@ body .grid-mode .price-tag { text-align: center !important; }
             priceContainer.prepend(badge);
         }
     });
+    
+    AOS.refresh();
+});
 
     function cambiarVista(modo, btn) {
         const contenedor = document.querySelector('.container');
