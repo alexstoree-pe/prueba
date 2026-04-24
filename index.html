@@ -453,6 +453,19 @@ html, body {
     height: 100%; 
     overflow-x: hidden; 
 }
+    /* Fuerza a que el modal de password ignore el ocultamiento general */
+#modal-password {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 99999;
+}
+
+/* Evita que el fondo sea totalmente negro si algo falla */
+body {
+    background-color: #000;
+    min-height: 100vh;
+}
 
 /* Estilo para el input de error en el acceso */
 #input-dist-pass.error {
@@ -1196,17 +1209,17 @@ html, body {
     <script>
     // 1. VERIFICACIÓN INMEDIATA (Corre antes de que cargue el resto)
     (function() {
-        if (localStorage.getItem("acceso_concedido_alex") === "true") {
-            // Si ya entró, forzamos que se vea todo
-            document.documentElement.style.display = "block";
-            const style = document.createElement('style');
-            style.innerHTML = 'body { display: block !important; } #modal-password { display: none !important; }';
-            document.head.appendChild(style);
-        } else {
-            // Si no tiene clave, mantenemos el HTML visible para que el MODAL funcione
-            document.documentElement.style.display = "block";
-        }
-    })();
+    // Si ya tiene permiso, mostramos todo
+    if (localStorage.getItem("acceso_concedido_alex") === "true") {
+        document.documentElement.classList.add('acceso-ok');
+    } else {
+        // Si no tiene permiso, nos aseguramos de que el modal de password sea visible
+        window.addEventListener('load', () => {
+            const modalPass = document.getElementById('modal-password');
+            if (modalPass) modalPass.style.display = 'flex';
+        });
+    }
+})();
 
     // 2. FUNCIÓN DE VALIDACIÓN
     function validarPass() {
