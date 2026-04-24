@@ -306,7 +306,24 @@
 
     .grid-mode .price-tag { font-size: 1.3rem !important; }
     .grid-mode .premium-badge-tag { justify-content: center !important; font-size: 0.7rem !important; margin-bottom: 5px; }
-    .grid-mode .badge-oferta { left: 50% !important; transform: translateX(-50%) !important; font-size: 0.6rem !important; }
+    /* --- MODIFICACIÓN DEL BADGE DE OFERTA EN GRID --- */
+
+.grid-mode .badge-oferta {
+    /* 1. Resetear el centrado forzado anterior */
+    left: 20px !important; /* Volver a alinearlo a la izquierda de la tarjeta */
+    transform: none !important; /* Quitar el centrado horizontal */
+    
+    /* 2. Estirarlo y darle el estilo de lista */
+    width: auto !important; /* Dejar que crezca según el texto */
+    padding: 3px 12px !important; /* Padding horizontal más generoso para estirarlo */
+    border-radius: 0 0 12px 12px !important; /* Esquinas solo abajo, igual que en lista */
+    
+    /* 3. Ajuste de texto para PC */
+    font-size: 0.65rem !important; /* Un poco más grande para que sea legible */
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+}
 </style>
 </head>
 <body>
