@@ -19,6 +19,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
+
+    body { 
+        display: none; 
+        background-color: #000; 
+        margin: 0;
+    }
+    
     :root {
         --primary: #00d4ff;
         --secondary: #0055ff;
@@ -420,18 +427,17 @@
         text-transform: uppercase;
         white-space: nowrap; 
     }
-    .modal-pass { 
-        display: none; 
-        position: fixed; 
-        inset: 0; 
-        background: rgba(0,0,0,0.98); 
-        backdrop-filter: blur(25px); 
-        z-index: 9999; 
-        justify-content: center; 
+    /* El modal de acceso siempre debe estar visible si el body se muestra */
+    .modal-pass {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        display: flex;
+        justify-content: center;
         align-items: center;
-        visibility: visible;
+        z-index: 10000;
     }
-
     .modal-content-pass { 
         background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
         border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
@@ -1126,25 +1132,11 @@
     }
     // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
     (function() {
-        const acceso = sessionStorage.getItem("acceso_distribuidor");
-        
-        if (acceso === "true") {
-            // Si tiene acceso, hacemos todo visible de inmediato
-            document.documentElement.style.visibility = "visible";
-            document.addEventListener("DOMContentLoaded", () => {
-                document.body.style.visibility = "visible";
-            });
-        } else {
-            // Si no tiene acceso, esperamos al DOM solo para mostrar el modal
-            document.addEventListener("DOMContentLoaded", () => {
-                const modal = document.getElementById('modal-login-distribuidor');
-                if (modal) {
-                    modal.style.display = 'flex';
-                    // Mantenemos el body oculto pero el modal visible
-                    document.body.style.visibility = 'hidden'; 
-                    modal.style.visibility = 'visible';
-                }
-            });
+        // Usamos la misma llave para evitar confusiones
+        if (localStorage.getItem("acceso_concedido_alex") === "true") {
+            const style = document.createElement('style');
+            style.innerHTML = 'body { display: block !important; } #modal-password { display: none !important; }';
+            document.head.appendChild(style);
         }
     })();
 
