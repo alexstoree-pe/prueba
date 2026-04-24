@@ -90,7 +90,7 @@
     }
     #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
 
-    .filter-wrapper { margin: 7px 0; position: relative; display: flex; align-items: center; }
+    .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; }
     .filter-container { 
         display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
         scroll-behavior: smooth; scrollbar-width: none;
@@ -99,7 +99,7 @@
 
     .btn-nav { 
         background: var(--glass); border: 1px solid var(--glass-border); color: white; 
-        padding: 6px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; 
+        padding: 4px 12px; border-radius: 50px; font-size: 0.70rem; font-weight: 600; 
         cursor: pointer; white-space: nowrap; transition: 0.3s; 
     }
     .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 5px 15px rgba(0,212,255,0.3); }
@@ -421,7 +421,7 @@
         </div>
 
         <div class="view-controls" data-aos="fade-in">
-            <span class="view-label">VISTA:</span>
+            <span class="view-label"></span>
             <button class="btn-view active" onclick="cambiarVista('list', this)" title="Vista de Lista">
                 <i class="fas fa-list"></i>
             </button>
