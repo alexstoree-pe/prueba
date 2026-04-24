@@ -209,6 +209,18 @@
         -webkit-text-fill-color: transparent; font-weight: 800; 
     }
 
+        /* Borde de la tarjeta Premium seleccionada */
+.service-item.premium.selected .service-card {
+    border-color: #ffc107 !important;
+    background: rgba(255, 193, 7, 0.1) !important;
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.15); /* Brillo dorado suave */
+}
+
+/* Icono Check Dorado */
+.service-item.premium.selected .check-icon {
+    background: #ffc107 !important;
+    color: #000 !important; /* El check negro sobre fondo dorado resalta más */
+}
     /* Asegura que el badge PREMIUM sea visible y tenga el estilo de la imagen */
 .service-item.premium .price-container::before {
     display: block;
