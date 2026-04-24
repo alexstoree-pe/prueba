@@ -273,42 +273,54 @@
 
     /* ================================================================
        SECCIÓN EXCLUSIVA: SOLO VISTA CUADRICULADA Y REORDENAMIENTO
-       (No afecta a la vista de lista)
+       (Esta sección controla las imágenes que me pasaste)
     ================================================================ */
 
-    /* 1. Solo reordenamos cuando el contenedor tiene activado .grid-mode */
-    /* Esto ordena los elementos cuando la cuadrícula está activa */
-.container:has(.grid-mode) {
-    display: flex;
-    flex-direction: column;
-}
-.container:has(.grid-mode) .grid-botones { order: 1; }      /* Botones arriba */
-.container:has(.grid-mode) .category-title { order: 2; }    /* Título al medio */
-.container:has(.grid-mode) #services-container { order: 3; } /* Tarjetas abajo */
-    /* 2. Estilo de tarjetas en Modo Cuadrícula */
+    /* 1. Forzar Reordenamiento cuando la cuadrícula está activa */
     .grid-mode { 
         display: grid !important; 
-        grid-template-columns: 1fr 1fr; 
+        grid-template-columns: 1fr 1fr; /* 2 columnas móvil por defecto */
         gap: 15px; 
     }
-    .grid-mode .service-item { margin-bottom: 0; }
+
+    /* ¡CLAVE DEL REORDENAMIENTO! */
+    /* Cuando .grid-mode existe, forzamos el orden visual */
+    body:has(.grid-mode) .grid-botones { order: 1 !important; }      /* Botones arriba */
+    body:has(.grid-mode) .category-title { order: 2 !important; margin-top: 15px !important; } /* Categoría abajo */
+    body:has(.grid-mode) #services-container { order: 3 !important; } /* Tarjetas al final */
+
+    /* 2. Estilo de tarjetas en Modo Cuadrícula (Vertical) */
+    .grid-mode .service-item { margin-bottom: 0; width: 100%; }
     .grid-mode .service-card { 
         flex-direction: column; 
         text-align: center; 
         padding: 35px 15px 20px; 
         height: 100%; 
         justify-content: center; 
+        gap: 10px; /* Menos espacio entre logo y texto */
     }
-    .grid-mode .service-logo { width: 70px; height: 70px; margin-bottom: 10px; }
-    .grid-mode .price-container { align-items: center; margin-top: 10px; margin-left: 0; }
+    .grid-mode .service-logo { 
+        width: 70px; 
+        height: 70px; 
+        margin: 0 auto 10px auto; /* Centrado horizontal */
+    }
+    .grid-mode .service-text h3 { font-size: 1rem; }
+    .grid-mode .price-container { 
+        align-items: center; 
+        margin-top: 15px; 
+        margin-left: 0; /* Reseteo del margen de lista */
+    }
 
-    /* 3. Expansión Automática solo para Cuadrícula en PC */
+    /* 3. Expansión a toda la página en PC (Como la Foto 1) */
     @media (min-width: 1024px) {
-        .container:has(.grid-mode) {
-            max-width: 95% !important; /* Expande el ancho en PC */
+        /* Expandimos el contenedor solo si hay cuadrícula activa */
+        body:has(.grid-mode) .container {
+            max-width: 95% !important; /* <--- Ocupa casi todo el ancho */
         }
+        
         .grid-mode {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+            /* Crea tantas columnas como quepan (mínimo 230px cada una) */
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)) !important;
             gap: 25px;
         }
     }
@@ -316,7 +328,7 @@
     @media (max-width: 480px) {
         .grid-mode { grid-template-columns: 1fr 1fr; gap: 10px; }
     }
-</style>
+    </style>
 </head>
 <body>
     
