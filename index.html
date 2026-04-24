@@ -141,7 +141,11 @@
     .service-item.selected .check-icon { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
     /* --- LÓGICA PREMIUM DINÁMICA (CORREGIDA) --- */
-    .service-item.premium .service-card { border-color: rgba(255, 193, 7, 0.3); }
+    /* Borde dorado para el modo Premium */
+.service-item.premium .service-card {
+    border: 1px solid var(--primary) !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+}
     .service-item.premium .price-tag { color: var(--premium-gold); font-weight: 800; }
 
     .service-item.premium.selected .service-card {
@@ -259,6 +263,12 @@ body .grid-mode .price-container {
 }
 
 body .grid-mode .price-tag { text-align: center !important; }
+    /* Ajuste de la corona para que no flote raro en Grid */
+.grid-mode .premium-badge-tag {
+    justify-content: center;
+    margin-bottom: 5px;
+    width: 100%;
+}
 
 </style>
 </head>
@@ -693,18 +703,29 @@ body .grid-mode .price-tag { text-align: center !important; }
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // Inyectar etiquetas PREMIUM automáticamente al cargar
     document.addEventListener("DOMContentLoaded", () => {
-        const premiumItems = document.querySelectorAll('.service-item.premium');
-        premiumItems.forEach(item => {
-            const priceContainer = item.querySelector('.price-container');
-            if (priceContainer) {
-                const badge = document.createElement('div');
-                badge.className = 'premium-badge-tag';
-                badge.innerHTML = '<i class="fas fa-crown"></i> PREMIUM';
-                priceContainer.prepend(badge);
-            }
-        });
+    const premiumItems = document.querySelectorAll('.service-item.premium');
+    
+    premiumItems.forEach(item => {
+        const priceContainer = item.querySelector('.price-container');
+        
+        if (priceContainer && !priceContainer.querySelector('.premium-badge-tag')) {
+            // Creamos el badge con la estructura exacta de antes
+            const badge = document.createElement('div');
+            badge.className = 'premium-badge-tag';
+            badge.style.display = "flex";
+            badge.style.alignItems = "center";
+            badge.style.gap = "5px";
+            badge.style.color = "var(--primary)";
+            badge.style.fontSize = "0.7rem";
+            badge.style.fontWeight = "800";
+            badge.style.textTransform = "uppercase";
+            
+            badge.innerHTML = `<i class="fas fa-crown" style="font-size: 0.8rem;"></i> PREMIUM`;
+            
+            // Lo insertamos antes del precio
+            priceContainer.prepend(badge);
+        }
     });
 
     function cambiarVista(modo, btn) {
