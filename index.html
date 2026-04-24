@@ -238,21 +238,24 @@
     display: block !important;
     position: absolute;
     top: 50%;
-    left: 85%; /* Centrado general, luego ajustamos por vista */
-    transform: translate(-50%, -50%);
-    z-index: 9999; /* Por encima de todo */
-    background: #ff0000 !important; /* Rojo puro */
+    /* CAMBIO CLAVE: Usamos right en lugar de left */
+    right: 15px; 
+    /* CAMBIO CLAVE: Solo centramos verticalmente (Y), eliminamos el centrado horizontal (X) */
+    transform: translateY(-50%); 
+    
+    z-index: 9999;
+    background: #ff0000 !important;
     color: #fff !important;
-    border: 2px solid #fff !important; /* Borde blanco para que resalte el rojo */
-    font-size: 0.7rem; /* Un poco más pequeño para que quepa mejor a la derecha */
+    border: 2px solid #fff !important;
+    font-size: 0.7rem;
     padding: 6px 12px;
     border-radius: 12px;
     font-weight: 900;
     text-transform: uppercase;
     box-shadow: 0 0 20px #ff0000;
-    animation: parpadeoNeon 0.8s infinite alternate; /* Más rápido para dar efecto de urgencia */
-    filter: none !important; /* CRUCIAL: Esto evita que el grayscale de la tarjeta lo afecte */
-    opacity: 1 !important; /* Evita que la opacidad de la tarjeta lo apague */
+    animation: parpadeoNeon 0.8s infinite alternate;
+    filter: none !important;
+    opacity: 1 !important;
 }
 
 /* Ajuste específico para Vista Lista para que no tape el logo */
