@@ -834,7 +834,11 @@
 <div id="modal-password" class="modal-pass">
     <div class="modal-content">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="" onkeydown="if(event.key==='Enter') validarPass()">
+        <input type="password" 
+       id="input-pass" 
+       placeholder="Ingresa el código" 
+       onkeydown="if(event.key==='Enter') validarPass()"
+       style="width: 100%; padding: 15px; border-radius: 12px; background: #000; color: #fff; border: 1px solid #333; text-align: center; font-size: 1.2rem;">
         <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
     </div>
 </div>
