@@ -447,8 +447,63 @@
         width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; 
         color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; letter-spacing: 5px;
     }
+    /* Asegura que el contenido sea invisible inicialmente */
+html, body { 
+    display: none; 
+    height: 100%; 
+    overflow-x: hidden; 
+}
+
+/* Estilo para el input de error en el acceso */
+#input-dist-pass.error {
+    border-color: var(--danger) !important;
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
 
 </style>
+    <script>
+    // Bloqueo inmediato de inspección
+    document.oncontextmenu = () => false;
+    document.onkeydown = (e) => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+            return false;
+        }
+    };
+
+    function checkDistPass() {
+        const pass = document.getElementById('input-dist-pass').value;
+        // La contraseña extraída del código original es "2025"
+        if (pass === "2025") {
+            sessionStorage.setItem('dist_access', 'true');
+            document.getElementById('modal-dist').style.display = 'none';
+            document.documentElement.style.display = 'block';
+            document.body.style.display = 'block';
+        } else {
+            const input = document.getElementById('input-dist-pass');
+            input.classList.add('error');
+            input.value = "";
+            setTimeout(() => input.classList.remove('error'), 400);
+        }
+    }
+
+    // Al cargar, verificar si ya entró antes
+    window.onload = () => {
+        if (sessionStorage.getItem('dist_access') === 'true') {
+            document.getElementById('modal-dist').style.display = 'none';
+            document.documentElement.style.display = 'block';
+            document.body.style.display = 'block';
+        } else {
+            document.documentElement.style.display = 'block'; // Permite ver solo el modal
+            document.body.style.display = 'block';
+        }
+    };
+</script>
 </head>
 <body>
 
@@ -825,10 +880,21 @@
 </div>
 
     <div id="modal-password" class="modal-pass">
-    <div class="modal-content-pass">
-        <h2 style="color:var(--primary); font-weight:800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="Ingresa tu código" onkeydown="if(event.key==='Enter') validarPass()">
-        <button onclick="validarPass()">INGRESAR</button>
+    <div class="modal-content-pass" data-aos="zoom-in">
+        <img src="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp" alt="Alex Store" style="width: 80px; margin-bottom: 20px; border-radius: 20px; border: 2px solid var(--primary);">
+        <h2 style="font-size: 1.4rem; font-weight: 800;">ACCESO EXCLUSIVO</h2>
+        <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">Ingresa tu código de distribuidor para ver los precios y stock real.</p>
+        
+        <input type="password" id="input-dist-pass" placeholder="••••" maxlength="4" inputmode="numeric">
+        
+        <button onclick="checkDistPass()" style="width: 100%; padding: 15px; border-radius: 15px; background: var(--primary); color: #000; border: none; font-weight: 800; text-transform: uppercase; cursor: pointer;">
+            Validar Acceso
+        </button>
+        
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #222;">
+            <p style="font-size: 0.7rem; color: #555;">¿No tienes un código?</p>
+            <a href="https://wa.me/51910243431" target="_blank" style="color: var(--primary); font-size: 0.75rem; text-decoration: none; font-weight: 600;">Solicitar ser Distribuidor</a>
+        </div>
     </div>
 </div>
     
