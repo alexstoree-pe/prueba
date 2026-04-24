@@ -126,6 +126,15 @@
 
     .category-title { margin: 15px 0 10px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
 
+    /* Estilos Premium para Vista Lista */
+    .premium .service-card {
+        border: 1px solid #d4af37 !important;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+    }
+    .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+    .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
+
     .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
     .service-card { 
         background: var(--glass); border-radius: 22px; padding: 18px; 
@@ -133,46 +142,6 @@
         transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
     }
 
-    /* --- ESTADOS AGOTADO (RESALTADO) --- */
-    .service-item.agotado { pointer-events: none; }
-    
-    .service-item.agotado .service-card {
-        filter: grayscale(1) brightness(0.2) !important;
-        opacity: 0.7;
-        border-color: rgba(255, 0, 0, 0.1) !important;
-    }
-
-    .btn-consultar-neon {
-        display: none; 
-        color: #fff !important; 
-        font-size: 0.75rem; 
-        font-weight: 900; 
-        border: 2px solid var(--danger) !important; 
-        padding: 8px 12px; 
-        border-radius: 12px;
-        background: var(--danger) !important;
-        text-transform: uppercase;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 100;
-        white-space: nowrap;
-        box-shadow: 0 0 15px var(--danger), 0 0 30px var(--danger) !important;
-        animation: pulseNeon 1.5s infinite alternate;
-    }
-
-    @keyframes pulseNeon {
-        from { box-shadow: 0 0 10px var(--danger), 0 0 20px var(--danger); transform: translate(-50%, -50%) scale(1); }
-        to { box-shadow: 0 0 20px var(--danger), 0 0 40px var(--danger); transform: translate(-50%, -50%) scale(1.05); }
-    }
-
-    .service-item.agotado .btn-consultar-neon { display: block; }
-    .service-item.agotado .price-tag, 
-    .service-item.agotado .badge-oferta,
-    .service-item.agotado .premium::after { display: none !important; }
-
-    /* --- RESTO DE ESTILOS --- */
     .service-item:hover .service-card {
         border-color: var(--primary) !important;
         box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
@@ -182,22 +151,46 @@
 
     .service-item:active { transform: scale(0.95); transition: 0.1s; }
 
-    /* Estilos Premium */
-    .premium .service-card {
-        border: 1px solid #d4af37 !important;
-        background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
-        box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+    .service-item.premium.selected .service-card {
+        border-color: #f4d03f !important;
+        background: linear-gradient(135deg, rgba(244, 208, 63, 0.15), rgba(0,0,0,0.4)) !important;
+        box-shadow: 0 0 25px rgba(244, 208, 63, 0.3), inset 0 0 10px rgba(244, 208, 63, 0.1);
     }
-    .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
-    .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
+
+    .service-item.premium .check-icon { background: #f4d03f; }
 
     .check-icon {
-        position: absolute; top: 12px; right: 12px; background: var(--primary); color: #000;
-        width: 26px; height: 26px; border-radius: 50%; display: none; align-items: center;
-        justify-content: center; font-size: 0.85rem; font-weight: 900; z-index: 20;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: var(--primary);
+        color: #000;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 900;
+        z-index: 20;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-    .selected .check-icon { display: flex !important; animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+    .selected .check-icon {
+        display: flex !important;
+        animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .service-item.selected .service-card {
+        border-color: var(--primary) !important;
+        background: rgba(0, 212, 255, 0.12) !important;
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.25), inset 0 0 10px rgba(0, 212, 255, 0.1);
+        transform: scale(0.98);
+    }
+
+    .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
+    .service-item.oferta .badge-oferta { display: block; }
 
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
     .service-text { flex-grow: 1; } 
@@ -207,20 +200,208 @@
     .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
 
-    /* --- CONFIGURACIÓN GRID --- */
-    .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px; max-width: 100%; }
-    .grid-mode .service-card { 
-        flex-direction: column; align-items: center; text-align: center; 
-        padding: 25px 10px 15px; min-height: 250px; height: 100%; justify-content: space-between;
+    /* ================================================================
+       CORRECCIÓN AGOTADO: NEÓN RESALTADO SOBRE FONDO OSCURO
+    ================================================================ */
+    .service-item.agotado { pointer-events: none; }
+    
+    .service-item.agotado .service-card { 
+        filter: grayscale(1) brightness(0.2) !important; /* Oscurece el fondo */
+        opacity: 0.7;
     }
-    .grid-mode .service-logo { width: 60px; height: 60px; margin-bottom: 10px; }
-    .grid-mode .price-tag { font-size: 1.3rem; color: #00d4ff !important; background: none; -webkit-text-fill-color: initial; }
 
-    /* Los demás estilos de modal, filtros y navegación se mantienen exactos */
-    .modal-overlay, .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; justify-content: center; align-items: flex-end; z-index: 3000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+    .btn-consultar-neon {
+        display: none; 
+        color: #fff !important; 
+        font-size: 0.75rem; 
+        font-weight: 900; 
+        background: var(--danger) !important;
+        border: 2px solid var(--danger) !important; 
+        padding: 8px 12px; 
+        border-radius: 10px;
+        text-transform: uppercase;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Centrado absoluto */
+        z-index: 100; /* Por encima de la tarjeta oscura */
+        box-shadow: 0 0 15px var(--danger), 0 0 30px var(--danger) !important;
+        animation: pulseNeonAgotado 1.5s infinite alternate;
+        opacity: 1 !important; /* Asegura brillo total */
+        filter: none !important;
+    }
+
+    @keyframes pulseNeonAgotado {
+        from { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--danger); }
+        to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 30px var(--danger); }
+    }
+
+    .service-item.agotado .btn-consultar-neon { display: block; }
+    .service-item.agotado .price-tag, 
+    .service-item.agotado .badge-oferta, 
+    .service-item.agotado .premium::after { display: none !important; }
+
+    /* ================================================================ */
+
+    .floating-btn {
+        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white; padding: 20px; border-radius: 25px;
+        width: 92%; max-width: 480px; z-index: 1000;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+    }
+    .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .btn-clear-cart {
+        background: rgba(255, 68, 68, 0.2); border: 1px solid rgba(255, 68, 68, 0.4); color: #ffcccc;
+        width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; transition: 0.3s;
+    }
+    .btn-clear-cart:active { transform: scale(0.8); background: var(--danger); }
+    .discount-notice { font-size: 0.7rem; color: #f4d03f; font-weight: 600; margin-top: 5px; display: none; }
+    .hidden { display: none; }
+
+    .modal-overlay, .modal-pass { 
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; 
+        justify-content: center; align-items: flex-end; z-index: 3000;
+        background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+    }
     .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
+    #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
+
     .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
     .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scroll-behavior: smooth; scrollbar-width: none; }
+    .filter-container::-webkit-scrollbar { display: none; }
+
+    .scroll-indicator {
+        position: absolute; background: linear-gradient(to right, var(--dark), transparent);
+        height: 100%; width: 40px; left: 0; z-index: 2; display: flex; align-items: center; pointer-events: none; transition: 0.3s;
+    }
+    .scroll-indicator.right { left: auto; right: 0; background: linear-gradient(to left, var(--dark), transparent); justify-content: flex-end; }
+    .scroll-indicator i { color: var(--primary); font-size: 1rem; animation: bounceHorizontal 1.5s infinite; }
+
+    @keyframes bounceHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+    @keyframes popCheck { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+
+    .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+    .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
+
+    #input-pass { border: 2px solid #222; transition: 0.3s; }
+    #input-pass:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
+
+    .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 10px 20px; }
+    .view-label { font-size: 0.7rem; color: #666; font-weight: 800; }
+    .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
+
+    /* --- CONFIGURACIÓN GRID RESPONSIVA CORREGIDA --- */
+    .container.grid-mode { 
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 12px; 
+        padding: 10px; 
+        max-width: 100%; 
+    }
+
+    @media (min-width: 600px) {
+        .container.grid-mode { 
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+            gap: 15px;
+        }
+    }
+
+    .grid-mode .category-title { grid-column: 1 / -1; margin-top: 20px; }
+    
+    .grid-mode .service-item { 
+        margin-bottom: 0;
+        height: 100%; 
+    }
+
+    .grid-mode .service-card { 
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+        padding: 25px 10px 15px; 
+        min-height: 250px; 
+        height: 100%;
+        justify-content: space-between; 
+    }
+
+    .grid-mode .service-logo { 
+        width: 60px; 
+        height: 60px; 
+        margin-bottom: 10px; 
+        margin-right: 0; 
+    }
+
+    .grid-mode .service-text {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .grid-mode .service-text h3 { 
+        font-size: 0.85rem; 
+        line-height: 1.2;
+        margin-bottom: 3px;
+    }
+
+    .grid-mode .manual-desc { 
+        display: block !important; 
+        opacity: 1; 
+        font-size: 0.65rem;
+        color: #aaa;
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+
+    .grid-mode .price-container { 
+        margin-top: auto; 
+        width: 100%; 
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        padding-top: 5px;
+    }
+
+    .grid-mode .price-tag { 
+        font-size: 1.3rem;
+        color: #00d4ff !important;
+        background: none;
+        -webkit-text-fill-color: initial;
+    }
+
+    .grid-mode .premium::after {
+        position: static !important; 
+        display: inline-block !important;
+        content: 'PREMIUM' !important;
+        font-size: 0.55rem !important;
+        color: #f4d03f !important;
+        border: 1px solid #f4d03f !important;
+        padding: 2px 8px !important;
+        border-radius: 5px !important;
+        margin-bottom: 5px !important;
+        background: transparent !important;
+        letter-spacing: 1px !important;
+        width: auto !important;
+    }
+
+    .grid-mode .check-icon {
+        top: 8px;
+        right: 8px;
+        width: 22px;
+        height: 22px;
+        font-size: 0.7rem;
+    }
+
+    .grid-mode .service-item.oferta .badge-oferta {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 85% !important; 
+        text-align: center !important;
+        white-space: nowrap !important;
+        font-size: 0.55rem !important; 
+        top: 0px !important; 
+    }
 </style>
 </head>
 <body>
