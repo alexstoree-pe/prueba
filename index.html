@@ -136,12 +136,31 @@
     .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 20px 15px; }
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
-
-    .container { padding: 0 20px; max-width: 800px; margin: auto; }
-    .category-title { 
-        font-size: 0.9rem; font-weight: 800; color: var(--primary); margin: 30px 0 15px; 
-        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
-    }
+/* El contenedor de las tarjetas */
+#services-container {
+    order: 3; /* Aparece al final */
+}
+    /* Contenedor principal para permitir reordenamiento */
+.container { 
+    padding: 0 20px; 
+    max-width: 1200px; /* Aumentamos el ancho máximo para PC */
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+    /* Forzamos a que el título de categoría esté debajo de los botones */
+.category-title { 
+    order: 2; /* Aparece segundo */
+    font-size: 0.9rem; 
+    font-weight: 800; 
+    color: var(--primary); 
+    margin: 10px 0 15px; /* Ajustamos margen */
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+}
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
     /* --- TARJETAS CORREGIDAS --- */
@@ -256,7 +275,14 @@
     }
     .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 
-   .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
+   /* Forzamos a que los botones (grid-botones) siempre estén arriba */
+.grid-botones { 
+    order: 1; /* Aparece primero */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 12px; 
+    margin: 20px 0 30px; 
+}
     .btn-universal {
         display: flex; align-items: center; justify-content: center; padding: 15px 10px;
         border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
