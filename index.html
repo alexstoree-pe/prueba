@@ -272,7 +272,7 @@
     .btn-clear-cart i { font-size: 1rem; }
 
 /* ================================================================
-   ESTILO GRID FINAL (CENTRADO TOTAL, EXPANSIÓN Y JERARQUÍA)
+   ESTILO GRID FINAL (CENTRADO PERFECTO Y EXPANSIÓN)
 ================================================================ */
 
 /* 1. Ajuste del Contenedor Principal en Modo Grid */
@@ -319,19 +319,18 @@
 /* 5. Diseño de Tarjeta Grid (Vertical y Centrado) */
 .grid-mode .service-item {
     margin-bottom: 0 !important;
-    position: relative !important; 
+    position: relative !important; /* Para que el badge sepa dónde centrarse */
 }
 
 .grid-mode .service-card {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Eje central maestro */
-    text-align: center !important;
-    padding: 35px 10px 20px !important; /* Espacio para el badge pegado */
+    align-items: center !important; /* Centra todo el contenido horizontalmente */
+    text-align: center;
+    padding: 30px 10px 20px !important; /* Espacio extra arriba para el badge */
     height: 100%;
     justify-content: space-between;
-    overflow: visible !important; /* Para que el badge superior no se corte */
-    position: relative !important;
+    overflow: visible !important; /* ¡CRÍTICO! Para que el badge no se corte */
 }
 
 .grid-mode .service-logo {
@@ -341,7 +340,71 @@
     object-fit: cover;
 }
 
-/* 6. Ajustes de Texto y Títulos */
+/* 6. Ajustes de Texto y Badges */
+
+/* Badge Superior (MÁS SOLICITADO) */
+/* Badge de Oferta "Pegado" adentro de la tarjeta */
+.grid-mode .badge-oferta {
+    position: absolute !important;
+    top: 0 !important;              /* 1. Lo bajamos al borde exacto */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    white-space: nowrap !important;
+    z-index: 10 !important;
+    width: auto !important;
+    margin: 0 !important;
+    
+    /* 2. Ajuste estético para que parezca parte de la tarjeta */
+    padding: 4px 15px !important;    /* Un poco más delgado */
+    border-radius: 0 0 10px 10px !important; /* Bordes rectos arriba, redondos abajo */
+    font-size: 0.65rem !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave hacia abajo */
+}
+
+    /* 2. Badge Premium: Reset total y centrado manual */
+    .grid-mode .premium-text {
+        position: static !important;       /* Quitamos absolute/relative previo */
+        display: block !important;         /* Para que margin auto funcione */
+        margin: 0 auto 5px auto !important; /* Centrado horizontal real */
+        
+        /* Limpieza de tirones a la derecha */
+        right: auto !important;
+        left: auto !important;
+        float: none !important;
+        clear: both !important;
+        
+        /* Estética */
+        width: fit-content !important;
+        padding: 2px 10px !important;
+        font-size: 0.65rem !important;
+        border-radius: 5px !important;
+        text-align: center !important;
+    }
+/* Badge Premium (Arriba del precio) */
+/* 1. Forzamos al contenedor de precio a ser una columna central perfecta */
+    .grid-mode .price-container {
+        display: flex !important;
+        flex-direction: column !important; /* Premium arriba, Precio abajo */
+        align-items: center !important;    /* Centra todo horizontalmente */
+        justify-content: flex-end !important;
+        width: 100% !important;
+        margin-top: auto !important;       /* Empuja todo hacia el fondo de la tarjeta */
+        margin-left: 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+    }
+
+    /* 3. Precio debajo del badge */
+    .grid-mode .price-tag {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+/* Ajuste de los títulos de producto */
 .grid-mode .service-text {
     display: flex !important;
     flex-direction: column !important;
@@ -354,79 +417,10 @@
     margin-bottom: 5px; 
 }
 
-/* 7. BADGES: Centrado Absoluto y Estética (Máxima Prioridad) */
-
-/* ================================================================
-   SOLUCIÓN MAESTRA: CENTRADO FORZADO POR COORDENADAS
-================================================================ */
-
-/* 1. Forzamos a la tarjeta a ser el centro de referencia */
-body .grid-mode .service-card {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important; 
-    justify-content: space-between !important;
-    text-align: center !important;
-}
-
-/* 2. PREMIUM: Lo centramos usando coordenadas respecto a la tarjeta */
-body .grid-mode .premium-text {
-    position: absolute !important;
-    left: 50% !important;           /* Lo mueve al centro */
-    bottom: 48px !important;        /* Lo coloca justo encima del precio */
-    transform: translateX(-50%) !important; /* Equilibrio perfecto */
-    
-    /* Anulación total de cualquier empuje lateral */
-    right: auto !important;
-    margin: 0 !important;
-    float: none !important;
-    display: block !important;
-    
-    /* Estética */
-    width: fit-content !important;
-    white-space: nowrap !important;
-    padding: 2px 10px !important;
-    font-size: 0.6rem !important;
-    z-index: 5 !important;
-}
-
-/* 3. PRECIO: Aseguramos que esté centrado en la base */
-body .grid-mode .price-container {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding-bottom: 5px !important;
-    background: transparent !important;
-}
-
-body .grid-mode .price-tag {
-    text-align: center !important;
-    margin: 0 auto !important;
-    display: block !important;
-}
-
-/* 4. BADGE OFERTA: Mantenemos el centrado superior */
-body .grid-mode .badge-oferta {
-    position: absolute !important;
-    top: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    margin: 0 !important;
-    z-index: 10 !important;
-}
-/* 9. Reset de Vista de Lista */
+/* 7. Vista de Lista (Reset) */
 .container:not(.grid-mode) {
     max-width: 700px !important;
     margin: 0 auto;
-}
-
-.grid-mode .service-item.selected .check-icon {
-    top: 8px;
-    right: 8px;
 }
     </style>
     
