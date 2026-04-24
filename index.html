@@ -1026,10 +1026,24 @@
     })();
 
     function validarPass() {
-        if (document.getElementById('input-pass').value === "cliente") { 
-            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
-        } else { alert("Código incorrecto"); }
+    const inputField = document.getElementById('input-pass');
+    const pass = inputField.value.trim();
+    
+    if (pass === "cliente") { 
+        localStorage.setItem("acceso_concedido_alex", "true");
+        location.reload(); 
+    } else {
+        // ERROR: Limpiamos TODO para que pueda reintentar de cero
+        inputField.value = ""; 
+        inputField.style.borderColor = "red";
+        inputField.placeholder = "CÓDIGO INCORRECTO";
+        
+        // Pequeña vibración visual para indicar error
+        const modal = document.querySelector('.modal-content-pass');
+        modal.style.animation = "shake 0.3s";
+        setTimeout(() => modal.style.animation = "", 300);
     }
+}
 
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
