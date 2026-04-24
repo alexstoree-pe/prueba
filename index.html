@@ -277,14 +277,14 @@
     ================================================================ */
 
     /* 1. Solo reordenamos cuando el contenedor tiene activado .grid-mode */
-    .container:has(.grid-mode) {
-        display: flex;
-        flex-direction: column;
-    }
-    .container:has(.grid-mode) .grid-botones { order: 1; }
-    .container:has(.grid-mode) .category-title { order: 2; margin-top: 10px !important; }
-    .container:has(.grid-mode) #services-container { order: 3; }
-
+    /* Esto ordena los elementos cuando la cuadrícula está activa */
+.container:has(.grid-mode) {
+    display: flex;
+    flex-direction: column;
+}
+.container:has(.grid-mode) .grid-botones { order: 1; }      /* Botones arriba */
+.container:has(.grid-mode) .category-title { order: 2; }    /* Título al medio */
+.container:has(.grid-mode) #services-container { order: 3; } /* Tarjetas abajo */
     /* 2. Estilo de tarjetas en Modo Cuadrícula */
     .grid-mode { 
         display: grid !important; 
@@ -308,8 +308,8 @@
             max-width: 95% !important; /* Expande el ancho en PC */
         }
         .grid-mode {
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+            gap: 25px;
         }
     }
 
