@@ -2,291 +2,474 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALEX STORE | Premium Catalog</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Premium | Alex Store</title>
+
+    <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+    <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+
+    <meta property="og:title" content="Alex Store | Catálogo Premium">
+    <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
+    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    <meta property="og:image:type" content="image/webp">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary: #00ff88;
-            --bg-dark: #0a0a0a;
-            --card-bg: #151515;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --premium-gold: #ffcc00;
-        }
+<style>
+    :root {
+        --primary: #00d4ff;
+        --secondary: #0055ff;
+        --dark: #050505;
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --whatsapp: #25d366;
+        --promo: #f4d03f;
+        --promo-dark: #d4af37;
+        --danger: #ff4444; 
+        --gold-gradient: linear-gradient(45deg, #d4af37, #f4d03f);
+        --premium-gold: #ffc107; /* Color dorado exacto */
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+    body { 
+        font-family: 'Poppins', sans-serif; 
+        background: radial-gradient(circle at top right, #0a0a0a, #050505);
+        color: white; 
+        line-height: 1.6; 
+        padding-bottom: 100px; 
+    }
 
-        /* --- ESTILOS DEL HEADER (Restablecidos según tu imagen) --- */
-        header {
-            padding: 30px 20px;
-            text-align: center;
-        }
+    header {
+        background: rgba(10, 10, 10, 0.7);
+        backdrop-filter: blur(20px);
+        padding: 25px 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--glass-border);
+        position: sticky;
+        top: 0;
+        z-index: 2000;
+    }
 
-        .brand-logo { 
-            width: 80px; 
-            margin-bottom: 10px; 
-        }
-        
-        h1 { 
-            font-weight: 800; 
-            font-size: 2rem; 
-            letter-spacing: 2px; 
-            margin-bottom: 5px; 
-        }
+    .brand-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border-radius: 25px;
+        margin-bottom: 15px;
+        box-shadow: 0 10px 30px rgba(0,212,255,0.3);
+    }
 
-        .trust-bar {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.8rem;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-        .trust-item i { margin-right: 8px; color: var(--text-main); }
+    header h1 { 
+        font-size: 1.8rem; 
+        font-weight: 800; 
+        background: linear-gradient(to right, #fff, var(--primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+    }
 
-        /* --- BUSCADOR Y FILTROS --- */
-        .search-container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
+    .trust-bar {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        padding: 12px;
+        background: var(--glass);
+        border-radius: 20px;
+        border: 1px solid var(--glass-border);
+    }
 
-        #search-input {
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 15px;
-            border: 1px solid #222;
-            background: #111;
-            color: white;
-            font-size: 0.9rem;
-            outline: none;
-            margin-bottom: 15px;
-        }
+    .trust-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-        .filter-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+    .trust-item i {
+        color: var(--primary);
+        font-size: 1.2rem;
+        margin-bottom: 6px;
+    }
 
-        .filter-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 8px;
-            scrollbar-width: none;
-            padding: 5px;
-        }
+    .search-container { max-width: 600px; margin: 20px auto 0; position: relative; }
+    #search-input {
+        width: 100%; padding: 15px 25px; border-radius: 20px; border: 1px solid var(--glass-border);
+        background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
+        outline: none; transition: 0.3s; font-size: 1rem;
+    }
+    #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
 
-        .btn-nav {
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: #1a1a1a;
-            color: #666;
-            border: 1px solid #333;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
+    .filter-wrapper { margin: 20px 0; position: relative; display: flex; align-items: center; }
+    .filter-container { 
+        display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
+        scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .filter-container::-webkit-scrollbar { display: none; }
 
-        .btn-nav.active { 
-            background: var(--primary); 
-            color: #000; 
-            border-color: var(--primary); 
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-        }
+    .btn-nav { 
+        background: var(--glass); border: 1px solid var(--glass-border); color: white; 
+        padding: 10px 25px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; 
+        cursor: pointer; white-space: nowrap; transition: 0.3s; 
+    }
+    .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 5px 15px rgba(0,212,255,0.3); }
 
-        /* --- CONTROL DE VISTA (Iconos de la imagen) --- */
-        .view-controls {
-            margin-top: 15px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #fff;
-        }
+    .scroll-indicator {
+        position: absolute; background: linear-gradient(to right, var(--dark), transparent);
+        height: 100%; width: 50px; left: 0; z-index: 2; display: flex; align-items: center; 
+        justify-content: center; pointer-events: none; opacity: 0; transition: 0.3s;
+    }
+    .scroll-indicator.right { left: auto; right: 0; background: linear-gradient(to left, var(--dark), transparent); opacity: 1; }
+    .scroll-indicator i { color: var(--primary); font-size: 1.2rem; animation: bounceHorizontal 1.5s infinite; pointer-events: auto; cursor: pointer; }
 
-        .btn-view {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-left: 5px;
-            opacity: 0.5;
-        }
+    .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 20px 15px; }
+    .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+    .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-        .btn-view.active { opacity: 1; color: #fff; }
+    .container { padding: 0 20px; max-width: 800px; margin: auto; }
+    .category-title { 
+        font-size: 0.9rem; font-weight: 800; color: var(--primary); margin: 30px 0 15px; 
+        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
+    }
+    .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
-        /* --- ENLACES SUPERIORES (Azules/Morados de la imagen) --- */
-        .grid-botones {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+    /* --- TARJETAS CORREGIDAS (LISTA) --- */
+    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .service-card { 
+        background: var(--glass); border-radius: 25px; padding: 20px; 
+        display: flex; align-items: center; border: 1px solid var(--glass-border); 
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); gap: 18px; position: relative; overflow: hidden;
+    }
 
-        .btn-universal {
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #5555ff; /* Color azulado de tu captura */
-        }
+    .service-item:hover .service-card { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); transform: translateY(-3px); }
 
-        /* --- CATEGORÍAS Y TARJETAS --- */
-        .category-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 20px 0 15px;
-            padding-left: 5px;
-        }
+    .service-item.selected .service-card { 
+        transform: scale(0.96) !important; 
+        border-color: var(--primary) !important; 
+        background: rgba(0, 212, 255, 0.1) !important;
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 15px 100px;
-        }
+    .check-icon {
+        position: absolute; top: 10px; right: 10px; background: var(--primary);
+        color: #000; width: 28px; height: 28px; border-radius: 50%;
+        display: none; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 900; z-index: 10;
+    }
 
-        /* VISTA LISTA (Default) */
-        .service-item { margin-bottom: 12px; }
+    .service-item.selected .check-icon { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-        .service-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 15px;
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid #222;
-            position: relative;
-        }
+    /* --- LÓGICA PREMIUM DINÁMICA --- */
+    .service-item.premium .service-card { border-color: rgba(255, 193, 7, 0.3); }
+    .service-item.premium .price-tag { color: var(--premium-gold); font-weight: 800; }
 
-        .service-logo { width: 50px; height: 50px; border-radius: 10px; border: 1px solid #333; }
+    .service-item.premium.selected .service-card {
+        border-color: var(--premium-gold) !important;
+        background: rgba(255, 193, 7, 0.12) !important;
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+    }
 
-        .service-text { flex-grow: 1; }
-        .nombre-prod { font-size: 1rem; font-weight: 700; }
-        .manual-desc { font-size: 0.7rem; color: #888; }
+    .service-item.premium.selected .check-icon {
+        background: var(--premium-gold) !important;
+        color: #000 !important;
+    }
 
-        /* VISTA CUADRICULADA (Tu diseño perfeccionado) */
-        .container.grid-mode {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
+    .service-item.premium .price-container::before {
+        display: block;
+        content: 'PREMIUM';
+        align-self: flex-end;
+        margin-right: 25px;
+        color: var(--premium-gold);
+        border: 1.5px solid var(--premium-gold);
+        background: rgba(255, 193, 7, 0.05);
+        font-size: 0.6rem;
+        font-weight: 900;
+        padding: 2px 8px;
+        border-radius: 5px;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-        .grid-mode .service-card {
-            flex-direction: column;
-            text-align: center;
-            padding: 20px 10px;
-        }
+    .badge-oferta { 
+        position: absolute; top: 0; left: 20px; background: var(--promo); 
+        color: #000; padding: 3px 12px; border-radius: 0 0 12px 12px; 
+        font-size: 0.65rem; font-weight: 800; text-transform: uppercase; z-index: 10; 
+    }
 
-        /* --- LÓGICA DEL BADGE PREMIUM (Cirugía Mínima) --- */
-        .premium-text {
-            display: none;
-            font-size: 0.6rem;
-            font-weight: 800;
-            color: var(--premium-gold);
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-            text-align: right;
-        }
+    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.3); background: #111; }
+    .service-text { flex-grow: 1; }
+    .service-text h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: #fff; }
+    .manual-desc { font-size: 0.8rem; color: #888; display: block; line-height: 1.3; }
 
-        .service-item.premium .premium-text { display: block; }
-        
-        .grid-mode .service-item.premium .premium-text { text-align: center; }
+    .price-container { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; }
 
-        .price-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
+    .btn-consultar-neon {
+        display: none; color: #ff4444; font-size: 0.7rem; font-weight: 800; 
+        border: 1.5px solid rgba(255,68,68,0.3); padding: 6px 10px; border-radius: 10px;
+        background: rgba(255,68,68,0.05); text-transform: uppercase; transition: 0.3s;
+    }
+    .service-item.agotado { opacity: 0.7; pointer-events: none; }
+    .service-item.agotado .btn-consultar-neon { display: block; pointer-events: auto; }
+    .service-item.agotado .price-tag { display: none; }
 
-        .grid-mode .price-container { align-items: center; margin-top: 10px; }
+    /* --- MODALES Y CARRITO --- */
+    .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+    .modal-pass .modal-content { max-width: 400px; width: 100%; text-align: center; }
+    .modal-pass input { width: 100%; padding: 20px; border-radius: 20px; border: 1px solid #333; background: #111; color: #fff; font-size: 1.5rem; text-align: center; margin: 20px 0; outline: none; }
+    
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 4000; display: none; align-items: flex-end; justify-content: center; }
+    .modal-overlay .modal-content { background: #0a0a0a; width: 100%; max-width: 500px; padding: 40px 30px; border-radius: 40px 40px 0 0; border: 1px solid var(--glass-border); border-bottom: none; animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
-        .price-tag {
-            background: #004422;
-            color: var(--primary);
-            padding: 6px 15px;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 1.1rem;
-        }
+    .floating-btn {
+        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white; padding: 20px; border-radius: 25px;
+        width: 92%; max-width: 480px; z-index: 1000;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+    }
+    .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 
-        .badge-oferta {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #ff3333;
-            color: #fff;
-            font-size: 0.55rem;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-bottom-left-radius: 10px;
-        }
+    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
+    .btn-universal {
+        display: flex; align-items: center; justify-content: center; padding: 15px 10px;
+        border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
+        text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
+        cursor: pointer; text-align: center;
+    }
+    .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
+    .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+    .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+    .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); }
 
-        .btn-consultar-neon {
-            font-size: 0.6rem;
-            color: #ff3333;
-            font-weight: 700;
-            margin-top: 4px;
-            text-decoration: underline;
-        }
+    /* Animaciones */
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .selected .service-card { border-color: var(--primary); background: rgba(0,255,136,0.05); }
-        .check-icon { display: none; }
-        .selected .check-icon { display: block; position: absolute; left: 10px; top: 10px; color: var(--primary); font-size: 0.8rem; }
+    @media (max-width: 480px) {
+        .btn-universal { font-size: 0.7rem; padding: 12px 8px; }
+    }
 
+    .btn-clear-cart {
+        background: rgba(0, 0, 0, 0.2);
+        width: 35px; height: 35px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 10px; cursor: pointer; transition: 0.3s;
+        margin-left: 15px; color: #fff;
+    }
+    .btn-clear-cart:hover { background: var(--danger); transform: scale(1.1); }
+    .btn-clear-cart i { font-size: 1rem; }
+
+/* ================================================================
+   ESTILO GRID FINAL (CENTRADO TOTAL, EXPANSIÓN Y JERARQUÍA)
+================================================================ */
+
+/* 1. Ajuste del Contenedor Principal en Modo Grid */
+.container.grid-mode {
+    display: grid !important;
+    gap: 15px !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en móvil */
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 15px;
+}
+
+/* 2. Reordenamiento: Botones ARRIBA */
+.grid-mode .grid-botones {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 800px;
+    margin: 10px auto 30px auto !important;
+    order: -1;
+}
+
+/* 3. Títulos de Categoría */
+.grid-mode .category-title {
+    grid-column: 1 / -1; 
+    width: 100%;
+    margin: 30px 0 15px !important;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 10px;
+    order: 0;
+}
+
+/* 4. Expansión en PC */
+@media (min-width: 1024px) {
+    .container.grid-mode {
+        max-width: 95% !important;
+        padding: 0 40px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+        gap: 20px !important;
+    }
+}
+
+/* 5. Diseño de Tarjeta Grid (Vertical y Centrado) */
+.grid-mode .service-item {
+    margin-bottom: 0 !important;
+    position: relative !important; 
+}
+
+.grid-mode .service-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Eje central maestro */
+    text-align: center !important;
+    padding: 35px 10px 20px !important; /* Espacio para el badge pegado */
+    height: 100%;
+    justify-content: space-between;
+    overflow: visible !important; /* Para que el badge superior no se corte */
+    position: relative !important;
+}
+
+.grid-mode .service-logo {
+    width: 65px !important;
+    height: 65px !important;
+    margin: 0 auto 15px auto !important;
+    object-fit: cover;
+}
+
+/* 6. Ajustes de Texto y Títulos */
+.grid-mode .service-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100%;
+}
+
+.grid-mode .service-text h3 { 
+    font-size: 0.9rem !important; 
+    margin-bottom: 5px; 
+}
+
+/* 7. BADGES: Centrado Absoluto y Estética (Máxima Prioridad) */
+
+/* ================================================================
+   SOLUCIÓN MAESTRA: CENTRADO FORZADO POR COORDENADAS
+================================================================ */
+
+/* 1. Forzamos a la tarjeta a ser el centro de referencia */
+body .grid-mode .service-card {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+    justify-content: space-between !important;
+    text-align: center !important;
+}
+
+/* 2. PREMIUM: Lo centramos usando coordenadas respecto a la tarjeta */
+body .grid-mode .premium-text {
+    position: absolute !important;
+    left: 50% !important;           /* Lo mueve al centro */
+    bottom: 48px !important;        /* Lo coloca justo encima del precio */
+    transform: translateX(-50%) !important; /* Equilibrio perfecto */
+    
+    /* Anulación total de cualquier empuje lateral */
+    right: auto !important;
+    margin: 0 !important;
+    float: none !important;
+    display: block !important;
+    
+    /* Estética */
+    width: fit-content !important;
+    white-space: nowrap !important;
+    padding: 2px 10px !important;
+    font-size: 0.6rem !important;
+    z-index: 5 !important;
+}
+
+/* 3. PRECIO: Aseguramos que esté centrado en la base */
+body .grid-mode .price-container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-bottom: 5px !important;
+    background: transparent !important;
+}
+
+body .grid-mode .price-tag {
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+/* 4. BADGE OFERTA: Mantenemos el centrado superior */
+body .grid-mode .badge-oferta {
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    z-index: 10 !important;
+}
+/* 9. Reset de Vista de Lista */
+.container:not(.grid-mode) {
+    max-width: 700px !important;
+    margin: 0 auto;
+}
+
+.grid-mode .service-item.selected .check-icon {
+    top: 8px;
+    right: 8px;
+}
     </style>
+    
 </head>
-
-    <header>
+<body>
+    
+<header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
     <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
     
     <div class="search-container" data-aos="fade-up">
-        <div class="trust-bar">
+    <div class="trust-bar">
             <div class="trust-item"><i class="fas fa-headset"></i>Soporte Garantizado</div>
             <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía y Compromiso</div>
             <div class="trust-item"><i class="fas fa-bolt"></i>Entrega en menos de 5 minutos</div>
         </div>
         <input type="text" id="search-input" placeholder="Buscar plataforma (Netflix, Disney...)" onkeyup="filtrarProductos()">
         
+    
         <div class="filter-wrapper" data-aos="fade-up">
             <div class="scroll-indicator"><i class="fas fa-chevron-left"></i></div>
-            <div class="filter-container" id="filterScroll">
-                <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
-                <button class="btn-nav" onclick="filtrarCategoria('🎬 STREAMING Y CINE', this)">PERFILES</button>
-                <button class="btn-nav" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
-                <button class="btn-nav" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">TELEVISIÓN DIGITAL</button>
-                <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button> 
-            </div>
-            <div class="scroll-indicator right"><i class="fas fa-chevron-right"></i></div>
-        </div>
-
-        <div class="view-controls" data-aos="fade-in">
-            <span class="view-label">VISTA:</span>
-            <button class="btn-view active" onclick="cambiarVista('list', this)" title="Vista de Lista">
-                <i class="fas fa-list"></i>
-            </button>
-            <button class="btn-view" onclick="cambiarVista('grid', this)" title="Vista de Cuadrícula">
-                <i class="fas fa-th-large"></i>
-            </button>
-        </div>
+            
+    <div class="filter-container" id="filterScroll">
+        <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+        <button class="btn-nav" onclick="filtrarCategoria('🎬 STREAMING Y CINE', this)">PERFILES</button>
+        <button class="btn-nav" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
+        <button class="btn-nav" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">TELEVISIÓN DIGITAL</button>
+        <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button> </div>
+       <div class="scroll-indicator right"><i class="fas fa-chevron-right"></i></div>
     </div>
+        <div class="view-controls" data-aos="fade-in">
+    <span class="view-label">VISTA:</span>
+    <button class="btn-view active" onclick="cambiarVista('list', this)" title="Vista de Lista">
+        <i class="fas fa-list"></i>
+    </button>
+    <button class="btn-view" onclick="cambiarVista('grid', this)" title="Vista de Cuadrícula">
+        <i class="fas fa-th-large"></i>
+    </button>
+</div>
+ </div>
+     
+    
 </header>
 
 <div class="container">
@@ -309,7 +492,6 @@
                 <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
             </div>
             <div class="price-container">
-                <span class="premium-text">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 16</span>
                 <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
@@ -323,10 +505,9 @@
             <img src="../img/disneyp.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium</h3>
-                <span class="manual-desc">• Perfil privado • Todo ESPN.</span>
+                <span class="manual-desc">•Cliente nuevo (Activación a TV)• Todo los canales ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
-                <span class="premium-text">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 10</span>
                 <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
@@ -339,7 +520,7 @@
             <img src="../img/disneys.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
-                <span class="manual-desc">• Perfil privado • Sin ESPN.</span>
+                <span class="manual-desc">•Cliente nuevo (Activación a TV)• No contiene canales ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 7</span>
@@ -354,7 +535,7 @@
             <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Max Standard</h3>
-                <span class="manual-desc">• 1 mes • Full HD.</span>
+                <span class="manual-desc">• 1 mes •Full HD • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 5</span>
@@ -369,7 +550,37 @@
             <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">MAX Platino</h3>
-                <span class="manual-desc">• 1 mes • 4K UHD.</span>
+                <span class="manual-desc">• 1 mes • premium 4K • Perfil privado .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • Activacion solo a TV.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • se entrega correo y contraseña.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 8</span>
@@ -384,11 +595,179 @@
             <img src="../img/vix.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">VIX PREMIUM</h3>
-                <span class="manual-desc">• 1 mes • Perfil Privado.</span>
+                <span class="manual-desc">• 1 mes • perfil privado • premium.</span>
             </div>
             <div class="price-container">
-                <span class="premium-text">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/paramount.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PARAMOUNT</h3>
+                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 6</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/crunchyroll.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CRUNCHYROLL </h3>
+                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.webp" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (1 mes) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.webp" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (3 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.webp" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (6 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 17</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.webp" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (12 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 25</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/movistar.webp" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
+                <span class="manual-desc">• Canal l1 Max • Activación a TV • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 20</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/dgo.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Directv Go + l1 Max</h3>
+                <span class="manual-desc">•1 mes • Activación a TV• Todo los canales ESPN • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 20</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/flujo.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Magis TV- Fluo TV</h3>
+                <span class="manual-desc">• 1 Perfil •+1200 Canales en vivo .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/iptv.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">IPTV Smarters pro (1 dis)</h3>
+                <span class="manual-desc">•1 Dispositivo •6500 Canales en vivo .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 10</span>
+                <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/iptv.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">IPTV Smarters pro (3 dis)</h3>
+                <span class="manual-desc">•3 Dispositivos •6500 Canales en vivo .</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 13</span>
                 <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
@@ -401,11 +780,10 @@
             <div class="check-icon">✓</div>
             <img src="../img/spotify.webp" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Spotify Premium</h3>
-                <span class="manual-desc">• 1 mes • Cuenta propia.</span>
+                <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
+                <span class="manual-desc">• Sin anuncios • Se entrega con correo y contraseña.</span>
             </div>
             <div class="price-container">
-                <span class="premium-text">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 8</span>
                 <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
@@ -418,11 +796,10 @@
             <div class="check-icon">✓</div>
             <img src="../img/youtube.webp" class="service-logo">
             <div class="service-text">
-                <h3 class="nombre-prod">Youtube Premium</h3>
-                <span class="manual-desc">• 1 mes • Sin anuncios.</span>
+                <h3 class="nombre-prod">Youtube Premium (1 mes)</h3>
+                <span class="manual-desc">• Sin anuncios • A tu correo (correo nuevo creado).</span>
             </div>
             <div class="price-container">
-                <span class="premium-text">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 8</span>
                 <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
@@ -430,7 +807,7 @@
     </div>
 </div>
 
-    <div id="whatsapp-btn" class="floating-btn hidden">
+<div id="whatsapp-btn" class="floating-btn hidden">
     <div class="cart-row">
         <div class="cart-info" onclick="abrirModalRegistro()" style="flex-grow: 1; display: flex; align-items: center; cursor: pointer;">
             <span id="cart-count" style="background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 10px;">0</span>
@@ -450,7 +827,7 @@
     <div class="modal-content">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
         <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()">
-        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none; cursor:pointer;">INGRESAR</button>
+        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
     </div>
 </div>
 
@@ -471,12 +848,12 @@
             <button class="btn-universal" style="background:#222; color:#777; width:100%; border:1px solid #333;" onclick="volverPaso1()">← VOLVER</button>
         </div>
         <div id="form-antiguo" style="display:none;">
-            <h2 style="color:var(--primary); margin-bottom:15px;">Confirmar Perfil</h2>
-            <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
-            <input type="text" id="antiguo-per" placeholder="Nombre para Perfil (Opcional)" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
-            <button class="btn-universal" style="background:var(--primary); color:#000; width:100%; margin-bottom:10px;" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
-            <button class="btn-universal" style="background:#222; color:#777; width:100%; border:1px solid #333;" onclick="volverPaso1_Antiguo()">← VOLVER</button>
-        </div>
+    <h2 style="color:var(--primary); margin-bottom:15px;">Confirmar Perfil</h2>
+    <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
+    <input type="text" id="antiguo-per" placeholder="Nombre para Perfil (Opcional)" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
+    <button class="btn-universal" style="background:var(--primary); color:#000; width:100%; margin-bottom:10px;" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
+    <button class="btn-universal" style="background:#222; color:#777; width:100%; border:1px solid #333;" onclick="volverPaso1_Antiguo()">← VOLVER</button>
+</div>
     </div>
 </div>
 
@@ -487,99 +864,162 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // --- SISTEMA DE VISTAS ---
     function cambiarVista(modo, btn) {
-        const contenedor = document.querySelector('.container');
-        const botones = document.querySelectorAll('.btn-view');
-        botones.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        if (modo === 'grid') {
-            contenedor.classList.add('grid-mode');
-        } else {
-            contenedor.classList.remove('grid-mode');
-        }
-        AOS.refresh();
+    const contenedor = document.querySelector('.container');
+    const botones = document.querySelectorAll('.btn-view');
+    
+    // 1. Quitar clase activa de botones y ponerla al actual
+    botones.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // 2. Cambiar modo en el contenedor
+    if (modo === 'grid') {
+        contenedor.classList.add('grid-mode');
+    } else {
+        contenedor.classList.remove('grid-mode');
     }
-
-    // --- SISTEMA DE FILTRADO ---
+    
+    // 3. Refrescar AOS para que las animaciones se ajusten a la nueva posición
+    AOS.refresh();
+}
     function filtrarProductos() {
-        const busqueda = document.getElementById('search-input').value.toLowerCase();
-        const items = document.querySelectorAll('.service-item');
-        
-        items.forEach(item => {
-            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            item.style.display = nombre.includes(busqueda) ? 'block' : 'none';
-        });
-        actualizarTitulos();
-        AOS.refreshHard();
-    }
+    const busqueda = document.getElementById('search-input').value.toLowerCase();
+    const items = document.querySelectorAll('.service-item');
+    const titulos = document.querySelectorAll('.category-title');
+    
+    // 1. Primero filtramos las plataformas (items)
+    items.forEach(item => {
+        const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
+        if (nombre.includes(busqueda)) {
+            item.style.display = 'block';
+            item.style.opacity = "1";
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    // 2. Lógica para mostrar títulos solo si tienen plataformas visibles debajo
+    titulos.forEach(titulo => {
+        let tieneHijosVisibles = false;
+        let hermano = titulo.nextElementSibling;
+
+        // Buscamos hacia abajo hasta encontrar el siguiente título o el final del contenedor
+        while (hermano && !hermano.classList.contains('category-title')) {
+            if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
+                tieneHijosVisibles = true;
+                break;
+            }
+            hermano = hermano.nextElementSibling;
+        }
+
+        // Si hay resultados visibles en esa sección, mostramos el título
+        if (tieneHijosVisibles) {
+            titulo.style.display = 'block';
+        } else {
+            titulo.style.display = 'none';
+        }
+    });
+
+    // 3. Refrescar animaciones para que no se vea trabado
+    AOS.refreshHard();
+}
 
     function filtrarCategoria(categoria, btn) {
-        document.getElementById('search-input').value = "";
-        document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    // 1. Limpiar buscador y activar botón
+    document.getElementById('search-input').value = "";
+    document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-        const term = categoria.toUpperCase();
-        const items = document.querySelectorAll('.service-item');
+    const term = categoria.toUpperCase();
+    const items = document.querySelectorAll('.service-item');
 
-        items.forEach(item => {
-            let tituloCerca = "";
-            let previo = item.previousElementSibling;
-            while (previo) {
-                if (previo.classList.contains('category-title')) {
-                    tituloCerca = previo.innerText.toUpperCase();
-                    break;
-                }
-                previo = previo.previousElementSibling;
+    items.forEach(item => {
+        // Buscamos el texto de la tarjeta O el título de la categoría que tiene arriba
+        const textoCard = item.innerText.toUpperCase();
+        
+        // Buscamos el título de la categoría más cercano hacia arriba
+        let tituloCerca = "";
+        let previo = item.previousElementSibling;
+        while (previo) {
+            if (previo.classList.contains('category-title')) {
+                tituloCerca = previo.innerText.toUpperCase();
+                break;
             }
+            previo = previo.previousElementSibling;
+        }
 
-            if (term === 'TODOS' || tituloCerca.includes(term)) {
+        if (term === 'TODOS') {
+            item.style.display = 'block';
+            item.classList.add('aos-animate'); // Fix para AOS
+        } else {
+            // Coincide si el texto de la tarjeta tiene la palabra O si el título de su categoría coincide
+            const coincide = textoCard.includes(term) || tituloCerca.includes(term);
+            
+            if (coincide) {
                 item.style.display = 'block';
-                item.classList.add('aos-animate');
+                item.style.opacity = "1";
+                item.classList.add('aos-animate'); // Fix para AOS
             } else {
                 item.style.display = 'none';
                 item.classList.remove('aos-animate');
             }
-        });
-        actualizarTitulos();
-        setTimeout(() => AOS.refreshHard(), 100);
-    }
+        }
+    });
 
-    function actualizarTitulos() {
-        const titulos = document.querySelectorAll('.category-title');
-        titulos.forEach(titulo => {
-            let tieneVisibles = false;
-            let hermano = titulo.nextElementSibling;
-            while (hermano && !hermano.classList.contains('category-title')) {
-                if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
-                    tieneVisibles = true;
-                    break;
-                }
-                hermano = hermano.nextElementSibling;
+    // 2. Actualizar los títulos
+    actualizarTitulos();
+    
+    // 3. Refrescar AOS con un pequeño delay para que detecte los cambios
+    setTimeout(() => {
+        AOS.refreshHard();
+    }, 100);
+}
+
+function actualizarTitulos() {
+    const titulos = document.querySelectorAll('.category-title');
+    titulos.forEach(titulo => {
+        let tieneHijosVisibles = false;
+        let hermano = titulo.nextElementSibling;
+        
+        while (hermano && !hermano.classList.contains('category-title')) {
+            if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
+                tieneHijosVisibles = true;
+                break;
             }
-            titulo.style.display = tieneVisibles ? 'block' : 'none';
-        });
-    }
-
-    // --- SCROLL INDICATORS ---
-    const scrollContainer = document.getElementById('filterScroll');
-    const indicators = document.querySelectorAll('.scroll-indicator');
-    if (scrollContainer) {
-        indicators[0].onclick = () => scrollContainer.scrollBy({ left: -150, behavior: 'smooth' });
-        indicators[1].onclick = () => scrollContainer.scrollBy({ left: 150, behavior: 'smooth' });
-        scrollContainer.addEventListener('scroll', () => {
-            indicators[0].style.opacity = scrollContainer.scrollLeft > 20 ? "1" : "0";
-            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-            indicators[1].style.opacity = scrollContainer.scrollLeft >= maxScroll - 20 ? "0" : "1";
-        });
-    }
-
-    // --- ACCESO Y PASSWORD ---
-    (function() {
-        if (sessionStorage.getItem("acceso_concedido") === "true") { 
-            document.documentElement.style.display = "block"; 
+            hermano = hermano.nextElementSibling;
+        }
+        
+        if (tieneHijosVisibles) {
+            titulo.style.display = 'block';
+            titulo.classList.add('aos-animate');
         } else {
+            titulo.style.display = 'none';
+            titulo.classList.remove('aos-animate');
+        }
+    });
+}
+    // >>> EL CÓDIGO DE LAS FLECHAS PONLO AQUÍ AL FINAL <<<
+const scrollContainer = document.getElementById('filterScroll');
+const indicators = document.querySelectorAll('.scroll-indicator');
+    indicators[0].onclick = () => scrollContainer.scrollBy({ left: -150, behavior: 'smooth' });
+indicators[1].onclick = () => scrollContainer.scrollBy({ left: 150, behavior: 'smooth' });
+
+if (scrollContainer) {
+    // Esto detecta cuando el usuario mueve los botones con el dedo
+    scrollContainer.addEventListener('scroll', () => {
+        const leftInd = indicators[0];
+        const rightInd = indicators[1];
+        
+        leftInd.style.opacity = scrollContainer.scrollLeft > 20 ? "1" : "0";
+        
+        const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+        rightInd.style.opacity = scrollContainer.scrollLeft >= maxScroll - 20 ? "0" : "1";
+    });
+}
+    
+    (function() {
+        if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
+        else {
             document.addEventListener("DOMContentLoaded", () => {
                 document.documentElement.style.display = "block";
                 document.getElementById('modal-password').style.display = 'flex';
@@ -588,31 +1028,33 @@
     })();
 
     function validarPass() {
-        if (document.getElementById('input-pass').value.toLowerCase() === "cliente") { 
-            sessionStorage.setItem("acceso_concedido", "true"); 
-            location.reload(); 
+        if (document.getElementById('input-pass').value === "cliente") { 
+            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
         } else { alert("Código incorrecto"); }
     }
 
-    // --- LÓGICA DEL CARRITO ---
     function toggleCarrito(elemento) {
-        if (elemento.classList.contains('agotado')) return;
-        if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(10);
+    if (elemento.classList.contains('agotado')) return;
 
-        const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim());
-        const idx = carrito.findIndex(i => i.nombre === nombre);
-
-        if (idx > -1) { 
-            carrito.splice(idx, 1); 
-            elemento.classList.remove('selected'); 
-        } else { 
-            carrito.push({nombre, precio}); 
-            elemento.classList.add('selected'); 
-        }
-        actualizarUI();
+    // Feedback táctil para celulares (vibración corta de 10ms)
+    if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(10);
     }
 
+    const nombre = elemento.querySelector('.nombre-prod').innerText;
+    const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
+    const precio = parseFloat(precioText);
+    const idx = carrito.findIndex(i => i.nombre === nombre);
+
+    if (idx > -1) { 
+        carrito.splice(idx, 1); 
+        elemento.classList.remove('selected'); 
+    } else { 
+        carrito.push({nombre, precio}); 
+        elemento.classList.add('selected'); 
+    }
+    actualizarUI();
+}
     function limpiarCarrito() {
         carrito = [];
         document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
@@ -624,7 +1066,8 @@
         let desc = 0;
         const ordenado = [...carrito].sort((a, b) => b.precio - a.precio);
         for (let i = 1; i < ordenado.length; i++) {
-            desc += (ordenado[i].precio >= 10 && ordenado[0].precio >= 10) ? 2 : 1;
+            if (i === 1) { desc += (ordenado[i].precio >= 10 && ordenado[0].precio >= 10) ? 2 : 1; }
+            else { desc += (ordenado[i].precio >= 10) ? 2 : 1; }
         }
         return desc;
     }
@@ -642,50 +1085,48 @@
         document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
     }
 
-    // --- MODALES DE REGISTRO ---
     function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
     function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
     function mostrarForm() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-datos').style.display = 'block'; }
     function mostrarFormAntiguo() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'block'; }
-    function volverPaso1() { document.getElementById('form-datos').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
-    function volverPaso1_Antiguo() { volverPaso1(); }
+    function volverPaso1_Antiguo() { document.getElementById('form-antiguo').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
+    function volverPaso1() { document.getElementById('form-datos').style.display = 'none'; document.getElementById('paso-1').style.display = 'block'; }
 
     function enviarWhatsApp(tipo) {
-        let nom = document.getElementById('reg-nom').value;
-        let cel = document.getElementById('reg-cel').value;
-        let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
-
-        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { 
-            alert("Por favor ingresa tu nombre y celular."); 
-            return; 
-        }
-
-        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        const desc = calcularDescuento();
-        let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
-        
-        carrito.forEach(i => {
-            msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`;
-        });
-        
-        if(per.trim() !== "") msg += `👤 *Perfil:* ${per}\n`;
-        if(desc > 0) msg += `\n🎁 *Ahorro:* -S/ ${desc}`;
-        msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
-        
-        if(tipo === 'nuevo') { 
-            msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; 
-        } else { 
-            msg += `\n\n✅ *YA SOY CLIENTE*`; 
-        }
-
-        window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
-        cerrarModalRegistro();
+    let nom = document.getElementById('reg-nom').value;
+    let cel = document.getElementById('reg-cel').value;
+    // Detectamos el perfil según el formulario abierto
+    let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
+    if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { 
+        alert("Datos incompletos."); 
+        return; 
     }
-
+    const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
+    const desc = calcularDescuento();
+    let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
+    // RECORREMOS EL CARRITO Y PONEMOS EL PERFIL AQUÍ
+    carrito.forEach(i => {
+        msg += `🔹 *${i.nombre}* (S/ ${i.precio})`;
+        // Si el cliente escribió un perfil, lo ponemos al lado de la plataforma
+        if(per.trim() !== "") {
+            msg += `\n 👤 *Nombre del Perfil:* ${per}`;
+        }
+        msg += `\n`;
+    });
+    if(desc > 0) msg += `\n🎁 *Ahorro:* -S/ ${desc}`;
+    msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
+    if(tipo === 'nuevo') { 
+        msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`; 
+    } else { 
+        msg += `\n\n✅ *YA SOY CLIENTE*`; 
+    }
+    window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
+    cerrarModalRegistro();
+}
     function consultarStockManual(elemento, event) {
         event.stopPropagation();
         const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
-        window.open(`https://wa.me/${numWhatsApp}?text=Hola, ¿tienen stock disponible de ${nombre}?`, '_blank');
+        window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
     }
 </script>
 </body>
