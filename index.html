@@ -33,9 +33,7 @@
         --premium-gold: #ffc107; 
     }
 
-    html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
+   html { background-color: var(--dark); scroll-behavior: smooth; }
     body { 
         font-family: 'Poppins', sans-serif; 
         background: radial-gradient(circle at top right, #0a0a0a, #050505);
@@ -90,7 +88,7 @@
     }
     #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
 
-    .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; }
+    .filter-wrapper { margin: 15px 0; position: relative; display: flex; align-items: center; order-top: 1px solid var(--glass-border); padding-top: 10px; }
     .filter-container { 
         display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
         scroll-behavior: smooth; scrollbar-width: none;
@@ -796,14 +794,6 @@
     <div id="discount-label" class="discount-notice"></div>
 </div>
 
-<div id="modal-password" class="modal-pass">
-    <div class="modal-content">
-        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()">
-        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
-    </div>
-</div>
-
 <div id="modal-registro" class="modal-overlay">
     <div class="modal-content">
         <div id="paso-1">
@@ -976,23 +966,6 @@
         });
     }
     
-    (function() {
-        if (sessionStorage.getItem("acceso_concedido") === "true") { 
-            document.documentElement.style.display = "block"; 
-        } else {
-            document.addEventListener("DOMContentLoaded", () => {
-                document.documentElement.style.display = "block";
-                document.getElementById('modal-password').style.display = 'flex';
-            });
-        }
-    })();
-
-    function validarPass() {
-        if (document.getElementById('input-pass').value === "cliente") { 
-            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
-        } else { alert("Código incorrecto"); }
-    }
-
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
         if (window.navigator && window.navigator.vibrate) { window.navigator.vibrate(10); }
