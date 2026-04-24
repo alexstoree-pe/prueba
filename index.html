@@ -141,13 +141,7 @@
     order: 3; /* Aparece al final */
 }
     /* Contenedor principal para permitir reordenamiento */
-.container { 
-    padding: 0 20px; 
-    max-width: 800px; /* Aumentamos el ancho máximo para PC */
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-}
+ .container { padding: 20px 15px; max-width: 600px; margin: auto; }
     /* Forzamos a que el título de categoría esté debajo de los botones */
 .category-title { margin: 15px 0 10px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
@@ -256,9 +250,7 @@
         gap: 25px; 
     }
 
-    .grid-botones {
-        grid-template-columns: repeat(4, 1fr); /* Botones en una sola fila en PC */
-    }
+   .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
     
     .btn-inicio-top, .btn-comunidad {
         grid-column: span 1; /* Quitamos el span 2 en PC para que quepan todos */
