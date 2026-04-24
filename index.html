@@ -1132,31 +1132,57 @@
         const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
         window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
     }
-    // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
+    <script>
+    // 1. VERIFICACIÓN INMEDIATA (Corre antes de que cargue el resto)
     (function() {
-        // Usamos la misma llave para evitar confusiones
         if (localStorage.getItem("acceso_concedido_alex") === "true") {
+            // Si ya entró, forzamos que se vea todo
+            document.documentElement.style.display = "block";
             const style = document.createElement('style');
             style.innerHTML = 'body { display: block !important; } #modal-password { display: none !important; }';
             document.head.appendChild(style);
+        } else {
+            // Si no tiene clave, mantenemos el HTML visible para que el MODAL funcione
+            document.documentElement.style.display = "block";
         }
     })();
 
-    function validarAcceso() {
-        const inputPass = document.getElementById('input-dist-pass');
-        const pass = inputPass.value;
-        const PIN_CORRECTO = "cliente"; // Tu PIN aquí
+    // 2. FUNCIÓN DE VALIDACIÓN
+    function validarPass() {
+        const input = document.getElementById('input-pass');
+        const clave = input.value.trim();
 
-        if (pass === PIN_CORRECTO) {
-            sessionStorage.setItem("acceso_distribuidor", "true");
-            // Al recargar, entrará en el primer "if" y todo será visible
-            location.reload();
+        if (clave === "cliente") { 
+            localStorage.setItem("acceso_concedido_alex", "true");
+            location.reload(); 
         } else {
-            alert("Acceso denegado.");
-            inputPass.value = "";
-            inputPass.focus();
+            // Efecto de error sin alertas molestas
+            input.style.borderColor = "red";
+            input.style.boxShadow = "0 0 10px red";
+            input.value = "";
+            input.placeholder = "CÓDIGO INCORRECTO";
+            
+            // Animación de vibración al modal
+            const modal = document.querySelector('.modal-content-pass') || document.querySelector('.modal-content');
+            modal.style.transform = "translateX(10px)";
+            setTimeout(() => modal.style.transform = "translateX(-10px)", 100);
+            setTimeout(() => modal.style.transform = "translateX(0)", 200);
         }
     }
+
+    // 3. ASEGURAR VISIBILIDAD AL CARGAR EL DOM
+    document.addEventListener("DOMContentLoaded", () => {
+        // Inicializar AOS
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true });
+        }
+        
+        // Mostrar el cuerpo si no hay clave (para ver el modal)
+        if (localStorage.getItem("acceso_concedido_alex") !== "true") {
+            document.body.style.display = "block";
+        }
+    });
+</script>
 </script>
 </body>
 </html>
