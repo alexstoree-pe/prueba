@@ -199,32 +199,56 @@
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; }
 
     /* ================================================================
-       MEJORA JERARQUÍA AGOTADO (SIN STOCK)
+        MEJORA JERARQUÍA SIN STOCK (RESALTADO POR ENCIMA)
     ================================================================ */
     .btn-consultar-neon {
-        display: none; color: #ff4444; font-size: 0.75rem; font-weight: 900; 
-        border: 2px solid #ff4444 !important; padding: 8px 15px; border-radius: 12px;
-        background: rgba(255,68,68,0.1); text-transform: uppercase; transition: 0.3s;
-        box-shadow: 0 0 15px #ff4444;
+        display: none; 
+        color: #fff; 
+        font-size: 0.8rem; 
+        font-weight: 900; 
+        background: #ff4444;
+        border: 2px solid #ff4444 !important; 
+        padding: 8px 18px; 
+        border-radius: 12px;
+        text-transform: uppercase; 
+        transition: 0.3s;
+        /* Neón Fuerte */
+        box-shadow: 0 0 20px #ff4444, 0 0 40px rgba(255, 68, 68, 0.6);
         animation: parpadeoNeon 1.2s infinite alternate;
-        position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
-        z-index: 500; white-space: nowrap;
+        position: absolute; 
+        z-index: 999; 
+        white-space: nowrap;
+        pointer-events: auto;
     }
 
     @keyframes parpadeoNeon {
-        from { opacity: 1; box-shadow: 0 0 10px #ff4444; }
-        to { opacity: 0.6; box-shadow: 0 0 25px #ff4444; }
+        from { opacity: 1; transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px #ff4444; }
+        to { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 35px #ff4444; }
+    }
+
+    /* VISTA LISTA: Al lado derecho al centro */
+    .service-item.agotado .btn-consultar-neon {
+        display: block;
+        top: 50%;
+        left: 80%; /* Posicionado a la derecha */
+        transform: translate(-50%, -50%);
+    }
+
+    /* VISTA CUADRICULA: Posición más abajo (como premium) */
+    .grid-mode .service-item.agotado .btn-consultar-neon {
+        top: 85%; /* Abajo cerca de los precios/badge */
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .service-item.agotado { pointer-events: none; }
     
     .service-item.agotado .service-card { 
-        background: rgba(0, 0, 0, 0.9) !important; 
-        filter: grayscale(1) brightness(0.4); 
-        border-color: rgba(255, 68, 68, 0.2) !important;
+        background: rgba(0, 0, 0, 0.95) !important; 
+        filter: grayscale(1) brightness(0.3); 
+        border-color: rgba(255, 68, 68, 0.3) !important;
     }
 
-    /* Ocultar todo lo demás cuando está agotado */
     .service-item.agotado .badge-oferta, 
     .service-item.agotado .premium-badge-tag, 
     .service-item.agotado .price-tag, 
@@ -232,8 +256,6 @@
     .service-item.agotado .manual-desc { 
         display: none !important; 
     }
-
-    .service-item.agotado .btn-consultar-neon { display: block; pointer-events: auto; }
 
     /* BOTONES UNIVERSALES */
     .grid-botones { 
