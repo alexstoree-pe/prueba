@@ -136,27 +136,33 @@
     .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 20px 15px; }
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
-/* El contenedor de las tarjetas */
-#services-container {
-    order: 3; /* Aparece al final */
-}
-    /* Contenedor principal para permitir reordenamiento */
- .container { padding: 20px 15px; max-width: 600px; margin: auto; }
-    /* Forzamos a que el título de categoría esté debajo de los botones */
-.category-title { margin: 15px 0 10px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
+
+    /* --- CONTENEDOR PRINCIPAL ACTUALIZADO --- */
+    .container { 
+        padding: 0 20px; 
+        max-width: 800px; 
+        margin: auto; 
+        display: flex; 
+        flex-direction: column; 
+    }
+
+    .category-title { 
+        order: 2; /* Aparece después de los botones */
+        font-size: 0.9rem; font-weight: 800; color: var(--primary); margin: 15px 0; 
+        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
+    }
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
     /* --- TARJETAS CORREGIDAS --- */
-    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-     .service-card { 
-        background: var(--glass); border-radius: 22px; padding: 18px; 
+    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); width: 100%; }
+    .service-card { 
+        background: var(--glass); border-radius: 25px; padding: 20px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); gap: 18px; position: relative; overflow: hidden;
     }
 
     .service-item:hover .service-card { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); transform: translateY(-3px); }
 
-    /* Efecto de Hundido al seleccionar */
     .service-item.selected .service-card { 
         transform: scale(0.96) !important; 
         border-color: var(--primary) !important; 
@@ -172,13 +178,9 @@
 
     .service-item.selected .check-icon { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-    /* --- LÓGICA PREMIUM DINÁMICA --- */
     .service-item.premium .service-card { border-color: rgba(255, 193, 7, 0.3); }
-    
-    /* Color de precio solo cuando es premium */
     .service-item.premium .price-tag { color: var(--premium-gold); font-weight: 800; }
 
-    /* Selector Dorado para Premium */
     .service-item.premium.selected .service-card {
         border-color: var(--premium-gold) !important;
         background: rgba(255, 193, 7, 0.12) !important;
@@ -190,7 +192,6 @@
         color: #000 !important;
     }
 
-    /* Badge PREMIUM Estilo Imagen */
     .service-item.premium .price-container::before {
         display: block;
         content: 'PREMIUM';
@@ -231,32 +232,13 @@
     .service-item.agotado .btn-consultar-neon { display: block; pointer-events: auto; }
     .service-item.agotado .price-tag { display: none; }
 
-   /* --- VISTA CUADRÍCULA OPTIMIZADA --- */
-.grid-mode { 
-    display: grid !important; 
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil por defecto */
-    gap: 15px; 
-    width: 100%;
-}
-    /* Media Query para pantallas grandes (PC) */
-@media (min-width: 1024px) {
-    .container {
-        max-width: 95%; /* Se expande casi a los bordes en PC */
-    }
-
+    /* --- VISTA CUADRÍCULA ACTUALIZADA (PC Y MÓVIL) --- */
     .grid-mode { 
-        /* Ajusta el número de columnas según prefieras (4 o 5 se ve premium en PC) */
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important; 
-        gap: 25px; 
+        display: grid !important; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
+        order: 3; /* Asegura que vaya después de botones y categoría */
     }
-
-   .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; order: 1; /* Asegura que estén arriba */
-}
-    
-    .btn-inicio-top, .btn-comunidad {
-        grid-column: span 1; /* Quitamos el span 2 en PC para que quepan todos */
-    }
-}
     .grid-mode .service-item { margin-bottom: 0; }
     .grid-mode .service-card { 
         flex-direction: column; text-align: center; padding: 35px 15px 20px; 
@@ -264,6 +246,12 @@
     }
     .grid-mode .service-logo { width: 70px; height: 70px; margin-bottom: 10px; }
     .grid-mode .price-container { align-items: center; margin-top: 10px; }
+
+    /* Expansión PC para Cuadrícula */
+    @media (min-width: 1024px) {
+        .container { max-width: 95% !important; }
+        .grid-mode { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important; gap: 20px; }
+    }
 
     /* --- MODALES Y CARRITO --- */
     .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
@@ -282,14 +270,8 @@
     }
     .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 
-   /* Forzamos a que los botones (grid-botones) siempre estén arriba */
-.grid-botones { 
-    order: 1; /* Aparece primero */
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 12px; 
-    margin: 20px 0 30px; 
-}
+    /* --- BOTONES ORDENADOS --- */
+    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; order: 1; }
     .btn-universal {
         display: flex; align-items: center; justify-content: center; padding: 15px 10px;
         border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
@@ -309,29 +291,17 @@
         .btn-universal { font-size: 0.7rem; padding: 12px 8px; }
         .grid-mode { grid-template-columns: 1fr 1fr; gap: 10px; }
     }
-    /* --- BOTÓN DE ELIMINAR (BASURERO) --- */
-.btn-clear-cart {
-    background: rgba(0, 0, 0, 0.2); /* Fondo oscuro sutil */
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-left: 15px;
-    color: #fff;
-}
 
-.btn-clear-cart:hover {
-    background: var(--danger); /* Se vuelve rojo al pasar el mouse */
-    transform: scale(1.1);
-}
+    .btn-clear-cart {
+        background: rgba(0, 0, 0, 0.2); 
+        width: 35px; height: 35px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 10px; cursor: pointer; transition: 0.3s;
+        margin-left: 15px; color: #fff;
+    }
 
-.btn-clear-cart i {
-    font-size: 1rem;
-}
+    .btn-clear-cart:hover { background: var(--danger); transform: scale(1.1); }
+    .btn-clear-cart i { font-size: 1rem; }
 </style>
 </head>
 <body>
