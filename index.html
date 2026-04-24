@@ -137,12 +137,13 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-    .container { padding: 0 20px; max-width: 800px; margin: auto; }
+    .container { padding: 0 20px; max-width: 1200px; margin: auto; display: flex; flex-direction: column; /* Asegura que todo vaya uno debajo de otro */ }
     .category-title { 
         font-size: 0.9rem; font-weight: 800; color: var(--primary); margin: 30px 0 15px; 
-        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
+        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; width: 100%;
+    order: 2; /* Fuerza a que aparezca después de los botones si usas flex */
     }
-    .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
+    .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3;  }
 
     /* --- TARJETAS CORREGIDAS --- */
     .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -230,13 +231,17 @@
     .service-item.agotado .price-tag { display: none; }
 
     /* --- VISTA CUADRÍCULA --- */
-    .grid-mode { display: grid !important; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .grid-mode .service-item { margin-bottom: 0; }
+    .grid-mode { display: grid !important; grid-template-columns: 1fr 1fr; gap: 15px;  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important; 
+    gap: 20px; 
+    width: 100%; /* Ocupa todo el ancho horizontal disponible */
+    order: 3; }
+    .grid-mode .service-item { margin-bottom: 0; width: 100%; /* La tarjeta se estira al ancho de la columna */
+}
     .grid-mode .service-card { 
-        flex-direction: column; text-align: center; padding: 35px 15px 20px; 
-        height: 100%; justify-content: center; 
+        flex-direction: column; text-align: center; padding: 40px 20px; 
+        height: 100%; min-height: 250px; /* Altura mínima para que se vean imponentes */ justify-content: center; 
     }
-    .grid-mode .service-logo { width: 70px; height: 70px; margin-bottom: 10px; }
+    .grid-mode .service-logo { width: 90px; height: 90px; margin-bottom: 10px; margin: 0 auto 15px; }
     .grid-mode .price-container { align-items: center; margin-top: 10px; }
 
     /* --- MODALES Y CARRITO --- */
@@ -256,7 +261,11 @@
     }
     .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 
-   .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
+   .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; 
+    margin: 20px 0 30px; 
+    width: 100%;
+    order: 1; /* Los botones van primero */
+}
     .btn-universal {
         display: flex; align-items: center; justify-content: center; padding: 15px 10px;
         border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
