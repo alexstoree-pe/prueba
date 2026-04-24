@@ -62,10 +62,11 @@
     .search-container { max-width: 600px; margin: 20px auto 0; position: relative; }
     #search-input {
         width: 100%; padding: 15px 25px; border-radius: 20px; border: 1px solid var(--glass-border);
-        background: rgba(255,255,255,0.05); color: white; outline: none; transition: 0.3s;
+        background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
+        outline: none; transition: 0.3s; font-size: 1rem;
     }
 
-    /* --- CONTENEDOR PRINCIPAL --- */
+    /* --- CONTENEDOR FLEXIBLE --- */
     .container { 
         padding: 0 20px; 
         width: 100%; 
@@ -73,98 +74,110 @@
         margin: auto; 
         display: flex; 
         flex-direction: column; 
+        transition: max-width 0.3s ease;
     }
 
-    /* --- RESTAURACIÓN DE BOTONES SUPERIORES --- */
-    .grid-botones { 
-        display: grid !important; 
-        grid-template-columns: 1fr 1fr; 
-        gap: 15px; 
-        margin: 20px 0 30px; 
-        width: 100%; 
+    /* Expansión en PC para cuadrícula */
+    .container:has(.grid-mode) {
+        max-width: 95%; 
     }
 
+    /* --- BOTONES SUPERIORES (RESTAURADOS) --- */
+    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0 30px; width: 100%; order: 1; }
+    
     .btn-universal {
         display: flex; align-items: center; justify-content: center; padding: 15px 10px;
-        border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
+        border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
         text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
         cursor: pointer; text-align: center;
     }
+    .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); grid-column: span 2; }
+    .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+    .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+    .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); grid-column: span 2; }
 
-    .btn-inicio-top { background: #222; color: #fff; border: 1px solid #333; grid-column: span 2; }
-    .btn-referencias { background: #f4d03f; color: #000; }
-    .btn-combos-premium { background: #ff4444; color: #fff; }
-    .btn-comunidad { background: #25d366; color: #fff; grid-column: span 2; border-radius: 20px; }
-
-    /* --- CATEGORÍAS (CORRECCIÓN DE FLUJO) --- */
+    /* --- CATEGORÍAS --- */
     .category-title { 
-        display: flex !important;
-        font-size: 0.9rem; font-weight: 800; color: var(--primary); 
-        margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px;
-        align-items: center; gap: 10px; width: 100%;
+        font-size: 0.9rem; font-weight: 800; color: var(--primary); margin: 40px 0 20px; 
+        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; width: 100%;
+        order: 2; /* Se mantiene después de los botones */
     }
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
-    /* --- TARJETAS DE SERVICIO (ESTILO ORIGINAL) --- */
-    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s; }
+    /* --- TARJETAS DE SERVICIO --- */
+    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); order: 3; }
     
     .service-card { 
         background: var(--glass); border-radius: 25px; padding: 20px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        gap: 18px; position: relative; overflow: hidden;
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); gap: 18px; position: relative; overflow: hidden;
     }
 
-    /* Efecto selección Neón */
+    /* Efectos de Selección Neon */
     .service-item.selected .service-card { 
+        transform: scale(0.97); 
         border-color: var(--primary) !important; 
         background: rgba(0, 212, 255, 0.1) !important;
-        box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
     }
 
-    .service-item.premium .service-card { border-color: rgba(255, 193, 7, 0.4); }
-    .service-item.premium.selected .service-card { border-color: #ffc107 !important; box-shadow: 0 0 15px rgba(255, 193, 7, 0.2); }
+    .service-item.premium.selected .service-card {
+        border-color: var(--premium-gold) !important;
+        background: rgba(255, 193, 7, 0.15) !important;
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+    }
 
-    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 15px; background: #111; }
+    /* Badge Check */
+    .check-icon {
+        position: absolute; top: 10px; right: 10px; background: var(--primary);
+        color: #000; width: 28px; height: 28px; border-radius: 50%;
+        display: none; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 900; z-index: 10;
+    }
+    .service-item.selected .check-icon { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .service-item.premium.selected .check-icon { background: var(--premium-gold); }
+
+    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; flex-shrink: 0; background: #111; }
     .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; }
-    .manual-desc { font-size: 0.8rem; color: #aaa; }
+    .manual-desc { font-size: 0.8rem; color: #888; }
 
-    .price-tag { color: #fff; font-weight: 800; font-size: 1.4rem; }
-    .service-item.premium .price-tag { color: #ffc107; }
+    .price-container { display: flex; flex-direction: column; align-items: flex-end; }
+    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.4rem; }
 
-    /* --- BADGES (MÁS SOLICITADO / PREMIUM) --- */
-    .badge-oferta { 
-        position: absolute; top: 0; left: 20px; background: #f4d03f; 
-        color: #000; padding: 4px 12px; border-radius: 0 0 10px 10px; 
-        font-size: 0.65rem; font-weight: 800; text-transform: uppercase; z-index: 10; 
-    }
-
-    .premium-label {
-        border: 1px solid #ffc107; color: #ffc107; font-size: 0.6rem;
-        padding: 2px 8px; border-radius: 5px; font-weight: 900;
-        text-transform: uppercase; margin-bottom: 5px; display: inline-block;
-    }
-
-    /* --- VISTA CUADRÍCULA --- */
+    /* --- VISTA CUADRÍCULA (GRID MODE) --- */
     .grid-mode { 
         display: grid !important; 
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important; 
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important; 
         gap: 20px; 
+        width: 100%; 
     }
-    .grid-mode .service-card { flex-direction: column; text-align: center; }
+    
+    .grid-mode .service-item { margin-bottom: 0; }
+    .grid-mode .service-card { 
+        flex-direction: column; text-align: center; padding: 35px 20px; 
+        height: 100%; min-height: 280px; justify-content: center; 
+    }
+    
+    .grid-mode .service-logo { width: 90px; height: 90px; margin: 0 auto 15px; }
+    .grid-mode .price-container { align-items: center; margin-top: 15px; }
+    .grid-mode .price-container::before { margin-right: 0; align-self: center; }
 
     /* --- CARRITO FLOTANTE --- */
     .floating-btn {
         position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-        background: #25d366; color: white; padding: 18px; border-radius: 20px;
-        width: 90%; max-width: 450px; z-index: 3000; font-weight: 800;
-        display: flex; justify-content: space-between; align-items: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white; padding: 20px; border-radius: 25px;
+        width: 92%; max-width: 480px; z-index: 3000;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
     }
+
+    @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     @media (max-width: 480px) {
         .grid-mode { grid-template-columns: 1fr 1fr !important; gap: 10px; }
-        .service-card { padding: 15px; }
-        .service-logo { width: 50px; height: 50px; }
+        .grid-mode .service-card { padding: 20px 10px; min-height: 220px; }
+        .grid-mode .service-logo { width: 60px; height: 60px; }
+        .grid-mode .service-text h3 { font-size: 0.9rem; }
+        .grid-mode .price-tag { font-size: 1.1rem; }
     }
 </style>
 </head>
