@@ -143,8 +143,8 @@
     /* --- LÓGICA PREMIUM DINÁMICA (CORREGIDA) --- */
     /* Borde dorado para el modo Premium */
 .service-item.premium .service-card {
-    border: 1px solid var(--primary) !important;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+    border: 2px solid #FFD700 !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3) !important;
 }
     .service-item.premium .price-tag { color: var(--premium-gold); font-weight: 800; }
 
@@ -159,6 +159,20 @@
         color: #000 !important;
     }
 
+/* Estilo base del badge Premium */
+.premium-badge-tag {
+    color: #FFD700 !important;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+    /* AJUSTE DE PRECISIÓN: Vista Lista */
+.container:not(.grid-mode) .premium-badge-tag {
+    margin-right: 25px; /* Empuja el precio 25px a la derecha, moviendo el texto a la izquierda */
+}
     /* ESTILO DE LA ETIQUETA PREMIUM */
     .premium-text {
         display: block;
