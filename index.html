@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-<style>
+    <style>
     :root {
         --primary: #00d4ff;
         --secondary: #0055ff;
@@ -148,10 +148,18 @@
     .service-card { 
         background: var(--glass); border-radius: 25px; padding: 20px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        transition: 0.3s; gap: 18px; position: relative; overflow: hidden;
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); gap: 18px; position: relative; overflow: hidden;
     }
 
     .service-item:hover .service-card { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); transform: translateY(-3px); }
+
+    /* Animación de Selección (Hacia atrás) */
+    .service-item.selected .service-card { 
+        transform: scale(0.96); 
+        border-color: var(--primary) !important; 
+        background: rgba(0, 212, 255, 0.12) !important; 
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    }
 
     .check-icon {
         position: absolute; top: 15px; right: 15px; background: var(--primary);
@@ -160,23 +168,23 @@
     }
 
     .selected .check-icon { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .service-item.selected .service-card { border-color: var(--primary) !important; background: rgba(0, 212, 255, 0.08) !important; box-shadow: inset 0 0 20px rgba(0,212,255,0.1); }
 
-    /* --- AJUSTE BADGE DINÁMICO (MODIFICADO) --- */
     .badge-oferta { 
         position: absolute; top: 0; left: 20px; background: var(--promo); 
         color: #000; padding: 3px 12px; border-radius: 0 0 12px 12px; 
         font-size: 0.65rem; font-weight: 800; text-transform: uppercase; z-index: 10; 
     }
 
-    /* --- PREMIUM Y COSTO DORADO (MODIFICADO) --- */
     .service-item.premium .service-card { border-color: rgba(212, 175, 55, 0.3); }
     .service-item.premium .price-tag { 
         background: var(--gold-gradient); -webkit-background-clip: text; 
         -webkit-text-fill-color: transparent; font-weight: 800; 
     }
 
-    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    /* Ocultar PREMIUM en vista Lista */
+    .service-item.premium .price-container::before { display: none; }
+
+    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.3); background: #111; }
     .service-text { flex-grow: 1; }
     .service-text h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: #fff; }
     .manual-desc { font-size: 0.8rem; color: #888; display: block; line-height: 1.3; }
@@ -203,112 +211,58 @@
     .grid-mode .service-logo { width: 70px; height: 70px; margin-bottom: 10px; }
     .grid-mode .price-container { align-items: center; margin-top: 10px; }
 
-    /* Etiqueta Premium dentro de tarjeta en Grid */
+    /* Solo mostrar PREMIUM en Grid */
     .grid-mode .service-item.premium .price-container::before {
-        content: 'PREMIUM'; display: block; font-size: 0.55rem; color: #d4af37;
+        display: block; content: 'PREMIUM'; font-size: 0.55rem; color: #d4af37;
         border: 1px solid rgba(212, 175, 55, 0.5); padding: 1px 6px; border-radius: 4px;
         margin-bottom: 4px; font-weight: 800;
     }
 
-    /* --- MODALES Y REGISTRO (INTEGRIDAD ORIGINAL) --- */
+    /* --- MODALES Y CARRITO --- */
     .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
     .modal-pass .modal-content { max-width: 400px; width: 100%; text-align: center; }
     .modal-pass input { width: 100%; padding: 20px; border-radius: 20px; border: 1px solid #333; background: #111; color: #fff; font-size: 1.5rem; text-align: center; margin: 20px 0; outline: none; }
-    .modal-pass input:focus { border-color: var(--primary); }
-
+    
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 4000; display: none; align-items: flex-end; justify-content: center; }
     .modal-overlay .modal-content { background: #0a0a0a; width: 100%; max-width: 500px; padding: 40px 30px; border-radius: 40px 40px 0 0; border: 1px solid var(--glass-border); border-bottom: none; animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
-    .btn-universal { padding: 18px; border-radius: 20px; border: none; font-family: 'Poppins'; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
+    .floating-btn { position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 3000; transition: 0.5s; }
+    .cart-row { background: var(--whatsapp); color: #000; padding: 12px 20px; border-radius: 25px; display: flex; align-items: center; justify-content: space-between; }
+
+    /* --- BOTONES DE ACCESO RÁPIDO --- */
+    .grid-botones {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 12px;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .btn-universal {
+        display: flex; align-items: center; justify-content: center;
+        text-align: center; text-decoration: none; padding: 15px 10px;
+        border-radius: 18px; font-size: 0.75rem; font-weight: 800;
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: none; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        width: 100%;
+    }
+
     .btn-universal:active { transform: scale(0.95); }
 
-    /* --- CARRITO (INTEGRIDAD ORIGINAL) --- */
-    .floating-btn { position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 3000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(0); }
-    .floating-btn.hidden { transform: translateY(150%); opacity: 0; }
-    
-    .cart-row { background: var(--whatsapp); color: #000; padding: 12px 20px; border-radius: 25px; display: flex; align-items: center; box-shadow: 0 15px 35px rgba(37,211,102,0.3); }
-    .cart-info { font-weight: 800; letter-spacing: 0.5px; }
-    .total-info { font-weight: 900; }
-    .btn-clear-cart { background: rgba(0,0,0,0.1); width: 35px; height: 35px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
-    .discount-notice { background: #fff; color: #000; text-align: center; font-size: 0.75rem; font-weight: 800; padding: 6px; border-radius: 10px; margin-top: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: pulse 2s infinite; }
+    .btn-inicio-top { background: #222; border: 1px solid var(--glass-border); color: #fff; grid-column: span 2; }
+    .btn-referencias { background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; }
+    .btn-combos-premium { background: linear-gradient(135deg, #FF416C, #FF4B2B); color: #fff; }
+    .btn-comunidad { background: #25D366; color: #fff; grid-column: span 2; margin-top: 5px; }
 
-    /* --- ANIMACIONES --- */
+    /* Animaciones */
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    @keyframes bounceHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
 
-    @media (max-width: 400px) {
-        .grid-mode { grid-template-columns: 1fr; }
-        header h1 { font-size: 1.4rem; }
+    @media (max-width: 480px) {
+        .btn-universal { font-size: 0.7rem; padding: 12px 8px; }
+        .grid-mode { grid-template-columns: 1fr 1fr; gap: 10px; }
     }
-  /* --- CONFIGURACIÓN DE LA CUADRÍCULA DE BOTONES --- */
-.grid-botones {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas */
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-/* Estilo Base para todos los botones universales */
-.btn-universal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    text-decoration: none;
-    padding: 15px 10px;
-    border-radius: 18px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: none;
-    color: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-.btn-universal:active {
-    transform: scale(0.95);
-}
-
-/* --- COLORES ESPECÍFICOS PARA CADA BOTÓN --- */
-
-/* Botón Volver al Inicio */
-.btn-inicio-top {
-    background: #222; /* Fondo oscuro elegante */
-    border: 1px solid var(--glass-border);
-    color: #fff;
-    grid-column: span 2; /* Este botón ocupa las dos columnas */
-}
-
-/* Botón Referencias */
-.btn-referencias {
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #000;
-}
-
-/* Botón Combos y Promociones */
-.btn-combos-premium {
-    background: linear-gradient(135deg, #FF416C, #FF4B2B);
-    color: #fff;
-}
-
-/* Botón Comunidad (WhatsApp) */
-.btn-comunidad {
-    background: #25D366; /* Color oficial WhatsApp */
-    color: #fff;
-    grid-column: span 2; /* Ocupa todo el ancho */
-    margin-top: 5px;
-}
-
-/* Ajuste para móviles: si la pantalla es muy pequeña, ponerlos uno bajo otro */
-@media (max-width: 480px) {
-    .btn-universal {
-        font-size: 0.7rem;
-        padding: 12px 8px;
-    }
-}
-    </style>
+</style>
 </head>
 <body>
     
