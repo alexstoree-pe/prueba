@@ -123,7 +123,6 @@
         transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); gap: 18px; position: relative; overflow: hidden;
     }
 
-    /* EFECTO DE BRILLO AL PASAR EL MOUSE */
     .service-item:hover .service-card { 
         border-color: #ffffff !important;
         background: rgba(255, 255, 255, 0.12) !important; 
@@ -199,14 +198,42 @@
     .price-container { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; }
 
+    /* ================================================================
+       MEJORA JERARQUÍA AGOTADO (SIN STOCK)
+    ================================================================ */
     .btn-consultar-neon {
-        display: none; color: #ff4444; font-size: 0.7rem; font-weight: 800; 
-        border: 1.5px solid rgba(255,68,68,0.3); padding: 6px 10px; border-radius: 10px;
-        background: rgba(255,68,68,0.05); text-transform: uppercase; transition: 0.3s;
+        display: none; color: #ff4444; font-size: 0.75rem; font-weight: 900; 
+        border: 2px solid #ff4444 !important; padding: 8px 15px; border-radius: 12px;
+        background: rgba(255,68,68,0.1); text-transform: uppercase; transition: 0.3s;
+        box-shadow: 0 0 15px #ff4444;
+        animation: parpadeoNeon 1.2s infinite alternate;
+        position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
+        z-index: 500; white-space: nowrap;
     }
-    .service-item.agotado { opacity: 0.7; pointer-events: none; }
+
+    @keyframes parpadeoNeon {
+        from { opacity: 1; box-shadow: 0 0 10px #ff4444; }
+        to { opacity: 0.6; box-shadow: 0 0 25px #ff4444; }
+    }
+
+    .service-item.agotado { pointer-events: none; }
+    
+    .service-item.agotado .service-card { 
+        background: rgba(0, 0, 0, 0.9) !important; 
+        filter: grayscale(1) brightness(0.4); 
+        border-color: rgba(255, 68, 68, 0.2) !important;
+    }
+
+    /* Ocultar todo lo demás cuando está agotado */
+    .service-item.agotado .badge-oferta, 
+    .service-item.agotado .premium-badge-tag, 
+    .service-item.agotado .price-tag, 
+    .service-item.agotado .check-icon,
+    .service-item.agotado .manual-desc { 
+        display: none !important; 
+    }
+
     .service-item.agotado .btn-consultar-neon { display: block; pointer-events: auto; }
-    .service-item.agotado .price-tag { display: none; }
 
     /* BOTONES UNIVERSALES */
     .grid-botones { 
@@ -241,13 +268,11 @@
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-  /* ================================================================
-       ESTILO GRID FINAL (EXPANDIDO PARA PC)
+    /* ================================================================
+        ESTILO GRID FINAL (EXPANDIDO PARA PC)
     ================================================================ */
-
     .container.grid-mode {
         display: grid !important; 
-        /* Crea columnas automáticas de mínimo 160px para que se expanda en PC */
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
         justify-content: center !important; 
         gap: 20px !important; 
@@ -306,24 +331,18 @@
 
     .grid-mode .price-tag { font-size: 1.3rem !important; }
     .grid-mode .premium-badge-tag { justify-content: center !important; font-size: 0.7rem !important; margin-bottom: 5px; }
-    /* --- MODIFICACIÓN DEL BADGE DE OFERTA EN GRID --- */
 
-.grid-mode .badge-oferta {
-    /* 1. Resetear el centrado forzado anterior */
-    left: 20px !important; /* Volver a alinearlo a la izquierda de la tarjeta */
-    transform: none !important; /* Quitar el centrado horizontal */
-    
-    /* 2. Estirarlo y darle el estilo de lista */
-    width: auto !important; /* Dejar que crezca según el texto */
-    padding: 3px 12px !important; /* Padding horizontal más generoso para estirarlo */
-    border-radius: 0 0 12px 12px !important; /* Esquinas solo abajo, igual que en lista */
-    
-    /* 3. Ajuste de texto para PC */
-    font-size: 0.65rem !important; /* Un poco más grande para que sea legible */
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
-}
+    .grid-mode .badge-oferta {
+        left: 20px !important; 
+        transform: none !important; 
+        width: auto !important; 
+        padding: 3px 12px !important; 
+        border-radius: 0 0 12px 12px !important; 
+        font-size: 0.65rem !important; 
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        white-space: nowrap; 
+    }
 </style>
 </head>
 <body>
