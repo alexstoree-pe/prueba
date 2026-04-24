@@ -253,18 +253,65 @@
         box-shadow: 0 15px 40px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
     }
 
-    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
-    .btn-universal {
-        display: flex; align-items: center; justify-content: center; padding: 15px 10px;
-        border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
-        text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
-        cursor: pointer; text-align: center;
-    }
-    .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
-    .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; }
-    .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; }
-    .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; }
+   /* Contenedor de botones superior */
+.grid-botones { 
+    display: flex !important; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 15px; 
+    margin: 20px auto 30px auto; 
+    max-width: 900px; /* Para que no se peguen a los bordes en PC */
+    padding: 0 15px;
+}
 
+/* Estilo base de los botones (Forma de Cápsula) */
+.btn-universal {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 14px 20px;
+    border-radius: 50px; /* Esto les da la forma redondeada de la imagen */
+    text-decoration: none; 
+    font-weight: 800; 
+    font-size: 0.75rem;
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    border: none;
+    cursor: pointer; 
+    flex: 1 1 calc(50% - 20px); /* Hace que salgan 2 por fila */
+    min-width: 160px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Efecto al pasar el mouse */
+.btn-universal:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Colores exactos de tu imagen */
+.btn-inicio-top { 
+    background: #111 !important; 
+    color: #fff !important; 
+    border: 1px solid rgba(255,255,255,0.1) !important; 
+}
+
+.btn-referencias { 
+    background: linear-gradient(90deg, #00d4ff, #0055ff) !important; 
+    color: #000 !important; 
+}
+
+.btn-combos-premium { 
+    background: linear-gradient(90deg, #f4d03f, #e6b800) !important; 
+    color: #000 !important; 
+}
+
+.btn-comunidad { 
+    background: linear-gradient(90deg, #2ecc71, #1abc9c) !important; 
+    color: #fff !important; 
+}
     /* Animaciones */
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
