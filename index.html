@@ -248,8 +248,33 @@
     .service-item.agotado .btn-consultar-neon { display: block; pointer-events: auto; }
     .service-item.agotado .price-tag { display: none; }
 
-    /* --- VISTA CUADRÍCULA --- */
-    .grid-mode { display: grid !important; grid-template-columns: 1fr 1fr; gap: 15px; }
+   /* --- VISTA CUADRÍCULA OPTIMIZADA --- */
+.grid-mode { 
+    display: grid !important; 
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil por defecto */
+    gap: 15px; 
+    width: 100%;
+}
+    /* Media Query para pantallas grandes (PC) */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 95%; /* Se expande casi a los bordes en PC */
+    }
+
+    .grid-mode { 
+        /* Ajusta el número de columnas según prefieras (4 o 5 se ve premium en PC) */
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important; 
+        gap: 25px; 
+    }
+
+    .grid-botones {
+        grid-template-columns: repeat(4, 1fr); /* Botones en una sola fila en PC */
+    }
+    
+    .btn-inicio-top, .btn-comunidad {
+        grid-column: span 1; /* Quitamos el span 2 en PC para que quepan todos */
+    }
+}
     .grid-mode .service-item { margin-bottom: 0; }
     .grid-mode .service-card { 
         flex-direction: column; text-align: center; padding: 35px 15px 20px; 
