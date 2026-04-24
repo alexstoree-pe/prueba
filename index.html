@@ -200,48 +200,13 @@
     .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
 
-    /* ================================================================
-       CORRECCIÓN AGOTADO: NEÓN RESALTADO SOBRE FONDO OSCURO
-    ================================================================ */
-    .service-item.agotado { pointer-events: none; }
-    
-    .service-item.agotado .service-card { 
-        filter: grayscale(1) brightness(0.2) !important; /* Oscurece el fondo */
-        opacity: 0.7;
-    }
-
     .btn-consultar-neon {
-        display: none; 
-        color: #fff !important; 
-        font-size: 0.75rem; 
-        font-weight: 900; 
-        background: var(--danger) !important;
-        border: 2px solid var(--danger) !important; 
-        padding: 8px 12px; 
-        border-radius: 10px;
-        text-transform: uppercase;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%); /* Centrado absoluto */
-        z-index: 100; /* Por encima de la tarjeta oscura */
-        box-shadow: 0 0 15px var(--danger), 0 0 30px var(--danger) !important;
-        animation: pulseNeonAgotado 1.5s infinite alternate;
-        opacity: 1 !important; /* Asegura brillo total */
-        filter: none !important;
+        display: none; color: #ff3333; font-size: 0.85rem; font-weight: 900; 
+        border: 2px solid var(--danger); padding: 8px 10px; border-radius: 10px;
+        background: rgba(255, 0, 0, 0.1); text-transform: uppercase;
     }
-
-    @keyframes pulseNeonAgotado {
-        from { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--danger); }
-        to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 30px var(--danger); }
-    }
-
     .service-item.agotado .btn-consultar-neon { display: block; }
-    .service-item.agotado .price-tag, 
-    .service-item.agotado .badge-oferta, 
-    .service-item.agotado .premium::after { display: none !important; }
-
-    /* ================================================================ */
+    .service-item.agotado .price-tag { display: none; }
 
     .floating-btn {
         position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
@@ -312,7 +277,7 @@
     
     .grid-mode .service-item { 
         margin-bottom: 0;
-        height: 100%; 
+        height: 100%; /* Para que todos los items de la misma fila midan lo mismo */
     }
 
     .grid-mode .service-card { 
@@ -320,9 +285,9 @@
         align-items: center; 
         text-align: center; 
         padding: 25px 10px 15px; 
-        min-height: 250px; 
+        min-height: 250px; /* ALTURA UNIFORME PARA TODAS */
         height: 100%;
-        justify-content: space-between; 
+        justify-content: space-between; /* Empuja el precio hacia abajo */
     }
 
     .grid-mode .service-logo { 
@@ -354,6 +319,7 @@
         margin-bottom: 8px;
     }
 
+    /* --- CONTENEDOR DE PRECIO Y PREMIUM (ESTILO IMAGEN) --- */
     .grid-mode .price-container { 
         margin-top: auto; 
         width: 100%; 
@@ -370,8 +336,9 @@
         -webkit-text-fill-color: initial;
     }
 
+    /* --- PREMIUM ENCIMA DEL PRECIO --- */
     .grid-mode .premium::after {
-        position: static !important; 
+        position: static !important; /* Lo saca del modo flotante */
         display: inline-block !important;
         content: 'PREMIUM' !important;
         font-size: 0.55rem !important;
@@ -393,6 +360,7 @@
         font-size: 0.7rem;
     }
 
+    /* Ajuste para centrar etiquetas de oferta en modo cuadrícula */
     .grid-mode .service-item.oferta .badge-oferta {
         left: 50% !important;
         transform: translateX(-50%) !important;
@@ -401,6 +369,41 @@
         white-space: nowrap !important;
         font-size: 0.55rem !important; 
         top: 0px !important; 
+    }
+
+    /* ================================================================
+       MEJORA SIN STOCK: NEÓN PARPADEANTE (ADICIÓN SOLICITADA)
+    ================================================================ */
+    .service-item.agotado { pointer-events: none; position: relative; }
+
+    .service-item.agotado .service-card { 
+        filter: grayscale(1) brightness(0.2) !important; /* Tarjeta oscura detrás */
+        opacity: 0.7;
+    }
+
+    .service-item.agotado .btn-consultar-neon {
+        display: block !important;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+        background: var(--danger) !important;
+        color: white !important;
+        border: 2px solid white !important;
+        box-shadow: 0 0 20px var(--danger), 0 0 40px var(--danger) !important;
+        animation: neonFlicker 1.5s infinite alternate;
+        padding: 10px 15px;
+        border-radius: 12px;
+        font-weight: 900;
+        white-space: nowrap;
+        opacity: 1 !important;
+        filter: none !important;
+    }
+
+    @keyframes neonFlicker {
+        from { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--danger); opacity: 1; }
+        to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 35px var(--danger), 0 0 10px white; opacity: 0.9; }
     }
 </style>
 </head>
