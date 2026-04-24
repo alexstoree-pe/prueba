@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <style>
+ <style>
     :root {
         --primary: #00d4ff;
         --secondary: #0055ff;
@@ -105,22 +105,28 @@
         margin-bottom: 4px;
     }
 
-        .search-container { 
-        position: sticky; 
-        top: 110px; 
-        z-index: 1900; 
-        padding: 5px 15px; 
-        background: #0a0a0a; 
-        }
+    .search-container { max-width: 600px; margin: 10px auto 0; position: relative; }
+    #search-input {
+        width: 100%; padding: 8px 15px; border-radius: 15px; border: 1px solid var(--glass-border);
+        background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
+        outline: none; transition: 0.3s;
+    }
+    #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
 
-     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
-    .btn-universal { display: flex; align-items: center; justify-content: center; padding: 15px 10px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;  cursor: pointer; text-align: center; }
+    .container { padding: 20px 15px; max-width: 600px; margin: auto; }
+
+    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 30px; }
+    .btn-universal {
+        display: flex; align-items: center; justify-content: center; padding: 15px 10px;
+        border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
+        text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
+        cursor: pointer; text-align: center;
+    }
     .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); }
     .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
     .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
     .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); }
-        
-    .container { padding: 20px 15px; max-width: 600px; margin: auto; }
+
     .category-title { margin: 15px 0 10px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
 
     /* Estilos Premium para Vista Lista */
@@ -133,11 +139,12 @@
     .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; font-size: 0.5rem; font-weight: 900; color: #d4af37; letter-spacing: 1px; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; }
 
     .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
-    .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
-    @keyframes popCheck { 
-        0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
-        100% { transform: scale(1) rotate(0); opacity: 1; } 
-         }
+    .service-card { 
+        background: var(--glass); border-radius: 22px; padding: 18px; 
+        display: flex; align-items: center; border: 1px solid var(--glass-border); 
+        transition: 0.3s; gap: 15px; position: relative; overflow: hidden;
+    }
+
     .service-item:hover .service-card {
         border-color: var(--primary) !important;
         box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
@@ -185,29 +192,13 @@
         transform: scale(0.98);
     }
 
-        /* --- FIN CAMBIO SELECCIÓN PROFESIONAL --- */
-    .badge-oferta { 
-        display: none; 
-        position: absolute; 
-        top: 0; 
-        left: 0; 
-        background: #f1c40f; 
-        color: #000; 
-        padding: 3px 20px 3px 10px; 
-        clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-        font-size: 0.55rem; 
-        font-weight: 900; 
-        z-index: 100;
-        text-transform: uppercase;
-    }
-
-    
+    .badge-oferta { position: absolute; top: 0; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
     .service-item.oferta .badge-oferta { display: block; }
 
+    .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
     .service-text { flex-grow: 1; } 
-        .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; }
-    .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
-    .manual-desc { font-size: 0.75rem; color: #888; display: block; }
+    .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
+    .manual-desc { font-size: 0.75rem; color: #777; }
 
     .price-container { display: flex; flex-direction: column; align-items: flex-end; min-width: 85px; }
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
@@ -256,6 +247,7 @@
     .scroll-indicator i { color: var(--primary); font-size: 1rem; animation: bounceHorizontal 1.5s infinite; }
 
     @keyframes bounceHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+    @keyframes popCheck { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
 
     .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
     .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
@@ -268,95 +260,118 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-    /* --- VISTA CUADRÍCULA PROFESIONAL ACTUALIZADA --- */
-    .container.grid-mode {
-        display: grid !important;
-        gap: 15px !important;
-        grid-template-columns: repeat(2, 1fr) !important; 
-        max-width: 100% !important;
+    /* --- CONFIGURACIÓN GRID RESPONSIVA CORREGIDA --- */
+    .container.grid-mode { 
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 12px; 
+        padding: 10px; 
+        max-width: 100%; 
     }
 
-    .grid-mode .category-title {
-        grid-column: 1 / -1 !important; /* Fuerza a las categorías a ocupar todo el ancho */
-        width: 100%;
-        margin: 20px 0 10px 0 !important;
+    @media (min-width: 600px) {
+        .container.grid-mode { 
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+            gap: 15px;
+        }
     }
 
-    .grid-mode .service-item { margin-bottom: 0 !important; height: 100%; }
-
-    /* Ocultar el PREMIUM absoluto que aparece en la esquina superior */
-    .grid-mode .service-item.premium::after { display: none !important; }
-
-    .grid-mode .service-card {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        height: 100% !important;
-        min-height: 330px; /* Igualamos el alto de todas las tarjetas */
-        text-align: center;
-        padding-top: 30px !important; /* Espacio para el badge si existe */
+    .grid-mode .category-title { grid-column: 1 / -1; margin-top: 20px; }
+    
+    .grid-mode .service-item { 
+        margin-bottom: 0;
+        height: 100%; /* Para que todos los items de la misma fila midan lo mismo */
     }
 
-    .grid-mode .service-logo {
-        width: 70px !important;
-        height: 70px !important;
-        margin-bottom: 12px;
-        margin-right: 0 !important;
+    .grid-mode .service-card { 
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+        padding: 25px 10px 15px; 
+        min-height: 250px; /* ALTURA UNIFORME PARA TODAS */
+        height: 100%;
+        justify-content: space-between; /* Empuja el precio hacia abajo */
     }
 
-    .grid-mode .service-text { 
-        width: 100%; 
-        flex-grow: 1; 
+    .grid-mode .service-logo { 
+        width: 60px; 
+        height: 60px; 
+        margin-bottom: 10px; 
+        margin-right: 0; 
+    }
+
+    .grid-mode .service-text {
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
-    
-    .grid-mode .service-text h3 { font-size: 0.9rem !important; margin-bottom: 5px; }
-    .grid-mode .manual-desc { font-size: 0.65rem !important; line-height: 1.3; }
 
-    /* El nuevo Premium integrado en el flujo vertical */
-    .grid-mode .service-item.premium .service-card::before {
-        content: 'PREMIUM';
-        display: inline-block;
+    .grid-mode .service-text h3 { 
+        font-size: 0.85rem; 
+        line-height: 1.2;
+        margin-bottom: 3px;
+    }
+
+    .grid-mode .manual-desc { 
+        display: block !important; 
+        opacity: 1; 
+        font-size: 0.65rem;
+        color: #aaa;
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+
+    /* --- CONTENEDOR DE PRECIO Y PREMIUM (ESTILO IMAGEN) --- */
+    .grid-mode .price-container { 
+        margin-top: auto; 
+        width: 100%; 
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        padding-top: 5px;
+    }
+
+    .grid-mode .price-tag { 
+        font-size: 1.3rem;
+        color: #00d4ff !important;
+        background: none;
+        -webkit-text-fill-color: initial;
+    }
+
+    /* --- PREMIUM ENCIMA DEL PRECIO --- */
+    .grid-mode .premium::after {
+        position: static !important; /* Lo saca del modo flotante */
+        display: inline-block !important;
+        content: 'PREMIUM' !important;
         font-size: 0.55rem !important;
         color: #f4d03f !important;
         border: 1px solid #f4d03f !important;
-        padding: 2px 10px !important;
+        padding: 2px 8px !important;
         border-radius: 5px !important;
-        margin: 10px auto !important;
-        font-weight: 900 !important;
-        order: 2;
+        margin-bottom: 5px !important;
+        background: transparent !important;
+        letter-spacing: 1px !important;
+        width: auto !important;
     }
 
-    .grid-mode .price-container {
-        margin-top: auto;
-        align-items: center !important;
-        width: 100%;
-        order: 3;
+    .grid-mode .check-icon {
+        top: 8px;
+        right: 8px;
+        width: 22px;
+        height: 22px;
+        font-size: 0.7rem;
     }
 
-    .grid-mode .price-tag { font-size: 1.2rem !important; color: var(--primary) !important; }
-
-    /* Badge de Oferta corregido para no tapar el contenido */
-    .grid-mode .badge-oferta {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        border-radius: 0 !important;
-        text-align: center;
-        transform: none !important;
-        z-index: 5;
-    }
-
-    .grid-mode .check-icon { top: 8px !important; right: 8px !important; }
-    
-    @media (min-width: 768px) {
-        .container.grid-mode {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
-        }
+    /* Ajuste para centrar etiquetas de oferta en modo cuadrícula */
+    .grid-mode .service-item.oferta .badge-oferta {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 85% !important; 
+        text-align: center !important;
+        white-space: nowrap !important;
+        font-size: 0.55rem !important; 
+        top: 0px !important; 
     }
 </style>
 </head>
@@ -793,21 +808,23 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-   function cambiarVista(modo, btn) {
+    function cambiarVista(modo, btn) {
     const contenedor = document.querySelector('.container');
     const botones = document.querySelectorAll('.btn-view');
     
+    // 1. Quitar clase activa de botones y ponerla al actual
     botones.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     
+    // 2. Cambiar modo en el contenedor
     if (modo === 'grid') {
         contenedor.classList.add('grid-mode');
     } else {
         contenedor.classList.remove('grid-mode');
     }
     
-    // Esto es vital para que las tarjetas aparezcan suavemente al cambiar de vista
-    AOS.refreshHard(); 
+    // 3. Refrescar AOS para que las animaciones se ajusten a la nueva posición
+    AOS.refresh();
 }
     function filtrarProductos() {
     const busqueda = document.getElementById('search-input').value.toLowerCase();
