@@ -263,10 +263,14 @@
     left: 75%; 
 }
 
-/* Ajuste específico para Vista Cuadrícula */
+/* AJUSTE SOLO PARA VISTA CUADRÍCULA */
 .grid-mode .service-item.agotado .btn-consultar-neon {
-    top: 50% !important;
+    top: 85% !important; /* Aumenta este número para bajarlo más (85%, 90%, etc.) */
     left: 50% !important;
+    right: auto !important; /* Anulamos el 'right' de la vista lista */
+    transform: translate(-50%, -50%) !important; /* Re-centramos horizontalmente */
+    width: 80%; /* Opcional: para que ocupe casi todo el ancho del cuadro */
+    text-align: center;
 }
 
     .service-item.agotado { pointer-events: none; }
