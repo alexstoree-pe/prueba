@@ -96,12 +96,24 @@
     .filter-container::-webkit-scrollbar { display: none; }
 
    .btn-nav {
-    min-width: 100px;   /* Evita que los nombres cortos se vean aplastados */
+    background: rgba(255, 255, 255, 0.05) !important; /* Fondo sutil oscuro */
+    color: #eee !important; /* Texto claro */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Borde suave */
     padding: 10px 20px;
-    margin: 0 5px;
+    border-radius: 10px; /* Manteniendo tu estilo redondeado */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.75rem;
 }
-    .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 5px 15px rgba(0,212,255,0.3); }
 
+/* El botón que está seleccionado (Active) */
+.btn-nav.active {
+    background: var(--primary) !important; /* El color cyan/celeste que usas */
+    color: #000 !important;
+    box-shadow: 0 0 15px var(--primary);
+}
     .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 20px 10px; }
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
