@@ -203,19 +203,17 @@
     margin-bottom: 15px;
 }
 
-/* Ajuste del contenedor de servicios */
+/* 1. Limitar el ancho del contenedor para que las tarjetas no se estiren tanto */
 .container.grid-mode {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* Dos columnas exactas */
-    gap: 15px !important;
-    align-items: start;
+    max-width: 650px !important; /* Ajusta este valor para hacerlas más delgadas o anchas */
+    margin: 0 auto !important;
+    gap: 12px !important;
+    padding: 0 10px !important;
 }
-    /* Ajuste para VISTA CUADRÍCULA: Centrado */
     .grid-mode .premium-badge-tag {
-        justify-content: center !important;
-        margin-bottom: 8px !important;
-        width: 100%;
-    }
+    font-size: 0.7rem !important;
+    margin-bottom: 2px !important;
+}
 
     /* Badge Oferta (Mantiene su estilo) */
     .badge-oferta { 
@@ -354,23 +352,33 @@
 .grid-mode .btn-comunidad {
     background-size: cover !important;
 }
+/* 2. Reducir el tamaño de la tarjeta */
 .grid-mode .service-card {
-    display: flex !important; flex-direction: column !important; align-items: center !important; 
-    text-align: center !important; padding: 25px 15px 15px !important; min-height: 200px;
-    justify-content: space-between; overflow: visible !important; position: relative !important;
+    padding: 20px 10px 15px !important; /* Relleno más ajustado */
+    min-height: 180px !important; /* Altura más corta para que se vea compacta */
+    border-radius: 20px !important;
 }
 
-.grid-mode .service-logo { width: 60px !important; height: 60px !important; margin: 0 auto 15px auto !important; }
-
+/* 3. Ajustar elementos internos para el tamaño pequeño */
+.grid-mode .service-logo {
+    width: 55px !important;
+    height: 55px !important;
+    margin-bottom: 10px !important;
+}
+.grid-mode .service-text h3 {
+    font-size: 0.95rem !important; /* Título un poco más pequeño */
+}
     /* El texto de descripción que sea pequeño en grid para que no empuje todo */
 .grid-mode .manual-desc {
-    font-size: 0.7rem;
-    margin-top: 5px;
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
 }
-/* Badge Superior en Grid */
-body .grid-mode .badge-oferta {
-    position: absolute !important; top: 0 !important; left: 50% !important;
-    transform: translateX(-50%) !important; border-radius: 0 0 10px 10px !important;
+/* 5. Posición del badge de oferta (Más solicitado) en el cuadro pequeño */
+.grid-mode .badge-oferta {
+    font-size: 0.6rem !important;
+    padding: 2px 8px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
 }
 
 body .grid-mode .price-container {
@@ -378,7 +386,10 @@ body .grid-mode .price-container {
     justify-content: flex-end !important; width: 100% !important; margin: auto 0 0 0 !important;
 }
 
-body .grid-mode .price-tag { text-align: center !important; }
+/* 4. El precio y el badge Premium */
+.grid-mode .price-tag {
+    font-size: 1.2rem !important; /* Precio proporcional al tamaño de la tarjeta */
+}
 
 </style>
 </head>
