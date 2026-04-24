@@ -231,29 +231,60 @@
 
     /* --- BOTONES DE ACCESO RÁPIDO --- */
     .grid-botones {
-        display: grid;
-        grid-template-columns: 1fr 1fr; 
-        gap: 12px;
-        margin: 20px 0;
-        width: 100%;
-    }
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Crea dos columnas iguales */
+    gap: 10px;
+    margin: 15px auto 25px;
+    max-width: 500px; /* <--- IMPORTANTE: Esto evita que se estiren por toda la pantalla */
+    width: 90%; /* Para que en móviles no toque los bordes */
+}
 
     .btn-universal {
-        display: flex; align-items: center; justify-content: center;
-        text-align: center; text-decoration: none; padding: 15px 10px;
-        border-radius: 18px; font-size: 0.75rem; font-weight: 800;
-        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: none; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        width: 100%;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 5px; /* <--- Reducimos el padding para que sean más delgados */
+    border-radius: 15px;
+    font-size: 0.7rem; /* Tamaño de letra más pequeño y premium */
+    font-weight: 800;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    min-height: 45px; /* Altura fija para que todos se vean parejos */
+}
 
     .btn-universal:active { transform: scale(0.95); }
 
-    .btn-inicio-top { background: #222; border: 1px solid var(--glass-border); color: #fff; grid-column: span 2; }
-    .btn-referencias { background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; }
-    .btn-combos-premium { background: linear-gradient(135deg, #FF416C, #FF4B2B); color: #fff; }
-    .btn-comunidad { background: #25D366; color: #fff; grid-column: span 2; margin-top: 5px; }
+    * --- COLORES Y POSICIONES --- */
 
+.btn-inicio-top {
+    background: #1a1a1a; 
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    grid-column: span 2; /* Ocupa las dos columnas */
+    font-size: 0.65rem;
+    opacity: 0.9;
+}
+
+.btn-referencias {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+}
+
+.btn-combos-premium {
+    background: linear-gradient(135deg, #FF416C, #FF4B2B);
+    color: #fff;
+}
+
+.btn-comunidad {
+    background: #25D366; 
+    color: #fff;
+    grid-column: span 2; /* Ocupa las dos columnas */
+    margin-top: 2px;
+}
     /* Animaciones */
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
