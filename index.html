@@ -47,121 +47,124 @@
         padding-bottom: 100px; 
     }
 
-    /* --- ESTRUCTURA DEL CONTENEDOR --- */
+    /* --- HEADER Y BUSCADOR --- */
+    header {
+        background: rgba(10, 10, 10, 0.7);
+        backdrop-filter: blur(20px);
+        padding: 25px 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--glass-border);
+        position: sticky;
+        top: 0;
+        z-index: 2000;
+    }
+
+    .search-container { max-width: 600px; margin: 20px auto 0; position: relative; }
+    #search-input {
+        width: 100%; padding: 15px 25px; border-radius: 20px; border: 1px solid var(--glass-border);
+        background: rgba(255,255,255,0.05); color: white; outline: none; transition: 0.3s;
+    }
+
+    /* --- CONTENEDOR PRINCIPAL --- */
     .container { 
         padding: 0 20px; 
         width: 100%; 
         max-width: 800px; 
         margin: auto; 
         display: flex; 
-        flex-direction: column; /* Esto es clave para el orden vertical */
-        transition: max-width 0.3s ease;
+        flex-direction: column; 
     }
 
-    /* --- BLOQUE DE BOTONES (SIEMPRE ARRIBA) --- */
+    /* --- RESTAURACIÓN DE BOTONES SUPERIORES --- */
     .grid-botones { 
         display: grid !important; 
         grid-template-columns: 1fr 1fr; 
         gap: 15px; 
         margin: 20px 0 30px; 
         width: 100%; 
-        order: -1; /* Forzamos que aparezca antes que cualquier cosa */
     }
 
-    /* --- TÍTULOS DE CATEGORÍA --- */
+    .btn-universal {
+        display: flex; align-items: center; justify-content: center; padding: 15px 10px;
+        border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
+        text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
+        cursor: pointer; text-align: center;
+    }
+
+    .btn-inicio-top { background: #222; color: #fff; border: 1px solid #333; grid-column: span 2; }
+    .btn-referencias { background: #f4d03f; color: #000; }
+    .btn-combos-premium { background: #ff4444; color: #fff; }
+    .btn-comunidad { background: #25d366; color: #fff; grid-column: span 2; border-radius: 20px; }
+
+    /* --- CATEGORÍAS (CORRECCIÓN DE FLUJO) --- */
     .category-title { 
         display: flex !important;
-        font-size: 0.9rem; 
-        font-weight: 800; 
-        color: var(--primary); 
-        margin: 40px 0 20px; 
-        text-transform: uppercase; 
-        letter-spacing: 2px; 
-        align-items: center; 
-        gap: 10px; 
-        width: 100%;
-        /* Eliminamos el 'order' fijo para que respeten su posición en el HTML */
+        font-size: 0.9rem; font-weight: 800; color: var(--primary); 
+        margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px;
+        align-items: center; gap: 10px; width: 100%;
     }
-    .category-title::after { 
-        content: ''; 
-        height: 1px; 
-        background: linear-gradient(to right, var(--primary), transparent); 
-        flex-grow: 1; 
-        opacity: 0.3;  
-    }
+    .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
-    /* --- ITEMS DE SERVICIO --- */
-    .service-item { 
-        cursor: pointer; 
-        margin-bottom: 20px; 
-        position: relative; 
-        width: 100%;
-        display: block; /* Asegura que bajen uno tras otro en modo lista */
-    }
-
+    /* --- TARJETAS DE SERVICIO (ESTILO ORIGINAL) --- */
+    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s; }
+    
     .service-card { 
-        background: var(--glass); 
-        border-radius: 25px; 
-        padding: 20px; 
-        display: flex; 
-        align-items: center; 
-        border: 1px solid var(--glass-border); 
-        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-        gap: 18px; 
-        position: relative; 
-        overflow: hidden;
+        background: var(--glass); border-radius: 25px; padding: 20px; 
+        display: flex; align-items: center; border: 1px solid var(--glass-border); 
+        gap: 18px; position: relative; overflow: hidden;
     }
 
-    /* --- VISTA CUADRÍCULA (GRID) --- */
-    /* Solo aplicamos el grid a los elementos que NO son títulos */
+    /* Efecto selección Neón */
+    .service-item.selected .service-card { 
+        border-color: var(--primary) !important; 
+        background: rgba(0, 212, 255, 0.1) !important;
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    }
+
+    .service-item.premium .service-card { border-color: rgba(255, 193, 7, 0.4); }
+    .service-item.premium.selected .service-card { border-color: #ffc107 !important; box-shadow: 0 0 15px rgba(255, 193, 7, 0.2); }
+
+    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 15px; background: #111; }
+    .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .manual-desc { font-size: 0.8rem; color: #aaa; }
+
+    .price-tag { color: #fff; font-weight: 800; font-size: 1.4rem; }
+    .service-item.premium .price-tag { color: #ffc107; }
+
+    /* --- BADGES (MÁS SOLICITADO / PREMIUM) --- */
+    .badge-oferta { 
+        position: absolute; top: 0; left: 20px; background: #f4d03f; 
+        color: #000; padding: 4px 12px; border-radius: 0 0 10px 10px; 
+        font-size: 0.65rem; font-weight: 800; text-transform: uppercase; z-index: 10; 
+    }
+
+    .premium-label {
+        border: 1px solid #ffc107; color: #ffc107; font-size: 0.6rem;
+        padding: 2px 8px; border-radius: 5px; font-weight: 900;
+        text-transform: uppercase; margin-bottom: 5px; display: inline-block;
+    }
+
+    /* --- VISTA CUADRÍCULA --- */
     .grid-mode { 
         display: grid !important; 
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important; 
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important; 
         gap: 20px; 
-        width: 100%; 
     }
+    .grid-mode .service-card { flex-direction: column; text-align: center; }
 
-    /* Si usas JS para filtrar, asegúrate de que el título no sea 'flex' 
-       si su grupo de servicios está oculto */
-    
-    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; flex-shrink: 0; background: #111; }
-    .service-text { flex-grow: 1; }
-    .service-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; }
-    .manual-desc { font-size: 0.8rem; color: #888; }
-
-    .price-container { display: flex; flex-direction: column; align-items: flex-end; }
-    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.4rem; }
-
-    /* ESTILOS PREMIUM */
-    .service-item.premium .service-card { border-color: rgba(255, 193, 7, 0.3); }
-    .service-item.premium .price-tag { color: var(--premium-gold); }
-    .service-item.premium .price-container::before {
-        content: 'PREMIUM';
-        color: var(--premium-gold);
-        border: 1px solid var(--premium-gold);
-        font-size: 0.6rem;
-        padding: 2px 6px;
-        border-radius: 4px;
-        margin-bottom: 4px;
-        font-weight: 900;
+    /* --- CARRITO FLOTANTE --- */
+    .floating-btn {
+        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+        background: #25d366; color: white; padding: 18px; border-radius: 20px;
+        width: 90%; max-width: 450px; z-index: 3000; font-weight: 800;
+        display: flex; justify-content: space-between; align-items: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-
-    /* BOTONES ACCIÓN */
-    .btn-universal {
-        display: flex; align-items: center; justify-content: center; padding: 15px;
-        border-radius: 50px; font-weight: 800; font-size: 0.75rem;
-        text-transform: uppercase; transition: 0.3s; border: none; cursor: pointer;
-    }
-    .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); grid-column: span 2; }
-    .btn-referencias { background: var(--gold-gradient); color: #000; }
-    .btn-combos-premium { background: linear-gradient(45deg, #ff4444, #ff8888); color: #fff; }
-    .btn-comunidad { background: #25d366; color: #fff; grid-column: span 2; }
 
     @media (max-width: 480px) {
         .grid-mode { grid-template-columns: 1fr 1fr !important; gap: 10px; }
-        .service-card { padding: 15px; gap: 10px; }
+        .service-card { padding: 15px; }
         .service-logo { width: 50px; height: 50px; }
-        .price-tag { font-size: 1.1rem; }
     }
 </style>
 </head>
