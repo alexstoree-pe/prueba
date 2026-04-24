@@ -391,53 +391,17 @@
         text-transform: uppercase;
         white-space: nowrap; 
     }
-  /* Solo ocultamos el body para que el fondo sea negro desde el inicio */
-body { 
-    display: none; 
-    background-color: #000; 
-    margin: 0;
-}
+    .modal-overlay, .modal-pass { 
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; 
+        justify-content: center; align-items: flex-end; z-index: 3000;
+        background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+        .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
+    #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
 
-/* Esta clase la usaremos para mostrar la página cuando la clave sea correcta */
-.acceso-concedido {
-    display: block !important;
-}
-/* Estilos para el modal de seguridad */
-.modal-pass {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.modal-content-pass {
-    background: #111;
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid var(--primary);
-    text-align: center;
-    width: 90%;
-    max-width: 350px;
-    box-shadow: 0 0 20px var(--primary);
-}
 </style>
 </head>
 <body>
-<div id="modal-password" class="modal-pass" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; justify-content: center; align-items: center;">
-    <div class="modal-content" style="background: #111; padding: 30px; border-radius: 20px; border: 1px solid var(--primary); text-align: center; width: 90%; max-width: 350px;">
-        <h2 style="color: var(--primary); font-weight: 800; margin-bottom: 20px;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()" 
-               style="width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #333; background: #000; color: #fff; text-align: center; margin-bottom: 15px;">
-        <button onclick="validarPass()" 
-                style="width: 100%; padding: 15px; border-radius: 10px; background: var(--primary); color: #000; font-weight: 700; border: none; cursor: pointer;">
-            INGRESAR
-        </button>
-    </div>
-</div>
+
     <header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
@@ -826,6 +790,14 @@ body {
     <div id="discount-label" class="discount-notice"></div>
 </div>
 
+<div id="modal-password" class="modal-pass">
+    <div class="modal-content">
+        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
+        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()">
+        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
+    </div>
+</div>
+
 <div id="modal-registro" class="modal-overlay">
     <div class="modal-content">
         <div id="paso-1">
@@ -998,36 +970,22 @@ body {
         });
     }
     
-// FUNCIÓN DE VERIFICACIÓN INMEDIATA
-(function() {
-    // Usamos localStorage para que NO pida la clave cada vez que entren
-    if (localStorage.getItem("acceso_concedido_alex") === "true") {
-        // Si ya tiene permiso, añadimos la clase que muestra el body
-        document.documentElement.classList.add('acceso-concedido');
-        
-        // Ocultamos el modal de inmediato
-        const style = document.createElement('style');
-        style.innerHTML = 'body { display: block !important; } #modal-password { display: none !important; }';
-        document.head.appendChild(style);
-    } else {
-        // Si no tiene permiso, solo permitimos ver el body para que salga el modal
-        window.addEventListener('load', () => {
-            document.body.style.display = "block";
-        });
-    }
-})();
+    (function() {
+        if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
+        else {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.documentElement.style.display = "block";
+                document.getElementById('modal-password').style.display = 'flex';
+            });
+        }
+    })();
 
-function validarPass() {
-    const pass = document.getElementById('input-pass').value;
-    // Clave que tenías en tu repositorio antiguo
-    if (pass === "cliente") { 
-        localStorage.setItem("acceso_concedido_alex", "true");
-        location.reload(); // Recarga y activa el bloque de arriba
-    } else {
-        alert("Código incorrecto");
-        document.getElementById('input-pass').value = "";
+    function validarPass() {
+        if (document.getElementById('input-pass').value === "cliente") { 
+            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
+        } else { alert("Código incorrecto"); }
     }
-}
+
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
         if (window.navigator && window.navigator.vibrate) { window.navigator.vibrate(10); }
