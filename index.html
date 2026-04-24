@@ -272,142 +272,135 @@
     .btn-clear-cart i { font-size: 1rem; }
 
 /* ================================================================
-       ESTILO GRID INSPIRADO (EXPANSIÓN TOTAL Y REORDENAMIENTO)
-    ================================================================ */
+   ESTILO GRID FINAL (CENTRADO PERFECTO Y EXPANSIÓN)
+================================================================ */
 
-    /* 1. Ajuste del Contenedor Principal en Modo Grid */
+/* 1. Ajuste del Contenedor Principal en Modo Grid */
+.container.grid-mode {
+    display: grid !important;
+    gap: 15px !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en móvil */
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 15px;
+}
+
+/* 2. Reordenamiento: Botones ARRIBA */
+.grid-mode .grid-botones {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 800px;
+    margin: 10px auto 30px auto !important;
+    order: -1;
+}
+
+/* 3. Títulos de Categoría */
+.grid-mode .category-title {
+    grid-column: 1 / -1; 
+    width: 100%;
+    margin: 30px 0 15px !important;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 10px;
+    order: 0;
+}
+
+/* 4. Expansión en PC */
+@media (min-width: 1024px) {
     .container.grid-mode {
-        display: grid !important;
-        gap: 15px !important;
-        grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en móvil */
-        max-width: 100% !important;
-        width: 100% !important;
-        padding: 0 15px;
+        max-width: 95% !important;
+        padding: 0 40px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+        gap: 20px !important;
     }
+}
 
-    /* 2. Reordenamiento: Botones ARRIBA de todo */
-    .grid-mode .grid-botones {
-        grid-column: 1 / -1; /* Ocupa todo el ancho */
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        max-width: 800px;
-        margin: 10px auto 30px auto !important;
-        order: -1; /* Fuerza a estar al inicio */
-    }
+/* 5. Diseño de Tarjeta Grid (Vertical y Centrado) */
+.grid-mode .service-item {
+    margin-bottom: 0 !important;
+    position: relative !important; /* Para que el badge sepa dónde centrarse */
+}
 
-    /* 3. Títulos de Categoría: Debajo de los botones y ocupando todo el ancho */
-    .grid-mode .category-title {
-        grid-column: 1 / -1; 
-        width: 100%;
-        margin: 30px 0 15px !important;
-        border-bottom: 1px solid var(--glass-border);
-        padding-bottom: 10px;
-        order: 0; /* Aparece después de los botones */
-    }
+.grid-mode .service-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Centra todo el contenido horizontalmente */
+    text-align: center;
+    padding: 30px 10px 20px !important; /* Espacio extra arriba para el badge */
+    height: 100%;
+    justify-content: space-between;
+    overflow: visible !important; /* ¡CRÍTICO! Para que el badge no se corte */
+}
 
-    /* 4. Expansión en Tablets y PC */
-    @media (min-width: 768px) {
-        .container.grid-mode {
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
-        }
-    }
+.grid-mode .service-logo {
+    width: 65px !important;
+    height: 65px !important;
+    margin: 0 auto 15px auto !important;
+    object-fit: cover;
+}
 
-    @media (min-width: 1024px) {
-        .container.grid-mode {
-            max-width: 95% !important; /* Expansión al 95% como la foto */
-            padding: 0 40px;
-            gap: 20px !important;
-        }
+/* 6. Ajustes de Texto y Badges */
 
-        /* En PC las tarjetas pueden ser un poco más grandes */
-        .container.grid-mode {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
-        }
-    }
-
-    /* 5. Diseño de Tarjeta estilo Grid (Vertical) */
-    .grid-mode .service-item {
-        margin-bottom: 0 !important;
-    }
-
-    .grid-mode .service-card {
-        flex-direction: column !important;
-        text-align: center;
-        padding: 25px 10px !important;
-        height: 100%;
-        justify-content: space-between;
-        display: flex !important;
-    }
-
-    .grid-mode .service-logo {
-        width: 65px !important;
-        height: 65px !important;
-        margin: 0 auto 10px auto !important;
-        object-fit: cover;
-    }
-
-
-    .grid-mode .service-text h3 { font-size: 0.9rem !important; margin-bottom: 5px; }
-    .grid-mode .manual-desc { font-size: 0.7rem !important; opacity: 0.7; }
-
-   /* --- AJUSTES DE CENTRADO EN MODO GRID --- */
-
-    /* Badge de Oferta (Más Solicitado) */
+/* Badge Superior (MÁS SOLICITADO) */
 .grid-mode .badge-oferta {
     position: absolute !important;
-    top: -12px !important;    /* Ajusta este número para subir/bajar */
-    left: 50% !important;     /* Lo mueve al centro exacto */
-    transform: translateX(-50%) !important; /* Lo equilibra para que el centro del badge coincida con el centro de la tarjeta */
+    top: -12px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Centrado perfecto */
     white-space: nowrap !important;
     z-index: 10 !important;
     width: auto !important;
-    right: auto !important;   /* Anulamos cualquier empuje anterior */
-}
-    /* Badge Premium */
-.grid-mode .premium-text {
-    display: table !important; /* O 'block' con width fit-content */
-    margin: 0 auto 8px auto !important; /* El 'auto' a los lados es lo que lo centra */
-    text-align: center !important;
-    position: relative !important;
-    float: none !important;    /* Por si acaso hay un float */
-    right: auto !important;    /* Quita el empuje a la derecha */
+    right: auto !important;
+    margin: 0 !important;
 }
 
-    .grid-mode .price-container {
+/* Badge Premium (Arriba del precio) */
+.grid-mode .premium-text {
+    display: inline-block !important;
+    margin: 0 auto 8px auto !important;
+    text-align: center !important;
+    position: relative !important;
+    right: auto !important;
+    left: auto !important;
+    float: none !important;
+}
+
+/* Contenedor de Precio */
+.grid-mode .price-container {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Centra todo el contenido internamente */
+    align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
     margin: 10px 0 0 0 !important;
+    padding: 0 !important;
 }
 
 .grid-mode .price-tag {
     text-align: center !important;
     width: 100% !important;
+    margin: 0 !important;
 }
 
-    /* 4. Ajuste extra para el texto de la tarjeta */
-    .grid-mode .service-text {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
-    }
+/* Ajuste de los títulos de producto */
+.grid-mode .service-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100%;
+}
 
+.grid-mode .service-text h3 { 
+    font-size: 0.9rem !important; 
+    margin-bottom: 5px; 
+}
 
-    /* 6. Mantener la Vista de Lista compacta (Si no es grid-mode) */
-    .container:not(.grid-mode) {
-        max-width: 700px !important;
-        margin: 0 auto;
-    }
-
-    /* Ajuste del Check en Modo Grid */
-    .grid-mode .service-item.selected .check-icon {
-        top: 8px;
-        right: 8px;
-    }
+/* 7. Vista de Lista (Reset) */
+.container:not(.grid-mode) {
+    max-width: 700px !important;
+    margin: 0 auto;
+}
     </style>
     
 </head>
