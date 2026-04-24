@@ -420,25 +420,28 @@
         text-transform: uppercase;
         white-space: nowrap; 
     }
-    .modal-overlay, .modal-pass { 
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; 
-        justify-content: center; align-items: flex-end; z-index: 3000;
-        background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-        .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; border: 1px solid var(--glass-border); text-align: center; }
-    #input-pass { width: 100%; padding: 15px; margin: 20px 0; border-radius: 15px; background: #000; border: 1px solid #333; color: var(--primary); text-align: center; font-size: 1.5rem; letter-spacing: 5px; }
+    .modal-pass { 
+        display: none; 
+        position: fixed; 
+        inset: 0; 
+        background: rgba(0,0,0,0.98); 
+        backdrop-filter: blur(25px); 
+        z-index: 9999; 
+        justify-content: center; 
+        align-items: center;
+        visibility: visible;
+    }
 
-        @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    50% { transform: translateX(10px); }
-    75% { transform: translateX(-10px); }
-    100% { transform: translateX(0); }
-}
+    .modal-content-pass { 
+        background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
+        border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+    }
 
-/* Estilo para cuando el código es incorrecto */
-#input-pass::placeholder {
-    transition: color 0.3s;
-}
+    #input-dist-pass { 
+        width: 100%; padding: 20px; margin: 25px 0; border-radius: 15px; background: #000; 
+        color: white; text-align: center; font-size: 1.5rem; border: 1px solid #333; outline: none; letter-spacing: 5px;
+    }
+
 </style>
 </head>
 <body>
@@ -815,6 +818,17 @@
     </div>
 </div>
 
+    <div id="modal-login-distribuidor" class="modal-pass" style="display:none;">
+    <div class="modal-content-pass">
+        <i class="fas fa-lock" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <h2 style="color:var(--primary)">ACCESO PRIVADO</h2>
+        <input type="password" id="input-dist-pass" placeholder="****" maxlength="8" onkeydown="if(event.key==='Enter') validarAcceso()">
+        <button onclick="validarAcceso()" class="btn-universal btn-promo-distri" style="width:100%; cursor:pointer;">
+            ENTRAR
+        </button>
+    </div>
+</div>
+    
     <div id="whatsapp-btn" class="floating-btn hidden">
     <div class="cart-row">
         <div class="cart-info" onclick="abrirModalRegistro()" style="flex-grow: 1; display: flex; align-items: center; cursor: pointer;">
@@ -829,18 +843,6 @@
         </div>
     </div>
     <div id="discount-label" class="discount-notice"></div>
-</div>
-
-<div id="modal-password" class="modal-pass">
-    <div class="modal-content">
-        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" 
-       id="input-pass" 
-       placeholder="Ingresa el código" 
-       onkeydown="if(event.key==='Enter') validarPass()"
-       style="width: 100%; padding: 15px; border-radius: 12px; background: #000; color: #fff; border: 1px solid #333; text-align: center; font-size: 1.2rem;">
-        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
-    </div>
 </div>
 
 <div id="modal-registro" class="modal-overlay">
@@ -1014,36 +1016,6 @@
             rightInd.style.opacity = scrollContainer.scrollLeft >= maxScroll - 20 ? "0" : "1";
         });
     }
-    
-    (function() {
-        if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
-        else {
-            document.addEventListener("DOMContentLoaded", () => {
-                document.documentElement.style.display = "block";
-                document.getElementById('modal-password').style.display = 'flex';
-            });
-        }
-    })();
-
-    function validarPass() {
-    const inputField = document.getElementById('input-pass');
-    const pass = inputField.value.trim();
-    
-    if (pass === "cliente") { 
-        localStorage.setItem("acceso_concedido_alex", "true");
-        location.reload(); 
-    } else {
-        // ERROR: Limpiamos TODO para que pueda reintentar de cero
-        inputField.value = ""; 
-        inputField.style.borderColor = "red";
-        inputField.placeholder = "CÓDIGO INCORRECTO";
-        
-        // Pequeña vibración visual para indicar error
-        const modal = document.querySelector('.modal-content-pass');
-        modal.style.animation = "shake 0.3s";
-        setTimeout(() => modal.style.animation = "", 300);
-    }
-}
 
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
@@ -1151,6 +1123,45 @@
         event.stopPropagation();
         const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
         window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
+    }
+    // Usamos una función que se ejecuta de inmediato (antes de que carguen los botones)
+    (function() {
+        const acceso = sessionStorage.getItem("acceso_distribuidor");
+        
+        if (acceso === "true") {
+            // Si tiene acceso, hacemos todo visible de inmediato
+            document.documentElement.style.visibility = "visible";
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.style.visibility = "visible";
+            });
+        } else {
+            // Si no tiene acceso, esperamos al DOM solo para mostrar el modal
+            document.addEventListener("DOMContentLoaded", () => {
+                const modal = document.getElementById('modal-login-distribuidor');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    // Mantenemos el body oculto pero el modal visible
+                    document.body.style.visibility = 'hidden'; 
+                    modal.style.visibility = 'visible';
+                }
+            });
+        }
+    })();
+
+    function validarAcceso() {
+        const inputPass = document.getElementById('input-dist-pass');
+        const pass = inputPass.value;
+        const PIN_CORRECTO = "dis"; // Tu PIN aquí
+
+        if (pass === PIN_CORRECTO) {
+            sessionStorage.setItem("acceso_distribuidor", "true");
+            // Al recargar, entrará en el primer "if" y todo será visible
+            location.reload();
+        } else {
+            alert("Acceso denegado.");
+            inputPass.value = "";
+            inputPass.focus();
+        }
     }
 </script>
 </body>
