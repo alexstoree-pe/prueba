@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-   <style>
+<style>
     :root {
         --primary: #00d4ff;
         --secondary: #0055ff;
@@ -137,30 +137,41 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-    /* CONTENEDOR FLEXIBLE */
+    /* CONTENEDOR FLEXIBLE MEJORADO */
     .container { 
         padding: 0 20px; 
-        width: 100%; /* Ocupa todo el ancho */
-        max-width: 800px; /* Por defecto para la vista lista */
+        width: 100%; 
+        max-width: 800px; 
         margin: auto; 
         display: flex; 
         flex-direction: column; 
-        transition: max-width 0.3s ease; /* Transición suave al cambiar de vista */
+        transition: max-width 0.3s ease;
     }
 
-    /* Cuando se activa la cuadrícula, el contenedor se expande en PC */
     .container:has(.grid-mode) {
         max-width: 95%; 
     }
 
+    /* FORZAR ORDEN VISUAL Y VISIBILIDAD */
+    .grid-botones { 
+        display: grid !important; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 15px; 
+        margin: 20px 0 30px; 
+        width: 100%; 
+        order: 1; /* Los botones siempre aparecen primero */
+    }
+
     .category-title { 
+        display: flex !important; /* Asegura que no desaparezca */
         font-size: 0.9rem; font-weight: 800; color: var(--primary); margin: 30px 0 15px; 
-        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; width: 100%;
-        order: 2; 
+        text-transform: uppercase; letter-spacing: 2px; align-items: center; gap: 10px; width: 100%;
+        order: 2; /* El título siempre aparece segundo */
     }
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3;  }
 
-    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    /* TARJETAS DE SERVICIO */
+    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); order: 3; }
     .service-card { 
         background: var(--glass); border-radius: 25px; padding: 20px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
@@ -184,35 +195,20 @@
 
     .service-item.selected .check-icon { display: flex; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
+    /* ESTILOS PREMIUM */
     .service-item.premium .service-card { border-color: rgba(255, 193, 7, 0.3); }
     .service-item.premium .price-tag { color: var(--premium-gold); font-weight: 800; }
-
     .service-item.premium.selected .service-card {
         border-color: var(--premium-gold) !important;
         background: rgba(255, 193, 7, 0.12) !important;
         box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
     }
-
-    .service-item.premium.selected .check-icon {
-        background: var(--premium-gold) !important;
-        color: #000 !important;
-    }
-
+    .service-item.premium.selected .check-icon { background: var(--premium-gold) !important; color: #000 !important; }
     .service-item.premium .price-container::before {
-        display: block;
-        content: 'PREMIUM';
-        align-self: flex-end;
-        margin-right: 25px;
-        color: var(--premium-gold);
-        border: 1.5px solid var(--premium-gold);
-        background: rgba(255, 193, 7, 0.05);
-        font-size: 0.6rem;
-        font-weight: 900;
-        padding: 2px 8px;
-        border-radius: 5px;
-        margin-bottom: 6px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        display: block; content: 'PREMIUM'; align-self: flex-end; margin-right: 25px;
+        color: var(--premium-gold); border: 1.5px solid var(--premium-gold); background: rgba(255, 193, 7, 0.05);
+        font-size: 0.6rem; font-weight: 900; padding: 2px 8px; border-radius: 5px; margin-bottom: 6px;
+        text-transform: uppercase; letter-spacing: 1px;
     }
 
     .badge-oferta { 
@@ -238,7 +234,7 @@
     .service-item.agotado .btn-consultar-neon { display: block; pointer-events: auto; }
     .service-item.agotado .price-tag { display: none; }
 
-    /* --- VISTA CUADRÍCULA (Solo aquí se ensancha) --- */
+    /* VISTA CUADRÍCULA */
     .grid-mode { 
         display: grid !important; 
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important; 
@@ -248,16 +244,26 @@
     }
     
     .grid-mode .service-item { margin-bottom: 0; width: 100%; }
-    
     .grid-mode .service-card { 
         flex-direction: column; text-align: center; padding: 40px 20px; 
         height: 100%; min-height: 280px; justify-content: center; 
     }
-    
     .grid-mode .service-logo { width: 95px; height: 95px; margin: 0 auto 15px; }
     .grid-mode .price-container { align-items: center; margin-top: 10px; }
 
-    /* --- MODALES Y CARRITO --- */
+    /* BOTONES UNIVERSALES */
+    .btn-universal {
+        display: flex; align-items: center; justify-content: center; padding: 15px 10px;
+        border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
+        text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
+        cursor: pointer; text-align: center;
+    }
+    .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); grid-column: span 2; }
+    .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+    .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+    .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); grid-column: span 2; }
+
+    /* MODALES Y CARRITO (Sin cambios) */
     .modal-pass { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
     .modal-pass .modal-content { max-width: 400px; width: 100%; text-align: center; }
     .modal-pass input { width: 100%; padding: 20px; border-radius: 20px; border: 1px solid #333; background: #111; color: #fff; font-size: 1.5rem; text-align: center; margin: 20px 0; outline: none; }
@@ -274,19 +280,6 @@
     }
     .cart-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 
-    .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0 30px; width: 100%; order: 1; }
-    
-    .btn-universal {
-        display: flex; align-items: center; justify-content: center; padding: 15px 10px;
-        border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.7rem;
-        text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
-        cursor: pointer; text-align: center;
-    }
-    .btn-inicio-top { background: var(--glass); color: #fff; border: 1px solid var(--glass-border); grid-column: span 2; }
-    .btn-referencias { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #000; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
-    .btn-combos-premium { background: linear-gradient(45deg, var(--promo-dark), var(--promo)); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-    .btn-comunidad { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.3); grid-column: span 2; }
-
     .btn-clear-cart {
         background: rgba(0, 0, 0, 0.2); 
         width: 35px; height: 35px;
@@ -294,17 +287,15 @@
         border-radius: 10px; cursor: pointer; transition: 0.3s;
         margin-left: 15px; color: #fff;
     }
-
     .btn-clear-cart:hover { background: var(--danger); transform: scale(1.1); }
-    .btn-clear-cart i { font-size: 1rem; }
 
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     @media (max-width: 480px) {
         .btn-universal { font-size: 0.7rem; padding: 12px 8px; }
-        .grid-mode { grid-template-columns: 1fr 1fr; gap: 10px; }
-        .container:has(.grid-mode) { max-width: 100%; } /* En móvil vuelve a ser full width */
+        .grid-mode { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+        .container:has(.grid-mode) { max-width: 100%; }
     }
 </style>
 </head>
