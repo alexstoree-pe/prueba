@@ -347,17 +347,49 @@
         object-fit: cover;
     }
 
-    .grid-mode .service-text { width: 100%; }
+
     .grid-mode .service-text h3 { font-size: 0.9rem !important; margin-bottom: 5px; }
     .grid-mode .manual-desc { font-size: 0.7rem !important; opacity: 0.7; }
 
-    .grid-mode .price-container {
-        margin-left: 0 !important;
-        margin-top: 15px;
-        align-items: center !important;
-        width: 100%;
+   /* --- AJUSTES DE CENTRADO EN MODO GRID --- */
+
+    /* 1. Centrar Badge de Oferta (MÁS SOLICITADO) */
+    .grid-mode .badge-oferta {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        white-space: nowrap !important;
+        width: auto !important;
+        top: -10px !important; /* Ajusta la altura si es necesario */
     }
 
+    /* 2. Centrar Badge Premium arriba del precio */
+    .grid-mode .premium-text {
+        display: block !important;
+        width: fit-content !important;
+        margin: 0 auto 10px auto !important; /* El 'auto' lateral lo centra */
+        text-align: center !important;
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
+    /* 3. Asegurar que el contenedor de precio no desplace el badge */
+    .grid-mode .price-container {
+        display: flex !important;
+        flex-direction: column !important; /* Badge arriba, Precio abajo */
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    /* 4. Ajuste extra para el texto de la tarjeta */
+    .grid-mode .service-text {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
     .grid-mode .price-tag { font-size: 1.2rem !important; }
 
     /* 6. Mantener la Vista de Lista compacta (Si no es grid-mode) */
