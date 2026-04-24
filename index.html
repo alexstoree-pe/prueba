@@ -363,25 +363,38 @@
 }
 
 /* Badge Premium (Arriba del precio) */
+/* Badge Premium: Centrado forzado sobre el precio */
 .grid-mode .premium-text {
-    display: inline-block !important;
-    margin: 0 auto 8px auto !important;
-    text-align: center !important;
+    /* 1. Reset completo de posiciones previas */
     position: relative !important;
     right: auto !important;
     left: auto !important;
     float: none !important;
+    
+    /* 2. Convertirlo en bloque para que respete el auto margin */
+    display: table !important; 
+    margin: 0 auto 5px auto !important; /* Centra horizontalmente */
+    
+    /* 3. Estética de la etiqueta */
+    width: fit-content !important;
+    padding: 2px 10px !important;
+    font-size: 0.65rem !important;
+    text-align: center !important;
+    border-radius: 5px !important;
+    
+    /* 4. Asegurar que no herede alineaciones raras */
+    transform: none !important;
 }
 
-/* Contenedor de Precio */
+/* 5. Reforzar que el contenedor sea el eje central */
 .grid-mode .price-container {
     display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    flex-direction: column !important; /* Apila: Premium arriba, Precio abajo */
+    align-items: center !important;    /* Eje central horizontal */
     justify-content: center !important;
     width: 100% !important;
-    margin: 10px 0 0 0 !important;
-    padding: 0 !important;
+    margin-top: 15px !important;
+    text-align: center !important;
 }
 
 .grid-mode .price-tag {
