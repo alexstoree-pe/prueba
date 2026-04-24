@@ -1047,10 +1047,22 @@
     }
 
     function limpiarCarrito() {
-        carrito = [];
-        document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected'));
-        actualizarUI();
+    // 1. Vaciar el arreglo
+    carrito = [];
+    
+    // 2. Quitar el borde amarillo de todos los productos seleccionados
+    document.querySelectorAll('.service-item.selected').forEach(el => {
+        el.classList.remove('selected');
+    });
+    
+    // 3. Actualizar la barrita verde
+    actualizarUI();
+    
+    // Opcional: Vibración pequeña al borrar
+    if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(20);
     }
+}
 
     function calcularDescuento() {
         if (carrito.length < 2) return 0;
