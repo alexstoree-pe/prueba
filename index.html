@@ -391,14 +391,47 @@
         text-transform: uppercase;
         white-space: nowrap; 
     }
-    @media (max-height: 600px) {
-    .modal-content { padding: 20px !important; }
-    .modal-content h2 { font-size: 1.2rem; }
+   /* Oculta todo el contenido inicialmente */
+body { display: none; }
+
+/* Estilos para el modal de seguridad */
+.modal-pass {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content-pass {
+    background: #111;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+    text-align: center;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 0 20px var(--primary);
 }
 </style>
 </head>
 <body>
-
+<div id="modal-password" class="modal-pass">
+    <div class="modal-content-pass">
+        <h2 style="color:var(--primary); margin-bottom: 20px;">ACCESO PRIVADO</h2>
+        <p style="color: #888; font-size: 0.8rem; margin-bottom: 15px;">Ingresa el código de cliente para ver el catálogo</p>
+        <input type="password" id="input-pass" placeholder="****" 
+               style="width:100%; padding:15px; border-radius:12px; background:#000; color:#fff; border:1px solid #333; text-align:center; font-size:1.2rem; margin-bottom:15px;"
+               onkeydown="if(event.key==='Enter') validarPass()">
+        <button onclick="validarPass()" 
+                style="width:100%; padding:15px; border-radius:12px; background:var(--primary); color:#000; font-weight:800; border:none; cursor:pointer;">
+            INGRESAR
+        </button>
+    </div>
+</div>
     <header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
@@ -787,14 +820,6 @@
     <div id="discount-label" class="discount-notice"></div>
 </div>
 
-<div id="modal-password" class="modal-pass">
-    <div class="modal-content">
-        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()">
-        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:700; margin-top:10px; border:none;">INGRESAR</button>
-    </div>
-</div>
-
 <div id="modal-registro" class="modal-overlay">
     <div class="modal-content">
         <div id="paso-1">
@@ -967,23 +992,43 @@
         });
     }
     
-    (function() {
-        if (sessionStorage.getItem("acceso_concedido") === "true") { 
-            document.documentElement.style.display = "block"; 
-        } else {
-            document.addEventListener("DOMContentLoaded", () => {
-                document.documentElement.style.display = "block";
-                document.getElementById('modal-password').style.display = 'flex';
-            });
-        }
-    })();
-
-    function validarPass() {
-        if (document.getElementById('input-pass').value === "cliente") { 
-            sessionStorage.setItem("acceso_concedido", "true"); location.reload(); 
-        } else { alert("Código incorrecto"); }
+    <script>
+(function() {
+    // Verificamos si ya existe el permiso en el almacenamiento local del navegador
+    if (localStorage.getItem("acceso_concedido_alex") === "true") {
+        document.body.style.display = "block";
+        // Eliminamos el modal si ya tiene acceso
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById('modal-password');
+            if(modal) modal.style.display = 'none';
+        });
+    } else {
+        // Si no tiene acceso, mostramos el cuerpo pero el modal lo tapará
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.style.display = "block";
+        });
     }
+})();
 
+function validarPass() {
+    const claveCorrecta = "cliente"; // Cambia "cliente" por tu clave real
+    const input = document.getElementById('input-pass').value;
+
+    if (input === claveCorrecta) {
+        // Guardamos en localStorage para que sea permanente (no se borra al cerrar)
+        localStorage.setItem("acceso_concedido_alex", "true");
+        
+        // Efecto de entrada y recarga
+        const modal = document.getElementById('modal-password');
+        modal.style.opacity = "0";
+        setTimeout(() => {
+            location.reload();
+        }, 300);
+    } else {
+        alert("Código incorrecto. Solicítalo a soporte.");
+        document.getElementById('input-pass').value = "";
+    }
+}
     function toggleCarrito(elemento) {
         if (elemento.classList.contains('agotado')) return;
         if (window.navigator && window.navigator.vibrate) { window.navigator.vibrate(10); }
