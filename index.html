@@ -343,16 +343,23 @@
 /* 6. Ajustes de Texto y Badges */
 
 /* Badge Superior (MÁS SOLICITADO) */
+/* Badge de Oferta "Pegado" adentro de la tarjeta */
 .grid-mode .badge-oferta {
     position: absolute !important;
-    top: -12px !important;
+    top: 0 !important;              /* 1. Lo bajamos al borde exacto */
     left: 50% !important;
-    transform: translateX(-50%) !important; /* Centrado perfecto */
+    transform: translateX(-50%) !important;
     white-space: nowrap !important;
     z-index: 10 !important;
     width: auto !important;
-    right: auto !important;
     margin: 0 !important;
+    
+    /* 2. Ajuste estético para que parezca parte de la tarjeta */
+    padding: 4px 15px !important;    /* Un poco más delgado */
+    border-radius: 0 0 10px 10px !important; /* Bordes rectos arriba, redondos abajo */
+    font-size: 0.65rem !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave hacia abajo */
 }
 
 /* Badge Premium (Arriba del precio) */
