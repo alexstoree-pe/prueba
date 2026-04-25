@@ -35,7 +35,6 @@
     html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* --- TEXTURA DE RUIDO SUTIL --- */
     body { 
         font-family: 'Poppins', sans-serif; 
         background: radial-gradient(circle at top right, #0a0a0a, #050505);
@@ -45,43 +44,35 @@
         position: relative;
         transition: background 0.4s ease;
     }
+
     body::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
+        content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
-        opacity: 0.03;
-        pointer-events: none;
-        z-index: 10000;
+        opacity: 0.03; pointer-events: none; z-index: 10000;
     }
 
-    /* --- OPCIÓN 3: MODO ENFOQUE (OVERLAY) --- */
+    /* --- MEJORA: OVERLAY DE BÚSQUEDA --- */
     #search-overlay {
-        position: fixed; inset: 0; background: rgba(0,0,0,0.8);
-        backdrop-filter: blur(8px); opacity: 0; visibility: hidden;
-        z-index: 1500; transition: 0.4s;
+        position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        opacity: 0; visibility: hidden; z-index: 1500; transition: 0.4s;
     }
     body.searching #search-overlay { opacity: 1; visibility: visible; }
     body.searching header { z-index: 2100; }
+    body.searching .service-item { position: relative; z-index: 2200; }
 
-    /* --- BARRA DE PROGRESO DE LECTURA --- */
-    #progress-container {
-        position: fixed; top: 0; left: 0; width: 100%; height: 3px;
-        z-index: 3000; background: transparent;
-    }
+    /* --- BARRA DE PROGRESO --- */
+    #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 3000; background: transparent; }
     #progress-bar { height: 100%; width: 0%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
 
-    /* --- OPCIÓN 2: HEADER CRISTAL DINÁMICO --- */
+    /* --- HEADER PREMIUM --- */
     header {
         background: rgba(10, 10, 10, 0.7);
         backdrop-filter: blur(25px) saturate(180%);
         -webkit-backdrop-filter: blur(25px) saturate(180%);
-        padding: 8px 10px 5px; 
-        text-align: center;
+        padding: 8px 10px 5px; text-align: center;
         border-bottom: 1px solid var(--glass-border);
-        position: sticky;
-        top: 0;
-        z-index: 2000;
+        position: sticky; top: 0; z-index: 2000;
     }
 
     .brand-logo { width: 35px; height: 35px; object-fit: contain; border-radius: 10px; margin-bottom: 2px; }
@@ -91,10 +82,10 @@
     .trust-item { display: flex; align-items: center; gap: 4px; font-size: 0.35rem; font-weight: 600; color: #888; text-transform: uppercase; }
     .trust-item i { color: var(--primary); font-size: 0.6rem; }
 
-    /* --- BUSCADOR Y FILTROS --- */
+    /* --- BUSCADOR CORREGIDO --- */
     .search-container { max-width: 600px; margin: 5px auto 0; position: relative; }
     #search-input { 
-        width: 100%; padding: 10px 15px; border-radius: 12px; 
+        width: 100%; padding: 12px 15px; border-radius: 12px; 
         border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); 
         color: white; font-family: 'Poppins'; outline: none; font-size: 0.8rem; 
         margin-bottom: 10px; position: relative; z-index: 2200;
@@ -113,43 +104,35 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-    /* --- RECOMENDACIÓN MAESTRA: BOTÓN SUBIR --- */
+    /* --- BOTÓN SUBIR --- */
     #back-to-top {
         position: fixed; bottom: 100px; right: 20px; width: 45px; height: 45px;
         background: var(--primary); color: #000; border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-size: 1.2rem; cursor: pointer; z-index: 999; border: none;
-        box-shadow: 0 0 15px rgba(0, 212, 255, 0.5); opacity: 0; visibility: hidden;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(20px);
+        z-index: 999; border: none; box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        opacity: 0; visibility: hidden; transition: 0.4s; transform: translateY(20px);
     }
     #back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
 
-    /* --- CONTENEDOR --- */
+    /* --- TARJETAS VIDRIO INTELIGENTE --- */
     .container { padding: 10px 15px; max-width: 600px; margin: auto; transition: all 0.4s ease; }
     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 15px; }
     .btn-universal { display: flex; align-items: center; justify-content: center; padding: 10px 8px; border-radius: 50px; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; cursor: pointer; text-decoration: none; border: none; text-align: center; transition: 0.3s; }
 
-    .category-title { margin: 30px 0 15px; padding: 10px 15px; font-size: 0.85rem; font-weight: 700; color: var(--primary); letter-spacing: 2px; background: rgba(255,255,255,0.03); border-radius: 12px; border-left: 4px solid var(--primary); text-transform: uppercase; display: flex; align-items: center; }
-
-    /* --- TARJETAS CON VIDRIO INTELIGENTE --- */
     .service-item { cursor: pointer; margin-bottom: 12px; position: relative; transition: 0.3s; }
     .service-item.selected { transform: scale(0.95) !important; }
     .service-card { 
         background: var(--glass); border-radius: 22px; padding: 18px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        gap: 15px; position: relative; overflow: visible; transition: 0.4s ease; 
+        gap: 15px; position: relative; transition: 0.4s ease; 
     }
-    
     .service-item:hover .service-card { 
         border-color: rgba(0, 212, 255, 0.5); 
-        box-shadow: 0 0 25px rgba(0, 212, 255, 0.15), inset 0 0 10px rgba(255,255,255,0.02);
-        transform: translateY(-3px);
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.15); transform: translateY(-3px);
     }
-    .service-item.premium:hover .service-card { border-color: var(--promo); box-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
 
     .service-item.selected .service-card { background: rgba(0, 212, 255, 0.12) !important; border-color: var(--primary) !important; box-shadow: 0 0 25px rgba(0, 212, 255, 0.3); }
     .service-item.premium.selected .service-card { background: rgba(212, 175, 55, 0.15) !important; border-color: var(--promo) !important; box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
-    
     .premium .service-card { border: 1px solid #d4af37 !important; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0)); }
     .premium::after { content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; font-size: 0.5rem; font-weight: 900; color: #d4af37; border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; z-index: 11; }
 
@@ -160,80 +143,33 @@
     .badge-oferta { position: absolute; top: -1px; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: block; z-index: 11; }
     .check-icon { position: absolute; top: 12px; right: 12px; background: var(--primary); color: #000; width: 26px; height: 26px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; z-index: 20; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
     .selected .check-icon { display: flex !important; animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .service-item.premium.selected .check-icon { background: var(--gold-gradient) !important; }
-
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
-    .service-text h3 { font-size: 1.05rem; color: #fff; }
-    .manual-desc { font-size: 0.75rem; color: #777; }
 
     /* --- LÓGICA AGOTADO --- */
     .service-item.agotado { pointer-events: none; }
     .service-item.agotado .service-card { opacity: 0.5; filter: grayscale(0.8); }
-    .service-item.agotado .price-tag, .service-item.agotado .badge-oferta, .service-item.agotado::after, .service-item.agotado .premium-tag-inner { display: none !important; }
     .sin-stock-badge {
         display: none; background: #700000; color: white; padding: 8px 15px; border-radius: 12px; font-size: 0.75rem; font-weight: 900;
-        border: 2px solid #ff0000; box-shadow: 0 0 15px #ff0000; text-transform: uppercase; white-space: nowrap; animation: blinkNeon 1.5s infinite; z-index: 100;
+        border: 2px solid #ff0000; box-shadow: 0 0 15px #ff0000; text-transform: uppercase; animation: blinkNeon 1.5s infinite; z-index: 100;
     }
     .service-item.agotado .sin-stock-badge { display: block !important; }
-    @keyframes blinkNeon { 0% { box-shadow: 0 0 5px #ff0000; opacity: 1; } 50% { box-shadow: 0 0 25px #ff0000, 0 0 40px #ff0000; opacity: 0.8; transform: scale(1.05); } 100% { box-shadow: 0 0 5px #ff0000; opacity: 1; } }
-
-    /* --- VISTA CUADRÍCULA --- */
-    .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 95% !important; width: 100%; padding: 15px; }
-    @media (min-width: 900px) { .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
-    .grid-mode .category-title { grid-column: 1 / -1; width: 100%; margin-top: 30px; display: flex; }
-    .grid-mode .service-card { flex-direction: column; text-align: center; min-height: 290px; justify-content: space-between; padding-top: 35px; }
-    .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
-    .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
-    .grid-mode .premium::after { display: none !important; }
-    .grid-mode .premium .premium-tag-inner { display: inline-block; font-size: 0.55rem; font-weight: 900; color: var(--promo); border: 1px solid var(--promo); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; }
-    .premium-tag-inner { display: none; }
-    .grid-mode .badge-oferta { left: 50% !important; transform: translateX(-50%) !important; width: 85% !important; text-align: center; }
-
-    /* --- FEEDBACK VISUAL --- */
-    @keyframes pulseOrder {
-        0% { transform: translateX(-50%) scale(1); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-        50% { transform: translateX(-50%) scale(1.03); box-shadow: 0 15px 50px rgba(37, 211, 102, 0.4); }
-        100% { transform: translateX(-50%) scale(1); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-    }
-    .floating-btn:not(.hidden) { 
-        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
-        background: linear-gradient(135deg, #25d366, #128c7e); color: white; 
-        padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; 
-        z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-        animation: pulseOrder 2s infinite ease-in-out;
-    }
-    #cart-total { transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-block; }
-    .total-bump { transform: scale(1.3); color: var(--promo); }
-    .discount-label { font-size: 0.7rem; color: var(--promo); margin-top: 5px; font-weight: 700; display: none; text-align: center;}
 
     /* --- FORMULARIOS --- */
-    .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 3000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
+    .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 3000; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
     .modal-content { background: #0d0d0d; padding: 35px 25px; border-radius: 35px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #222; }
-    .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 20px; color: var(--primary); }
-    .modal-content p { color: #888; font-size: 0.85rem; margin-bottom: 20px; line-height: 1.4; }
-    .modal-content input { width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 0.7rem; text-align: center; }
-    .modal-content input::placeholder { font-size: 0.75rem !important; color: #555; }
-    .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; border: none; cursor: pointer; }
-    .btn-modal-back { background: #1a1a1a !important; color: #fff !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; opacity: 0.7; }
+    .modal-content input { width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 0.85rem; text-align: center; }
+    .modal-content input::placeholder { font-size: 0.75rem; color: #555; }
+    .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; text-transform: uppercase; border: none; cursor: pointer; }
 
-    /* --- SEGURIDAD --- */
-    .input-wrapper { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 30px; }
-    .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-    .hide-stars { opacity: 0 !important; }
-    #input-pass { width: 220px; background: transparent !important; border: none !important; border-bottom: 2px solid #222 !important; color: #fff; font-size: 2.2rem; text-align: center; letter-spacing: 12px; outline: none; z-index: 2; position: relative; padding: 10px 0; }
-    .btn-desbloquear { background: #fff !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 25px; font-size: 1rem; border: none; cursor: pointer; margin-bottom: 10px; transition: 0.3s; text-transform: uppercase; }
-    .link-regresar { display: block; color: #333; font-size: 0.75rem; text-decoration: none; cursor: pointer; }
-
-    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-    .error-shake { animation: shake 0.3s ease-in-out; border-bottom-color: var(--danger) !important; }
-    .hidden { display: none !important; }
     @keyframes popCheck { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+    @keyframes blinkNeon { 0% { box-shadow: 0 0 5px #ff0000; } 50% { box-shadow: 0 0 20px #ff0000; } 100% { box-shadow: 0 0 5px #ff0000; } }
+    .hidden { display: none !important; }
 </style>
 </head>
 <body>
     <div id="search-overlay"></div>
     <div id="progress-container"><div id="progress-bar"></div></div>
-    <button id="back-to-top" title="Volver Arriba"><i class="fas fa-chevron-up"></i></button>
+    <button id="back-to-top"><i class="fas fa-chevron-up"></i></button>
 
 <header>
     <img src="../img/logo.webp" class="brand-logo" data-aos="zoom-in">
@@ -244,7 +180,10 @@
         <div class="trust-item"><i class="fas fa-bolt"></i>Entrega en 5 a 15 min</div>
     </div>
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Buscar plataforma..." onkeyup="filtrarProductos()" onfocus="document.body.classList.add('searching')" onblur="document.body.classList.remove('searching')">
+        <input type="text" id="search-input" placeholder="Buscar plataforma..." 
+               autocomplete="off" name="search-alex" spellcheck="false"
+               onfocus="iniciarBusqueda()" onblur="finalizarBusqueda()" onkeyup="filtrarProductos()">
+        
         <div class="filter-wrapper">
             <div class="scroll-indicator" id="scrollPrev"><i class="fas fa-chevron-left"></i></div>
             <div class="filter-container" id="filterScroll">
@@ -285,7 +224,6 @@
             <div class="price-container">
                 <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 16</span>
-                <div class="sin-stock-badge">SIN STOCK</div>
             </div>
         </div>
     </div>
@@ -579,7 +517,7 @@
             <p>Rellene los datos requeridos para una rápida atención:</p>
             <input type="text" id="reg-nom" placeholder="Nombre Completo">
             <input type="tel" id="reg-cel" placeholder="Número Celular">
-            <input type="text" id="reg-per" placeholder="Nombre para el Perfil (Si lo requiere)">
+            <input type="text" id="reg-per" placeholder="Nombre para Perfil (Opcional)">
             <button class="btn-modal-main" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
             <button class="btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
         </div>
@@ -612,16 +550,52 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // --- LÓGICA PROFESIONAL EXTRA ---
+    // --- SOLUCIÓN FOTO 2: Lógica de búsqueda corregida ---
+    function iniciarBusqueda() {
+        document.body.classList.add('searching');
+    }
+
+    function finalizarBusqueda() {
+        const input = document.getElementById('search-input');
+        if (input.value.trim() === "") {
+            document.body.classList.remove('searching');
+        }
+    }
+
+    function filtrarProductos() {
+        const bus = document.getElementById('search-input').value.toLowerCase();
+        const items = document.querySelectorAll('.service-item');
+        let hayResultados = false;
+
+        items.forEach(item => {
+            const nom = item.querySelector('.nombre-prod').innerText.toLowerCase();
+            if (nom.includes(bus)) {
+                item.style.display = 'block';
+                hayResultados = true;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Quitar difuminado si está vacío
+        if (bus === "") {
+            document.body.classList.remove('searching');
+        } else {
+            document.body.classList.add('searching');
+        }
+
+        actualizarTitulos();
+        AOS.refresh();
+    }
+
+    // --- LÓGICA SCROLL (BARRA Y BOTÓN) ---
     window.onscroll = function() {
         let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         let scrolled = (winScroll / height) * 100;
         
-        // 1. Barra de progreso
         document.getElementById("progress-bar").style.width = scrolled + "%";
 
-        // 2. Botón Subir Inteligente
         const btnSubir = document.getElementById("back-to-top");
         if (winScroll > 300) { btnSubir.classList.add("show"); } 
         else { btnSubir.classList.remove("show"); }
@@ -629,7 +603,7 @@
 
     document.getElementById("back-to-top").onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // SEGURIDAD ORIGEN
+    // SEGURIDAD
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
@@ -674,21 +648,15 @@
             const ordenado = [...carrito].sort((a,b) => b.precio - a.precio);
             for(let i=1; i<ordenado.length; i++) desc += (ordenado[i].precio >= 10) ? 2 : 1;
         }
-
         const totalFinal = subtotal - desc;
         const totalEl = document.getElementById('cart-total');
-
-        // FEEDBACK VISUAL
         totalEl.classList.add('total-bump');
         setTimeout(() => totalEl.classList.remove('total-bump'), 200);
-
         document.getElementById('cart-count').innerText = carrito.length;
         totalEl.innerText = `S/ ${totalFinal}`;
-
         const label = document.getElementById('discount-label');
         if (desc > 0) { label.innerText = `¡Ahorro aplicado: S/ ${desc}! 🎁`; label.style.display = 'block'; }
         else { label.style.display = 'none'; }
-
         document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
     }
 
@@ -726,15 +694,6 @@
         btn.classList.add('active');
         cont.className = modo === 'grid' ? 'container grid-mode' : 'container';
         setTimeout(() => { AOS.refreshHard(); }, 100);
-    }
-
-    function filtrarProductos() {
-        const bus = document.getElementById('search-input').value.toLowerCase();
-        document.querySelectorAll('.service-item').forEach(item => {
-            const nom = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            item.style.display = nom.includes(bus) ? 'block' : 'none';
-        });
-        actualizarTitulos();
     }
 
     function filtrarCategoria(cat, btn) {
