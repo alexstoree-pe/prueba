@@ -90,20 +90,41 @@
         transition: 0.3s;
     }
 
-    /* --- TARJETAS --- */
+    /* --- TARJETAS CON EFECTOS DE ILUMINACIÓN --- */
     .service-item { 
         cursor: pointer; margin-bottom: 12px; position: relative; 
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     }
     
-    .service-item.selected { transform: scale(0.95) !important; }
-
     .service-card { 
         background: var(--glass); border-radius: 22px; padding: 18px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        gap: 15px; position: relative; overflow: visible; transition: 0.3s;
+        gap: 15px; position: relative; overflow: visible; transition: 0.4s ease;
     }
 
+    /* 1. HOVER: Iluminación Blanca */
+    .service-item:hover .service-card {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    /* 2. SELECCIONADO NORMAL: Celeste */
+    .service-item.selected .service-card {
+        background: rgba(0, 212, 255, 0.1) !important;
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.3), inset 0 0 10px rgba(0, 212, 255, 0.1);
+        transform: scale(0.95) !important;
+    }
+
+    /* 3. SELECCIONADO PREMIUM: Brillo Dorado Intenso */
+    .service-item.premium.selected .service-card {
+        background: rgba(212, 175, 55, 0.1) !important;
+        border-color: var(--promo) !important;
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.2) !important;
+    }
+
+    /* PREMIUM BASE */
     .premium .service-card {
         border: 1px solid #d4af37 !important;
         background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
@@ -117,6 +138,7 @@
 
     .premium-tag-inner { display: none; }
 
+    /* CHECK DORADO PARA PREMIUM */
     .service-item.premium.selected .check-icon {
         background: var(--gold-gradient) !important;
         color: #000 !important;
@@ -157,12 +179,22 @@
     .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
 
     .grid-mode .premium::after { display: none !important; }
-    .grid-mode .premium .premium-tag-inner { display: inline-block; font-size: 0.55rem; font-weight: 900; color: var(--promo); border: 1px solid var(--promo); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; }
+    .grid-mode .premium .premium-tag-inner { 
+        display: inline-block; 
+        font-size: 0.55rem; 
+        font-weight: 900; 
+        color: var(--promo); 
+        border: 1px solid var(--promo); 
+        padding: 2px 8px; 
+        border-radius: 5px; 
+        margin-bottom: 5px;
+    }
+
     .grid-mode .badge-oferta { left: 50% !important; transform: translateX(-50%) !important; width: 85% !important; text-align: center; }
 
     /* FILTROS Y CONTROLES */
     .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; }
-    .filter-container { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0; scrollbar-width: none; }
+    .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
     .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.65rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
     .btn-nav.active { background: var(--primary); color: #000; }
     .view-controls { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px; }
@@ -512,9 +544,10 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ 
-        duration: 600, 
+        duration: 800, 
         once: true,
-        offset: 0 
+        offset: 0,
+        delay: 50
     });
 
     let carrito = [];
