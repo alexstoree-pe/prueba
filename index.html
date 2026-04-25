@@ -61,6 +61,11 @@
         z-index: 1500; transition: 0.4s;
     }
     body.searching #search-overlay { opacity: 1; visibility: visible; }
+    /* También los títulos de categorías para que no se pierdan */
+body.searching .category-title {
+    position: relative;
+    z-index: 2200;
+}
     body.searching header { z-index: 2100; }
     body.searching .service-item { position: relative; z-index: 2200; }
 
@@ -91,8 +96,8 @@
         border-bottom: 1px solid var(--glass-border);
         position: sticky;
         top: 0;
-        z-index: 2000;
-    }
+        z-index: 3000 !important;
+}
 
     .brand-logo { width: 35px; height: 35px; object-fit: contain; border-radius: 10px; margin-bottom: 2px; }
     header h1 { font-size: 1.1rem; font-weight: 800; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
