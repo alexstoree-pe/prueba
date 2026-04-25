@@ -53,7 +53,8 @@
     header h1 { 
         font-size: 1.4rem; font-weight: 800; 
         background: linear-gradient(to right, #fff, var(--primary));
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         letter-spacing: 1px;
     }
 
@@ -87,7 +88,6 @@
         transition: 0.3s;
     }
 
-    /* --- TARJETAS --- */
     .service-item { 
         cursor: pointer; margin-bottom: 15px; position: relative; 
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
@@ -106,7 +106,6 @@
         background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
     }
     
-    /* Premium para Vista Lista */
     .premium::after { 
         content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; 
         font-size: 0.5rem; font-weight: 900; color: #d4af37; 
@@ -137,29 +136,29 @@
 
     .category-title { margin: 25px 0 15px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
 
-    /* --- VISTA CUADRÍCULA CORREGIDA (FULL WIDTH) --- */
+    /* --- VISTA CUADRÍCULA CORREGIDA --- */
     .container.grid-mode { 
         display: grid; 
         grid-template-columns: repeat(2, 1fr); 
         gap: 15px; 
-        max-width: 95% !important; /* Aprovecha el ancho en PC */
+        max-width: 95% !important;
         width: 100%;
         padding: 20px;
     }
 
     @media (min-width: 900px) {
         .container.grid-mode {
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Muchas columnas en PC */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         }
     }
 
-    /* Categorías en Grid ocupando toda la fila */
     .grid-mode .category-title { 
         grid-column: 1 / -1; 
         width: 100%; 
         border-bottom: 1px solid var(--glass-border);
         padding-bottom: 10px;
         margin-top: 30px;
+        display: block; /* Asegura que el filtro lo vea */
     }
 
     .grid-mode .service-card { 
@@ -167,18 +166,20 @@
         text-align: center; 
         min-height: 280px; 
         justify-content: space-between; 
-        padding-top: 30px;
+        padding-top: 35px;
     }
 
     .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
     .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
 
-    /* Texto Premium ENCIMA del precio en Grid */
+    /* CORRECCIÓN: PREMIUM DENTRO DE LA TARJETA EN GRID */
     .grid-mode .premium::after { 
-        position: static !important; 
+        position: relative !important; 
+        top: 0 !important; 
+        right: 0 !important;
         display: inline-block !important; 
-        margin-bottom: 5px !important;
-        width: auto !important;
+        margin: 5px auto !important;
+        width: fit-content !important;
     }
 
     .grid-mode .badge-oferta { 
@@ -188,7 +189,7 @@
         text-align: center; 
     }
 
-    /* --- COMPONENTES --- */
+    /* FILTROS */
     .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
     .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
     .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
@@ -197,7 +198,7 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); }
 
-    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; }
+    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
     .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: flex-end; z-index: 3000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
     .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; text-align: center; border: 1px solid var(--glass-border); }
     
@@ -237,7 +238,7 @@
     </div>
 </header>
 
-<div class="container">
+<div class="container" id="product-container">
     <div class="grid-botones" data-aos="zoom-in">
         <a href="../" class="btn-universal" style="background:var(--glass); color:#fff; border:1px solid var(--glass-border);">🏠 INICIO</a>
         <a href="https://drive.google.com/file/d/1MPAECoht01Udr-oa7NcerexfZMC6h-5i/view?usp=sharing" target="_blank" class="btn-universal" style="background:linear-gradient(45deg, var(--primary), var(--secondary)); color:#000;">⭐ REFERENCIAS</a>
@@ -632,8 +633,20 @@
         btn.classList.add('active');
         const term = cat.toUpperCase();
         document.querySelectorAll('.service-item').forEach(item => {
-            if (term === 'TODOS') item.style.display = 'block';
-            else item.style.display = item.innerText.toUpperCase().includes(term) ? 'block' : 'none';
+            // Se busca tanto en el texto del item como en el título de su sección
+            let tituloRelacionado = "";
+            let previo = item.previousElementSibling;
+            while(previo && !previo.classList.contains('category-title')) {
+                previo = previo.previousElementSibling;
+            }
+            if(previo) tituloRelacionado = previo.innerText.toUpperCase();
+
+            if (term === 'TODOS') {
+                item.style.display = 'block';
+            } else {
+                const coincide = item.innerText.toUpperCase().includes(term) || tituloRelacionado.includes(term);
+                item.style.display = coincide ? 'block' : 'none';
+            }
         });
         actualizarTitulos();
         AOS.refreshHard();
