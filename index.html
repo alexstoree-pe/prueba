@@ -114,11 +114,11 @@
 
     /* --- FORMULARIOS --- */
     .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 3000; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); }
-    .modal-content { background: #0d0d0d; padding: 35px 25px; border-radius: 35px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #222; }
+    .modal-content { background: #0d0d0d; padding: 35px 25px; border-radius: 35px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #222; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
     .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 25px; color: var(--primary); }
     .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1.1rem; text-align: center; }
 
-    /* --- ESTILO MODAL ACCESO (EFECTO FOTO CORREGIDO PC) --- */
+    /* --- ESTILO MODAL ACCESO CORREGIDO --- */
     .input-wrapper { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 30px; }
     .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; line-height: 1.2; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; }
     .hide-stars { opacity: 0 !important; }
@@ -136,6 +136,14 @@
 
     .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; border: none; cursor: pointer; }
     .btn-modal-back { background: #1a1a1a !important; color: #666 !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; }
+
+    /* VISTA CUADRÍCULA */
+    .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 95% !important; width: 100%; padding: 15px; }
+    @media (min-width: 900px) { .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
+    .grid-mode .category-title { grid-column: 1 / -1; width: 100%; margin-top: 30px; display: flex; }
+    .grid-mode .service-card { flex-direction: column; text-align: center; min-height: 290px; justify-content: space-between; padding-top: 35px; }
+    .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
+    .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
 
     .hidden { display: none; }
     @keyframes popCheck { 0% { transform: scale(0); } 100% { transform: scale(1); } }
@@ -210,6 +218,23 @@
             </div>
         </div>
     </div>
+
+    <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/spotify.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
+                <span class="manual-desc">• Sin anuncios • Correo propio.</span>
+            </div>
+            <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 8</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="whatsapp-btn" class="floating-btn hidden">
@@ -275,7 +300,7 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // --- SEGURIDAD AVANZADA (REFERRER) ---
+    // --- SEGURIDAD AVANZADA ---
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
@@ -292,14 +317,12 @@
         }
     })();
 
-    // LÓGICA DE ESTRELLAS DE FONDO
     function checkInput(el) {
         const stars = document.getElementById('stars-placeholder');
         if (el.value.length > 0) { stars.classList.add('hide-stars'); } 
         else { stars.classList.remove('hide-stars'); }
     }
 
-    // VALIDACIÓN SIN ALERTAS (VIBRACIÓN ROJA)
     function validarPass() {
         const input = document.getElementById('input-pass');
         const stars = document.getElementById('stars-placeholder');
@@ -355,7 +378,7 @@
 
         let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
         carrito.forEach(i => {
-            msg += `⭐ *${i.nombre}*\n📝 ${i.manual}\n`; // INCLUYE MANUAL DESC
+            msg += `⭐ *${i.nombre}*\n📝 ${i.manual}\n`;
             if(per.trim() !== "") msg += `👤 Perfil: ${per}\n`;
             msg += `--------------------------\n`;
         });
@@ -422,7 +445,7 @@
     window.onload = () => { 
         document.documentElement.style.display = "block";
         const input = document.getElementById('input-pass');
-        if(input) input.value = "";
+        if(input) { input.value = ""; checkInput(input); }
     };
 </script>
 </body>
