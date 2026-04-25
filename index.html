@@ -70,18 +70,7 @@
 
     /* --- CATEGORIAS --- */
     .category-title { 
-        margin: 30px 0 15px; 
-        padding: 10px 15px;
-        font-size: 0.85rem; 
-        font-weight: 700; 
-        color: var(--primary); 
-        letter-spacing: 2px;
-        background: rgba(255,255,255,0.03);
-        border-radius: 12px;
-        border-left: 4px solid var(--primary);
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
+        margin: 30px 0 15px; padding: 10px 15px; font-size: 0.85rem; font-weight: 700; color: var(--primary); letter-spacing: 2px; background: rgba(255,255,255,0.03); border-radius: 12px; border-left: 4px solid var(--primary); text-transform: uppercase; display: flex; align-items: center;
     }
 
     /* --- TARJETAS --- */
@@ -132,7 +121,7 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-    /* BOTON FLOTANTE */
+    /* BOTONES FLOTANTES */
     .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
     .discount-label { font-size: 0.7rem; color: var(--promo); margin-top: 5px; font-weight: 700; display: none; }
 
@@ -140,9 +129,13 @@
     .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 3000; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); }
     .modal-content { background: #0d0d0d; padding: 35px 25px; border-radius: 35px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #222; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
     .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 25px; color: var(--primary); }
-    .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1rem; text-align: center; }
-    .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; }
-    .btn-modal-back { background: #1a1a1a !important; color: #666 !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; }
+    .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1.1rem; text-align: center; }
+    
+    /* CORRECCIÓN CAMPO PASS: Eliminamos puntos de distorsión y espaciado excesivo */
+    #input-pass { letter-spacing: 2px !important; } 
+
+    .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; border: none; cursor: pointer; }
+    .btn-modal-back { background: #1a1a1a !important; color: #666 !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; }
 
     .hidden { display: none; }
     @keyframes popCheck { 0% { transform: scale(0); } 100% { transform: scale(1); } }
@@ -217,23 +210,6 @@
             </div>
         </div>
     </div>
-
-    <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
-
-    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card">
-            <div class="check-icon">✓</div>
-            <img src="../img/spotify.webp" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
-                <span class="manual-desc">• Sin anuncios • Correo propio.</span>
-            </div>
-            <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span>
-                <span class="price-tag precio-prod">S/ 8</span>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div id="whatsapp-btn" class="floating-btn hidden">
@@ -256,23 +232,24 @@
     <div class="modal-content">
         <div id="paso-1">
             <h2 style="color:var(--primary);">¿Ya eres cliente?</h2>
-            <button class="btn-universal btn-modal-main" style="background:#222 !important; color:#fff !important;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
-            <button class="btn-universal btn-modal-main" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
-            <button class="btn-universal btn-modal-back" onclick="cerrarModalRegistro()">CANCELAR</button>
+            <button class="btn-modal-main" style="background:#222 !important; color:#fff !important;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
+            <button class="btn-modal-main" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
+            <button class="btn-modal-back" onclick="cerrarModalRegistro()">CANCELAR</button>
         </div>
         <div id="form-datos" style="display:none;">
             <h2 style="color:var(--primary);">Registro de Pedido</h2>
             <input type="text" id="reg-nom" placeholder="Nombre Completo">
             <input type="tel" id="reg-cel" placeholder="Número Celular">
             <input type="text" id="reg-per" placeholder="Nombre para Perfil (Opcional)">
-            <button class="btn-universal btn-modal-main" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
-            <button class="btn-universal btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
+            <button class="btn-modal-main" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
+            <button class="btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
         </div>
         <div id="form-antiguo" style="display:none;">
             <h2 style="color:var(--primary);">Confirmar Perfil</h2>
+            <p>Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
             <input type="text" id="antiguo-per" placeholder="Nombre para Perfil (Opcional)">
-            <button class="btn-universal btn-modal-main" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
-            <button class="btn-universal btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
+            <button class="btn-modal-main" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
+            <button class="btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
         </div>
     </div>
 </div>
@@ -280,8 +257,8 @@
 <div id="modal-password" class="modal-pass">
     <div class="modal-content" style="border-radius:25px;">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()" style="letter-spacing:5px;">
-        <button onclick="validarPass()" class="btn-universal btn-modal-main">INGRESAR</button>
+        <input type="password" id="input-pass" placeholder="Ingresa tu código" onkeydown="if(event.key==='Enter') validarPass()">
+        <button onclick="validarPass()" class="btn-modal-main">INGRESAR</button>
     </div>
 </div>
 
@@ -318,7 +295,8 @@
         elemento.classList.toggle('selected');
         const nombre = elemento.querySelector('.nombre-prod').innerText;
         const manual = elemento.querySelector('.manual-desc').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
+        const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
+        const precio = parseFloat(precioText);
         const idx = carrito.findIndex(i => i.nombre === nombre);
         if (idx > -1) { carrito.splice(idx, 1); } else { carrito.push({nombre, manual, precio}); }
         actualizarUI();
@@ -343,7 +321,7 @@
         let nom = document.getElementById('reg-nom').value;
         let cel = document.getElementById('reg-cel').value;
         let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
-        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { alert("Datos incompletos."); return; }
+        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { alert("Completa tus datos."); return; }
         
         const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
         let desc = 0;
@@ -359,7 +337,7 @@
             msg += `--------------------------\n`;
         });
         if(desc > 0) msg += `\n🎁 *Ahorro:* -S/ ${desc}`;
-        msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
+        msg += `\n💰 *TOTAL A PAGAR: S/ ${subtotal - desc}*`;
         if(tipo === 'nuevo') msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`;
         else msg += `\n\n✅ *YA SOY CLIENTE*`;
 
