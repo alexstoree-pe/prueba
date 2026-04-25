@@ -742,13 +742,24 @@ document.getElementById("back-to-top").onclick = function() {
 };
 </script>
 </head>
-    <div id="modal-perfil" class="modal-pedido">
+    <div id="modal-pedido-vip" class="modal-pedido">
     <div class="modal-pedido-content">
-        <h2>DATOS DEL PERFIL</h2>
-        <p>Has seleccionado uno o más <b>PERFILES</b>. Por favor, ingresa el nombre que deseas para el perfil:</p>
-        <input type="text" id="nombre-perfil-input" class="input-pedido" placeholder="Ej: Juan Pérez / Alex VIP">
-        <button class="btn-finalizar" onclick="finalizarYEnviarWhatsApp()">ENVIAR A WHATSAPP</button>
-        <span style="display:block; margin-top:15px; color:#555; font-size:0.7rem; cursor:pointer;" onclick="cerrarModalPerfil()">Cancelar</span>
+        <div id="paso-seleccion">
+            <h2>¿QUÉ ADQUIRISTE?</h2>
+            <p>Selecciona el tipo de servicio seleccionado para continuar:</p>
+            <button class="btn-finalizar" style="margin-bottom: 15px;" onclick="irAPasoNombre()">👤 ADQUIRÍ PERFIL</button>
+            <button class="btn-finalizar" style="background: #222; color: #fff; border: 1px solid #333;" onclick="finalizarSinNombre()">🏠 CUENTA COMPLETA</button>
+        </div>
+
+        <div id="paso-nombre" style="display: none;">
+            <h2>DATOS DEL PERFIL</h2>
+            <p>Ingresa el nombre que deseas para tus perfiles:</p>
+            <input type="text" id="nombre-perfil-input" class="input-pedido" placeholder="Ej: Juan Pérez / Alex VIP">
+            <button class="btn-finalizar" onclick="finalizarConNombre()">FINALIZAR PEDIDO</button>
+            <button class="btn-finalizar" style="background: transparent; color: #555; font-size: 0.7rem; margin-top: 10px;" onclick="volverAPaso1()">← Volver</button>
+        </div>
+        
+        <span style="display:block; margin-top:15px; color:#444; font-size:0.7rem; cursor:pointer;" onclick="cerrarModalPedido()">Cancelar</span>
     </div>
 </div>
 <body>
@@ -1535,38 +1546,50 @@ function scrollFilters(val) {
         actualizarCarritoUI();
     }
     //enviar whatsapp
-   function enviarPedido() {
+   // Abrir el modal al presionar el botón verde de WhatsApp
+    function enviarPedido() {
         if (carrito.length === 0) {
             mostrarAlerta();
             return;
         }
-
-        // Verificamos si hay al menos un "Perfil" en el carrito
-        const tienePerfiles = carrito.some(p => p.nombre.toLowerCase().includes('perfil'));
-
-        if (tienePerfiles) {
-            // Si hay perfiles, abrimos el modal para pedir el nombre
-            document.getElementById('modal-perfil').style.display = 'flex';
-        } else {
-            // Si solo son cuentas completas, enviamos directo
-            ejecutarEnvioWhatsApp(""); 
-        }
+        // Reiniciar el modal a la pantalla 1
+        document.getElementById('paso-seleccion').style.display = 'block';
+        document.getElementById('paso-nombre').style.display = 'none';
+        document.getElementById('modal-pedido-vip').style.display = 'flex';
     }
 
-    function cerrarModalPerfil() {
-        document.getElementById('modal-perfil').style.display = 'none';
+    function cerrarModalPedido() {
+        document.getElementById('modal-pedido-vip').style.display = 'none';
     }
 
-    function finalizarYEnviarWhatsApp() {
+    // Navegación entre pasos
+    function irAPasoNombre() {
+        document.getElementById('paso-seleccion').style.display = 'none';
+        document.getElementById('paso-nombre').style.display = 'block';
+    }
+
+    function volverAPaso1() {
+        document.getElementById('paso-seleccion').style.display = 'block';
+        document.getElementById('paso-nombre').style.display = 'none';
+    }
+
+    // Lógica de finalización
+    function finalizarSinNombre() {
+        ejecutarEnvioWhatsApp(""); // Envía sin nombre de perfil
+        cerrarModalPedido();
+    }
+
+    function finalizarConNombre() {
         const nombrePerfil = document.getElementById('nombre-perfil-input').value.trim();
         if (nombrePerfil === "") {
             alert("Por favor, ingresa un nombre para el perfil");
             return;
         }
         ejecutarEnvioWhatsApp(nombrePerfil);
-        cerrarModalPerfil();
+        cerrarModalPedido();
     }
 
+    // Función maestra de envío
     function ejecutarEnvioWhatsApp(nombreDelPerfil) {
         let totalSoles = carrito.reduce((sum, p) => sum + p.precio, 0);
         let mensaje = "¡Hola Alex Store! soy distribuidor 👋 Deseo adquirir:\n\n";
@@ -1576,20 +1599,26 @@ function scrollFilters(val) {
             mensaje += `📝 ${p.caracteristicas}\n`;
             mensaje += `💵 Precio: S/ ${p.precio.toFixed(2)}\n`;
             
-            // Si la tarjeta tiene la clase renovacion, se agrega
+            // Agregar renovación si existe
             if (p.renovacion) {
                 mensaje += `🔄 ${p.renovacion}\n`;
             }
             
-            // Si es un perfil y el usuario puso nombre, lo agregamos debajo de cada perfil
-            if (p.nombre.toLowerCase().includes('perfil') && nombreDelPerfil !== "") {
-                mensaje += `👤 Perfil: *${nombreDelPerfil}*\n`;
+            // Si el usuario escribió un nombre en el formulario, lo agregamos
+            if (nombreDelPerfil !== "") {
+                mensaje += `👤 Nombre Perfil: *${nombreDelPerfil}*\n`;
             }
 
             mensaje += `--------------------------\n`;
         });
         
         mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
+        
+        // Si no puso nombre, añadir una nota al final
+        if (nombreDelPerfil === "") {
+            mensaje += `\n\n🏠 *TIPO: CUENTA COMPLETA*`;
+        }
+
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
 
