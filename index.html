@@ -118,7 +118,7 @@
     .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 25px; color: var(--primary); }
     .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1.1rem; text-align: center; }
 
-    /* --- ESTILO MODAL ACCESO CORREGIDO --- */
+    /* --- ESTILO MODAL ACCESO CORREGIDO PC --- */
     .input-wrapper { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 30px; }
     .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; line-height: 1.2; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; }
     .hide-stars { opacity: 0 !important; }
@@ -218,23 +218,6 @@
             </div>
         </div>
     </div>
-
-    <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
-
-    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card">
-            <div class="check-icon">✓</div>
-            <img src="../img/spotify.webp" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
-                <span class="manual-desc">• Sin anuncios • Correo propio.</span>
-            </div>
-            <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span>
-                <span class="price-tag precio-prod">S/ 8</span>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div id="whatsapp-btn" class="floating-btn hidden">
@@ -296,11 +279,11 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 400, once: true, offset: 0 });
+    AOS.init({ duration: 400, once: true, offset: 0, delay: 50 });
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // --- SEGURIDAD AVANZADA ---
+    // --- SEGURIDAD AVANZADA (REFERRER) ---
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
@@ -317,12 +300,14 @@
         }
     })();
 
+    // LÓGICA DE ESTRELLAS DE FONDO
     function checkInput(el) {
         const stars = document.getElementById('stars-placeholder');
         if (el.value.length > 0) { stars.classList.add('hide-stars'); } 
         else { stars.classList.remove('hide-stars'); }
     }
 
+    // VALIDACIÓN SIN ALERTAS
     function validarPass() {
         const input = document.getElementById('input-pass');
         const stars = document.getElementById('stars-placeholder');
