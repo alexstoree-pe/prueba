@@ -568,8 +568,8 @@
 .stars-bg { 
     position: absolute; 
     color: #222; 
-    font-size: 2.5rem; 
-    letter-spacing: 15px; 
+    font-size: 2.2rem; 
+    letter-spacing: 12px; 
     pointer-events: none; 
     z-index: 1; 
     transition: 0.2s; 
@@ -581,18 +581,18 @@
 .hide-stars { opacity: 0 !important; }
 
 #input-dist-pass { 
-    width: 250px; 
+    width: 200px; 
     background: transparent !important; 
     border: none !important; 
     border-bottom: 2px solid #222 !important; 
     color: var(--primary); 
-    font-size: 2.5rem; 
+    font-size: 2.2rem; 
     text-align: center; 
-    letter-spacing: 15px; 
+    letter-spacing: 12px; 
     outline: none; 
     z-index: 2; 
     position: relative; 
-    padding: 10px 0; 
+    padding: 5px 0; 
     margin: 0 !important; /* Reseteamos el margen original */
 }
 
@@ -710,10 +710,10 @@ document.getElementById("back-to-top").onclick = function() {
         
         <div id="error-msg" style="color: var(--danger-neon); font-size: 0.8rem; margin-bottom: 10px; font-weight: 600; height: 1.2rem;"></div>
         
-        <div class="input-wrapper">
-            <input type="password" id="input-dist-pass" maxlength="8" oninput="checkInputPass(this)" onkeydown="if(event.key==='Enter') validarAcceso()" autocomplete="new-password">
-            <div id="stars-placeholder" class="stars-bg">* * * *</div>
-        </div>
+        <div class="input-wrapper" style="display: flex; justify-content: center; align-items: center; width: 100%; position: relative; height: 60px; margin: 20px 0;">
+    <input type="password" id="input-dist-pass" maxlength="8" oninput="checkInputPass(this)" onkeydown="if(event.key==='Enter') validarAcceso()" autocomplete="new-password">
+    <div id="stars-placeholder" class="stars-bg">* * * *</div>
+</div>
 
         <button onclick="validarAcceso()" class="btn-universal btn-promo-distri" style="width:100%; padding:20px; border-radius:25px; margin-top:20px;">
             ENTRAR
