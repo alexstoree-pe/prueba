@@ -247,11 +247,14 @@
         transform: translate(-50%, -50%) !important; width: 80%; text-align: center;
     }
 
-    .agotado { pointer-events: none; }
+   .agotado { 
+    /* Permitimos eventos para que el botón pueda resaltar/funcionar */
+    pointer-events: auto !important; 
+}
     .agotado .service-card { 
         background: rgba(0, 0, 0, 0.95) !important; 
-        filter: grayscale(1) brightness(0.2); 
-        border-color: rgba(255, 6, 0, 0.2) !important;
+        filter: grayscale(1) brightness(0.4); 
+        border-color: rgba(255, 6, 0, 0.3) !important; position: relative;
     }
 
     .agotado .badge-oferta, 
@@ -262,6 +265,35 @@
         display: none !important; 
     }
 
+    .service-item.agotado .btn-consultar-neon {
+    display: flex !important;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    
+    /* Colores vibrantes para que destaque */
+    background: #ff0000 !important;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    
+    /* Anulamos el filtro gris del padre */
+    filter: none !important; 
+    
+    /* Animación de parpadeo */
+    animation: flashAgotado 1s infinite alternate;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+}
+
+@keyframes flashAgotado {
+    from { opacity: 1; box-shadow: 0 0 5px #ff0000; }
+    to { opacity: 0.6; box-shadow: 0 0 20px #ff0000; }
+}
     /* BOTONES UNIVERSALES */
     .grid-botones { 
         display: flex !important; flex-wrap: wrap; justify-content: center; gap: 10px; 
