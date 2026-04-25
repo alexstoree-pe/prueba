@@ -109,7 +109,7 @@
     <div id="progress-container"><div id="progress-bar"></div></div>
     <button id="back-to-top"><i class="fas fa-chevron-up"></i></button>
 
-header>
+<header>
     <img src="../img/logo.webp" class="brand-logo" data-aos="zoom-in">
     <h1 data-aos="fade-down">ALEX STORE</h1>
     <div class="trust-bar">
@@ -151,12 +151,16 @@ header>
         <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/netflix.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/netflix.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Netflix Premium</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Perfil Privado • 4K UHD.</span>
+                <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 16</span></div>
+            <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 16</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
+            </div>
         </div>
     </div>
 
@@ -164,12 +168,13 @@ header>
         <div class="badge-oferta">MUY SOLICITADO 🎁</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/disneyp.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/disneyp.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Activación TV • ESPN • Perfil privado.</span>
+                <span class="manual-desc">• Activación TV • ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 10</span>
                 <div class="sin-stock-badge">SIN STOCK</div>
             </div>
@@ -179,145 +184,146 @@ header>
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/disneys.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/disneys.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Sin ESPN • Perfil privado.</span>
+                <span class="manual-desc">• Sin ESPN • Perfil privado.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 7</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 7</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/max.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Max Standard</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • Full HD • Perfil privado.</span>
+                <span class="manual-desc">• 1 mes • Full HD • Perfil privado.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/max.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">MAX Platino</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • premium 4K • Perfil privado.</span>
+                <span class="manual-desc">• 1 mes • premium 4K • Perfil privado.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/prime.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/prime.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • Perfil privado • Solo TV.</span>
+                <span class="manual-desc">• 1 mes • Perfil privado • Activacion solo a TV.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/prime.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/prime.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PRIME VIDEO</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • Perfil privado • Correo y clave.</span>
+                <span class="manual-desc">• 1 mes • Perfil privado • Correo y contraseña.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/vix.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/vix.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">VIX PREMIUM</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • perfil privado • premium.</span>
+                <span class="manual-desc">• 1 mes • perfil privado • premium.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+            <div class="price-container"><span class="premium-tag-inner">PREMIUM</span><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/paramount.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/paramount.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PARAMOUNT</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • premium • perfil privado.</span>
+                <span class="manual-desc">• 1 mes • premium • perfil privado.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 6</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 6</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/crunchyroll.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/crunchyroll.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">CRUNCHYROLL </h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • premium • perfil privado.</span>
+                <span class="manual-desc">• 1 mes • premium • perfil privado.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
+
     <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.webp" class="service-logo" style="width:60px; border-radius:15px;"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
-                <h3 class="nombre-prod">CANVA PRO (1 mes)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Plan EDU • Invitación a tu correo.</span>
+                <h3 class="nombre-prod">CANVA PRO (1 mes) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.webp" class="service-logo" style="width:60px; border-radius:15px;"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
-                <h3 class="nombre-prod">CANVA PRO (3 meses)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Plan EDU • Invitación a tu correo.</span>
+                <h3 class="nombre-prod">CANVA PRO (3 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 12</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 12</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.webp" class="service-logo" style="width:60px; border-radius:15px;"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
-                <h3 class="nombre-prod">CANVA PRO (6 meses)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Plan EDU • Invitación a tu correo.</span>
+                <h3 class="nombre-prod">CANVA PRO (6 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 17</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 17</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/canva.webp" class="service-logo" style="width:60px; border-radius:15px;"> 
+            <img src="../img/canva.webp" class="service-logo"> 
             <div class="service-text">
-                <h3 class="nombre-prod">CANVA PRO (12 meses)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Plan EDU • Invitación a tu correo.</span>
+                <h3 class="nombre-prod">CANVA PRO (12 meses) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 25</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 25</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -326,48 +332,60 @@ header>
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card"> 
             <div class="check-icon">✓</div>
-            <img src="../img/movistar.webp" class="service-logo" style="width:60px; border-radius:15px;"> 
+            <img src="../img/movistar.webp" class="service-logo"> 
             <div class="service-text">
                 <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Canal l1 Max • Activación a TV.</span>
+                <span class="manual-desc">• Canal l1 Max • Activación a TV.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 20</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 20</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/dgo.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/dgo.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Directv Go + l1 Max</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 mes • Activación a TV • Perfil privado.</span>
+                <span class="manual-desc">• 1 mes • Activación a TV • Perfil privado.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 20</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 20</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/flujo.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/flujo.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Magis TV- Fluo TV</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 Perfil • +1200 Canales en vivo.</span>
+                <span class="manual-desc">• 1 Perfil • +1200 Canales en vivo.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 12</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 12</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
     <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/iptv.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/iptv.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">IPTV Smarters pro (1 dis)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• 1 Dispositivo • 6500 Canales.</span>
+                <span class="manual-desc">• 1 Dispositivo • 6500 Canales.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 10</span></div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 10</span><div class="sin-stock-badge">SIN STOCK</div></div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/iptv.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">IPTV Smarters pro (3 dis)</h3>
+                <span class="manual-desc">• 3 Dispositivos • 6500 Canales.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 13</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -376,12 +394,16 @@ header>
     <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/spotify.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/spotify.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Sin anuncios • Correo propio.</span>
+                <span class="manual-desc">• Sin anuncios • Correo propio.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span></div>
+            <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
+            </div>
         </div>
     </div>
 
@@ -389,17 +411,19 @@ header>
         <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
         <div class="service-card">
             <div class="check-icon">✓</div>
-            <img src="../img/youtube.webp" class="service-logo" style="width:60px; border-radius:15px;">
+            <img src="../img/youtube.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Youtube Premium (1 mes)</h3>
-                <span class="manual-desc" style="font-size:0.75rem; color:#888;">• Sin anuncios • A tu correo.</span>
+                <span class="manual-desc">• Sin anuncios • A tu correo.</span>
             </div>
-            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span></div>
+            <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 8</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
+            </div>
         </div>
     </div>
-</div> ```
-
-**Instrucción Final:** Con estas dos sub-partes tienes la lista **100% completa**. Solo asegúrate de cerrar con los modales y el script de la Parte 3 que te pasé antes para que el carrito y los descuentos funcionen. ¡Ahora sí está todo!
+</div>
 
 
 
