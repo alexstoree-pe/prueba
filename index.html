@@ -72,10 +72,9 @@
 
     .container { padding: 20px 15px; max-width: 600px; margin: auto; transition: all 0.4s ease; }
 
-    /* --- CORRECCIÓN: BOTONES EN 2 COLUMNAS Y 2 FILAS --- */
     .grid-botones { 
         display: grid; 
-        grid-template-columns: 1fr 1fr; /* Dos columnas */
+        grid-template-columns: 1fr 1fr; 
         gap: 12px; 
         margin: 20px 0 30px; 
     }
@@ -88,7 +87,7 @@
         transition: 0.3s;
     }
 
-    /* --- TARJETA CORREGIDA (Hundimiento Unificado) --- */
+    /* --- TARJETAS --- */
     .service-item { 
         cursor: pointer; margin-bottom: 15px; position: relative; 
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
@@ -102,24 +101,23 @@
         gap: 15px; position: relative; overflow: visible; transition: 0.3s;
     }
 
-    /* PREMIUM */
     .premium .service-card {
         border: 1px solid #d4af37 !important;
         background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
     }
+    
+    /* Premium para Vista Lista */
     .premium::after { 
         content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; 
         font-size: 0.5rem; font-weight: 900; color: #d4af37; 
         border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; z-index: 11;
     }
 
-    /* CHECK DORADO PREMIUM */
     .service-item.premium.selected .check-icon {
         background: var(--gold-gradient) !important;
         color: #000 !important;
     }
 
-    /* PRECIO A LA DERECHA */
     .price-container { 
         display: flex; flex-direction: column; align-items: flex-end; 
         margin-left: auto; min-width: 85px; 
@@ -137,7 +135,60 @@
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; }
     .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    /* VISTAS */
+    .category-title { margin: 25px 0 15px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
+
+    /* --- VISTA CUADRÍCULA CORREGIDA (FULL WIDTH) --- */
+    .container.grid-mode { 
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
+        max-width: 95% !important; /* Aprovecha el ancho en PC */
+        width: 100%;
+        padding: 20px;
+    }
+
+    @media (min-width: 900px) {
+        .container.grid-mode {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Muchas columnas en PC */
+        }
+    }
+
+    /* Categorías en Grid ocupando toda la fila */
+    .grid-mode .category-title { 
+        grid-column: 1 / -1; 
+        width: 100%; 
+        border-bottom: 1px solid var(--glass-border);
+        padding-bottom: 10px;
+        margin-top: 30px;
+    }
+
+    .grid-mode .service-card { 
+        flex-direction: column; 
+        text-align: center; 
+        min-height: 280px; 
+        justify-content: space-between; 
+        padding-top: 30px;
+    }
+
+    .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
+    .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
+
+    /* Texto Premium ENCIMA del precio en Grid */
+    .grid-mode .premium::after { 
+        position: static !important; 
+        display: inline-block !important; 
+        margin-bottom: 5px !important;
+        width: auto !important;
+    }
+
+    .grid-mode .badge-oferta { 
+        left: 50% !important; 
+        transform: translateX(-50%) !important; 
+        width: 85% !important; 
+        text-align: center; 
+    }
+
+    /* --- COMPONENTES --- */
     .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
     .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
     .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
@@ -145,12 +196,6 @@
     .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 10px 20px; }
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); }
-
-    /* GRID MODE */
-    .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .grid-mode .service-card { flex-direction: column; text-align: center; min-height: 250px; justify-content: space-between; }
-    .grid-mode .price-container { margin-left: 0; align-items: center; }
-    .grid-mode .badge-oferta { left: 50%; transform: translateX(-50%); width: 85%; text-align: center; }
 
     .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; }
     .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: flex-end; z-index: 3000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
@@ -503,7 +548,7 @@
             <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="enviarWhatsApp('nuevo')">FINALIZAR PEDIDO</button>
         </div>
         <div id="form-antiguo" style="display:none;">
-            <input type="text" id="antiguo-per" placeholder="Nombre para el Perfil" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
+            <input type="text" id="antiguo-per" placeholder="Confirmar nombre de Perfil" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
             <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="enviarWhatsApp('antiguo')">ENVIAR PEDIDO</button>
         </div>
     </div>
@@ -536,7 +581,6 @@
         const nombre = elemento.querySelector('.nombre-prod').innerText;
         const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
         const precio = parseFloat(precioText);
-        
         const idx = carrito.findIndex(i => i.nombre === nombre);
         if (idx > -1) { carrito.splice(idx, 1); } 
         else { carrito.push({nombre, precio}); }
@@ -580,6 +624,7 @@
             const nom = item.querySelector('.nombre-prod').innerText.toLowerCase();
             item.style.display = nom.includes(bus) ? 'block' : 'none';
         });
+        actualizarTitulos();
     }
 
     function filtrarCategoria(cat, btn) {
@@ -590,7 +635,22 @@
             if (term === 'TODOS') item.style.display = 'block';
             else item.style.display = item.innerText.toUpperCase().includes(term) ? 'block' : 'none';
         });
+        actualizarTitulos();
         AOS.refreshHard();
+    }
+
+    function actualizarTitulos() {
+        document.querySelectorAll('.category-title').forEach(titulo => {
+            let tieneHijos = false;
+            let hermano = titulo.nextElementSibling;
+            while (hermano && !hermano.classList.contains('category-title')) {
+                if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') {
+                    tieneHijos = true; break;
+                }
+                hermano = hermano.nextElementSibling;
+            }
+            titulo.style.display = tieneHijos ? 'block' : 'none';
+        });
     }
 
     function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
@@ -600,7 +660,6 @@
 
     function enviarWhatsApp(tipo) {
         let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
-        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
         let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
         carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
         if(per) msg += `👤 Perfil: ${per}\n`;
