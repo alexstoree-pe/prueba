@@ -44,6 +44,13 @@
         padding-bottom: 100px; 
     }
 
+    /* CONTENEDOR MAESTRO: Limita el ancho de todo el contenido */
+    .container, .search-container, .grid-botones, header > div {
+        max-width: 500px; /* Ancho ideal para catálogo tipo App móvil */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     header {
         background: rgba(10, 10, 10, 0.7);
         backdrop-filter: blur(20px);
@@ -82,7 +89,7 @@
 
     .trust-item i { color: var(--primary); font-size: 0.9rem; margin-bottom: 2px; }
 
-    .search-container { max-width: 600px; margin: 10px auto 0; position: relative; }
+    .search-container { margin: 10px auto 0; position: relative; width: 90%; }
     #search-input {
         width: 100%; padding: 10px 15px; border-radius: 12px; border: 1px solid var(--glass-border);
         background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
@@ -90,10 +97,11 @@
     }
     #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
 
-    .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; }
+    .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; justify-content: center; }
     .filter-container { 
         display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
         scroll-behavior: smooth; scrollbar-width: none;
+        max-width: 500px;
     }
     .filter-container::-webkit-scrollbar { display: none; }
 
@@ -104,11 +112,11 @@
     }
     .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 5px 15px rgba(0,212,255,0.3); }
 
-    .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 20px 10px; }
+    .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 auto 10px; max-width: 500px; padding-right: 20px; }
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
-    .container { padding: 0 20px; max-width: 800px; margin: auto; }
+    .container { padding: 0 20px; }
     .category-title { 
         font-size: 0.75rem; font-weight: 800; color: var(--primary); margin: 15px 0 10px; 
         text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
@@ -116,7 +124,7 @@
     .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
 
     /* --- TARJETAS --- */
-    .service-item { cursor: pointer; margin-bottom: 25px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .service-card { 
         background: var(--glass); border-radius: 25px; padding: 20px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
@@ -198,81 +206,40 @@
     .price-container { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; }
 
-    /* ================================================================
-        MEJORA JERARQUÍA SIN STOCK (RESALTADO POR ENCIMA)
-    ================================================================ */
+    /* SIN STOCK */
     .btn-consultar-neon {
-        display: none; 
-        color: #fff; 
-        font-size: 0.8rem; 
-        font-weight: 900; 
-        background: #ff4444;
-        border: 2px solid #ff4444 !important; 
-        padding: 8px 18px; 
-        border-radius: 12px;
-        text-transform: uppercase; 
-        transition: 0.3s;
-        /* Neón Fuerte */
+        display: none; color: #fff; font-size: 0.8rem; font-weight: 900; background: #ff4444;
+        border: 2px solid #ff4444 !important; padding: 8px 18px; border-radius: 12px;
+        text-transform: uppercase; transition: 0.3s;
         box-shadow: 0 0 20px #ff4444, 0 0 40px rgba(255, 68, 68, 0.6);
         animation: parpadeoNeon 1.2s infinite alternate;
-        position: absolute; 
-        z-index: 999; 
-        white-space: nowrap;
-        pointer-events: auto;
+        position: absolute; z-index: 999; white-space: nowrap; pointer-events: auto;
     }
 
-    /* Animación de Neón Rojo Eléctrico */
-@keyframes parpadeoNeon {
-    from { 
-        opacity: 1; 
-        box-shadow: 0 0 15px #ff4444; 
+    @keyframes parpadeoNeon {
+        from { opacity: 1; box-shadow: 0 0 15px #ff4444; }
+        to { opacity: 0.8; box-shadow: 0 0 35px #ff4444; }
     }
-    to { 
-        opacity: 0.8; 
-        box-shadow: 0 0 35px #ff4444; 
+
+    .service-item.agotado .btn-consultar-neon {
+        display: block !important; position: absolute; top: 50%; right: 15px;
+        transform: translateY(-50%) !important; z-index: 9999;
+        background: #ff0000 !important; color: #fff !important;
+        border: 2px solid #fff !important; padding: 8px 15px;
+        border-radius: 12px; font-weight: 900;
+        animation: parpadeoNeon 1s infinite alternate; filter: none !important; opacity: 1 !important;
     }
-}
-/* El botón ahora forzado para que no se oscurezca */
-.service-item.agotado .btn-consultar-neon {
-    display: block !important;
-    position: absolute;
-    top: 50%;
-    right: 15px; /* Mantener fijo a la derecha */
-    
-    /* CAMBIO AQUÍ: Solo centrado vertical, sin traslación X */
-    transform: translateY(-50%) !important; 
-    
-    z-index: 9999;
-    background: #ff0000 !important;
-    color: #fff !important;
-    border: 2px solid #fff !important;
-    padding: 8px 15px;
-    border-radius: 12px;
-    font-weight: 900;
-    
-    /* Usamos la animación que ahora solo cambia el brillo */
-    animation: parpadeoNeon 1s infinite alternate; 
-    filter: none !important;
-    opacity: 1 !important;
-}
 
-
-/* AJUSTE SOLO PARA VISTA CUADRÍCULA */
-.grid-mode .service-item.agotado .btn-consultar-neon {
-    top: 85% !important; /* Aumenta este número para bajarlo más (85%, 90%, etc.) */
-    left: 50% !important;
-    right: auto !important; /* Anulamos el 'right' de la vista lista */
-    transform: translate(-50%, -50%) !important; /* Re-centramos horizontalmente */
-    width: 80%; /* Opcional: para que ocupe casi todo el ancho del cuadro */
-    text-align: center;
-}
+    .grid-mode .service-item.agotado .btn-consultar-neon {
+        top: 85% !important; left: 50% !important; right: auto !important; 
+        transform: translate(-50%, -50%) !important; width: 80%; text-align: center;
+    }
 
     .service-item.agotado { pointer-events: none; }
-    
     .service-item.agotado .service-card { 
         background: rgba(0, 0, 0, 0.95) !important; 
-        filter: grayscale(1) brightness(0. 2); 
-        border-color: rgba(255, 6, 0, 0. 2 ) !important;
+        filter: grayscale(1) brightness(0.2); 
+        border-color: rgba(255, 6, 0, 0.2) !important;
     }
 
     .service-item.agotado .badge-oferta, 
@@ -285,15 +252,15 @@
 
     /* BOTONES UNIVERSALES */
     .grid-botones { 
-        display: flex !important; flex-wrap: wrap; justify-content: center; gap: 15px; 
-        margin: 20px auto 30px auto; max-width: 900px; padding: 0 15px;
+        display: flex !important; flex-wrap: wrap; justify-content: center; gap: 10px; 
+        margin: 20px auto 30px auto; padding: 0 15px;
     }
 
     .btn-universal {
         display: flex; align-items: center; justify-content: center; padding: 8px 12px;
         border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.65rem;
         text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border: none;
-        cursor: pointer; flex: 1 1 calc(50% - 20px); min-width: 160px;
+        cursor: pointer; flex: 1 1 calc(50% - 15px); min-width: 140px;
     }
 
     .btn-inicio-top { background: #111 !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.1) !important; }
@@ -316,81 +283,30 @@
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    /* ================================================================
-        ESTILO GRID FINAL (EXPANDIDO PARA PC)
-    ================================================================ */
+    /* ESTILO GRID FINAL */
     .container.grid-mode {
         display: grid !important; 
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
         justify-content: center !important; 
-        gap: 20px !important; 
-        max-width: 100% !important; 
+        gap: 15px !important; 
         width: 100% !important; 
-        padding: 30px 20px !important;
+        padding: 20px !important;
     }
 
-    .grid-mode .category-title { 
-        grid-column: 1 / -1 !important; 
-        width: 100%;
-    }
-
+    .grid-mode .category-title { grid-column: 1 / -1 !important; width: 100%; }
     .grid-mode .service-card {
-        flex-direction: column !important; 
-        align-items: center !important;
-        text-align: center !important;
-        padding: 30px 10px 15px !important; 
-        min-height: 240px !important; 
-        border-radius: 20px !important;
-        justify-content: space-between !important;
-        height: 100% !important;
+        flex-direction: column !important; align-items: center !important;
+        text-align: center !important; padding: 30px 10px 15px !important; 
+        min-height: 240px !important; border-radius: 20px !important;
+        justify-content: space-between !important; height: 100% !important;
     }
 
-    .grid-mode .grid-botones {
-        grid-column: 1 / -1 !important;
-        max-width: 600px !important;
-        margin: 20px auto 30px auto !important;
-        justify-content: center !important;
-    }
-
-    .grid-mode .btn-universal {
-        border-radius: 50px !important;
-        flex: 0 1 calc(50% - 15px) !important;
-        min-width: 140px !important;
-        font-size: 0.7rem !important;
-    }
-
-    .grid-mode .service-logo { 
-        width: 60px !important; 
-        height: 60px !important; 
-        margin: 0 auto 10px auto !important; 
-    }
-
-    .grid-mode .service-text { width: 100%; }
-    .grid-mode .service-text h3 { font-size: 0.95rem !important; margin-bottom: 5px; }
-    .grid-mode .manual-desc { font-size: 0.65rem !important; line-height: 1.2 !important; margin-bottom: 10px; }
-    
-    .grid-mode .price-container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        width: 100% !important;
-        margin-top: auto !important;
-    }
-
+    .grid-mode .grid-botones { grid-column: 1 / -1 !important; margin: 10px auto !important; }
+    .grid-mode .btn-universal { border-radius: 50px !important; flex: 0 1 calc(50% - 10px) !important; min-width: 120px !important; }
+    .grid-mode .service-logo { width: 60px !important; height: 60px !important; margin: 0 auto 10px auto !important; }
+    .grid-mode .service-text h3 { font-size: 0.95rem !important; }
+    .grid-mode .price-container { display: flex !important; flex-direction: column !important; align-items: center !important; margin-top: auto !important; }
     .grid-mode .price-tag { font-size: 1.3rem !important; }
-    .grid-mode .premium-badge-tag { justify-content: center !important; font-size: 0.7rem !important; margin-bottom: 5px; }
-
-    .grid-mode .badge-oferta {
-        left: 20px !important; 
-        transform: none !important; 
-        width: auto !important; 
-        padding: 3px 12px !important; 
-        border-radius: 0 0 12px 12px !important; 
-        font-size: 0.65rem !important; 
-        font-weight: 800 !important;
-        text-transform: uppercase;
-        white-space: nowrap; 
-    }
 </style>
 </head>
 <body>
