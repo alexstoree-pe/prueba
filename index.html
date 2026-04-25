@@ -543,12 +543,14 @@
 <div id="modal-password" class="modal-pass">
     <div class="modal-content">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO CLIENTE</h2>
+        
+        <div id="error-msg" style="color: #ff4444; font-size: 0.8rem; margin-bottom: 10px; font-weight: 600; height: 1.2rem;"></div>
+
         <div class="input-wrapper">
             <input type="password" id="input-pass" maxlength="10" 
                    oninput="checkInput(this)" 
                    onkeydown="if(event.key==='Enter') validarPass()"
-                   autocomplete="new-password">
-            <div id="stars-placeholder" class="stars-bg">* * * *</div>
+                   autocomplete="off"> <div id="stars-placeholder" class="stars-bg">* * * *</div>
         </div>
         <button onclick="validarPass()" class="btn-desbloquear">DESBLOQUEAR</button>
         <span class="link-regresar" onclick="window.history.back()">Regresar al portal</span>
@@ -585,18 +587,29 @@
     }
 
     function validarPass() {
-        const input = document.getElementById('input-pass');
-        const stars = document.getElementById('stars-placeholder');
-        if (input.value.toLowerCase() === "cliente") {
-            sessionStorage.setItem("acceso_concedido", "true");
-            location.reload();
-        } else {
-            input.classList.add('error-shake');
-            input.value = "";
-            stars.classList.remove('hide-stars');
-            setTimeout(() => { input.classList.remove('error-shake'); }, 300);
-        }
+    const input = document.getElementById('input-pass');
+    const stars = document.getElementById('stars-placeholder');
+    const errorMsg = document.getElementById('error-msg'); // Seleccionamos el mensaje
+    
+    if (input.value.toLowerCase() === "cliente") {
+        sessionStorage.setItem("acceso_concedido", "true");
+        location.reload();
+    } else {
+        // Muestra el mensaje de error arriba del input
+        errorMsg.innerText = "CONTRASEÑA INCORRECTA";
+        
+        // Animación de error
+        input.classList.add('error-shake');
+        input.value = "";
+        stars.classList.remove('hide-stars'); 
+        
+        // Limpia el mensaje de error después de 3 segundos
+        setTimeout(() => { 
+            input.classList.remove('error-shake'); 
+            errorMsg.innerText = ""; 
+        }, 3000);
     }
+}
 
     function toggleCarrito(elemento) {
         elemento.classList.toggle('selected');
