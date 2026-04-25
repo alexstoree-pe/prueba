@@ -275,18 +275,23 @@
         <div class="trust-item"><i class="fas fa-bolt"></i>Entrega en 5 a 15 min</div>
     </div>
     <div class="search-container">
-        <input type="search" 
-       id="search-input" 
-       placeholder="Buscar plataforma..." 
-       autocomplete="off" 
-       name="search-alex-non-critical"
-       enterkeyhint="search"
-       autocorrect="off" 
-       spellcheck="false"
-       onfocus="iniciarBusqueda()" 
-       onblur="finalizarBusqueda()" 
-       onkeyup="filtrarProductos()">
+    <div style="position: absolute; overflow: hidden; height: 0; width: 0; pointer-events: none;">
+        <input type="text" name="prevent_autofill" tabindex="-1">
+        <input type="password" name="prevent_autofill_pass" tabindex="-1">
+    </div>
 
+    <input type="text" 
+           id="search-input" 
+           placeholder="Buscar plataforma..." 
+           autocomplete="one-time-code" 
+           name="no_user_field_alex"
+           readonly 
+           onfocus="this.removeAttribute('readonly'); iniciarBusqueda();" 
+           onblur="finalizarBusqueda()" 
+           onkeyup="filtrarProductos()"
+           inputmode="search">
+    
+    </div>
         <div class="filter-wrapper">
             <div class="scroll-indicator" id="scrollPrev"><i class="fas fa-chevron-left"></i></div>
             <div class="filter-container" id="filterScroll">
