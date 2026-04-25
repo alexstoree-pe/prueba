@@ -88,7 +88,9 @@
 
     .trust-item i { color: var(--primary); font-size: 0.9rem; margin-bottom: 2px; }
 
-    .search-container { margin: 10px auto 0; position: relative; width: 90%; }
+    .search-container { margin: 10px auto 0; position: relative; width: 90%; max-width: 500px; /* Para que coincida con el contenedor de filtros */
+    padding: 0 5px; /* Pequeño ajuste lateral */
+}}
     #search-input {
         width: 100%; padding: 10px 15px; border-radius: 12px; border: 1px solid var(--glass-border);
         background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
@@ -215,7 +217,7 @@
     flex-shrink: 0; /* Evita que el contenedor del precio se encoja */
     min-width: 80px; /* Espacio reservado para que el precio siempre quepa */
 } }
-    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px; white-space: nowrap; /* ¡CLAVE! Evita que el precio se rompa en dos líneas */}
+    .price-tag { color: var(--primary) !important; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px; white-space: nowrap; /* ¡CLAVE! Evita que el precio se rompa en dos líneas */}
 
     
     .agotado .btn-consultar-neon {
@@ -249,7 +251,10 @@
     .agotado .manual-desc { 
         display: none !important; 
     }
-
+/* 1. Por defecto, el botón de consultar (Sin Stock) SIEMPRE oculto */
+.btn-consultar-neon {
+    display: none !important;
+}
     .service-item.agotado .btn-consultar-neon {
     display: flex !important;
     position: absolute;
