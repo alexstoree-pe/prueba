@@ -773,20 +773,29 @@ body.searching .category-title {
     }
 
     function filtrarProductos() {
-        const bus = document.getElementById('search-input').value.toLowerCase();
-        document.querySelectorAll('.service-item').forEach(item => {
-            const nom = item.querySelector('.nombre-prod').innerText.toLowerCase();
-            item.style.display = nom.includes(bus) ? 'block' : 'none';
-        });
-
-        // MEJORA: Quitar difuminado si el buscador queda vacío
-        if (bus === "") {
-            document.body.classList.remove('searching');
+    const bus = document.getElementById('search-input').value.toLowerCase();
+    const items = document.querySelectorAll('.service-item');
+    
+    items.forEach(item => {
+        const nom = item.querySelector('.nombre-prod').innerText.toLowerCase();
+        if (nom.includes(bus)) {
+            item.style.display = 'block';
         } else {
-            document.body.classList.add('searching');
+            item.style.display = 'none';
         }
-        actualizarTitulos();
+    });
+
+    if (bus === "") {
+        document.body.classList.remove('searching');
+    } else {
+        document.body.classList.add('searching');
     }
+    
+    actualizarTitulos();
+    
+    // ESTA ES LA LÍNEA CLAVE:
+    AOS.refresh(); 
+}
 
     function filtrarCategoria(cat, btn) {
         document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
