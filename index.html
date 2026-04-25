@@ -53,7 +53,8 @@
     header h1 { 
         font-size: 1.4rem; font-weight: 800; 
         background: linear-gradient(to right, #fff, var(--primary));
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         letter-spacing: 1px;
     }
 
@@ -106,14 +107,14 @@
         background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
     }
     
-    /* Premium para Vista Lista (Normal) */
+    /* Premium para Vista Lista */
     .premium::after { 
         content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; 
         font-size: 0.5rem; font-weight: 900; color: #d4af37; 
         border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; z-index: 11;
     }
 
-    /* Texto Premium Interior (Oculto por defecto, se activa en Grid) */
+    /* Tag Premium para Grid */
     .premium-tag-inner { display: none; }
 
     .service-item.premium.selected .check-icon {
@@ -135,7 +136,7 @@
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
     .service-text h3 { font-size: 1.05rem; color: #fff; }
     .manual-desc { font-size: 0.75rem; color: #777; }
-    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; }
+    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
     .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     .category-title { margin: 25px 0 15px; font-size: 0.9rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; }
@@ -176,9 +177,7 @@
     .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
     .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
 
-    /* SOLUCIÓN AL PREMIUM FUERA DE TARJETA EN GRID */
-    .grid-mode .premium::after { display: none !important; } /* Oculta el de afuera */
-    
+    .grid-mode .premium::after { display: none !important; }
     .grid-mode .premium .premium-tag-inner { 
         display: inline-block; 
         font-size: 0.55rem; 
@@ -266,7 +265,8 @@
                 <span class="manual-desc">• Perfil Privado • 4K UHD.</span>
             </div>
             <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span> <span class="price-tag precio-prod">S/ 16</span>
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 16</span>
             </div>
         </div>
     </div>
@@ -281,7 +281,8 @@
                 <span class="manual-desc">• Activación TV • ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span> <span class="price-tag precio-prod">S/ 10</span>
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 10</span>
             </div>
         </div>
     </div>
@@ -365,7 +366,8 @@
                 <span class="manual-desc">• 1 mes • Perfil privado.</span>
             </div>
             <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span> <span class="price-tag precio-prod">S/ 5</span>
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 5</span>
             </div>
         </div>
     </div>
@@ -497,7 +499,8 @@
                 <span class="manual-desc">• Sin anuncios • Correo propio.</span>
             </div>
             <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span> <span class="price-tag precio-prod">S/ 8</span>
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 8</span>
             </div>
         </div>
     </div>
@@ -512,7 +515,8 @@
                 <span class="manual-desc">• Sin anuncios • Correo nuevo.</span>
             </div>
             <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span> <span class="price-tag precio-prod">S/ 8</span>
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 8</span>
             </div>
         </div>
     </div>
@@ -531,12 +535,26 @@
             </div>
         </div>
     </div>
-    <div id="discount-label" style="font-size:0.7rem; color:var(--promo); margin-top:5px; display:none; font-weight:700;"></div>
+</div>
+
+<div id="modal-password" class="modal-pass" style="align-items: center;">
+    <div class="modal-content" style="border-radius:25px; margin:20px; width:90%; max-width:400px;">
+        <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
+        <input type="password" id="input-pass" placeholder="****" onkeydown="if(event.key==='Enter') validarPass()" style="width:100%; padding:15px; margin:20px 0; border-radius:15px; background:#000; color:var(--primary); text-align:center; font-size:1.5rem; border:1px solid #333;">
+        <button onclick="validarPass()" style="padding:15px; width:100%; border-radius:15px; background:var(--primary); font-weight:800; border:none; cursor:pointer;">INGRESAR</button>
+    </div>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 800, once: true });
+    // CORRECCIÓN AOS MENOS AGRESIVO
+    AOS.init({ 
+        duration: 800, 
+        once: true,
+        offset: 0, // Inicia apenas toca la pantalla
+        delay: 50
+    });
+
     let carrito = [];
     const numWhatsApp = "51918600000";
 
@@ -549,6 +567,12 @@
             });
         }
     })();
+
+    function validarPass() {
+        if (document.getElementById('input-pass').value === "cliente") {
+            sessionStorage.setItem("acceso_concedido", "true"); location.reload();
+        } else { alert("Código incorrecto"); }
+    }
 
     function toggleCarrito(elemento) {
         elemento.classList.toggle('selected');
@@ -563,18 +587,8 @@
 
     function actualizarUI() {
         const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
-        let desc = 0;
-        if (carrito.length >= 2) {
-            const ordenado = [...carrito].sort((a,b) => b.precio - a.precio);
-            for(let i=1; i<ordenado.length; i++) desc += (ordenado[i].precio >= 10) ? 2 : 1;
-        }
         document.getElementById('cart-count').innerText = carrito.length;
-        document.getElementById('cart-total').innerText = `S/ ${subtotal - desc}`;
-        const label = document.getElementById('discount-label');
-        if (desc > 0) {
-            label.innerText = `¡Ahorro aplicado: S/ ${desc}! 🎁`;
-            label.style.display = 'block';
-        } else label.style.display = 'none';
+        document.getElementById('cart-total').innerText = `S/ ${subtotal}`;
         document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
     }
 
@@ -583,7 +597,8 @@
         document.querySelectorAll('.btn-view').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         cont.className = modo === 'grid' ? 'container grid-mode' : 'container';
-        AOS.refresh();
+        // Refrescar AOS para que las tarjetas nuevas aparezcan de inmediato
+        setTimeout(() => { AOS.refreshHard(); }, 100);
     }
 
     function filtrarProductos() {
