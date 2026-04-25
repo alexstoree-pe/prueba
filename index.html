@@ -217,8 +217,13 @@
     flex-shrink: 0; /* Evita que el contenedor del precio se encoja */
     min-width: 80px; /* Espacio reservado para que el precio siempre quepa */
 } }
-    .price-tag { color: var(--primary) !important; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px; white-space: nowrap; /* ¡CLAVE! Evita que el precio se rompa en dos líneas */}
-
+    .price-tag { 
+    color: var(--primary) !important; /* Asegura el celeste por defecto */
+    font-weight: 700; 
+    font-size: 1.3rem; 
+    letter-spacing: -0.5px; 
+    white-space: nowrap; 
+}
     
     .agotado .btn-consultar-neon {
         display: block !important; position: absolute; top: 50%; right: 15px;
@@ -262,6 +267,17 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
+    background: #ff0000 !important;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    filter: none !important; 
+    animation: flashAgotado 1s infinite alternate;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+}
     
     /* Colores vibrantes para que destaque */
     background: #ff0000 !important;
