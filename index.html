@@ -53,8 +53,7 @@
     header h1 { 
         font-size: 1.4rem; font-weight: 800; 
         background: linear-gradient(to right, #fff, var(--primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         letter-spacing: 1px;
     }
 
@@ -88,6 +87,7 @@
         transition: 0.3s;
     }
 
+    /* --- TARJETAS --- */
     .service-item { 
         cursor: pointer; margin-bottom: 15px; position: relative; 
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
@@ -106,6 +106,7 @@
         background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(0,0,0,0));
     }
     
+    /* Premium para Vista Lista */
     .premium::after { 
         content: 'PREMIUM'; position: absolute; top: 10px; right: 45px; 
         font-size: 0.5rem; font-weight: 900; color: #d4af37; 
@@ -158,13 +159,13 @@
         border-bottom: 1px solid var(--glass-border);
         padding-bottom: 10px;
         margin-top: 30px;
-        display: block; /* Asegura que el filtro lo vea */
+        display: block; 
     }
 
     .grid-mode .service-card { 
         flex-direction: column; 
         text-align: center; 
-        min-height: 280px; 
+        min-height: 290px; 
         justify-content: space-between; 
         padding-top: 35px;
     }
@@ -172,13 +173,13 @@
     .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
     .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
 
-    /* CORRECCIÓN: PREMIUM DENTRO DE LA TARJETA EN GRID */
+    /* CORRECCIÓN PREMIUM DENTRO DE LA TARJETA EN GRID */
     .grid-mode .premium::after { 
         position: relative !important; 
         top: 0 !important; 
         right: 0 !important;
         display: inline-block !important; 
-        margin: 5px auto !important;
+        margin: 0 auto 5px !important; /* Centrado y arriba del precio */
         width: fit-content !important;
     }
 
@@ -632,19 +633,23 @@
         document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const term = cat.toUpperCase();
+        
         document.querySelectorAll('.service-item').forEach(item => {
-            // Se busca tanto en el texto del item como en el título de su sección
-            let tituloRelacionado = "";
-            let previo = item.previousElementSibling;
-            while(previo && !previo.classList.contains('category-title')) {
-                previo = previo.previousElementSibling;
+            // CORRECCIÓN DE LÓGICA DE FILTRO PARA GRID
+            let categoriaDelItem = "";
+            let elementoAnterior = item.previousElementSibling;
+            while(elementoAnterior) {
+                if(elementoAnterior.classList.contains('category-title')) {
+                    categoriaDelItem = elementoAnterior.innerText.toUpperCase();
+                    break;
+                }
+                elementoAnterior = elementoAnterior.previousElementSibling;
             }
-            if(previo) tituloRelacionado = previo.innerText.toUpperCase();
 
             if (term === 'TODOS') {
                 item.style.display = 'block';
             } else {
-                const coincide = item.innerText.toUpperCase().includes(term) || tituloRelacionado.includes(term);
+                const coincide = item.innerText.toUpperCase().includes(term) || categoriaDelItem.includes(term);
                 item.style.display = coincide ? 'block' : 'none';
             }
         });
