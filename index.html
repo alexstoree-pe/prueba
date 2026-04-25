@@ -43,7 +43,7 @@
         padding-bottom: 100px; 
     }
 
-    /* --- HEADER --- */
+    /* --- HEADER COMPACTO --- */
     header {
         background: rgba(10, 10, 10, 0.85);
         backdrop-filter: blur(20px);
@@ -94,7 +94,6 @@
 
     .check-icon { position: absolute; top: 12px; right: 12px; background: var(--primary); color: #000; width: 26px; height: 26px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; z-index: 20; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
     .selected .check-icon { display: flex !important; animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .premium.selected .check-icon { background: var(--gold-gradient) !important; color: #000 !important; }
 
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
     .service-text h3 { font-size: 1.05rem; color: #fff; }
@@ -119,11 +118,11 @@
     .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 25px; color: var(--primary); }
     .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1.1rem; text-align: center; }
 
-    /* --- MODAL ACCESO (EFECTO FOTO) --- */
+    /* --- ESTILO MODAL ACCESO (EFECTO FOTO CORREGIDO PC) --- */
     .input-wrapper { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 30px; }
-    .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.3s; line-height: 1.2; }
-    #input-pass { width: 220px; background: transparent !important; border: none !important; border-bottom: 2px solid #222 !important; color: #fff; font-size: 2.2rem; text-align: center; letter-spacing: 12px; outline: none; z-index: 2; position: relative; }
-    #input-pass:not(:placeholder-shown) + .stars-bg { opacity: 0; }
+    .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; line-height: 1.2; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; }
+    .hide-stars { opacity: 0 !important; }
+    #input-pass { width: 220px; background: transparent !important; border: none !important; border-bottom: 2px solid #222 !important; color: #fff; font-size: 2.2rem; text-align: center; letter-spacing: 12px; outline: none; z-index: 2; position: relative; padding: 10px 0; }
     
     @keyframes shake {
         0%, 100% { transform: translateX(0); }
@@ -132,18 +131,11 @@
     }
     .error-shake { animation: shake 0.3s ease-in-out; border-bottom-color: var(--danger) !important; }
 
-    .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; border: none; cursor: pointer; }
-    .btn-desbloquear { background: #fff !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 25px; font-size: 1rem; border: none; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
-    .btn-modal-back { background: #1a1a1a !important; color: #666 !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; }
+    .btn-desbloquear { background: #fff !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 25px; font-size: 1rem; border: none; cursor: pointer; margin-bottom: 10px; transition: 0.3s; text-transform: uppercase; }
     .link-regresar { display: block; color: #333; font-size: 0.75rem; text-decoration: none; cursor: pointer; }
 
-    /* VISTA CUADRÍCULA */
-    .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 95% !important; width: 100%; padding: 15px; }
-    @media (min-width: 900px) { .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
-    .grid-mode .category-title { grid-column: 1 / -1; width: 100%; margin-top: 30px; display: flex; }
-    .grid-mode .service-card { flex-direction: column; text-align: center; min-height: 290px; justify-content: space-between; padding-top: 35px; }
-    .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
-    .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
+    .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; border: none; cursor: pointer; }
+    .btn-modal-back { background: #1a1a1a !important; color: #666 !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; }
 
     .hidden { display: none; }
     @keyframes popCheck { 0% { transform: scale(0); } 100% { transform: scale(1); } }
@@ -197,6 +189,7 @@
                 <span class="manual-desc">• Perfil Privado • 4K UHD • Renovable.</span>
             </div>
             <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 16</span>
             </div>
         </div>
@@ -212,6 +205,7 @@
                 <span class="manual-desc">• Activación TV • ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 10</span>
             </div>
         </div>
@@ -264,8 +258,11 @@
     <div class="modal-content" style="border-radius:40px;">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO CLIENTE</h2>
         <div class="input-wrapper">
-            <input type="password" id="input-pass" maxlength="10" placeholder=" " onkeydown="if(event.key==='Enter') validarPass()">
-            <div class="stars-bg">* * * *</div>
+            <input type="password" id="input-pass" maxlength="10" 
+                   oninput="checkInput(this)" 
+                   onkeydown="if(event.key==='Enter') validarPass()"
+                   autocomplete="new-password">
+            <div id="stars-placeholder" class="stars-bg">* * * *</div>
         </div>
         <button onclick="validarPass()" class="btn-desbloquear">DESBLOQUEAR</button>
         <span class="link-regresar" onclick="window.history.back()">Regresar al portal</span>
@@ -278,7 +275,7 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // --- SEGURIDAD AVANZADA ---
+    // --- SEGURIDAD AVANZADA (REFERRER) ---
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
@@ -295,14 +292,24 @@
         }
     })();
 
+    // LÓGICA DE ESTRELLAS DE FONDO
+    function checkInput(el) {
+        const stars = document.getElementById('stars-placeholder');
+        if (el.value.length > 0) { stars.classList.add('hide-stars'); } 
+        else { stars.classList.remove('hide-stars'); }
+    }
+
+    // VALIDACIÓN SIN ALERTAS (VIBRACIÓN ROJA)
     function validarPass() {
         const input = document.getElementById('input-pass');
+        const stars = document.getElementById('stars-placeholder');
         if (input.value.toLowerCase() === "cliente") {
             sessionStorage.setItem("acceso_concedido", "true");
             location.reload();
         } else {
             input.classList.add('error-shake');
             input.value = "";
+            stars.classList.remove('hide-stars');
             setTimeout(() => { input.classList.remove('error-shake'); }, 300);
         }
     }
@@ -313,7 +320,8 @@
         const manual = elemento.querySelector('.manual-desc').innerText;
         const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
         const idx = carrito.findIndex(i => i.nombre === nombre);
-        if (idx > -1) { carrito.splice(idx, 1); } else { carrito.push({nombre, manual, precio}); }
+        if (idx > -1) { carrito.splice(idx, 1); } 
+        else { carrito.push({nombre, manual, precio}); }
         actualizarUI();
     }
 
@@ -347,7 +355,7 @@
 
         let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
         carrito.forEach(i => {
-            msg += `⭐ *${i.nombre}*\n📝 ${i.manual}\n`;
+            msg += `⭐ *${i.nombre}*\n📝 ${i.manual}\n`; // INCLUYE MANUAL DESC
             if(per.trim() !== "") msg += `👤 Perfil: ${per}\n`;
             msg += `--------------------------\n`;
         });
@@ -410,7 +418,12 @@
     function mostrarFormAntiguo() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'block'; }
     function volverPaso1() { document.getElementById('paso-1').style.display = 'block'; document.getElementById('form-datos').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'none'; }
     function limpiarCarrito() { carrito = []; document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected')); actualizarUI(); }
-    window.onload = () => { document.documentElement.style.display = "block"; };
+    
+    window.onload = () => { 
+        document.documentElement.style.display = "block";
+        const input = document.getElementById('input-pass');
+        if(input) input.value = "";
+    };
 </script>
 </body>
 </html>
