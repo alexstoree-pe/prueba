@@ -8,6 +8,12 @@
     <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
     <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 
+    <meta property="og:title" content="Alex Store | Catálogo Premium">
+    <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
+    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -37,7 +43,7 @@
         padding-bottom: 100px; 
     }
 
-    /* --- HEADER --- */
+    /* --- HEADER COMPACTO --- */
     header {
         background: rgba(10, 10, 10, 0.85);
         backdrop-filter: blur(20px);
@@ -51,7 +57,10 @@
 
     .brand-logo { width: 35px; height: 35px; object-fit: contain; border-radius: 10px; margin-bottom: 2px; }
     header h1 { font-size: 1.1rem; font-weight: 800; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-    
+    .trust-bar { display: flex; justify-content: center; gap: 12px; margin: 4px 0; }
+    .trust-item { display: flex; align-items: center; gap: 4px; font-size: 0.35rem; font-weight: 600; color: #888; text-transform: uppercase; }
+    .trust-item i { color: var(--primary); font-size: 0.6rem; }
+
     .search-container { max-width: 600px; margin: 5px auto 0; position: relative; }
     #search-input { width: 100%; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins'; outline: none; font-size: 0.8rem; margin-bottom: 10px;}
 
@@ -59,11 +68,17 @@
     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 15px; }
     .btn-universal { display: flex; align-items: center; justify-content: center; padding: 10px 8px; border-radius: 50px; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; cursor: pointer; text-decoration: none; border: none; text-align: center; transition: 0.3s; }
 
+    /* --- CATEGORIAS --- */
+    .category-title { 
+        margin: 30px 0 15px; padding: 10px 15px; font-size: 0.85rem; font-weight: 700; color: var(--primary); letter-spacing: 2px; background: rgba(255,255,255,0.03); border-radius: 12px; border-left: 4px solid var(--primary); text-transform: uppercase; display: flex; align-items: center;
+    }
+
     /* --- TARJETAS --- */
     .service-item { cursor: pointer; margin-bottom: 12px; position: relative; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .service-item.selected { transform: scale(0.95) !important; }
     .service-card { background: var(--glass); border-radius: 22px; padding: 18px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 15px; position: relative; overflow: visible; transition: 0.4s ease; }
-    
+
+    .service-item:hover .service-card { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.3); }
     .service-item.selected .service-card { background: rgba(0, 212, 255, 0.12) !important; border-color: var(--primary) !important; box-shadow: 0 0 25px rgba(0, 212, 255, 0.3); }
     .service-item.premium.selected .service-card { background: rgba(212, 175, 55, 0.15) !important; border-color: var(--promo) !important; box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
 
@@ -74,37 +89,55 @@
     .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
     .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
+    .badge-oferta { position: absolute; top: -1px; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
+    .service-item.oferta .badge-oferta { display: block; }
+
     .check-icon { position: absolute; top: 12px; right: 12px; background: var(--primary); color: #000; width: 26px; height: 26px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; z-index: 20; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
     .selected .check-icon { display: flex !important; animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .service-item.premium.selected .check-icon { background: var(--gold-gradient) !important; }
 
-    /* --- VISTA CUADRÍCULA --- */
+    /* --- VISTA CUADRÍCULA (RESTAURADO) --- */
     .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 95% !important; width: 100%; padding: 15px; }
     @media (min-width: 900px) { .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
     .grid-mode .category-title { grid-column: 1 / -1; width: 100%; margin-top: 30px; display: flex; }
     .grid-mode .service-card { flex-direction: column; text-align: center; min-height: 290px; justify-content: space-between; padding-top: 35px; }
+    .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
     .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
     .grid-mode .premium::after { display: none !important; }
     .grid-mode .premium .premium-tag-inner { display: inline-block; font-size: 0.55rem; font-weight: 900; color: var(--promo); border: 1px solid var(--promo); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; }
     .premium-tag-inner { display: none; }
+    .grid-mode .badge-oferta { left: 50% !important; transform: translateX(-50%) !important; width: 85% !important; text-align: center; }
 
-    /* --- BARRA FLOTANTE WHATSAPP (RESTAURADA) --- */
+    /* --- FILTROS CON FLECHAS --- */
+    .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; gap: 5px; padding: 0 10px; }
+    .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; scroll-behavior: smooth; flex-grow: 1; }
+    .filter-container::-webkit-scrollbar { display: none; }
+    .scroll-indicator { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--primary); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; flex-shrink: 0; }
+    
+    .view-controls { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
+    .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
+
+    /* BOTONES FLOTANTES */
     .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-    .discount-label { font-size: 0.7rem; color: var(--promo); margin-top: 5px; font-weight: 700; display: none; text-align: center; }
+    .discount-label { font-size: 0.7rem; color: var(--promo); margin-top: 5px; font-weight: 700; display: none; text-align: center;}
 
-    /* --- FORMULARIOS (DISEÑO SOLICITADO) --- */
-    .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 3000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
-    .modal-content { background: #0d0d0d; padding: 35px 25px; border-radius: 35px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #222; }
-    .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 20px; color: var(--primary); }
-    .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1rem; text-align: center; }
+    /* --- FORMULARIOS (DISEÑO EXACTO IMAGE_42B447.PNG) --- */
+    .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 3000; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
+    .modal-content { background: #0d0d0d; padding: 40px 30px; border-radius: 40px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #1a1a1a; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+    .modal-content h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; color: var(--primary); }
+    .modal-content p { color: #888; font-size: 0.85rem; margin-bottom: 25px; line-height: 1.4; }
+    .modal-content input { width: 100%; padding: 20px; margin-bottom: 20px; border-radius: 20px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1rem; text-align: center; }
     .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 1rem; text-transform: uppercase; border: none; cursor: pointer; }
-    .btn-modal-back { background: #1a1a1a !important; color: #fff !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; opacity: 0.6; }
+    .btn-modal-back { background: #1a1a1a !important; color: #fff !important; width: 100%; padding: 18px; border-radius: 50px; margin-top: 15px; font-size: 0.9rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; opacity: 0.6; }
 
-    /* --- MODAL ACCESO --- */
+    /* --- MODAL ACCESO PC CORREGIDO --- */
     .input-wrapper { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 30px; }
     .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     .hide-stars { opacity: 0 !important; }
-    #input-pass { width: 220px; background: transparent !important; border: none !important; border-bottom: 2px solid #222 !important; color: #fff; font-size: 2.2rem; text-align: center; letter-spacing: 12px; outline: none; z-index: 2; position: relative; }
+    #input-pass { width: 220px; background: transparent !important; border: none !important; border-bottom: 2px solid #222 !important; color: #fff; font-size: 2.2rem; text-align: center; letter-spacing: 12px; outline: none; z-index: 2; position: relative; padding: 10px 0; }
+    .btn-desbloquear { background: #fff !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 25px; font-size: 1rem; border: none; cursor: pointer; margin-bottom: 10px; transition: 0.3s; text-transform: uppercase; }
+
     @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
     .error-shake { animation: shake 0.3s ease-in-out; border-bottom-color: var(--danger) !important; }
 
@@ -116,9 +149,25 @@
 
 <header>
     <img src="../img/logo.webp" class="brand-logo" data-aos="zoom-in">
-    <h1>ALEX STORE</h1>
+    <h1 data-aos="fade-down">ALEX STORE</h1>
+    <div class="trust-bar">
+        <div class="trust-item"><i class="fas fa-headset"></i>Soporte</div>
+        <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía</div>
+        <div class="trust-item"><i class="fas fa-bolt"></i>Rápido</div>
+    </div>
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Buscar plataforma..." onkeyup="filtrarProductos()">
+        <div class="filter-wrapper">
+            <div class="scroll-indicator" id="scrollPrev"><i class="fas fa-chevron-left"></i></div>
+            <div class="filter-container" id="filterScroll">
+                <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+                <button class="btn-nav" onclick="filtrarCategoria('🎬 STREAMING Y CINE', this)">PERFILES</button>
+                <button class="btn-nav" onclick="filtrarCategoria('DISEÑOS Y MAS', this)">DISEÑO</button>
+                <button class="btn-nav" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">TV DIGITAL</button>
+                <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button>
+            </div>
+            <div class="scroll-indicator" id="scrollNext"><i class="fas fa-chevron-right"></i></div>
+        </div>
         <div class="view-controls">
             <button class="btn-view active" onclick="cambiarVista('list', this)"><i class="fas fa-list"></i></button>
             <button class="btn-view" onclick="cambiarVista('grid', this)"><i class="fas fa-th-large"></i></button>
@@ -134,7 +183,8 @@
         <a href="https://chat.whatsapp.com/Dhp57nuChw89kT6pb5kggS" target="_blank" class="btn-universal" style="background:linear-gradient(45deg, #25d366, #128c7e); color:#fff;">👥 COMUNIDAD</a>
     </div>
 
-    <div class="category-title">🎬 STREAMING Y CINE</div>
+    <div class="category-title" data-aos="fade-right">🎬 STREAMING Y CINE</div>
+
     <div class="service-item oferta premium" onclick="toggleCarrito(this)" data-aos="fade-up">
         <div class="badge-oferta">MÁS SOLICITADO 🔥</div>
         <div class="service-card">
@@ -163,6 +213,150 @@
             <div class="price-container">
                 <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 10</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/disneys.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
+                <span class="manual-desc">• Sin canales ESPN • Perfil privado.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 7</span></div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/max.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Max Standard</h3>
+                <span class="manual-desc">• 1 mes • Full HD • Perfil privado.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/max.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">MAX Platino</h3>
+                <span class="manual-desc">• 1 mes • premium 4K • Perfil privado.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span></div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • Activacion solo a TV.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado • Correo propio.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span></div>
+        </div>
+    </div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/vix.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">VIX PREMIUM</h3>
+                <span class="manual-desc">• 1 mes • perfil privado • premium.</span>
+            </div>
+            <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 5</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/paramount.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PARAMOUNT</h3>
+                <span class="manual-desc">• 1 mes • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 6</span></div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/crunchyroll.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CRUNCHYROLL </h3>
+                <span class="manual-desc">• 1 mes • plan premium • perfil privado.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">💻 DISEÑOS Y MAS</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.webp" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (1 mes) </h3>
+                <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span></div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">📺 TELEVISIÓN DIGITAL</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card"> 
+            <div class="check-icon">✓</div>
+            <img src="../img/movistar.webp" class="service-logo"> 
+            <div class="service-text">
+                <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
+                <span class="manual-desc">• Canal l1 Max • Activación a TV.</span>
+            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 20</span></div>
+        </div>
+    </div>
+
+    <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/spotify.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
+                <span class="manual-desc">• Sin anuncios • Correo propio.</span>
+            </div>
+            <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 8</span>
             </div>
         </div>
     </div>
@@ -202,7 +396,7 @@
         </div>
         <div id="form-antiguo" style="display:none;">
             <h2 style="color:var(--primary);">Confirmar Perfil</h2>
-            <p style="color:#888; font-size:0.8rem; margin-bottom:15px;">Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
+            <p>Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
             <input type="text" id="antiguo-per" placeholder="Nombre para Perfil (Opcional)">
             <button class="btn-modal-main" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
             <button class="btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
@@ -225,11 +419,11 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 400, once: true, offset: 0 });
+    AOS.init({ duration: 400, once: true, offset: 0, delay: 50 });
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // SEGURIDAD
+    // SEGURIDAD ORIGEN
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
@@ -239,6 +433,10 @@
         }
     })();
 
+    const filterScroll = document.getElementById('filterScroll');
+    document.getElementById('scrollNext').onclick = () => filterScroll.scrollBy({ left: 150, behavior: 'smooth' });
+    document.getElementById('scrollPrev').onclick = () => filterScroll.scrollBy({ left: -150, behavior: 'smooth' });
+
     function checkInput(el) {
         const stars = document.getElementById('stars-placeholder');
         if (el.value.length > 0) stars.classList.add('hide-stars');
@@ -247,16 +445,9 @@
 
     function validarPass() {
         const input = document.getElementById('input-pass');
-        const stars = document.getElementById('stars-placeholder');
         const errorMsg = document.getElementById('error-msg');
         if (input.value.toLowerCase() === "cliente") { sessionStorage.setItem("acceso_concedido", "true"); location.reload(); } 
-        else {
-            errorMsg.innerText = "CONTRASEÑA INCORRECTA";
-            input.classList.add('error-shake');
-            input.value = "";
-            stars.classList.remove('hide-stars');
-            setTimeout(() => { input.classList.remove('error-shake'); errorMsg.innerText = ""; }, 3000);
-        }
+        else { errorMsg.innerText = "CONTRASEÑA INCORRECTA"; input.classList.add('error-shake'); input.value = ""; setTimeout(() => { input.classList.remove('error-shake'); errorMsg.innerText = ""; }, 3000); }
     }
 
     function toggleCarrito(elemento) {
@@ -321,6 +512,34 @@
         document.querySelectorAll('.service-item').forEach(item => {
             const nom = item.querySelector('.nombre-prod').innerText.toLowerCase();
             item.style.display = nom.includes(bus) ? 'block' : 'none';
+        });
+        actualizarTitulos();
+    }
+
+    function filtrarCategoria(cat, btn) {
+        document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const term = cat.toUpperCase();
+        document.querySelectorAll('.service-item').forEach(item => {
+            let catItem = "";
+            let ant = item.previousElementSibling;
+            while(ant) { if(ant.classList.contains('category-title')) { catItem = ant.innerText.toUpperCase(); break; } ant = ant.previousElementSibling; }
+            if (term === 'TODOS') item.style.display = 'block';
+            else item.style.display = (item.innerText.toUpperCase().includes(term) || catItem.includes(term)) ? 'block' : 'none';
+        });
+        actualizarTitulos();
+        AOS.refreshHard();
+    }
+
+    function actualizarTitulos() {
+        document.querySelectorAll('.category-title').forEach(titulo => {
+            let has = false;
+            let hermano = titulo.nextElementSibling;
+            while (hermano && !hermano.classList.contains('category-title')) {
+                if (hermano.classList.contains('service-item') && hermano.style.display !== 'none') { has = true; break; }
+                hermano = hermano.nextElementSibling;
+            }
+            titulo.style.display = has ? 'block' : 'none';
         });
     }
 
