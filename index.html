@@ -181,6 +181,14 @@
         box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
 
+    /* Ajuste específico para el badge Premium en vista lista */
+.service-item .premium-badge-tag {
+    display: flex;
+    justify-content: flex-end; /* Mantiene la alineación base */
+    margin-right: 25px;        /* Aumenta este número para moverlo más a la izquierda */
+    position: relative;        /* Para asegurar que el desplazamiento sea fluido */
+    width: auto;               /* Evita que ocupe todo el ancho si no es necesario */
+}
     .premium-badge-tag {
         color: #FFD700 !important;
         font-weight: 900 !important;
@@ -225,7 +233,7 @@
         to { opacity: 0.8; box-shadow: 0 0 35px #ff4444; }
     }
 
-    .service-item.agotado .btn-consultar-neon {
+    .agotado .btn-consultar-neon {
         display: block !important; position: absolute; top: 50%; right: 15px;
         transform: translateY(-50%) !important; z-index: 9999;
         background: #ff0000 !important; color: #fff !important;
@@ -234,23 +242,23 @@
         animation: parpadeoNeon 1s infinite alternate; filter: none !important; opacity: 1 !important;
     }
 
-    .grid-mode .service-item.agotado .btn-consultar-neon {
+    .grid-mode .agotado .btn-consultar-neon {
         top: 85% !important; left: 50% !important; right: auto !important; 
         transform: translate(-50%, -50%) !important; width: 80%; text-align: center;
     }
 
-    .service-item.agotado { pointer-events: none; }
-    .service-item.agotado .service-card { 
+    .agotado { pointer-events: none; }
+    .agotado .service-card { 
         background: rgba(0, 0, 0, 0.95) !important; 
         filter: grayscale(1) brightness(0.2); 
         border-color: rgba(255, 6, 0, 0.2) !important;
     }
 
-    .service-item.agotado .badge-oferta, 
-    .service-item.agotado .premium-badge-tag, 
-    .service-item.agotado .price-tag, 
-    .service-item.agotado .check-icon,
-    .service-item.agotado .manual-desc { 
+    .agotado .badge-oferta, 
+    .agotado .premium-badge-tag, 
+    .agotado .price-tag, 
+    .agotado .check-icon,
+    .agotado .manual-desc { 
         display: none !important; 
     }
 
@@ -747,7 +755,7 @@
     const numWhatsApp = "51918600000";
 
     document.addEventListener("DOMContentLoaded", () => {
-    const premiumItems = document.querySelectorAll('.service-item.premium');
+    const premiumItems = document.querySelectorAll('.premium');
     
     premiumItems.forEach(item => {
         const priceContainer = item.querySelector('.price-container');
