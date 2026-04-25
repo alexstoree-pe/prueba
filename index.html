@@ -275,7 +275,18 @@
         <div class="trust-item"><i class="fas fa-bolt"></i>Entrega en 5 a 15 min</div>
     </div>
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Buscar plataforma..." autocomplete="off" name="search-alex-store-secure" onfocus="iniciarBusqueda()" onblur="finalizarBusqueda()" onkeyup="filtrarProductos()">
+        <input type="search" 
+       id="search-input" 
+       placeholder="Buscar plataforma..." 
+       autocomplete="off" 
+       name="search-alex-non-critical"
+       enterkeyhint="search"
+       autocorrect="off" 
+       spellcheck="false"
+       onfocus="iniciarBusqueda()" 
+       onblur="finalizarBusqueda()" 
+       onkeyup="filtrarProductos()">
+
         <div class="filter-wrapper">
             <div class="scroll-indicator" id="scrollPrev"><i class="fas fa-chevron-left"></i></div>
             <div class="filter-container" id="filterScroll">
