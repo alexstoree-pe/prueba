@@ -72,13 +72,28 @@
 
     .container { padding: 20px 15px; max-width: 600px; margin: auto; transition: all 0.4s ease; }
 
-    /* --- CORRECCIÓN DE MOVIMIENTO UNIFICADO --- */
+    /* --- CORRECCIÓN: BOTONES EN 2 COLUMNAS Y 2 FILAS --- */
+    .grid-botones { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; /* Dos columnas */
+        gap: 12px; 
+        margin: 20px 0 30px; 
+    }
+
+    .btn-universal { 
+        display: flex; align-items: center; justify-content: center; 
+        padding: 15px 10px; border-radius: 50px; font-weight: 800; 
+        font-size: 0.7rem; text-transform: uppercase; cursor: pointer; 
+        text-decoration: none; border: none; text-align: center;
+        transition: 0.3s;
+    }
+
+    /* --- TARJETA CORREGIDA (Hundimiento Unificado) --- */
     .service-item { 
         cursor: pointer; margin-bottom: 15px; position: relative; 
         transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     }
     
-    /* El hundimiento ahora afecta a TODO el item */
     .service-item.selected { transform: scale(0.95) !important; }
 
     .service-card { 
@@ -98,18 +113,16 @@
         border: 1px solid #d4af37; padding: 1px 5px; border-radius: 4px; z-index: 11;
     }
 
-    /* CHECK DORADO PARA PREMIUM */
+    /* CHECK DORADO PREMIUM */
     .service-item.premium.selected .check-icon {
         background: var(--gold-gradient) !important;
         color: #000 !important;
-        box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     }
 
     /* PRECIO A LA DERECHA */
     .price-container { 
         display: flex; flex-direction: column; align-items: flex-end; 
-        margin-left: auto; /* Empuja el precio a la derecha */
-        min-width: 85px; 
+        margin-left: auto; min-width: 85px; 
     }
 
     .badge-oferta { position: absolute; top: -1px; left: 20px; background: var(--promo); color: #000; padding: 2px 12px; border-radius: 0 0 10px 10px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; display: none; z-index: 11; }
@@ -119,33 +132,29 @@
     .selected .check-icon { display: flex !important; animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
-    .service-text { flex-grow: 1; } 
-    .service-text h3 { font-size: 1.05rem; font-weight: 600; color: #fff; }
+    .service-text h3 { font-size: 1.05rem; color: #fff; }
     .manual-desc { font-size: 0.75rem; color: #777; }
-    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; white-space: nowrap; }
+    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.25rem; }
     .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    /* FILTROS Y VISTAS */
+    /* VISTAS */
     .filter-wrapper { margin: 10px 0; position: relative; display: flex; align-items: center; }
     .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
     .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-    .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
+    .btn-nav.active { background: var(--primary); color: #000; }
     .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 10px 20px; }
-    .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-    .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
+    .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+    .btn-view.active { color: var(--primary); border-color: var(--primary); }
 
     /* GRID MODE */
     .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .grid-mode .service-card { flex-direction: column; text-align: center; min-height: 250px; justify-content: space-between; }
     .grid-mode .price-container { margin-left: 0; align-items: center; }
     .grid-mode .badge-oferta { left: 50%; transform: translateX(-50%); width: 85%; text-align: center; }
-    .grid-mode .premium::after { position: static !important; display: inline-block !important; margin-bottom: 5px; }
 
-    /* MODALES Y BOTONES */
-    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; }
     .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: flex-end; z-index: 3000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
     .modal-content { background: #111; padding: 35px 25px; border-radius: 35px 35px 0 0; width: 100%; max-width: 500px; text-align: center; border: 1px solid var(--glass-border); }
-    .btn-universal { display: flex; align-items: center; justify-content: center; padding: 15px 10px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; cursor: pointer; text-decoration: none; border: none; }
     
     .hidden { display: none; }
     @keyframes popCheck { 0% { transform: scale(0); } 100% { transform: scale(1); } }
@@ -160,9 +169,9 @@
     
     <div class="search-container" data-aos="fade-up">
         <div class="trust-bar">
-            <div class="trust-item"><i class="fas fa-headset"></i>Soporte Garantizado</div>
-            <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía Total</div>
-            <div class="trust-item"><i class="fas fa-bolt"></i>Entrega Rápida</div>
+            <div class="trust-item"><i class="fas fa-headset"></i>Soporte</div>
+            <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía</div>
+            <div class="trust-item"><i class="fas fa-bolt"></i>Rápido</div>
         </div>
         <input type="text" id="search-input" placeholder="Buscar plataforma..." onkeyup="filtrarProductos()" style="margin-top:10px;">
         
@@ -215,7 +224,7 @@
             <img src="../img/disneyp.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium</h3>
-                <span class="manual-desc">• Activación TV • ESPN.</span>
+                <span class="manual-desc">• Activación TV • ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 10</span>
@@ -229,7 +238,7 @@
             <img src="../img/disneys.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
-                <span class="manual-desc">• No incluye canales ESPN.</span>
+                <span class="manual-desc">• Sin canales ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 7</span>
@@ -243,7 +252,7 @@
             <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Max Standard</h3>
-                <span class="manual-desc">• 1 mes • Full HD.</span>
+                <span class="manual-desc">• 1 mes • Full HD • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 5</span>
@@ -257,7 +266,7 @@
             <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">MAX Platino</h3>
-                <span class="manual-desc">• 1 mes • Premium 4K.</span>
+                <span class="manual-desc">• Premium 4K • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 8</span>
@@ -271,7 +280,7 @@
             <img src="../img/prime.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
-                <span class="manual-desc">• Solo activación directa a TV.</span>
+                <span class="manual-desc">• Perfil privado • Activacion solo TV.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 5</span>
@@ -285,7 +294,7 @@
             <img src="../img/prime.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PRIME VIDEO</h3>
-                <span class="manual-desc">• Se entrega Correo y Clave.</span>
+                <span class="manual-desc">• Correo y contraseña • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 8</span>
@@ -299,7 +308,7 @@
             <img src="../img/vix.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">VIX PREMIUM</h3>
-                <span class="manual-desc">• 1 mes • Perfil Privado.</span>
+                <span class="manual-desc">• 1 mes • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 5</span>
@@ -313,7 +322,7 @@
             <img src="../img/paramount.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PARAMOUNT</h3>
-                <span class="manual-desc">• 1 mes • Plan Premium.</span>
+                <span class="manual-desc">• Plan premium • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 6</span>
@@ -327,7 +336,7 @@
             <img src="../img/crunchyroll.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">CRUNCHYROLL</h3>
-                <span class="manual-desc">• 1 mes • Fan Premium.</span>
+                <span class="manual-desc">• Plan premium • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 5</span>
@@ -373,7 +382,7 @@
             <img src="../img/movistar.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
-                <span class="manual-desc">• Canal L1 Max • Activación TV.</span>
+                <span class="manual-desc">• L1 Max • Activación TV.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 20</span>
@@ -387,7 +396,7 @@
             <img src="../img/dgo.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Directv Go + L1 Max</h3>
-                <span class="manual-desc">• Perfil Privado • Liga 1 Max.</span>
+                <span class="manual-desc">• Activación TV • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="price-tag precio-prod">S/ 20</span>
@@ -464,7 +473,7 @@
         <div style="display:flex; align-items:center; gap:10px;">
             <span id="cart-total" style="font-size:1.3rem; font-weight:800;">S/ 0</span>
             <div onclick="event.stopPropagation(); limpiarCarrito();" style="background:rgba(255,0,0,0.2); width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
-                <i class="fas fa-trash-alt" style="font-size:0.9rem;"></i>
+                <i class="fas fa-trash-alt" style="font-size:0.8rem;"></i>
             </div>
         </div>
     </div>
@@ -494,7 +503,7 @@
             <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="enviarWhatsApp('nuevo')">FINALIZAR PEDIDO</button>
         </div>
         <div id="form-antiguo" style="display:none;">
-            <input type="text" id="antiguo-per" placeholder="Confirmar nombre de Perfil" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
+            <input type="text" id="antiguo-per" placeholder="Nombre para el Perfil" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
             <button class="btn-universal" style="background:var(--primary); color:#000; width:100%;" onclick="enviarWhatsApp('antiguo')">ENVIAR PEDIDO</button>
         </div>
     </div>
@@ -525,7 +534,9 @@
     function toggleCarrito(elemento) {
         elemento.classList.toggle('selected');
         const nombre = elemento.querySelector('.nombre-prod').innerText;
-        const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
+        const precioText = elemento.querySelector('.precio-prod').innerText.replace('S/', '').trim();
+        const precio = parseFloat(precioText);
+        
         const idx = carrito.findIndex(i => i.nombre === nombre);
         if (idx > -1) { carrito.splice(idx, 1); } 
         else { carrito.push({nombre, precio}); }
@@ -589,6 +600,7 @@
 
     function enviarWhatsApp(tipo) {
         let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
+        const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
         let msg = `Hola *Alex Store*, deseo contratar:\n\n`;
         carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
         if(per) msg += `👤 Perfil: ${per}\n`;
