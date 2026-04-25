@@ -37,6 +37,7 @@
         padding-bottom: 100px; 
     }
 
+    /* --- HEADER COMPACTO --- */
     header {
         background: rgba(10, 10, 10, 0.85);
         backdrop-filter: blur(20px);
@@ -49,23 +50,24 @@
     }
 
     .brand-logo { width: 35px; height: 35px; object-fit: contain; border-radius: 10px; margin-bottom: 2px; }
-    header h1 { font-size: 1.1rem; font-weight: 800; background: linear-gradient(to right, #fff, --primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+    header h1 { font-size: 1.1rem; font-weight: 800; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
     .trust-bar { display: flex; justify-content: center; gap: 12px; margin: 4px 0; }
     .trust-item { display: flex; align-items: center; gap: 4px; font-size: 0.35rem; font-weight: 600; color: #888; text-transform: uppercase; }
     .trust-item i { color: var(--primary); font-size: 0.6rem; }
 
     .search-container { max-width: 600px; margin: 5px auto 0; position: relative; }
-    #search-input { width: 100%; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins'; outline: none; font-size: 0.8rem; }
+    #search-input { width: 100%; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins'; outline: none; font-size: 0.8rem; margin-bottom: 10px;}
 
     .container { padding: 10px 15px; max-width: 600px; margin: auto; transition: all 0.4s ease; }
     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 15px; }
     .btn-universal { display: flex; align-items: center; justify-content: center; padding: 10px 8px; border-radius: 50px; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; cursor: pointer; text-decoration: none; border: none; text-align: center; transition: 0.3s; }
 
+    /* --- CATEGORIAS --- */
     .category-title { 
         margin: 30px 0 15px; padding: 10px 15px; font-size: 0.85rem; font-weight: 700; color: var(--primary); letter-spacing: 2px; background: rgba(255,255,255,0.03); border-radius: 12px; border-left: 4px solid var(--primary); text-transform: uppercase; display: flex; align-items: center;
     }
 
-    /* --- TARJETAS ORIGINALES --- */
+    /* --- TARJETAS --- */
     .service-item { cursor: pointer; margin-bottom: 12px; position: relative; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .service-item.selected { transform: scale(0.95) !important; }
     .service-card { background: var(--glass); border-radius: 22px; padding: 18px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 15px; position: relative; overflow: visible; transition: 0.4s ease; }
@@ -92,7 +94,7 @@
     .service-text h3 { font-size: 1.05rem; color: #fff; }
     .manual-desc { font-size: 0.75rem; color: #777; }
 
-    /* --- VISTA CUADRÍCULA (RESTAURADA) --- */
+    /* --- VISTA CUADRÍCULA --- */
     .container.grid-mode { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 95% !important; width: 100%; padding: 15px; }
     @media (min-width: 900px) { .container.grid-mode { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
     .grid-mode .category-title { grid-column: 1 / -1; width: 100%; margin-top: 30px; display: flex; }
@@ -104,25 +106,44 @@
     .premium-tag-inner { display: none; }
     .grid-mode .badge-oferta { left: 50% !important; transform: translateX(-50%) !important; width: 85% !important; text-align: center; }
 
-    /* BOTONES FILTROS */
-    .view-controls { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px; }
+    /* --- FILTROS CON FLECHAS --- */
+    .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; gap: 5px; padding: 0 10px; }
+    .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; scroll-behavior: smooth; flex-grow: 1; }
+    .filter-container::-webkit-scrollbar { display: none; }
+
+    .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.65rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+    .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
+
+    .scroll-indicator {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        color: var(--primary);
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        z-index: 5;
+        transition: 0.3s;
+        flex-shrink: 0;
+    }
+    .scroll-indicator:active { transform: scale(0.9); background: var(--primary); color: #000; }
+    .scroll-indicator i { font-size: 0.8rem; }
+
+    .view-controls { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
-    .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; }
-    .filter-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
-    .btn-nav { background: var(--glass); border: 1px solid var(--glass-border); color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.65rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-    .btn-nav.active { background: var(--primary); color: #000; }
 
-    /* BOTON WHATSAPP */
+    /* BOTONES FLOTANTES */
     .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+    .discount-label { font-size: 0.7rem; color: var(--promo); margin-top: 5px; font-weight: 700; display: none; }
 
     /* --- FORMULARIOS --- */
     .modal-overlay, .modal-pass { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 3000; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); }
-    .modal-content { background: #0d0d0d; padding: 35px 25px; border-radius: 35px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #222; }
+    .modal-content { background: #0d0d0d; padding: 35px 25px; border-radius: 35px; width: 90%; max-width: 420px; text-align: center; border: 1px solid #222; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
     .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 25px; color: var(--primary); }
     .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1.1rem; text-align: center; }
 
-    /* --- MODAL ACCESO CORREGIDO PC --- */
+    /* --- MODAL ACCESO --- */
     .input-wrapper { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 30px; }
     .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; line-height: 1.2; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; }
     .hide-stars { opacity: 0 !important; }
@@ -153,7 +174,10 @@
     </div>
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Buscar plataforma..." onkeyup="filtrarProductos()">
+        
         <div class="filter-wrapper">
+            <div class="scroll-indicator" id="scrollPrev"><i class="fas fa-chevron-left"></i></div>
+            
             <div class="filter-container" id="filterScroll">
                 <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
                 <button class="btn-nav" onclick="filtrarCategoria('🎬 STREAMING Y CINE', this)">PERFILES</button>
@@ -161,7 +185,10 @@
                 <button class="btn-nav" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">TV DIGITAL</button>
                 <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button>
             </div>
+
+            <div class="scroll-indicator" id="scrollNext"><i class="fas fa-chevron-right"></i></div>
         </div>
+
         <div class="view-controls">
             <button class="btn-view active" onclick="cambiarVista('list', this)"><i class="fas fa-list"></i></button>
             <button class="btn-view" onclick="cambiarVista('grid', this)"><i class="fas fa-th-large"></i></button>
@@ -530,7 +557,7 @@
 </div>
 
 <div id="modal-password" class="modal-pass">
-    <div class="modal-content" style="border-radius:40px;">
+    <div class="modal-content">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO CLIENTE</h2>
         <div id="error-msg" style="color: #ff4444; font-size: 0.8rem; margin-bottom: 10px; font-weight: 600; height: 1.2rem;"></div>
         <div class="input-wrapper">
@@ -548,6 +575,7 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
+    // SEGURIDAD ORIGEN
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
@@ -564,6 +592,21 @@
         }
     })();
 
+    // LÓGICA DE FILTROS CON SCROLL Y FLECHAS
+    const filterScroll = document.getElementById('filterScroll');
+    const scrollPrev = document.getElementById('scrollPrev');
+    const scrollNext = document.getElementById('scrollNext');
+
+    scrollNext.onclick = () => filterScroll.scrollBy({ left: 150, behavior: 'smooth' });
+    scrollPrev.onclick = () => filterScroll.scrollBy({ left: -150, behavior: 'smooth' });
+
+    filterScroll.onscroll = () => {
+        const isAtStart = filterScroll.scrollLeft < 10;
+        const isAtEnd = filterScroll.scrollLeft >= (filterScroll.scrollWidth - filterScroll.clientWidth - 10);
+        scrollPrev.style.opacity = isAtStart ? "0.3" : "1";
+        scrollNext.style.opacity = isAtEnd ? "0.3" : "1";
+    };
+
     function checkInput(el) {
         const stars = document.getElementById('stars-placeholder');
         if (el.value.length > 0) stars.classList.add('hide-stars');
@@ -572,7 +615,6 @@
 
     function validarPass() {
         const input = document.getElementById('input-pass');
-        const stars = document.getElementById('stars-placeholder');
         const errorMsg = document.getElementById('error-msg');
         if (input.value.toLowerCase() === "cliente") {
             sessionStorage.setItem("acceso_concedido", "true");
@@ -581,11 +623,7 @@
             errorMsg.innerText = "CONTRASEÑA INCORRECTA";
             input.classList.add('error-shake');
             input.value = "";
-            stars.classList.remove('hide-stars');
-            setTimeout(() => { 
-                input.classList.remove('error-shake'); 
-                errorMsg.innerText = "";
-            }, 3000);
+            setTimeout(() => { input.classList.remove('error-shake'); errorMsg.innerText = ""; }, 3000);
         }
     }
 
@@ -595,7 +633,8 @@
         const manual = elemento.querySelector('.manual-desc').innerText;
         const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
         const idx = carrito.findIndex(i => i.nombre === nombre);
-        if (idx > -1) { carrito.splice(idx, 1); } else { carrito.push({nombre, manual, precio}); }
+        if (idx > -1) carrito.splice(idx, 1);
+        else carrito.push({nombre, manual, precio});
         actualizarUI();
     }
 
@@ -608,9 +647,8 @@
         }
         document.getElementById('cart-count').innerText = carrito.length;
         document.getElementById('cart-total').innerText = `S/ ${subtotal - desc}`;
-        const label = document.getElementById('discount-label');
-        if (desc > 0) { label.innerText = `¡Ahorro aplicado: S/ ${desc}! 🎁`; label.style.display = 'block'; }
-        else { label.style.display = 'none'; }
+        document.getElementById('discount-label').style.display = desc > 0 ? 'block' : 'none';
+        document.getElementById('discount-label').innerText = `¡Ahorro aplicado: S/ ${desc}! 🎁`;
         document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
     }
 
@@ -618,7 +656,7 @@
         let nom = document.getElementById('reg-nom').value;
         let cel = document.getElementById('reg-cel').value;
         let per = (tipo === 'nuevo') ? document.getElementById('reg-per').value : document.getElementById('antiguo-per').value;
-        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { alert("Completa."); return; }
+        if (tipo === 'nuevo' && (nom.trim() === "" || cel.trim() === "")) { alert("Completa tus datos."); return; }
         const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
         let desc = 0;
         if (carrito.length >= 2) {
@@ -632,7 +670,7 @@
             msg += `--------------------------\n`;
         });
         if(desc > 0) msg += `\n🎁 *Ahorro:* -S/ ${desc}`;
-        msg += `\n💰 *TOTAL: S/ ${subtotal - desc}*`;
+        msg += `\n💰 *TOTAL A PAGAR: S/ ${subtotal - desc}*`;
         if(tipo === 'nuevo') msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`;
         else msg += `\n\n✅ *YA SOY CLIENTE*`;
         window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`);
@@ -693,7 +731,7 @@
     window.onload = () => { 
         document.documentElement.style.display = "block";
         const input = document.getElementById('input-pass');
-        if(input) { input.value = ""; checkInput(input); }
+        if(input) input.value = "";
     };
 </script>
 </body>
