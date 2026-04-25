@@ -8,6 +8,12 @@
     <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
     <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 
+    <meta property="og:title" content="Alex Store | Catálogo Premium">
+    <meta property="og:description" content="Tus cuentas streaming favoritas al mejor precio.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/clientes/">
+    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -37,6 +43,7 @@
         padding-bottom: 100px; 
     }
 
+    /* --- HEADER --- */
     header {
         background: rgba(10, 10, 10, 0.85);
         backdrop-filter: blur(20px);
@@ -55,6 +62,7 @@
     .trust-item { display: flex; align-items: center; gap: 4px; font-size: 0.35rem; font-weight: 600; color: #888; text-transform: uppercase; }
     .trust-item i { color: var(--primary); font-size: 0.6rem; }
 
+    /* --- FILTROS --- */
     .search-container { max-width: 600px; margin: 5px auto 0; position: relative; }
     #search-input { width: 100%; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins'; outline: none; font-size: 0.8rem; margin-bottom: 10px;}
 
@@ -70,6 +78,7 @@
     .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
 
+    /* --- CONTENEDOR --- */
     .container { padding: 10px 15px; max-width: 600px; margin: auto; transition: all 0.4s ease; }
     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 15px; }
     .btn-universal { display: flex; align-items: center; justify-content: center; padding: 10px 8px; border-radius: 50px; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; cursor: pointer; text-decoration: none; border: none; text-align: center; transition: 0.3s; }
@@ -100,7 +109,7 @@
     .service-text h3 { font-size: 1.05rem; color: #fff; }
     .manual-desc { font-size: 0.75rem; color: #777; }
 
-    /* --- LÓGICA AGOTADO (SIN STOCK) --- */
+    /* --- LÓGICA AGOTADO --- */
     .service-item.agotado { pointer-events: none; filter: grayscale(0.5); }
     .service-item.agotado .service-card { opacity: 0.4; }
     .service-item.agotado .price-tag, 
@@ -142,6 +151,7 @@
     .premium-tag-inner { display: none; }
     .grid-mode .badge-oferta { left: 50% !important; transform: translateX(-50%) !important; width: 85% !important; text-align: center; }
 
+    /* --- BARRA FLOTANTE WHATSAPP --- */
     .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
     .discount-label { font-size: 0.7rem; color: var(--promo); margin-top: 5px; font-weight: 700; display: none; text-align: center;}
 
@@ -156,6 +166,7 @@
     .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; border: none; cursor: pointer; }
     .btn-modal-back { background: #1a1a1a !important; color: #fff !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; opacity: 0.7; }
 
+    /* --- SEGURIDAD --- */
     .input-wrapper { position: relative; width: 100%; display: flex; justify-content: center; margin-bottom: 30px; }
     .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     .hide-stars { opacity: 0 !important; }
@@ -222,6 +233,7 @@
             <div class="price-container">
                 <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 16</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
             </div>
         </div>
     </div>
@@ -233,11 +245,12 @@
             <img src="../img/disneyp.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium</h3>
-                <span class="manual-desc">•Cliente nuevo (Activación a TV)• Todo los canales ESPN • Perfil privado.</span>
+                <span class="manual-desc">• Activación TV • ESPN • Perfil privado.</span>
             </div>
             <div class="price-container">
                 <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 10</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
             </div>
         </div>
     </div>
@@ -248,11 +261,9 @@
             <img src="../img/disneys.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium (Sin ESPN)</h3>
-                <span class="manual-desc">•Cliente nuevo (Activación a TV)• No contiene canales ESPN • Perfil privado.</span>
+                <span class="manual-desc">• Sin ESPN • Perfil privado.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 7</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 7</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -262,11 +273,9 @@
             <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Max Standard</h3>
-                <span class="manual-desc">• 1 mes •Full HD • Perfil privado.</span>
+                <span class="manual-desc">• 1 mes • Full HD • Perfil privado.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 5</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -276,11 +285,9 @@
             <img src="../img/max.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">MAX Platino</h3>
-                <span class="manual-desc">• 1 mes • premium 4K • Perfil privado .</span>
+                <span class="manual-desc">• 1 mes • premium 4K • Perfil privado.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 8</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -292,9 +299,7 @@
                 <h3 class="nombre-prod">PRIME VIDEO (TV)</h3>
                 <span class="manual-desc">• 1 mes • Perfil privado • Activacion solo a TV.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 5</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -304,11 +309,9 @@
             <img src="../img/prime.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PRIME VIDEO</h3>
-                <span class="manual-desc">• 1 mes • Perfil privado • se entrega correo y contraseña.</span>
+                <span class="manual-desc">• 1 mes • Perfil privado • Correo y contraseña.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 8</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 8</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -320,10 +323,7 @@
                 <h3 class="nombre-prod">VIX PREMIUM</h3>
                 <span class="manual-desc">• 1 mes • perfil privado • premium.</span>
             </div>
-            <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span>
-                <span class="price-tag precio-prod">S/ 5</span>
-            </div>
+            <div class="price-container"><span class="premium-tag-inner">PREMIUM</span><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -333,11 +333,9 @@
             <img src="../img/paramount.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">PARAMOUNT</h3>
-                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+                <span class="manual-desc">• 1 mes • premium • perfil privado.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 6</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 6</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -347,11 +345,9 @@
             <img src="../img/crunchyroll.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">CRUNCHYROLL </h3>
-                <span class="manual-desc">•1 mes  • plan premium • perfil privado.</span>
+                <span class="manual-desc">• 1 mes • premium • perfil privado.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 5</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -365,9 +361,7 @@
                 <h3 class="nombre-prod">CANVA PRO (1 mes) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 5</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 5</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -379,9 +373,7 @@
                 <h3 class="nombre-prod">CANVA PRO (3 meses) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 12</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -393,9 +385,7 @@
                 <h3 class="nombre-prod">CANVA PRO (6 meses) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 17</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 17</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -407,9 +397,7 @@
                 <h3 class="nombre-prod">CANVA PRO (12 meses) </h3>
                 <span class="manual-desc">• Plan EDU • Invitación a tu correo.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 25</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 25</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -421,11 +409,9 @@
             <img src="../img/movistar.webp" class="service-logo"> 
             <div class="service-text">
                 <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
-                <span class="manual-desc">• Canal l1 Max • Activación a TV • Perfil privado.</span>
+                <span class="manual-desc">• Canal l1 Max • Activación a TV.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 20</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 20</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -435,11 +421,9 @@
             <img src="../img/dgo.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Directv Go + l1 Max</h3>
-                <span class="manual-desc">•1 mes • Activación a TV• Todo los canales ESPN • Perfil privado.</span>
+                <span class="manual-desc">• 1 mes • Activación a TV • Perfil privado.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 20</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 20</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -449,11 +433,9 @@
             <img src="../img/flujo.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Magis TV- Fluo TV</h3>
-                <span class="manual-desc">• 1 Perfil •+1200 Canales en vivo .</span>
+                <span class="manual-desc">• 1 Perfil • +1200 Canales en vivo.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 12</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 12</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -463,11 +445,9 @@
             <img src="../img/iptv.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">IPTV Smarters pro (1 dis)</h3>
-                <span class="manual-desc">•1 Dispositivo •6500 Canales en vivo .</span>
+                <span class="manual-desc">• 1 Dispositivo • 6500 Canales.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 10</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 10</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -477,11 +457,9 @@
             <img src="../img/iptv.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">IPTV Smarters pro (3 dis)</h3>
-                <span class="manual-desc">•3 Dispositivos •6500 Canales en vivo .</span>
+                <span class="manual-desc">• 3 Dispositivos • 6500 Canales.</span>
             </div>
-            <div class="price-container">
-                <span class="price-tag precio-prod">S/ 13</span>
-            </div>
+            <div class="price-container"><span class="price-tag precio-prod">S/ 13</span><div class="sin-stock-badge">SIN STOCK</div></div>
         </div>
     </div>
 
@@ -493,11 +471,12 @@
             <img src="../img/spotify.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Spotify Premium (1 mes)</h3>
-                <span class="manual-desc">• Sin anuncios • Se entrega con correo y contraseña.</span>
+                <span class="manual-desc">• Sin anuncios • Correo propio.</span>
             </div>
             <div class="price-container">
                 <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 8</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
             </div>
         </div>
     </div>
@@ -509,11 +488,12 @@
             <img src="../img/youtube.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Youtube Premium (1 mes)</h3>
-                <span class="manual-desc">• Sin anuncios • A tu correo (correo nuevo creado).</span>
+                <span class="manual-desc">• Sin anuncios • A tu correo.</span>
             </div>
             <div class="price-container">
                 <span class="premium-tag-inner">PREMIUM</span>
                 <span class="price-tag precio-prod">S/ 8</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
             </div>
         </div>
     </div>
@@ -553,8 +533,8 @@
         </div>
         <div id="form-antiguo" style="display:none;">
             <h2 style="color:var(--primary);">Confirmar Perfil</h2>
-            <p>Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
-            <input type="text" id="antiguo-per" placeholder="Nombre para Perfil (Opcional)">
+            <p>Si tu plataforma requiere un nombre específico, escríbelo aquí:</p>
+            <input type="text" id="antiguo-per" placeholder="Nombre para Perfil">
             <button class="btn-modal-main" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
             <button class="btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
         </div>
@@ -580,7 +560,6 @@
     let carrito = [];
     const numWhatsApp = "51918600000";
 
-    // SEGURIDAD ORIGEN
     (function() {
         if (sessionStorage.getItem("acceso_concedido") === "true") { document.documentElement.style.display = "block"; } 
         else {
@@ -608,7 +587,7 @@
     }
 
     function toggleCarrito(elemento) {
-        if (elemento.classList.contains('agotado')) return; // No seleccionar si está agotado
+        if (elemento.classList.contains('agotado')) return; 
         elemento.classList.toggle('selected');
         const nombre = elemento.querySelector('.nombre-prod').innerText;
         const manual = elemento.querySelector('.manual-desc').innerText;
@@ -658,6 +637,7 @@
         if(tipo === 'nuevo') msg += `\n\n👤 Cliente: ${nom}\n📞 Cel: ${cel}`;
         else msg += `\n\n✅ *YA SOY CLIENTE*`;
         window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`);
+        cerrarModalRegistro();
     }
 
     function cambiarVista(modo, btn) {
@@ -704,12 +684,13 @@
         });
     }
 
+    function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
     function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
     function mostrarForm() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-datos').style.display = 'block'; }
     function mostrarFormAntiguo() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'block'; }
     function volverPaso1() { document.getElementById('paso-1').style.display = 'block'; document.getElementById('form-datos').style.display = 'none'; document.getElementById('form-antiguo').style.display = 'none'; }
-    function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
     function limpiarCarrito() { carrito = []; document.querySelectorAll('.service-item.selected').forEach(el => el.classList.remove('selected')); actualizarUI(); }
+    
     window.onload = () => { document.documentElement.style.display = "block"; const input = document.getElementById('input-pass'); if(input) input.value = ""; };
 </script>
 </body>
