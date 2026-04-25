@@ -43,7 +43,6 @@
         padding-bottom: 100px; 
     }
 
-    /* CONTENEDOR MAESTRO */
     .container, .search-container, header > div {
         max-width: 500px;
         margin-left: auto;
@@ -71,7 +70,6 @@
         font-size: 1.1rem; font-weight: 800; 
         background: linear-gradient(to right, #fff, var(--primary));
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        letter-spacing: 0px;
     }
 
     .trust-bar {
@@ -95,13 +93,11 @@
         background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins';
         outline: none; transition: 0.3s; font-size: 0.85rem;
     }
-    #search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
 
     .filter-wrapper { margin: 5px 0; position: relative; display: flex; align-items: center; justify-content: center; }
     .filter-container { 
         display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
-        scroll-behavior: smooth; scrollbar-width: none;
-        max-width: 500px;
+        scrollbar-width: none;
     }
     .filter-container::-webkit-scrollbar { display: none; }
 
@@ -110,31 +106,27 @@
         padding: 4px 12px; border-radius: 50px; font-size: 0.70rem; font-weight: 600; 
         cursor: pointer; white-space: nowrap; transition: 0.3s; 
     }
-    .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 5px 15px rgba(0,212,255,0.3); }
+    .btn-nav.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
     .view-controls { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 0 auto 10px; max-width: 500px; padding-right: 20px; }
-    .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-    .btn-view.active { color: var(--primary); border-color: var(--primary); background: rgba(0, 212, 255, 0.1); }
+    .btn-view { background: #111; border: 1px solid #333; color: #666; padding: 6px; border-radius: 12px; cursor: pointer; }
+    .btn-view.active { color: var(--primary); border-color: var(--primary); }
 
     .container { padding: 0 15px; max-width: 650px; margin: auto; }
-    
-    /* MODIFICACIÓN: BOTONES EN 2 COLUMNAS Y 2 FILAS */
+
+    /* --- NUEVA CUADRÍCULA DE BOTONES 2x2 --- */
     .grid-botones { 
         display: grid !important; 
         grid-template-columns: repeat(2, 1fr); 
-        grid-template-rows: repeat(2, auto);
         gap: 10px; 
         margin: 20px auto; 
-        padding: 0;
         max-width: 500px;
-        justify-content: center;
     }
 
     .btn-universal {
-        display: flex; align-items: center; justify-content: center; padding: 12px 8px;
-        border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.65rem;
-        text-transform: uppercase; letter-spacing: 0.5px; transition: 0.3s; border: none;
-        cursor: pointer; text-align: center; width: 100%; box-sizing: border-box;
+        display: flex; align-items: center; justify-content: center; padding: 10px 5px;
+        border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 0.62rem;
+        text-transform: uppercase; transition: 0.3s; border: none; text-align: center;
     }
 
     .btn-inicio-top { background: #111 !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.1) !important; }
@@ -142,88 +134,56 @@
     .btn-combos-premium { background: linear-gradient(90deg, #f4d03f, #e6b800) !important; color: #000 !important; }
     .btn-comunidad { background: linear-gradient(90deg, #2ecc71, #1abc9c) !important; color: #fff !important; }
 
-    /* CATEGORIAS */
-    .category-title { 
-        font-size: 0.75rem; font-weight: 800; color: var(--primary); margin: 15px 0 10px; 
-        text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
-    }
-    .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
-
-    /* TARJETAS - SEGURIDAD ELIMINADA */
-    .service-item { cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); pointer-events: auto !important; }
+    /* --- ELIMINAR SEGURIDADES --- */
+    .service-item { pointer-events: auto !important; cursor: pointer; margin-bottom: 15px; position: relative; transition: 0.3s; }
     .service-card { 
         background: var(--glass); border-radius: 25px; padding: 15px 20px; 
         display: flex; align-items: center; border: 1px solid var(--glass-border); 
-        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); gap: 15px; position: relative; overflow: hidden; width: 100%;
+        gap: 15px; position: relative; overflow: hidden; width: 100%;
     }
 
     .service-item:hover .service-card { 
         border-color: #ffffff !important;
         background: rgba(255, 255, 255, 0.12) !important; 
         transform: translateY(-5px); 
-        box-shadow: 0 0 10px #ffffff, 0 0 25px rgba(255, 255, 255, 0.6), 0 0 45px rgba(255, 255, 255, 0.2) !important; 
     }
 
     .service-item.selected .service-card { 
-        transform: scale(0.96) !important; 
         border-color: var(--primary) !important; 
         background: rgba(0, 212, 255, 0.1) !important;
     }
 
-    .check-icon {
-        position: absolute; top: 10px; right: 10px; background: var(--primary);
-        color: #000; width: 28px; height: 28px; border-radius: 50%;
-        display: none; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 900; z-index: 10;
-    }
-    .service-item.selected .check-icon { display: flex; animation: popIn 0.3s; }
-
-    /* AGOTADO - ELIMINACIÓN DE FILTROS AGRESIVOS */
+    /* ESTILO AGOTADO CORREGIDO (SIN BLOQUEO) */
     .service-item.agotado .service-card { 
-        background: rgba(20, 0, 0, 0.8) !important; 
-        border-color: rgba(255, 6, 0, 0.5) !important;
-        filter: grayscale(0.5); /* Menos agresivo que antes */
+        filter: grayscale(0.6) brightness(0.5); 
+        pointer-events: auto !important; 
     }
 
     .btn-consultar-neon {
+        display: none; 
+    }
+
+    .service-item.agotado .btn-consultar-neon {
         display: flex !important;
-        background: #ff0000 !important;
-        color: white !important;
-        padding: 8px 12px;
-        border-radius: 10px;
-        font-weight: bold;
-        font-size: 10px;
-        text-transform: uppercase;
+        position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+        background: #ff0000 !important; color: white !important;
+        padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 11px;
         animation: flashAgotado 1s infinite alternate;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
-        white-space: nowrap;
+        z-index: 100;
     }
 
-    @keyframes flashAgotado {
-        from { opacity: 1; } to { opacity: 0.6; }
-    }
+    @keyframes flashAgotado { from { opacity: 1; } to { opacity: 0.6; } }
 
-    /* MODALES Y FLOTANTE */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 4000; display: none; align-items: flex-end; justify-content: center; }
-    .modal-content { background: #0a0a0a; width: 100%; max-width: 500px; padding: 40px 30px; border-radius: 40px 40px 0 0; border: 1px solid var(--glass-border); }
+    .category-title { font-size: 0.75rem; font-weight: 800; color: var(--primary); margin: 25px 0 15px; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+    .category-title::after { content: ''; height: 1px; background: linear-gradient(to right, var(--primary), transparent); flex-grow: 1; opacity: 0.3; }
+    .service-logo { width: 65px; height: 65px; object-fit: cover; border-radius: 18px; }
+    .price-tag { color: var(--primary); font-weight: 700; font-size: 1.3rem; }
+    .check-icon { position: absolute; top: 10px; right: 10px; background: var(--primary); color: #000; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 900; }
+    .service-item.selected .check-icon { display: flex; }
 
-    .floating-btn {
-        position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-        background: linear-gradient(135deg, #25d366, #128c7e);
-        color: white; padding: 20px; border-radius: 25px;
-        width: 92%; max-width: 480px; z-index: 1000;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-    }
-
-    .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; }
-    .price-tag { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
-
-    /* MODO GRID */
-    .container.grid-mode {
-        display: grid !important; 
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
-    }
-    .grid-mode .service-card { flex-direction: column; text-align: center; }
+    /* FLOTANTE */
+    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 20px; border-radius: 25px; width: 92%; max-width: 480px; z-index: 1000; }
+    .hidden { display: none; }
 </style>
 </head>
 <body>
@@ -231,16 +191,15 @@
 <header>
     <img src="../img/logo.webp" alt="Logo Alex Store" class="brand-logo">
     <h1>ALEX STORE</h1>
-    <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700; margin-top: 5px;">PREMIUM DIGITAL CATALOG</p>
+    <p style="color: #555; font-size: 0.7rem; letter-spacing: 5px; font-weight: 700;">PREMIUM DIGITAL CATALOG</p>
     
     <div class="search-container">
         <div class="trust-bar">
             <div class="trust-item"><i class="fas fa-headset"></i>Soporte</div>
             <div class="trust-item"><i class="fas fa-shield-alt"></i>Garantía</div>
-            <div class="trust-item"><i class="fas fa-bolt"></i>Entrega Flash</div>
+            <div class="trust-item"><i class="fas fa-bolt"></i>Entrega</div>
         </div>
         <input type="text" id="search-input" placeholder="Buscar plataforma..." onkeyup="filtrarProductos()">
-        
         <div class="filter-wrapper">
             <div class="filter-container" id="filterScroll">
                 <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
@@ -249,11 +208,6 @@
                 <button class="btn-nav" onclick="filtrarCategoria('TELEVISIÓN DIGITAL', this)">TV DIGITAL</button>
                 <button class="btn-nav" onclick="filtrarCategoria('MÚSICA Y VIDEO SIN LÍMITES', this)">MÚSICA</button> 
             </div>
-        </div>
-
-        <div class="view-controls">
-            <button class="btn-view active" onclick="cambiarVista('list', this)"><i class="fas fa-list"></i></button>
-            <button class="btn-view" onclick="cambiarVista('grid', this)"><i class="fas fa-th-large"></i></button>
         </div>
     </div>
 </header>
@@ -283,15 +237,16 @@
         </div>
     </div>
 
-    <div class="service-item oferta premium agotado">
+    <div class="service-item oferta premium agotado" onclick="toggleCarrito(this)">
         <div class="service-card">
             <div class="badge-oferta">MUY SOLICITADO 🎁</div>
             <img src="../img/disneyp.webp" class="service-logo">
             <div class="service-text">
                 <h3 class="nombre-prod">Disney Premium</h3>
-                <span class="manual-desc">• Con ESPN • Perfil privado.</span>
+                <span class="manual-desc">• Perfil privado • Todo ESPN.</span>
             </div>
             <div class="price-container">
+                <span class="price-tag precio-prod">S/ 10</span>
                 <div class="btn-consultar-neon" onclick="consultarStockManual(this, event)">SIN STOCK 📲</div>
             </div>
         </div>
@@ -310,39 +265,103 @@
             </div>
         </div>
     </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/prime.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">PRIME VIDEO</h3>
+                <span class="manual-desc">• 1 mes • Perfil privado.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title">💻 DISEÑOS Y MAS</div>
     
+    <div class="service-item" onclick="toggleCarrito(this)">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/canva.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">CANVA PRO (1 mes)</h3>
+                <span class="manual-desc">• Invitación a tu correo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 5</span>
+            </div>
+        </div>
     </div>
 
-<div id="whatsapp-btn" class="floating-btn" style="display:none;">
+    <div class="category-title">📺 TELEVISIÓN DIGITAL</div>
+
+    <div class="service-item" onclick="toggleCarrito(this)">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/movistar.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Movistar Play + Liga 1 Max</h3>
+                <span class="manual-desc">• Activación a TV.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 20</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="service-item" onclick="toggleCarrito(this)">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/flujo.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Magis TV- Fluo TV</h3>
+                <span class="manual-desc">• +1200 Canales en vivo.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 12</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title">🎵 MÚSICA Y VIDEO</div>
+
+    <div class="service-item premium" onclick="toggleCarrito(this)">
+        <div class="service-card">
+            <div class="check-icon">✓</div>
+            <img src="../img/spotify.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">Spotify Premium</h3>
+                <span class="manual-desc">• 1 mes • Sin anuncios.</span>
+            </div>
+            <div class="price-container">
+                <span class="price-tag precio-prod">S/ 8</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="whatsapp-btn" class="floating-btn hidden">
     <div style="display:flex; justify-content: space-between; align-items:center;">
-        <div onclick="abrirModalRegistro()">
-            <span id="cart-count" style="background:rgba(0,0,0,0.3); padding:5px 10px; border-radius:10px;">0</span>
-            <span style="margin-left:10px; font-weight:800;">PEDIR AHORA</span>
+        <div onclick="abrirModalRegistro()" style="cursor:pointer;">
+            <span id="cart-count" style="background:rgba(0,0,0,0.2); padding:4px 12px; border-radius:10px;">0</span>
+            <span style="margin-left:8px;">PEDIR AHORA</span>
         </div>
-        <span id="cart-total" style="font-size:1.2rem; font-weight:800;">S/ 0</span>
+        <span id="cart-total" style="font-size:1.3rem;">S/ 0</span>
     </div>
 </div>
 
-<div id="modal-registro" class="modal-overlay">
-    <div class="modal-content">
-        <div id="paso-1">
-            <h2 style="color:var(--primary); margin-bottom:15px;">¿Ya eres cliente?</h2>
-            <button class="btn-universal" style="background:#222; color:#fff; margin-bottom:10px;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
-            <button class="btn-universal" style="background:var(--primary); color:#000;" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
-            <button class="btn-universal" style="background:transparent; color:#555; margin-top:10px;" onclick="cerrarModalRegistro()">CERRAR</button>
-        </div>
-        <div id="form-datos" style="display:none;">
-            <input type="text" id="reg-nom" placeholder="Nombre Completo" style="width:100%; padding:15px; margin-bottom:10px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;">
-            <button class="btn-universal" style="background:var(--primary); color:#000;" onclick="enviarWhatsApp('nuevo')">ENVIAR PEDIDO</button>
-        </div>
-    </div>
-</div>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+    AOS.init({ duration: 800, once: true });
     let carrito = [];
     const numWhatsApp = "51918600000";
 
     function toggleCarrito(elemento) {
+        if (elemento.classList.contains('agotado')) return;
         const nombre = elemento.querySelector('.nombre-prod').innerText;
         const precio = parseFloat(elemento.querySelector('.precio-prod').innerText.replace('S/', ''));
         const idx = carrito.findIndex(i => i.nombre === nombre);
@@ -361,16 +380,12 @@
         const total = carrito.reduce((s, i) => s + i.precio, 0);
         document.getElementById('cart-count').innerText = carrito.length;
         document.getElementById('cart-total').innerText = `S/ ${total}`;
-        document.getElementById('whatsapp-btn').style.display = carrito.length > 0 ? 'block' : 'none';
+        document.getElementById('whatsapp-btn').classList.toggle('hidden', carrito.length === 0);
     }
 
-    function abrirModalRegistro() { document.getElementById('modal-registro').style.display = 'flex'; }
-    function cerrarModalRegistro() { document.getElementById('modal-registro').style.display = 'none'; }
-    function mostrarForm() { document.getElementById('paso-1').style.display = 'none'; document.getElementById('form-datos').style.display = 'block'; }
-    
-    function enviarWhatsApp(tipo) {
-        let msg = "Hola Alex Store, quiero contratar:\n\n";
-        carrito.forEach(i => msg += `- ${i.nombre} (S/ ${i.precio})\n`);
+    function enviarWhatsApp() {
+        let msg = `Hola Alex Store, quiero:\n\n`;
+        carrito.forEach(i => msg += `🔹 *${i.nombre}* (S/ ${i.precio})\n`);
         window.open(`https://wa.me/${numWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
@@ -379,14 +394,16 @@
         const nombre = elemento.closest('.service-item').querySelector('.nombre-prod').innerText;
         window.open(`https://wa.me/${numWhatsApp}?text=¿Stock de ${nombre}?`, '_blank');
     }
-    
-    function cambiarVista(modo, btn) {
-        const contenedor = document.querySelector('.container');
-        document.querySelectorAll('.btn-view').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        modo === 'grid' ? contenedor.classList.add('grid-mode') : contenedor.classList.remove('grid-mode');
-    }
-</script>
 
+    function filtrarProductos() {
+        const busqueda = document.getElementById('search-input').value.toLowerCase();
+        document.querySelectorAll('.service-item').forEach(item => {
+            const nombre = item.querySelector('.nombre-prod').innerText.toLowerCase();
+            item.style.display = nombre.includes(busqueda) ? 'block' : 'none';
+        });
+    }
+
+    function abrirModalRegistro() { enviarWhatsApp(); }
+</script>
 </body>
 </html>
