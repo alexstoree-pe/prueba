@@ -131,8 +131,8 @@
     .modal-content h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 25px; color: var(--primary); }
     .modal-content input { width: 100%; padding: 20px; margin-bottom: 15px; border-radius: 18px; background: #000; color: #fff; border: 1px solid #222; font-family: 'Poppins'; outline: none; font-size: 1.1rem; text-align: center; }
     
-    /* CORRECCIÓN CAMPO PASS: Eliminamos puntos de distorsión y espaciado excesivo */
-    #input-pass { letter-spacing: 2px !important; } 
+    /* CORRECCIÓN FINAL CAMPO PASS */
+    #input-pass { letter-spacing: 0px !important; } /* Quitamos espaciado para evitar distorsión */
 
     .btn-modal-main { background: var(--primary) !important; color: #000 !important; font-weight: 800; width: 100%; padding: 18px; border-radius: 50px; margin-top: 10px; font-size: 0.95rem; text-transform: uppercase; border: none; cursor: pointer; }
     .btn-modal-back { background: #1a1a1a !important; color: #666 !important; width: 100%; padding: 16px; border-radius: 50px; margin-top: 12px; font-size: 0.85rem; text-transform: uppercase; border: 1px solid #222 !important; cursor: pointer; }
@@ -232,24 +232,24 @@
     <div class="modal-content">
         <div id="paso-1">
             <h2 style="color:var(--primary);">¿Ya eres cliente?</h2>
-            <button class="btn-modal-main" style="background:#222 !important; color:#fff !important;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
-            <button class="btn-modal-main" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
-            <button class="btn-modal-back" onclick="cerrarModalRegistro()">CANCELAR</button>
+            <button class="btn-universal btn-modal-main" style="background:#222 !important; color:#fff !important;" onclick="mostrarFormAntiguo()">SÍ, YA COMPRÉ ANTES</button>
+            <button class="btn-universal btn-modal-main" onclick="mostrarForm()">SOY NUEVO CLIENTE</button>
+            <button class="btn-universal btn-modal-back" onclick="cerrarModalRegistro()">CANCELAR</button>
         </div>
         <div id="form-datos" style="display:none;">
             <h2 style="color:var(--primary);">Registro de Pedido</h2>
             <input type="text" id="reg-nom" placeholder="Nombre Completo">
             <input type="tel" id="reg-cel" placeholder="Número Celular">
             <input type="text" id="reg-per" placeholder="Nombre para Perfil (Opcional)">
-            <button class="btn-modal-main" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
-            <button class="btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
+            <button class="btn-universal btn-modal-main" onclick="enviarWhatsApp('nuevo')">FINALIZAR Y ENVIAR</button>
+            <button class="btn-universal btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
         </div>
         <div id="form-antiguo" style="display:none;">
             <h2 style="color:var(--primary);">Confirmar Perfil</h2>
             <p>Si tu plataforma requiere un nombre de perfil específico, escríbelo aquí:</p>
             <input type="text" id="antiguo-per" placeholder="Nombre para Perfil (Opcional)">
-            <button class="btn-modal-main" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
-            <button class="btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
+            <button class="btn-universal btn-modal-main" onclick="enviarWhatsApp('antiguo')">FINALIZAR Y ENVIAR</button>
+            <button class="btn-universal btn-modal-back" onclick="volverPaso1()">← VOLVER</button>
         </div>
     </div>
 </div>
@@ -257,8 +257,8 @@
 <div id="modal-password" class="modal-pass">
     <div class="modal-content" style="border-radius:25px;">
         <h2 style="color:var(--primary); font-weight: 800;">ACCESO PRIVADO</h2>
-        <input type="password" id="input-pass" placeholder="Ingresa tu código" onkeydown="if(event.key==='Enter') validarPass()">
-        <button onclick="validarPass()" class="btn-modal-main">INGRESAR</button>
+        <input type="password" id="input-pass" placeholder="Ingresa el código" onkeydown="if(event.key==='Enter') validarPass()">
+        <button onclick="validarPass()" class="btn-universal btn-modal-main">INGRESAR</button>
     </div>
 </div>
 
