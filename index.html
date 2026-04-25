@@ -746,15 +746,15 @@ document.getElementById("back-to-top").onclick = function() {
     <div class="modal-pedido-content">
         <div id="paso-seleccion">
             <h2>¿QUÉ ADQUIRISTE?</h2>
-            <p>Selecciona el tipo de servicio seleccionado para continuar:</p>
-            <button class="btn-finalizar" style="margin-bottom: 15px;" onclick="irAPasoNombre()">👤 ADQUIRÍ PERFIL</button>
-            <button class="btn-finalizar" style="background: #222; color: #fff; border: 1px solid #333;" onclick="finalizarSinNombre()">🏠 CUENTA COMPLETA</button>
+            <p>Selecciona que opción adquiriste:</p>
+            <button class="btn-finalizar" style="margin-bottom: 15px;" onclick="irAPasoNombre()">👤 PERFIL</button>
+                <button class="btn-finalizar" style="background: #222; color: #fff; border: 1px solid #333;" onclick="finalizarSinNombre()"> Otra categoría</button>
         </div>
 
         <div id="paso-nombre" style="display: none;">
             <h2>DATOS DEL PERFIL</h2>
             <p>Ingresa el nombre que deseas para tus perfiles:</p>
-            <input type="text" id="nombre-perfil-input" class="input-pedido" placeholder="Ej: Juan Pérez / Alex VIP">
+            <input type="text" id="nombre-perfil-input" class="input-pedido" placeholder="Ej: Juan/sonia">
             <button class="btn-finalizar" onclick="finalizarConNombre()">FINALIZAR PEDIDO</button>
             <button class="btn-finalizar" style="background: transparent; color: #555; font-size: 0.7rem; margin-top: 10px;" onclick="volverAPaso1()">← Volver</button>
         </div>
@@ -1614,10 +1614,6 @@ function scrollFilters(val) {
         
         mensaje += `\n💰 *TOTAL A PAGAR: S/ ${totalSoles.toFixed(2)}*`;
         
-        // Si no puso nombre, añadir una nota al final
-        if (nombreDelPerfil === "") {
-            mensaje += `\n\n🏠 *TIPO: CUENTA COMPLETA*`;
-        }
 
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
