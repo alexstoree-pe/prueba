@@ -173,13 +173,13 @@
     .grid-mode .service-logo { margin-right: 0; margin-bottom: 10px; }
     .grid-mode .price-container { margin-left: 0; align-items: center; width: 100%; }
 
-    /* CORRECCIÓN PREMIUM DENTRO DE LA TARJETA EN GRID */
+    /* CORRECCIÓN: PREMIUM DENTRO DE LA TARJETA EN GRID Y ENCIMA DEL PRECIO */
     .grid-mode .premium::after { 
         position: relative !important; 
         top: 0 !important; 
         right: 0 !important;
         display: inline-block !important; 
-        margin: 0 auto 5px !important; /* Centrado y arriba del precio */
+        margin: 0 auto 5px !important; /* Centrado y con margen inferior al precio */
         width: fit-content !important;
     }
 
@@ -635,7 +635,6 @@
         const term = cat.toUpperCase();
         
         document.querySelectorAll('.service-item').forEach(item => {
-            // CORRECCIÓN DE LÓGICA DE FILTRO PARA GRID
             let categoriaDelItem = "";
             let elementoAnterior = item.previousElementSibling;
             while(elementoAnterior) {
