@@ -82,25 +82,29 @@
         .timer-flash { display: none !important; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
         .service-link.flash { display: flex !important; } /* Corregido para que use la clase flash directamente */
        /* --- BADGE IZQUIERDO CIRCULAR Y AMARILLO --- */
+/* 1. Ocultamos el badge por defecto */
 .badge-izq { 
-    display: block !important; /* Forzamos que se muestre */
-    position: absolute; 
-    top: 10px; 
-    left: 10px; 
-    background: #ffd700 !important; /* Fondo Amarillo Oro */
-    color: #000 !important; /* Texto Negro */
-    padding: 6px 14px; 
-    font-size: 0.7rem; 
-    font-weight: 900; 
-    z-index: 50; 
-    border-radius: 30px; /* Borde circular */
-    clip-path: none !important; /* ¡IMPORTANTE! Eliminamos el corte raro anterior */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4); /* Sombra para que resalte del fondo negro */
-    text-transform: uppercase;
+    display: none; 
 }
 
-/* También borra o comenta esta línea si la encuentras más abajo en tu CSS */
-/* .service-link.oferta .badge-izq { display: block; } */
+/* 2. Solo se muestra si el contenedor tiene la clase 'oferta' */
+.service-link.oferta .badge-izq { 
+    display: block !important; 
+    position: absolute; 
+    /* Pegado totalmente a los bordes */
+    top: 0; 
+    left: 0; 
+    background: #ffd700 !important; /* Amarillo */
+    color: #000 !important; 
+    padding: 6px 15px; 
+    font-size: 0.65rem; 
+    font-weight: 800; 
+    z-index: 50; 
+    /* Redondeamos la esquina inferior derecha y ajustamos la superior izquierda */
+    border-radius: 18px 0 20px 0; 
+    clip-path: none !important; 
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+}
         .badge-culminada { display: none !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.95); color: var(--danger); padding: 12px; font-weight: 900; border: 2px solid var(--danger); z-index: 110; text-align: center; width: 85%; }
         .service-link.flash-terminado .badge-culminada { display: block !important; }
 
