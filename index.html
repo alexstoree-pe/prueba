@@ -1,860 +1,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV DISTRIBUIDOR | AlexStoree</title>
+    <title>Promos Mayoristas | Alex Store</title>
 
     <link rel="icon" type="image/png" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
 
     <link rel="apple-touch-icon" href="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
-    <meta name="apple-mobile-web-app-title" content="Alex IPTV">
+    <meta name="apple-mobile-web-app-title" content="Alex Mayoristas">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#050505">
 
-    <meta property="og:title" content="IPTV DISTRIBUIDOR | AlexStoree">
-    <meta property="og:description" content="Lleva el mejor contenido a tus clientes. Panel IPTV estable con canales, películas y series.">
+    <meta property="og:title" content="Promos Mayoristas | Alex Store">
+    <meta property="og:description" content="Aprovecha nuestras promociones exclusivas por volumen. ¡El mejor margen de ganancia!">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/iptv/"> 
-    <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.webp">
+    <meta property="og:url" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/mayoristas/"> <meta property="og:image" content="https://alexstoree-pe.github.io/tienda-alex/catalogo/img/logo.png">
     <meta property="og:image:width" content="500">
     <meta property="og:image:height" content="500">
-    <meta property="og:image:type" content="image/webp">
+    <meta property="og:image:type" content="image/png">
 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #39ff14; 
-            --accent: #a020f0;  
-            --dark-bg: #050505;
-            --card-bg: #0f0f0f;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --danger: #ff0000;
-            --gold: #ffd700;
-            --gold-shadow: rgba(255, 215, 0, 0.3);
+            --vip: #d4af37; 
+            --dark: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --whatsapp: #25d366;
+            --text-gray: #bbb;
+            --timer-color: #00d4ff; 
+            --danger-bright: #ff3333;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shine-red { 0%, 100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } 50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; } }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: radial-gradient(circle at top right, #1a1a1a, #050505); color: white; padding-bottom: 120px; line-height: 1.6; min-height: 100vh; }
+
+        header { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px); padding: 40px 20px; text-align: center; border-bottom: 2px solid var(--vip); border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
+        header h1 { font-size: 1.6rem; color: var(--vip); text-transform: uppercase; letter-spacing: 1px; }
+
+        .container { padding: 20px 15px; max-width: 600px; margin: auto; }
+
+        /* --- ESTILOS BUSCADOR --- */
+        .search-box { position: sticky; top: 10px; z-index: 1000; margin-bottom: 15px; }
+        .search-input-wrapper { position: relative; width: 100%; }
+        .search-input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--vip); }
+        .search-input { width: 100%; padding: 12px 12px 12px 45px; border-radius: 50px; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: white; backdrop-filter: blur(10px); outline: none; transition: 0.3s; }
+        .search-input:focus { border-color: var(--vip); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+
+        /* --- ESTILOS FILTROS MEJORADOS --- */
+        .filter-wrapper { position: relative; width: 100%; margin-bottom: 25px; display: flex; align-items: center; }
+        .filter-container { padding: 5px 35px; display: flex; gap: 10px; overflow-x: auto; white-space: nowrap; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; width: 100%; align-items: center; }
+        .filter-container::-webkit-scrollbar { display: none; }
         
-        /* --- MODIFICACIÓN DE SEGURIDAD: Body oculto por defecto --- */
-        body { 
-            background-color: var(--dark-bg); 
-            color: var(--text-main); 
-            padding-bottom: 140px; 
-            visibility: hidden; /* <--- Oculto hasta validar PIN */
-        }
-
-        /* --- CABECERA --- */
-        header { padding: 40px 20px 20px; text-align: center; }
-        .logo-container img { 
-            width: 100px; height: 100px; border-radius: 50%; 
-            border: 3px solid var(--accent); background-color: #000;
-            box-shadow: 0 0 20px rgba(160, 32, 240, 0.4);
-        }
-        h1 { font-size: 1.8rem; text-transform: uppercase; font-weight: 800; margin: 20px 0; }
-        h1 span.mayoristas { color: var(--primary); }
-
-        .btn-volver { 
-            display: inline-flex; align-items: center; gap: 10px;
-            background-color: transparent; border: 2px solid var(--accent);
-            color: white; text-decoration: none; font-size: 0.8rem; font-weight: 800;
-            padding: 12px 25px; border-radius: 30px; transition: 0.4s ease;
-            cursor: pointer;
-        }
-        .btn-volver:hover { 
-            background-color: var(--accent);
-            box-shadow: 0 0 25px rgba(160, 32, 240, 1);
-            transform: translateY(-2px);
-        }
-
-        /* --- GADGETS AUTOMÁTICOS --- */
-        .service-link.agotado .service-card::after {
-            content: "NO DISPONIBLE"; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); color: white; font-weight: 900;
-            display: flex; justify-content: center; align-items: center; z-index: 200;
-        }
-        .service-link.agotado .badge-izq, 
-        .service-link.agotado .timer-flash, 
-        .service-link.agotado .badge-premium,
-        .service-link.agotado .badge-culminada { display: none !important; }
-
-        .timer-flash { display: none !important; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 2px 12px; font-size: 0.65rem; font-weight: 800; border-radius: 0 0 10px 10px; z-index: 50; align-items: center; gap: 5px; }
-        .service-link.flash { display: flex !important; } /* Corregido para que use la clase flash directamente */
-       /* --- BADGE IZQUIERDO CIRCULAR Y AMARILLO --- */
-/* 1. Ocultamos el badge por defecto */
-.badge-izq { 
-    display: none; 
-}
-
-.service-link.oferta .badge-izq { 
-    display: block !important; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    background: #ffd700 !important; 
-    color: #000 !important; 
-    padding: 3px 10px; /* Reducimos el padding para que sea más delgado */
-    font-size: 0.65rem; /* Texto un poco más pequeño */
-    font-weight: 800; 
-    z-index: 50; 
-    border-radius: 18px 0 15px 0; /* Curva más estilizada */
-    clip-path: none !important; 
-}
-        .badge-culminada { display: none !important; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: rgba(0,0,0,0.95); color: var(--danger); padding: 12px; font-weight: 900; border: 2px solid var(--danger); z-index: 110; text-align: center; width: 85%; }
-        .service-link.flash-terminado .badge-culminada { display: block !important; }
-
-        .premium-tag { 
-            display: none; 
-            font-size: 0.5rem;
-            font-weight: 800; 
-            color: var(--gold); 
-            border: 1px solid var(--gold); 
-            padding: 1px 4px; 
-            border-radius: 3px; 
-            text-transform: uppercase; 
-            margin-bottom: 2px;
-            margin-right: 15px;
-            letter-spacing: 0.5px;
-        }
-        .service-link.premium .premium-tag { display: inline-block; }
-        .service-link.premium .service-card { border-color: var(--gold); box-shadow: 0 0 15px var(--gold-shadow); }
-        .service-link.premium .price-tag, .service-link.premium .unit-price { color: var(--gold) !important; }
-
-        /* --- TARJETAS --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .category-header { margin: 40px 0 20px; border-left: 4px solid var(--accent); padding-left: 15px; }
-        .category-title { font-weight: 800; text-transform: uppercase; font-size: 1.2rem; color: #fff; }
-        .category-desc { color: var(--text-dim); font-size: 0.8rem; margin-top: 5px; display: block; }
-        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .btn-nav { background: var(--card-bg); border: 1px solid var(--glass-border); color: white; padding: 8px 18px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: 0.3s; flex: 0 0 auto; font-family: 'Poppins', sans-serif; }
+        .btn-nav.active { background: var(--vip); color: black; border-color: var(--vip); }
         
-        .service-link { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
-        .service-card { background: var(--card-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 28px 18px 15px 18px; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; transition: 0.3s; }
-        .service-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
+        .arrow-filter { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; cursor: pointer; color: var(--vip); background: rgba(0,0,0,0.7); width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid var(--glass-border); transition: 0.2s; }
+        .arrow-filter:active { transform: translateY(-50%) scale(0.9); }
+        .left-arrow { left: 0; }
+        .right-arrow { right: 0; }
+
+        .back-nav { margin-bottom: 25px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--vip); text-decoration: none; font-size: 0.8rem; border: 1px solid var(--glass-border); background: var(--card-bg); padding: 8px 18px; border-radius: 50px; backdrop-filter: blur(10px); transition: 0.3s; }
+        
+        .category-title { margin: 30px 0 15px; font-size: 0.8rem; font-weight: 800; color: var(--vip); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .category-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, var(--vip), transparent); }
+
+        .promo-link { text-decoration: none; color: inherit; display: block; margin-bottom: 20px; transition: transform 0.2s; }
+        .promo-link.oculto-busqueda { display: none; }
+        .promo-link:active { transform: scale(0.98); }
+
+        .vip-card { background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 22px; padding: 20px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 15px; position: relative; }
+        
+        .batch-badge { position: absolute; top: -10px; left: 20px; background: var(--vip); color: #000; font-size: 0.65rem; font-weight: 900; padding: 3px 12px; border-radius: 50px; z-index: 5; }
+        
+        .popular-tag { position: absolute; top: -10px; right: 20px; background: #ff3333; color: white; font-size: 0.6rem; font-weight: 800; padding: 3px 10px; border-radius: 50px; box-shadow: 0 0 10px rgba(255, 51, 51, 0.4); z-index: 5; animation: fadeInUp 0.5s ease; }
+
+        .service-logo { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; border: 1px solid var(--glass-border); }
+
+        .countdown-timer { display: none; font-size: 0.65rem; color: var(--timer-color); background: rgba(0, 212, 255, 0.1); padding: 2px 8px; border-radius: 6px; margin-bottom: 5px; font-weight: 600; width: fit-content; letter-spacing: 0.5px; text-transform: uppercase; }
+        .promo-link.time .countdown-timer { display: flex; align-items: center; gap: 5px; }
+
         .service-text { flex-grow: 1; }
-        .service-text h3 { font-size: 0.9rem; margin-bottom: 2px; }
-        .manual-desc { display: block; font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
+        .service-text h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .manual-desc { font-size: 0.7rem; color: var(--text-gray); display: block; }
+
+        .price-container { text-align: right; min-width: 100px; }
+        .price-tag { color: #fff; font-weight: 800; font-size: 1.3rem; }
+        .reno-tag { font-size: 0.6rem; color: var(--whatsapp); font-weight: 700; background: rgba(37, 211, 102, 0.1); padding: 2px 8px; border-radius: 50px; display: block; margin-top: 4px; }
+
+        .promo-link.agotado { pointer-events: none; }
+        .promo-link.agotado .vip-card { opacity: 0.4; }
+        .promo-link.agotado .price-tag, .promo-link.agotado .reno-tag, .promo-link.agotado .countdown-timer, .promo-link.agotado .popular-tag { display: none !important; }
+        .promo-link.agotado .price-container::after { content: "SIN STOCK"; font-size: 0.75rem; font-weight: 900; border: 1px solid var(--danger-bright); padding: 6px 10px; border-radius: 10px; animation: shine-red 1.2s infinite; display: block; background: rgba(255, 0, 0, 0.1); }
+
+        .floating-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--vip); color: #000; padding: 15px; border-radius: 15px; text-decoration: none; font-weight: 800; width: 90%; max-width: 400px; text-align: center; z-index: 100; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
         
-        .price-container { 
-            text-align: right; 
-            margin-left: auto; 
-            display: flex; 
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            min-width: 80px;
-        }
-
-        .price-tag { 
-            color: var(--primary); 
-            font-weight: 900; 
-            font-size: 1.1rem; 
-            white-space: nowrap;
-        }
-
-        .unit-price { 
-            display: block; 
-            font-size: 9px; 
-            color: var(--text-dim); 
-            font-weight: 600; 
-            margin-top: 2px;
-        }
-
-        /* --- STICKY TOOLS --- */
-        .sticky-tools { position: sticky; top: 0; background: var(--dark-bg); z-index: 1000; padding: 15px 0; border-bottom: 1px solid var(--glass-border); }
-        .search-container { max-width: 500px; margin: 0 auto 15px; padding: 0 20px; }
-        .search-container input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid var(--glass-border); background: #151515; color: white; outline: none; }
-        
-        .filter-buttons { 
-            display: flex; 
-            justify-content: flex-start;
-            gap: 10px; 
-            overflow-x: auto;
-            padding: 10px 20px; 
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .filter-buttons::-webkit-scrollbar { display: none; }
-        .filter-btn { 
-            flex: 0 0 auto;
-            padding: 10px 20px; 
-            border-radius: 20px; 
-            border: 1px solid var(--glass-border); 
-            background: var(--card-bg); 
-            color: white; 
-            cursor: pointer; 
-            font-size: 0.8rem; 
-            white-space: nowrap;
-            transition: 0.3s;
-        }
-        .filter-btn.active { background: var(--primary); color: black; font-weight: 800; }
-
-        /* --- CARRITO --- */
-        #cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: white; border-radius: 25px; display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; cursor: pointer; }
-        .cart-content { display: flex; align-items: center; padding: 12px 20px; width: 100%; }
-        .cart-info { flex-grow: 1; color: black; font-weight: 800; font-size: 0.9rem; }
-        .btn-clear { background: #f0f0f0; color: #ff0000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; margin-left: 15px; }
-        .whatsapp-icon-float { font-size: 1.5rem; margin-right: 15px; color: #25D366; }
-
-        /* --- SELECCIÓN CELESTE --- */
-        .service-link.selected .service-card {
-            border-color: #00d4ff !important;
-            background: rgba(0, 212, 255, 0.05);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-        }
-        .service-link.selected .service-card::before {
-            content: "\f058"; 
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            color: #00d4ff;
-            font-size: 1.1rem;
-            z-index: 10;
-        }
-
-        /* --- DISEÑO DEL MODAL DE ACCESO --- */
-        .modal-pass { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: #000; 
-            z-index: 99999; 
-            justify-content: center; 
-            align-items: center;
-            visibility: visible !important; /* <--- IMPORTANTE */
-        }
-
-        .modal-content-pass { 
-            background: #0f0f0f; 
-            padding: 40px; 
-            border-radius: 30px; 
-            width: 90%; 
-            max-width: 400px; 
-            border: 1px solid var(--accent); 
-            text-align: center; 
-            box-shadow: 0 0 30px rgba(160, 32, 240, 0.2);
-        }
-
-        #input-dist-pass { 
-            width: 100%; 
-            padding: 15px; 
-            margin: 25px 0; 
-            border-radius: 12px; 
-            background: #000; 
-            color: white; 
-            text-align: center; 
-            font-size: 1.5rem; 
-            border: 1px solid #333; 
-            outline: none; 
-            letter-spacing: 5px;
-        }
-
-        .btn-entrar-vip {
-            width: 100%;
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .no-results { display: none; text-align: center; padding: 40px; color: var(--text-gray); font-size: 0.9rem; }
     </style>
 </head>
-<body>
+<body data-aos-easing="ease" data-aos-duration="800" data-aos-delay="0">
 
-<div id="modal-login-distribuidor" class="modal-pass">
-    <div class="modal-content-pass">
-        <i class="fas fa-lock" style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;"></i>
-        <h2 style="color:white; font-size: 1.2rem;">ACCESO DISTRIBUIDOR</h2>
-        <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 5px;">Ingrese su PIN para ver precios de mayorista</p>
-        <input type="password" id="input-dist-pass" placeholder="····" maxlength="8" onkeypress="if(event.key === 'Enter') validarAcceso()">
-        <button onclick="validarAcceso()" class="btn-entrar-vip">VER CATÁLOGO VIP</button>
-    </div>
-</div>
-
-<script>
-    (function() {
-        const acceso = sessionStorage.getItem("acceso_distribuidor");
-        if (acceso === "true") {
-            document.documentElement.style.visibility = "visible";
-            document.addEventListener("DOMContentLoaded", () => {
-                document.body.style.visibility = "visible";
-            });
-        } else {
-            document.addEventListener("DOMContentLoaded", () => {
-                const modal = document.getElementById('modal-login-distribuidor');
-                if (modal) {
-                    modal.style.display = 'flex';
-                    document.body.style.visibility = 'hidden'; 
-                    modal.style.visibility = 'visible';
-                }
-            });
-        }
-    })();
-
-    function validarAcceso() {
-        const inputPass = document.getElementById('input-dist-pass');
-        if (inputPass.value === "dis") { // Tu PIN
-            sessionStorage.setItem("acceso_distribuidor", "true");
-            location.reload();
-        } else {
-            alert("Acceso denegado.");
-            inputPass.value = "";
-        }
-    }
-</script>
-    
 <header>
-    <div class="logo-container"><img src="../img/logo.webp" alt="AlexStoree"></div>
-    <h1>SMARTERSPRO <span class="mayoristas">MAYORISTAS</span></h1>
-    <a href="../distribuidores/index.html" class="btn-volver">
-        <i class="fa-solid fa-arrow-left"></i> VOLVER A DISTRIBUIDORES
-    </a>
+    <h1>ALEX STORE PROMOS 👑</h1>
+    <p>Panel Exclusivo para Mayoristas</p>
 </header>
 
-<div class="sticky-tools">
-    <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="filtrarServicios()" placeholder="Buscar plataforma...">
+<div class="container">
+    
+    <div class="back-nav">
+        <a href="../distribuidores/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Panel Principal</a>
     </div>
-    <div class="filter-buttons">
-        <button class="filter-btn active" onclick="filterCat('all', this)">Todos</button>
-        <button class="filter-btn" onclick="filterCat('unidades', this)">Unidades</button>
-        <button class="filter-btn" onclick="filterCat('flujo', this)">Flujo TV</button>
-        <button class="filter-btn" onclick="filterCat('equilibrado', this)">IPTV Equilibrado</button>
-        <button class="filter-btn" onclick="filterCat('europeo', this)">Europeo</button>
-    </div>
-</div>
 
-<div class="container" id="productGrid">
-
-    <div class="category-block active-cat" data-cat="unidades">
-        <div class="category-header">
-            <span class="category-title">Cuentas por Unidad</span>
-            <span class="category-desc">Planes mensuales directos para clientes finales.</span>
-        </div>
-        <div class="grid-servicios">
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/mundo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV standard 1 Mes</h3>
-                        <span class="manual-desc">3 dispositivos - +3500 canales - +22000 peliculas - +1500 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 5</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/mundo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV standard 2 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +3500 canales - +22000 peliculas - +1500 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 9</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/mundo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV standard 3 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +3500 canales - +22000 peliculas - +1500 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 13</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/mundo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV standard 6 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +3500 canales - +22000 peliculas - +1500 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 25</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/mundo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV standard 12 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +3500 canales - +22000 peliculas - +1500 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 40</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV equlibrado 1 Mes</h3>
-                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 7</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV Equilibrado 3 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 15</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV Equilibrado 6 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 28</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV Equilibrado 12 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +6500 canales - +25000 peliculas - +2000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 45</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link premium" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/iptvp.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV PREMIUM 1 Mes</h3>
-                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 15</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link oferta premium" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">+ 1 mes gratis</span>
-                    <img src="../img/iptvp.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV PREMIUM 3 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 45</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link oferta premium" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">+ 2 meses gratis</span>
-                    <img src="../img/iptvp.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV PREMIUM 6 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 90</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link oferta premium" data-final="2026-04-25 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">OFERTA CULMINADA</div>
-                    <span class="badge-izq">+ 3 meses gratis</span>
-                    <img src="../img/iptvp.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>IPTV PREMIUM 12 Meses</h3>
-                        <span class="manual-desc">3 dispositivos - +10000 canales - +40000 peliculas - +3000 series</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 180</div>
-                    </div>
-                </div>
-            </div>
-
+    <div class="search-box">
+        <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="buscador" class="search-input" placeholder="Buscar plataforma o servicio..." oninput="filtrarPlataformas()">
         </div>
     </div>
 
-    <div class="category-block active-cat" data-cat="flujo">
-        <div class="category-header">
-            <span class="category-title">Cuentas Estables (Flujo TV) Antes MAGISTV</span>
-            <span class="category-desc">La mejor estabilidad en eventos deportivos • +900 canales •+10000 peliculas •+4000 series (solo compatibles con ANDROID-TV / TV BOX / FIRE STICK ).</span>
+    <div class="filter-wrapper">
+        <div class="arrow-filter left-arrow" onclick="scrollFilters(-100)">
+            <i class="fa-solid fa-chevron-left"></i>
         </div>
-        <div class="grid-servicios">
-            
-            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/flujo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>Flujo TV (1 mes)</h3>
-                        <span class="manual-desc">3 dispositivos</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 12</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/flujo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>Flujo TV (3 meses)</h3>
-                        <span class="manual-desc">3 dispositivos</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 35</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link oferta" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">+1 mes gratis</span>
-                    <img src="../img/flujo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>Flujo TV (6 meses)</h3>
-                        <span class="manual-desc">3 dispositivos</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 70</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-link oferta" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">+2 meses gratis</span>
-                    <img src="../img/flujo.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>Flujo TV (12 meses)</h3>
-                        <span class="manual-desc">3 dispositivos</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 132</div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="filter-container" id="filterScroll">
+            <button class="btn-nav active" onclick="filtrarCategoria('TODOS', this)">TODOS</button>
+            <button class="btn-nav" onclick="filtrarCategoria('PACKS DE CUENTAS COMPLETAS', this)">CUENTAS COMPLETAS</button>
+            <button class="btn-nav" onclick="filtrarCategoria('PROMOCIONES INDIVIDUALES', this)">INDIVIDUALES</button>
+        </div>
+        <div class="arrow-filter right-arrow" onclick="scrollFilters(100)">
+            <i class="fa-solid fa-chevron-right"></i>
         </div>
     </div>
 
-   <div class="category-block active-cat" data-cat="equilibrado">
-        <div class="category-header">
-            <span class="category-title">Panel IPTV Equilibrado</span>
-            <span class="category-desc">Gestión de créditos con excelente relación calidad-precio (+6500 canales - +25000 peliculas - +2000 series).</span>
-        </div>
-        <div class="grid-servicios">
-            
-            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>10 Créditos panel incluido</h3>
-                        <span class="manual-desc">Panel reseller gestión inmediata</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 40</div>
-                        <span class="unit-price">S/ 4.00 por unidad</span>
-                    </div>
+    <div id="lista-promos">
+        <div class="category-title">📦 PACKS DE CUENTAS COMPLETAS</div>
+
+        <a href="#" class="promo-link  popular agotado" data-tiempo="2026-04-24 23:59" data-aos="fade-up">
+            <div class="vip-card">
+                <div class="popular-tag"><i class="fa-solid fa-fire"></i> MÁS VENDIDO</div>
+                <div class="batch-badge">PACK x10</div>
+                <img src="../img/max.webp" class="service-logo">
+                <div class="service-text">
+                    <div class="countdown-timer"><i class="fa-regular fa-clock"></i> Cierra en: <span class="timer">...</span></div>
+                    <h3 class="nombre-prod">MAX PLATINO COMPLETA</h3>
+                    <span class="manual-desc">10 Cuentas • 4K UHD • 1 Mes.</span>
+                </div>
+                <div class="price-container">
+                    <span class="price-tag precio-prod">S/ 50</span> 
+                    <span class="reno-tag">Reno: S/ 9 c/u</span>
                 </div>
             </div>
+        </a>
 
-            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>50 Créditos panel incluido</h3>
-                        <span class="manual-desc">Precio especial para distribuidores</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 180</div>
-                        <span class="unit-price">S/ 3.60 por unidad</span>
-                    </div>
+        <a href="#" class="promo-link time" data-tiempo="2026-05-02 17:06" data-aos="fade-up">
+            <div class="vip-card">
+                <div class="batch-badge">PACK x10</div>
+                <img src="../img/vix.webp" class="service-logo">
+                <div class="service-text">
+                    <div class="countdown-timer"><i class="fa-regular fa-clock"></i> Cierra en: <span class="timer">...</span></div>
+                    <h3 class="nombre-prod">VIX PREMIUM</h3>
+                    <span class="manual-desc">10 Cuentas • Liga MX • 1 Mes.</span>
+                </div>
+                <div class="price-container">
+                    <span class="price-tag precio-prod">S/ 30</span> 
+                    <span class="reno-tag">Reno: S/ 4.50 c/u</span>
                 </div>
             </div>
+        </a>
 
-            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>70 Créditos panel incluido</h3>
-                        <span class="manual-desc">Alta rentabilidad garantizada</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 230</div>
-                        <span class="unit-price">S/ 3.28 por unidad</span>
-                    </div>
+        <a href="#" class="promo-link  popular time" data-tiempo="2026-05-5 23:59" data-aos="fade-up">
+            <div class="vip-card">
+                <div class="popular-tag"><i class="fa-solid fa-star"></i> MAS SOLICITADO</div>
+                <div class="batch-badge">PACK x10</div>
+                <img src="../img/paramount.webp" class="service-logo">
+                <div class="service-text">
+                    <div class="countdown-timer"><i class="fa-regular fa-clock"></i> Cierra en: <span class="timer">...</span></div>
+                    <h3 class="nombre-prod">PARAMOUNT</h3>
+                    <span class="manual-desc">10 Cuentas • Todo el catálogo.</span>
+                </div>
+                <div class="price-container">
+                    <span class="price-tag precio-prod">S/ 50</span> 
+                    <span class="reno-tag">Reno: S/ 7 c/u</span>
                 </div>
             </div>
+        </a>
 
-            <div class="service-link" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/lamtv.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>100 Créditos super reseller</h3>
-                        <span class="manual-desc">Permite crear sub-paneles</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 300</div>
-                        <span class="unit-price">S/ 3.28 por unidad</span>
-                    </div>
+        <div class="category-title">👤 PROMOCIONES INDIVIDUALES</div>
+
+        <a href="#" class="promo-link agotado" data-aos="fade-up">
+            <div class="vip-card">
+                <div class="batch-badge">INDIVIDUAL</div>
+                <img src="../img/spotify.webp" class="service-logo">
+                <div class="service-text">
+                    <h3 class="nombre-prod">SPOTIFY PREMIUM</h3>
+                    <span class="manual-desc">A tu propio correo • 1 Mes.</span>
+                </div>
+                <div class="price-container">
+                    <span class="price-tag precio-prod">S/ 7</span> 
                 </div>
             </div>
+        </a>
 
-        </div>
+        <a href="#" class="promo-link agotado" data-aos="fade-up">
+            <div class="vip-card">
+                <div class="batch-badge">PROMO</div>
+                <img src="../img/prime.webp" class="service-logo">
+                <div class="service-text">
+                    <h3 class="nombre-prod">PRIME VIDEO</h3>
+                    <span class="manual-desc">Cuenta Completa • Original.</span>
+                </div>
+                <div class="price-container">
+                    <span class="price-tag precio-prod">S/ 10</span> 
+                </div>
+            </div>
+        </a>
     </div>
-
-    <div class="category-block active-cat" data-cat="europeo">
-        <div class="category-header">
-            <span class="category-title">Panel IPTV Europeo</span>
-            <span class="category-desc">Servidores premium con contenido optimizado (+10000 canales - +40000 peliculas - +3000 series).</span>
-        </div>
-        <div class="grid-servicios">
-            <div class="service-link premium" data-final="2026-12-31 23:59:59" onclick="toggleItem(this)">
-                <div class="service-card">
-                    <div class="timer-flash"><i class="fa-solid fa-clock"></i> <span class="countdown">--:--:--</span></div>
-                    <div class="badge-culminada">CULMINADA</div>
-                    <span class="badge-izq">OFERTA</span>
-                    <img src="../img/iptvp.webp" class="service-logo">
-                    <div class="service-text">
-                        <h3>Europeo 10 Créditos</h3>
-                        <span class="manual-desc">Calidad Premium 4K estable</span>
-                    </div>
-                    <div class="price-container">
-                        <span class="premium-tag">Premium</span>
-                        <div class="price-tag">S/ 150</div>
-                        <span class="unit-price">S/ 15.00 por unidad</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
+    <div id="noResults" class="no-results">No se encontraron plataformas con ese nombre.</div>
 
 </div>
 
+<a href="https://wa.me/51918600000?text=Hola%20Alex%20Store" class="floating-btn">
+    <i class="fa-brands fa-whatsapp"></i> PEDIR POR WHATSAPP
+</a>
 
-<div id="cart-bar" onclick="sendWhatsapp()">
-    <div class="cart-content">
-        <i class="fa-brands fa-whatsapp whatsapp-icon-float"></i>
-        <div class="cart-info">
-            PEDIR <span id="cart-qty">0</span> ITEMS | TOTAL: <span id="cart-total">S/ 0.00</span>
-        </div>
-        <button class="btn-clear" onclick="clearAll(event)">
-            <i class="fa-solid fa-trash-can"></i>
-        </button>
-    </div>
-</div>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    let total = 0, cant = 0;
-    let selectedItems = [];
+    // Inicializar AOS
+    AOS.init({
+        duration: 800,
+        once: false 
+    });
 
-    function toggleItem(el) {
-        if(el.classList.contains('agotado')) return;
-        el.classList.toggle('selected');
-        
-        const precio = parseFloat(el.querySelector('.price-tag').innerText.replace('S/ ', ''));
-        const nombre = el.querySelector('h3').innerText;
-        const desc = el.querySelector('.manual-desc').innerText; 
-        const unitario = el.querySelector('.unit-price') ? el.querySelector('.unit-price').innerText : ""; 
-        
-        // --- NUEVA LÓGICA: CAPTURAR ETIQUETA DE OFERTA ---
-        let textoOferta = "";
-        if(el.classList.contains('oferta')) {
-            const badge = el.querySelector('.badge-izq');
-            if(badge) textoOferta = badge.innerText; // Captura "OFERTA" o lo que diga el badge
-        }
-        
-        if(el.classList.contains('selected')) {
-            total += precio; cant++;
-            // Guardamos la oferta en el objeto del item
-            selectedItems.push({nombre, precio, desc, unitario, oferta: textoOferta});
-        } else {
-            total -= precio; cant--;
-            selectedItems = selectedItems.filter(item => item.nombre !== nombre);
-        }
-        updateCartUI();
+    // Función para Scroll de Filtros
+    function scrollFilters(val) {
+        const container = document.getElementById('filterScroll');
+        container.scrollBy({ left: val, behavior: 'smooth' });
     }
 
-    function sendWhatsapp() {
-        if(selectedItems.length === 0) return;
-        const numero = "51918600000";
-        let msj = "¡Hola Alex Store! soy distribuidor !👋 Deseo adquirir:\n\n";
+    // --- FUNCIÓN FILTRAR PLATAFORMAS (BUSCADOR) ---
+    function filtrarPlataformas() {
+        const input = document.getElementById('buscador').value.trim().toLowerCase();
+        const tarjetas = document.querySelectorAll('.promo-link');
+        const categorias = document.querySelectorAll('.category-title');
+        const noResults = document.getElementById('noResults');
+        let hayResultadosGlobales = false;
+
+        // Reset visual de los botones al buscar
+        document.querySelectorAll('.btn-nav').forEach(btn => btn.classList.remove('active'));
+        const btnTodos = document.querySelector(".btn-nav[onclick*='TODOS']");
+        if(btnTodos) btnTodos.classList.add('active');
         
-        selectedItems.forEach(item => {
-            // 1. Primero ponemos el nombre del item
-            msj += `✅ *${item.nombre}*\n`;
+        tarjetas.forEach(tarjeta => {
+            const nombre = tarjeta.querySelector('.nombre-prod') ? tarjeta.querySelector('.nombre-prod').innerText.toLowerCase() : "";
+            const descripcion = tarjeta.querySelector('.manual-desc') ? tarjeta.querySelector('.manual-desc').innerText.toLowerCase() : "";
             
-            // 2. Si tiene oferta, la ponemos debajo del nombre con un emoji
-            if(item.oferta) {
-                msj += `🔥 *[${item.oferta}]*\n`;
+            if (nombre.includes(input) || descripcion.includes(input)) {
+                tarjeta.classList.remove('oculto-busqueda');
+                tarjeta.style.display = "block";
+                tarjeta.style.opacity = "1"; 
+                tarjeta.style.transform = "none";
+                hayResultadosGlobales = true;
+            } else {
+                tarjeta.classList.add('oculto-busqueda');
+                tarjeta.style.display = "none";
             }
-            
-            // 3. El resto de detalles
-            msj += `➡️  _${item.desc}_\n`; 
-            if(item.unitario) msj += `   [${item.unitario}]\n`; 
-            msj += `💰  *Precio:* S/ ${item.precio.toFixed(2)}\n\n`;
         });
         
-        msj += `💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
-        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msj)}`, '_blank');
-    }
-
-    function updateCartUI() {
-        document.getElementById('cart-qty').innerText = cant;
-        document.getElementById('cart-total').innerText = "S/ " + total.toFixed(2);
-        // Además del conteo, verificamos si el acceso está validado para mostrar la barra
-        const acceso = sessionStorage.getItem("acceso_distribuidor");
-        document.getElementById('cart-bar').style.display = (cant > 0 && acceso === "true") ? "block" : "none";
-    }
-
-    function clearAll(event) {
-        event.stopPropagation();
-        document.querySelectorAll('.service-link.selected').forEach(el => el.classList.remove('selected'));
-        selectedItems = []; total = 0; cant = 0;
-        updateCartUI();
-    }
-
-    function filtrarServicios() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.querySelectorAll('.service-link');
-        let categories = document.querySelectorAll('.category-block');
-        cards.forEach(card => {
-            let texto = card.innerText.toLowerCase();
-            card.style.display = texto.includes(input) ? "" : "none";
+        categorias.forEach(titulo => {
+            let tieneHijosVisibles = false;
+            let hermano = titulo.nextElementSibling;
+            
+            while(hermano && !hermano.classList.contains('category-title')) {
+                if(hermano.classList.contains('promo-link') && !hermano.classList.contains('oculto-busqueda')) {
+                    tieneHijosVisibles = true;
+                    break;
+                }
+                hermano = hermano.nextElementSibling;
+            }
+            titulo.style.display = (tieneHijosVisibles || input === "") ? "flex" : "none";
         });
-        categories.forEach(category => {
-            let cardsVisibles = category.querySelectorAll('.service-link:not([style*="display: none"])').length;
-            category.style.display = (cardsVisibles > 0 || input === "") ? "" : "none";
+
+        noResults.style.display = hayResultadosGlobales ? "none" : "block";
+        AOS.refresh();
+    }
+
+   // 1. FUNCIÓN PRINCIPAL DE FILTRADO
+function filtrarCategoria(categoria, btn) {
+    // Limpiar buscador y resetear estado de botones
+    document.getElementById('buscador').value = "";
+    document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const term = categoria.toUpperCase();
+    const tarjetas = document.querySelectorAll('.promo-link');
+
+    tarjetas.forEach(t => {
+        const txt = t.innerText.toUpperCase();
+        
+        if (term === 'TODOS') {
+            t.style.display = "block";
+            t.classList.remove('oculto-busqueda');
+        } else {
+            // Lógica de palabras clave para que coincida con tus categorías
+            let coincide = false;
+            
+            // Si el botón es de Cuentas Completas
+            if (term.includes("PACK") || term.includes("COMPLETAS")) {
+                coincide = txt.includes("PACK") || txt.includes("COMPLETA");
+            } 
+            // Si el botón es de Individuales o Perfiles
+            else if (term.includes("INDIVIDUAL") || term.includes("PERFIL")) {
+                coincide = txt.includes("INDIVIDUAL") || txt.includes("PERFIL") || txt.includes("PROMO");
+            } 
+            // Para otros (DISEÑO, IPTV, etc.)
+            else {
+                coincide = txt.includes(term);
+            }
+
+            if (coincide) {
+                t.style.display = "block";
+                t.classList.remove('oculto-busqueda');
+            } else {
+                t.style.display = "none";
+                t.classList.add('oculto-busqueda');
+            }
+        }
+    });
+
+    // Llamamos a la función que muestra u oculta los títulos (ZONA PERFILES, etc.)
+    actualizarTitulos();
+
+    // Refrescar animaciones AOS
+    if (typeof AOS !== 'undefined') {
+        document.querySelectorAll('.promo-link').forEach(el => el.classList.remove('aos-animate'));
+        setTimeout(() => { AOS.refreshHard(); }, 100);
+    }
+}
+
+// 2. FUNCIÓN PARA GESTIONAR LOS TÍTULOS (ESTA ES LA QUE TRAE LA CATEGORÍA)
+function actualizarTitulos() {
+    const titulos = document.querySelectorAll('.category-title');
+    
+    titulos.forEach(titulo => {
+        let tieneHijosVisibles = false;
+        let hermano = titulo.nextElementSibling;
+        
+        // Buscamos productos visibles debajo de este título
+        while (hermano && !hermano.classList.contains('category-title')) {
+            if (hermano.classList.contains('promo-link') && hermano.style.display !== "none") {
+                tieneHijosVisibles = true;
+                break;
+            }
+            hermano = hermano.nextElementSibling;
+        }
+        
+        // Muestra el título (flex) si hay productos, si no, lo oculta (none)
+        titulo.style.display = tieneHijosVisibles ? "flex" : "none";
+    });
+}
+    function actualizarCronometros() {
+        const tarjetasConTiempo = document.querySelectorAll('.promo-link.time');
+        
+        tarjetasConTiempo.forEach(tarjeta => {
+            const timerDisplay = tarjeta.querySelector('.timer');
+            const fechaLimiteStr = tarjeta.getAttribute('data-tiempo');
+            if (!fechaLimiteStr) return;
+
+            const fechaLimite = new Date(fechaLimiteStr.replace(/-/g, "/")).getTime();
+            const ahora = new Date().getTime();
+            const distancia = fechaLimite - ahora;
+
+            // Si el tiempo se agotó
+            if (distancia < 0) {
+                timerDisplay.innerText = "EXPIRADO";
+                // Agregamos la clase agotado para que herede los estilos CSS que ya tienes
+                tarjeta.classList.add('agotado');
+                return;
+            }
+
+            // Si aún hay tiempo, mostramos el contador
+            const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distancia % (1000 * 60)) / 1000);
+            
+            let formato = "";
+            if (d > 0) formato += d + "d ";
+            formato += h + "h " + m + "m " + s + "s";
+            
+            timerDisplay.innerText = formato;
         });
     }
 
-    function filterCat(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.category-block').forEach(block => {
-            block.style.display = (cat === 'all' || block.getAttribute('data-cat') === cat) ? "block" : "none";
-        });
-    }
+    function configurarWhatsApp() {
+    const tarjetas = document.querySelectorAll('.promo-link:not(.agotado)');
+    tarjetas.forEach(t => {
+        // 1. CAPTURAMOS EL BADGE (PACK x10, INDIVIDUAL, etc.)
+        const badge = t.querySelector('.batch-badge')?.innerText || '';
+        const nombre = t.querySelector('.nombre-prod')?.innerText;
+        const precio = t.querySelector('.precio-prod')?.innerText;
+        const descripcion = t.querySelector('.manual-desc')?.innerText;
+        
+        // 2. LO AGREGAMOS AL MENSAJE AL COSTADO DEL NOMBRE
+        // Usamos [${badge}] para que resalte en el mensaje
+        const msg = `Hola Alex Store! soy distribuidor, quiero la promo:\n\n` +
+                    `👑 *Promo:* ${nombre} [${badge}]\n` +
+                    `💰 *Precio:* ${precio}\n` +
+                    `📝 *Detalle:* ${descripcion || 'Sin descripción'}`;
+        
+        t.href = `https://wa.me/51918600000?text=${encodeURIComponent(msg)}`;
+        t.target = "_blank";
+    });
+}
+    window.onload = () => {
+        actualizarCronometros(); // Ejecutar primero para bloquear las expiradas
+        configurarWhatsApp();    // Luego configurar WA para las que queden activas
+        setInterval(actualizarCronometros, 1000);
+    };
 </script>
 
 </body>
