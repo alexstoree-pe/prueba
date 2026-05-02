@@ -36,7 +36,12 @@
         }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes shine-red { 0%, 100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } 50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; } }
+        
+        /* Animación optimizada para sincronización */
+        @keyframes shine-red { 
+            0%, 100% { text-shadow: 0 0 8px #ff0000; color: #ff3333; border-color: #ff3333; } 
+            50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #fff; border-color: #fff; } 
+        }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: radial-gradient(circle at top right, #1a1a1a, #050505); color: white; padding-bottom: 120px; line-height: 1.6; min-height: 100vh; }
@@ -105,6 +110,7 @@
         .promo-link.agotado .popular-tag { 
             display: none !important; 
         }
+        
         .promo-link.agotado .price-container::after { 
             content: "SIN STOCK"; 
             font-size: 0.75rem; 
@@ -112,7 +118,7 @@
             border: 1px solid var(--danger-bright); 
             padding: 6px 10px; 
             border-radius: 10px; 
-            animation: shine-red 1.2s infinite; 
+            animation: shine-red 1.2s infinite both; /* 'both' ayuda a mantener sincronía */
             display: block; 
             background: rgba(255, 0, 0, 0.1); 
         }
@@ -158,6 +164,7 @@
     <div id="lista-promos">
         <div class="category-title">📦 PACKS DE CUENTAS COMPLETAS</div>
 
+        <!-- MAX: Se mantiene agotado manual -->
         <a href="#" class="promo-link popular agotado" data-tiempo="2026-04-24 23:59" data-aos="fade-up">
             <div class="vip-card">
                 <div class="popular-tag"><i class="fa-solid fa-fire"></i> MÁS VENDIDO</div>
@@ -175,6 +182,7 @@
             </div>
         </a>
 
+        <!-- VIX: Ejemplo que expirará por tiempo -->
         <a href="#" class="promo-link time" data-tiempo="2026-05-02 17:06" data-aos="fade-up">
             <div class="vip-card">
                 <div class="batch-badge">PACK x10</div>
@@ -259,7 +267,6 @@
     function filtrarPlataformas() {
         const input = document.getElementById('buscador').value.trim().toLowerCase();
         const tarjetas = document.querySelectorAll('.promo-link');
-        const categorias = document.querySelectorAll('.category-title');
         const noResults = document.getElementById('noResults');
         let hayResultadosGlobales = false;
 
@@ -348,22 +355,33 @@
             const distancia = fechaLimite - ahora;
 
             if (distancia <= 0) {
-                // AGOTAR Y BLOQUEAR
-                tarjeta.classList.add('agotado');
-                tarjeta.classList.remove('time'); // Quitar clase time para limpiar estilos
-                tarjeta.href = "javascript:void(0)";
-                tarjeta.style.pointerEvents = "none";
-                tarjeta.removeAttribute('target');
+                // Solo ejecutamos el cambio si NO tiene la clase agotado todavía
+                if (!tarjeta.classList.contains('agotado')) {
+                    tarjeta.classList.add('agotado');
+                    tarjeta.classList.remove('time');
+                    
+                    // SINCRONIZACIÓN FORZADA: Reiniciamos la animación brevemente
+                    const container = tarjeta.querySelector('.price-container');
+                    if (container) {
+                        container.style.animation = 'none';
+                        container.offsetHeight; // Reflujo para resetear el ciclo de animación
+                        container.style.animation = '';
+                    }
 
-                if (timerContainer) timerContainer.style.display = 'none';
-                
-                const priceTag = tarjeta.querySelector('.price-tag');
-                const renoTag = tarjeta.querySelector('.reno-tag');
-                const popularTag = tarjeta.querySelector('.popular-tag');
+                    tarjeta.href = "javascript:void(0)";
+                    tarjeta.style.pointerEvents = "none";
+                    tarjeta.removeAttribute('target');
 
-                if (priceTag) priceTag.style.display = 'none';
-                if (renoTag) renoTag.style.display = 'none';
-                if (popularTag) popularTag.style.display = 'none';
+                    if (timerContainer) timerContainer.style.display = 'none';
+                    
+                    const priceTag = tarjeta.querySelector('.price-tag');
+                    const renoTag = tarjeta.querySelector('.reno-tag');
+                    const popularTag = tarjeta.querySelector('.popular-tag');
+
+                    if (priceTag) priceTag.style.display = 'none';
+                    if (renoTag) renoTag.style.display = 'none';
+                    if (popularTag) popularTag.style.display = 'none';
+                }
                 return;
             }
 
