@@ -365,38 +365,42 @@ function actualizarTitulos() {
     });
 }
     function actualizarCronometros() {
-        const tarjetasConTiempo = document.querySelectorAll('.promo-link.time');
+    const tarjetasConTiempo = document.querySelectorAll('.promo-link.time');
+    
+    tarjetasConTiempo.forEach(tarjeta => {
+        const timerDisplay = tarjeta.querySelector('.timer');
+        const timerContainer = tarjeta.querySelector('.countdown-timer'); // El contenedor azul
+        const fechaLimiteStr = tarjeta.getAttribute('data-tiempo');
         
-        tarjetasConTiempo.forEach(tarjeta => {
-            const timerDisplay = tarjeta.querySelector('.timer');
-            const fechaLimiteStr = tarjeta.getAttribute('data-tiempo');
-            if (!fechaLimiteStr) return;
+        if (!fechaLimiteStr) return;
 
-            const fechaLimite = new Date(fechaLimiteStr.replace(/-/g, "/")).getTime();
-            const ahora = new Date().getTime();
-            const distancia = fechaLimite - ahora;
+        const fechaLimite = new Date(fechaLimiteStr.replace(/-/g, "/")).getTime();
+        const ahora = new Date().getTime();
+        const distancia = fechaLimite - ahora;
 
-            // Si el tiempo se agotó
-            if (distancia < 0) {
-                timerDisplay.innerText = "EXPIRADO";
-                // Agregamos la clase agotado para que herede los estilos CSS que ya tienes
-                tarjeta.classList.add('agotado');
-                return;
-            }
+        if (distancia < 0) {
+            // 1. Bloqueamos la tarjeta
+            tarjeta.classList.add('agotado');
+            // 2. Ocultamos el cronómetro para que no estorbe al "SIN STOCK"
+            if (timerContainer) timerContainer.style.display = 'none';
+            return;
+        }
 
-            // Si aún hay tiempo, mostramos el contador
-            const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
-            const h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((distancia % (1000 * 60)) / 1000);
-            
-            let formato = "";
-            if (d > 0) formato += d + "d ";
-            formato += h + "h " + m + "m " + s + "s";
-            
-            timerDisplay.innerText = formato;
-        });
-    }
+        // Si aún hay tiempo, nos aseguramos que sea visible y mostramos el tiempo
+        if (timerContainer) timerContainer.style.display = 'flex';
+        
+        const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distancia % (1000 * 60)) / 1000);
+        
+        let formato = "";
+        if (d > 0) formato += d + "d ";
+        formato += h + "h " + m + "m " + s + "s";
+        
+        timerDisplay.innerText = formato;
+    });
+}
 
     function configurarWhatsApp() {
     const tarjetas = document.querySelectorAll('.promo-link:not(.agotado)');
@@ -418,11 +422,11 @@ function actualizarTitulos() {
         t.target = "_blank";
     });
 }
-    window.onload = () => {
-        actualizarCronometros(); // Ejecutar primero para bloquear las expiradas
-        configurarWhatsApp();    // Luego configurar WA para las que queden activas
-        setInterval(actualizarCronometros, 1000);
-    };
+    wwindow.onload = () => {
+    actualizarCronometros(); // Bloquea las expiradas al instante
+    configurarWhatsApp();
+    setInterval(actualizarCronometros, 1000);
+};
 </script>
 
 </body>
