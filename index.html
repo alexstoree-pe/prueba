@@ -93,8 +93,13 @@
         .price-tag { color: #fff; font-weight: 800; font-size: 1.3rem; }
         .reno-tag { font-size: 0.6rem; color: var(--whatsapp); font-weight: 700; background: rgba(37, 211, 102, 0.1); padding: 2px 8px; border-radius: 50px; display: block; margin-top: 4px; }
 
-        .promo-link.agotado { pointer-events: none; }
-        .promo-link.agotado .vip-card { opacity: 0.4; }
+        .promo-link.agotado {
+    pointer-events: none !important; /* El !important asegura que se bloquee sí o sí */
+    cursor: default;
+}
+       .promo-link.agotado .vip-card {
+    opacity: 0.5; /* Se pone opaco para indicar que no está disponible */
+}
         .promo-link.agotado .price-tag, .promo-link.agotado .reno-tag, .promo-link.agotado .countdown-timer, .promo-link.agotado .popular-tag { display: none !important; }
         .promo-link.agotado .price-container::after { content: "SIN STOCK"; font-size: 0.75rem; font-weight: 900; border: 1px solid var(--danger-bright); padding: 6px 10px; border-radius: 10px; animation: shine-red 1.2s infinite; display: block; background: rgba(255, 0, 0, 0.1); }
 
@@ -364,12 +369,12 @@ function actualizarTitulos() {
         titulo.style.display = tieneHijosVisibles ? "flex" : "none";
     });
 }
-    function actualizarCronometros() {
+   function actualizarCronometros() {
     const tarjetasConTiempo = document.querySelectorAll('.promo-link.time');
     
     tarjetasConTiempo.forEach(tarjeta => {
         const timerDisplay = tarjeta.querySelector('.timer');
-        const timerContainer = tarjeta.querySelector('.countdown-timer'); // El contenedor azul
+        const timerContainer = tarjeta.querySelector('.countdown-timer');
         const fechaLimiteStr = tarjeta.getAttribute('data-tiempo');
         
         if (!fechaLimiteStr) return;
@@ -378,15 +383,21 @@ function actualizarTitulos() {
         const ahora = new Date().getTime();
         const distancia = fechaLimite - ahora;
 
-        if (distancia < 0) {
-            // 1. Bloqueamos la tarjeta
+        if (distancia <= 0) {
+            // 1. Añadimos la clase agotado (para el estilo visual)
             tarjeta.classList.add('agotado');
-            // 2. Ocultamos el cronómetro para que no estorbe al "SIN STOCK"
+            
+            // 2. Bloqueamos el enlace físicamente para que no abra WhatsApp
+            tarjeta.href = "javascript:void(0)"; 
+            tarjeta.style.pointerEvents = "none"; // Refuerzo de bloqueo
+            
+            // 3. Ocultamos el cronómetro y mostramos "EXPIRADO"
             if (timerContainer) timerContainer.style.display = 'none';
+            if (timerDisplay) timerDisplay.innerText = "EXPIRADO";
             return;
         }
 
-        // Si aún hay tiempo, nos aseguramos que sea visible y mostramos el tiempo
+        // Si aún tiene tiempo, el cronómetro debe verse
         if (timerContainer) timerContainer.style.display = 'flex';
         
         const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
@@ -401,7 +412,6 @@ function actualizarTitulos() {
         timerDisplay.innerText = formato;
     });
 }
-
     function configurarWhatsApp() {
     const tarjetas = document.querySelectorAll('.promo-link:not(.agotado)');
     tarjetas.forEach(t => {
