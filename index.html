@@ -384,22 +384,31 @@ function actualizarTitulos() {
         const distancia = fechaLimite - ahora;
 
         if (distancia <= 0) {
-            // 1. Añadimos la clase agotado (para el estilo visual)
+            // 1. Aplicamos la clase de agotado para los estilos generales
             tarjeta.classList.add('agotado');
             
-            // 2. Bloqueamos el enlace físicamente para que no abra WhatsApp
-            tarjeta.href = "javascript:void(0)"; 
-            tarjeta.style.pointerEvents = "none"; // Refuerzo de bloqueo
+            // 2. BLOQUEO FÍSICO: Anulamos el click y el puntero
+            tarjeta.href = "javascript:void(0)";
+            tarjeta.style.pointerEvents = "none";
+            tarjeta.removeAttribute('target'); // Evita que intente abrir nueva pestaña
+
+            // 3. LIMPIEZA VISUAL: Ocultamos el badge azul de "Cierra en" y los precios
+            if (timerContainer) {
+                timerContainer.style.setProperty('display', 'none', 'important');
+            }
             
-            // 3. Ocultamos el cronómetro y mostramos "EXPIRADO"
-            if (timerContainer) timerContainer.style.display = 'none';
-            if (timerDisplay) timerDisplay.innerText = "EXPIRADO";
+            const priceTag = tarjeta.querySelector('.price-tag');
+            const renoTag = tarjeta.querySelector('.reno-tag');
+            const popularTag = tarjeta.querySelector('.popular-tag');
+
+            if (priceTag) priceTag.style.display = 'none';
+            if (renoTag) renoTag.style.display = 'none';
+            if (popularTag) popularTag.style.display = 'none';
+
             return;
         }
 
-        // Si aún tiene tiempo, el cronómetro debe verse
-        if (timerContainer) timerContainer.style.display = 'flex';
-        
+        // Si aún tiene tiempo, mostramos el contador normalmente
         const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
         const h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
@@ -409,7 +418,7 @@ function actualizarTitulos() {
         if (d > 0) formato += d + "d ";
         formato += h + "h " + m + "m " + s + "s";
         
-        timerDisplay.innerText = formato;
+        if (timerDisplay) timerDisplay.innerText = formato;
     });
 }
     function configurarWhatsApp() {
