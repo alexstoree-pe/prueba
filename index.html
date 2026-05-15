@@ -32,14 +32,8 @@
         --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
     }
 
-    html { 
-        background-color: var(--dark); 
-        scroll-behavior: smooth; 
-    }
-
-    .contenido-protegido {
-        display: none !important;
-    }
+    html { background-color: var(--dark); scroll-behavior: smooth; }
+    .contenido-protegido { display: none !important; }
 
     @keyframes shine-red { 
         0%, 100% { text-shadow: 0 0 10px var(--danger-neon), 0 0 20px var(--danger-neon); color: var(--danger-neon); border-color: var(--danger-neon); box-shadow: inset 0 0 10px var(--danger-neon), 0 0 10px var(--danger-neon); } 
@@ -50,50 +44,21 @@
 
     body { 
         font-family: 'Poppins', sans-serif; 
-        background: #0a0a0a; 
-        color: white; 
-        padding-bottom: 200px; 
-        overflow-x: hidden;
-        visibility: hidden;
+        background: #0a0a0a; color: white; padding-bottom: 200px; 
+        overflow-x: hidden; visibility: hidden;
     }
 
-    /* --- INICIO CORRECCIÓN BUSCADOR --- */
-    #lista-productos {
-        display: flex !important;
-        flex-direction: column;
-    }
+    /* --- CORRECCIÓN BUSCADOR (INDISPENSABLE) --- */
+    #lista-productos { display: flex !important; flex-direction: column; }
     #lista-productos.grid-mode { display: grid !important; }
     .oculto-busqueda { display: none !important; }
-    .encontrado-busqueda {
-        display: flex !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-    }
-    /* --- FIN CORRECCIÓN BUSCADOR --- */
+    .encontrado-busqueda { display: flex !important; opacity: 1 !important; visibility: visible !important; transform: none !important; }
+    /* ------------------------------------------- */
 
-    .modal-pass { 
-        display: none; 
-        position: fixed; 
-        inset: 0; 
-        background: rgba(0,0,0,0.98); 
-        backdrop-filter: blur(25px); 
-        z-index: 9999; 
-        justify-content: center; 
-        align-items: center;
-        visibility: visible;
-    }
+    .modal-pass { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(25px); z-index: 9999; justify-content: center; align-items: center; visibility: visible; }
+    .modal-content-pass { background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
 
-    .modal-content-pass { 
-        background: #111; padding: 40px; border-radius: 40px; width: 90%; max-width: 400px; 
-        border: 1px solid var(--primary); text-align: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
-    }
-
-    header { 
-        background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 10px 15px 0px; 
-        text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; 
-    }
-
+    header { background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); padding: 10px 15px 0px; text-align: center; border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 2000; }
     .brand-logo { width: 45px; height: 45px; object-fit: contain; border-radius: 18px; margin-bottom: 5px; }
     header h1 { font-size: 1.1rem; letter-spacing: 0.9px; margin-bottom: 5px; }
 
@@ -106,7 +71,6 @@
     .search-wrapper { position: relative; max-width: 500px; margin: auto; }
     .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
     #buscador { width: 100%; padding: 8px 15px 8px 40px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; transition: 0.3s; }
-    #buscador:focus { border-color: var(--primary); outline: none; background: rgba(255,255,255,0.05); }
 
     .grid-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px auto; max-width: 500px; padding: 0 15px; }
     .btn-universal { display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
@@ -119,13 +83,10 @@
     .category-title { margin: 35px 0 15px; font-size: 0.9rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
 
     .service-link { position: relative; text-decoration: none; color: inherit; display: block; margin-bottom: 30px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s; position: relative; z-index: 10; overflow: hidden; }
 
-    .service-card { background: #0f0f0f; border-radius: 25px; padding: 22px; display: flex; align-items: center; border: 1px solid var(--glass-border); gap: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 10; overflow: hidden; }
-
-    /* ESTADO SELECCIONADO Y PREMIUM */
-    @keyframes popCheck { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
     .service-link.premium .service-card { border: 2px solid var(--vip) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-    .service-link.selected .service-card { transform: scale(0.96) translateY(2px) !important; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 50; background: rgba(255, 255, 255, 0.03) !important; }
+    .service-link.selected .service-card { transform: scale(0.96) translateY(2px) !important; background: rgba(255, 255, 255, 0.03) !important; z-index: 50; }
     .service-link.selected:not(.premium) .service-card { border: 2px solid var(--primary) !important; box-shadow: 0 0 25px rgba(0, 212, 255, 0.5); }
     
     .check-icon { position: absolute; top: -5px; right: -5px; width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 101; border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
@@ -144,18 +105,26 @@
     .price-tag { color: var(--primary); font-weight: 800; font-size: 1.4rem; }
     .premium .price-tag { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--vip); }
 
-    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 0; border-radius: 22px; width: 92%; max-width: 480px; z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    
-    /* VISTA GRID */
-    .view-controls { display: flex; justify-content: flex-end; align-items: center; gap: 10px; max-width: 600px; margin: 5px auto; padding: 0 15px; }
-    .view-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #666; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; }
-    .view-btn.active { background: var(--primary); color: #000; }
+    .badge-renovacion { display: none; color: #f1c40f; font-size: 0.55rem; font-weight: 700; margin-top: 3px; text-transform: uppercase; }
+    .renovacion .badge-renovacion { display: inline-block; }
 
-    /* ESTRELLAS PIN */
-    .input-wrapper { position: relative; width: 80%; display: flex; justify-content: center; margin-bottom: 30px; }
-    .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-    .hide-stars { opacity: 0 !important; }
-    #input-dist-pass { width: 200px; background: transparent !important; border: none !important; border-bottom: 2px solid #222 !important; color: var(--primary); font-size: 2.2rem; text-align: center; letter-spacing: 12px; outline: none; z-index: 2; position: relative; }
+    .service-link.agotado { pointer-events: none; opacity: 0.3; filter: grayscale(1); }
+    .service-link.agotado::after { content: "SIN STOCK"; position: absolute; top: 50%; right: 25px; transform: translateY(-50%); font-size: 0.8rem; font-weight: 900; border: 2.5px solid var(--danger-neon); padding: 8px 15px; border-radius: 12px; animation: shine-red 1.5s infinite; z-index: 200; background: #000; }
+
+    .floating-btn { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 0; border-radius: 22px; width: 92%; max-width: 480px; z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+    .cart-content-wrapper { display: flex; align-items: center; width: 100%; height: 70px; }
+    .btn-send-order { flex-grow: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; cursor: pointer; height: 100%; }
+    .btn-clear-cart { background: rgba(255, 0, 0, 0.2); color: #ff4d4d; border: none; width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; margin-left: 10px; z-index: 3001; }
+
+    #custom-alert { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111; border: 1.5px solid var(--primary); padding: 15px 30px; border-radius: 20px; z-index: 5000; box-shadow: 0 15px 45px rgba(0,0,0,0.9); display: flex; align-items: center; gap: 15px; transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+    #custom-alert.active { top: 30px; }
+
+    .btn-filter { background: var(--glass); border: 1px solid var(--glass-border); color: #888; padding: 8px 18px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+    .btn-filter.active { background: var(--primary); color: #000; border-color: var(--primary); }
+
+    .view-controls { display: flex; justify-content: flex-end; align-items: center; gap: 10px; max-width: 600px; margin: 5px auto; padding: 0 15px; }
+    .view-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #666; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+    .view-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
     #back-to-top { position: fixed; bottom: 110px; right: 20px; width: 45px; height: 45px; background: var(--primary); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; z-index: 2500; border: none; box-shadow: 0 0 15px rgba(0, 212, 255, 0.5); opacity: 0; visibility: hidden; transition: 0.4s; }
     #back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
@@ -164,9 +133,14 @@
     .modal-pedido-content { background: #111; padding: 30px; border-radius: 30px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; }
     .input-pedido { width: 100%; padding: 15px; border-radius: 12px; background: #000; border: 1px solid #333; color: white; margin-bottom: 20px; outline: none; text-align: center; }
     .btn-finalizar { background: var(--gold-gradient); color: #000; width: 100%; padding: 15px; border-radius: 15px; font-weight: 800; border: none; cursor: pointer; }
+
+    .input-wrapper { position: relative; width: 80%; display: flex; justify-content: center; margin-bottom: 30px; }
+    .stars-bg { position: absolute; color: #222; font-size: 2.2rem; letter-spacing: 12px; pointer-events: none; z-index: 1; transition: 0.2s; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .hide-stars { opacity: 0 !important; }
+    #input-dist-pass { width: 200px; background: transparent !important; border: none !important; border-bottom: 2px solid #222 !important; color: var(--primary); font-size: 2.2rem; text-align: center; letter-spacing: 12px; outline: none; z-index: 2; position: relative; }
 </style>
 
-    <script>
+<script>
     (function() {
         const acceso = sessionStorage.getItem("acceso_distribuidor");
         if (acceso === "true") {
@@ -175,10 +149,7 @@
         } else {
             document.addEventListener("DOMContentLoaded", () => {
                 const modal = document.getElementById('modal-login-distribuidor');
-                if (modal) {
-                    modal.style.display = 'flex';
-                    document.body.style.visibility = 'hidden'; modal.style.visibility = 'visible';
-                }
+                if (modal) { modal.style.display = 'flex'; document.body.style.visibility = 'hidden'; modal.style.visibility = 'visible'; }
             });
         }
     })();
@@ -196,10 +167,11 @@
             location.reload();
         } else {
             document.getElementById('error-msg').innerText = "PIN INCORRECTO";
+            inputPass.value = "";
             setTimeout(() => { document.getElementById('error-msg').innerText = ""; }, 3000);
         }
     }
-    </script>
+</script>
 </head>
 
 <body>
@@ -209,11 +181,13 @@
     <div class="modal-pedido-content">
         <div id="paso-seleccion">
             <h2>¿QUÉ ADQUIRISTE?</h2>
+            <p>Selecciona qué opción adquiriste:</p>
             <button class="btn-finalizar" style="margin-bottom: 15px;" onclick="irAPasoNombre()">👤 PERFIL</button>
-            <button class="btn-finalizar" style="background: #222; color: #fff; border: 1px solid #333;" onclick="finalizarSinNombre()"> Otra categoría</button>
+            <button class="btn-finalizar" style="background: #222; color: #fff; border: 1px solid #333;" onclick="finalizarSinNombre()">Otra categoría</button>
         </div>
         <div id="paso-nombre" style="display: none;">
             <h2>DATOS DEL PERFIL</h2>
+            <p>Ingresa el nombre para tus perfiles:</p>
             <input type="text" id="nombre-perfil-input" class="input-pedido" placeholder="Ej: Juan/sonia">
             <button class="btn-finalizar" onclick="finalizarConNombre()">FINALIZAR PEDIDO</button>
             <button class="btn-finalizar" style="background: transparent; color: #555; font-size: 0.7rem; margin-top: 10px;" onclick="volverAPaso1()">← Volver</button>
@@ -225,13 +199,20 @@
 <div id="modal-login-distribuidor" class="modal-pass">
     <div class="modal-content-pass" style="background:#0d0d0d; border:none;">
         <h2 style="color:var(--primary); font-weight: 800; margin-bottom:10px;">ACCESO PRIVADO</h2>
+        <p style="color:#555; font-size:0.8rem;">Ingresa tu código de distribuidor</p>
         <div id="error-msg" style="color: var(--danger-neon); font-size: 0.8rem; margin-bottom: 10px; height: 1.2rem;"></div>
         <div class="input-wrapper">
             <input type="password" id="input-dist-pass" maxlength="8" oninput="checkInputPass(this)" onkeydown="if(event.key==='Enter') validarAcceso()">
             <div id="stars-placeholder" class="stars-bg">* * * *</div>
         </div>
         <button onclick="validarAcceso()" class="btn-universal btn-promo-distri" style="width:100%; padding:20px; border-radius:25px;">ENTRAR</button>
+        <span style="display:block; margin-top:20px; color:#333; font-size:0.7rem; cursor:pointer;" onclick="window.history.back()">Regresar al portal</span>
     </div>
+</div>
+
+<div id="custom-alert">
+    <i class="fa-solid fa-triangle-exclamation" style="color: var(--primary); font-size: 1.2rem;"></i>
+    <span style="font-weight: 700; font-size: 0.9rem; text-transform: uppercase;">Selecciona una plataforma</span>
 </div>
 
 <header data-aos="fade-down">
@@ -865,10 +846,13 @@
 
 
 <div id="whatsapp-btn" class="floating-btn">
-    <div class="cart-content-wrapper" style="display:flex; height:70px; align-items:center; padding:0 20px;">
-        <div onclick="limpiarTodo(event)" style="cursor:pointer; margin-right:15px;"><i class="fa-solid fa-trash-can"></i></div>
-        <div onclick="enviarPedido()" style="flex-grow:1; display:flex; justify-content:space-between; cursor:pointer;">
-            <span><span id="cart-count">0</span> PEDIR WHATSAPP</span>
+    <div class="cart-content-wrapper">
+        <div class="btn-clear-cart" onclick="limpiarTodo(event)"><i class="fa-solid fa-trash-can"></i></div>
+        <div class="btn-send-order" onclick="enviarPedido()">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span id="cart-count">0</span>
+                <span>Pedir WhatsApp</span>
+            </div>
             <span id="cart-total">S/ 0.00</span>
         </div>
     </div>
@@ -877,8 +861,10 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true, offset: 50, mirror: false });
+    
+    let carrito = [];
 
-    // --- CORRECCIÓN BUSCADOR ---
+    // --- CORRECCIÓN BUSCADOR (SOLUCIÓN FINAL) ---
     function filtrarPlataformas() {
         const input = document.getElementById('buscador').value.trim().toLowerCase();
         const tarjetas = document.querySelectorAll('.service-link');
@@ -886,10 +872,11 @@
 
         tarjetas.forEach(tarjeta => {
             const nombre = tarjeta.querySelector('.nombre-prod')?.innerText.toLowerCase() || "";
+            const desc = tarjeta.querySelector('.manual-desc')?.innerText.toLowerCase() || "";
             if (input === "") {
                 tarjeta.classList.remove('oculto-busqueda', 'encontrado-busqueda');
                 tarjeta.style.order = "0";
-            } else if (nombre.includes(input)) {
+            } else if (nombre.includes(input) || desc.includes(input)) {
                 tarjeta.classList.remove('oculto-busqueda');
                 tarjeta.classList.add('encontrado-busqueda');
                 tarjeta.style.order = "-1"; 
@@ -899,14 +886,15 @@
             }
         });
         titulos.forEach(t => t.style.display = (input === "") ? "flex" : "none");
+        AOS.refresh();
     }
 
-    function filtrarCategoria(cat, btn) {
-        document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    function filtrarCategoria(categoria, boton) {
+        document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+        boton.classList.add('active');
         const titulos = document.querySelectorAll('.category-title');
         titulos.forEach(titulo => {
-            const coincide = (cat === 'TODOS' || titulo.innerText.includes(cat));
+            const coincide = (categoria === 'TODOS' || titulo.innerText.includes(categoria));
             titulo.style.display = coincide ? 'flex' : 'none';
             let hermano = titulo.nextElementSibling;
             while (hermano && !hermano.classList.contains('category-title')) {
@@ -914,17 +902,19 @@
                 hermano = hermano.nextElementSibling;
             }
         });
-        setTimeout(() => AOS.refreshHard(), 200);
+        setTimeout(() => { AOS.refreshHard(); }, 200);
     }
 
-    function cambiarDiseno(modo) {
-        const cont = document.getElementById('lista-productos');
-        cont.classList.toggle('grid-mode', modo === 'cuadricula');
-        AOS.refreshHard();
+    function scrollFilters(val) { document.getElementById('filterScroll').scrollBy({ left: val, behavior: 'smooth' }); }
+    function cambiarDiseno(modo) { 
+        const cont = document.getElementById('lista-productos'); 
+        cont.classList.toggle('grid-mode', modo === 'cuadricula'); 
+        document.getElementById('btn-list').classList.toggle('active', modo !== 'cuadricula');
+        document.getElementById('btn-grid').classList.toggle('active', modo === 'cuadricula');
+        AOS.refreshHard(); 
     }
 
-    // --- LÓGICA DE PEDIDO ---
-    let carrito = [];
+    // --- LÓGICA DE PEDIDO COMPLETA ---
     function toggleSeleccion(el) { el.classList.toggle('selected'); reconstruirCarrito(); }
     function reconstruirCarrito() {
         carrito = [];
@@ -932,7 +922,7 @@
             carrito.push({
                 nombre: el.querySelector('.nombre-prod').innerText,
                 precio: parseFloat(el.querySelector('.precio-prod').innerText.replace('S/ ', '')),
-                desc: el.querySelector('.manual-desc').innerText
+                caracteristicas: el.querySelector('.manual-desc')?.innerText || ""
             });
         });
         actualizarUI();
@@ -945,16 +935,18 @@
     }
     function enviarPedido() { document.getElementById('modal-pedido-vip').style.display = 'flex'; }
     function irAPasoNombre() { document.getElementById('paso-seleccion').style.display='none'; document.getElementById('paso-nombre').style.display='block'; }
+    function volverAPaso1() { document.getElementById('paso-seleccion').style.display='block'; document.getElementById('paso-nombre').style.display='none'; }
     function cerrarModalPedido() { document.getElementById('modal-pedido-vip').style.display = 'none'; }
     function finalizarConNombre() { ejecutarEnvio(document.getElementById('nombre-perfil-input').value); }
     function finalizarSinNombre() { ejecutarEnvio(""); }
     function ejecutarEnvio(n) {
-        let m = "¡Hola Alex Store! soy distribuidor 👋 Deseo:\n\n";
-        carrito.forEach(p => m += `⭐ *${p.nombre}* - S/ ${p.precio}\n${n ? '👤 Perfil: '+n : ''}\n---\n`);
+        let m = "¡Hola Alex Store! soy distribuidor 👋 Deseo adquirir:\n\n";
+        carrito.forEach(p => { m += `⭐ *${p.nombre}*\n📝 ${p.caracteristicas}\n💵 S/ ${p.precio}\n${n ? '👤 Perfil: '+n : ''}\n---\n`; });
         window.open(`https://wa.me/51918600000?text=${encodeURIComponent(m)}`, '_blank');
         cerrarModalPedido();
     }
-    function limpiarTodo(e) { e.stopPropagation(); document.querySelectorAll('.service-link.selected').forEach(t => t.classList.remove('selected')); reconstruirCarrito(); }
+    function limpiarTodo(e) { e.stopPropagation(); document.querySelectorAll('.service-link').forEach(t => t.classList.remove('selected')); reconstruirCarrito(); }
+    function mostrarAlerta() { document.getElementById('custom-alert').classList.add('active'); setTimeout(() => document.getElementById('custom-alert').classList.remove('active'), 3000); }
     window.onscroll = () => { document.getElementById("back-to-top").classList.toggle("show", window.scrollY > 400); };
     document.getElementById("back-to-top").onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 </script>
