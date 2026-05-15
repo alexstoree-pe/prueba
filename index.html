@@ -546,7 +546,7 @@
     }
 
     .grid-mode .service-link:hover .service-card {
-        transform: translateY(-6px) scale(1.02);
+        transform: translateY(-6px) scale(1.02); display: grid !important;
     }
 
     .service-link.premium:hover .service-card {
@@ -1492,49 +1492,51 @@ document.getElementById("back-to-top").onclick = function() {
     function filtrarPlataformas() {
     const input = document.getElementById('buscador').value.trim().toLowerCase();
     const tarjetas = document.querySelectorAll('.service-link');
-    const categorias = document.querySelectorAll('.category-title');
-    
-    // Resetear filtros de botones visuales
+    const titulos = document.querySelectorAll('.category-title');
+    const contenedor = document.getElementById('lista-productos');
+
+    // 1. Resetear botones de filtro para evitar conflictos visuales
     document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
     const btnTodos = document.querySelector(".btn-filter[onclick*='TODOS']");
     if(btnTodos) btnTodos.classList.add('active');
 
+    // 2. Filtrado de Tarjetas
     tarjetas.forEach(tarjeta => {
-        const nombre = tarjeta.querySelector('.nombre-prod') ? tarjeta.querySelector('.nombre-prod').innerText.toLowerCase() : "";
-        const descripcion = tarjeta.querySelector('.manual-desc') ? tarjeta.querySelector('.manual-desc').innerText.toLowerCase() : "";
+        const nombre = tarjeta.querySelector('.nombre-prod')?.innerText.toLowerCase() || "";
+        const desc = tarjeta.querySelector('.manual-desc')?.innerText.toLowerCase() || "";
         
         if (input === "") {
-            // Si el buscador está vacío, restauramos el orden natural
+            // Si el buscador está vacío, mostramos todo y quitamos el orden forzado
             tarjeta.style.display = "block";
             tarjeta.style.order = "0";
             tarjeta.classList.remove('oculto-busqueda');
-        } else if (nombre.includes(input) || descripcion.includes(input)) {
-            // Si coincide, lo mostramos y lo mandamos al inicio con order -1
+        } else if (nombre.includes(input) || desc.includes(input)) {
+            // Si coincide: se muestra y se manda al principio del contenedor
             tarjeta.style.display = "block";
             tarjeta.style.order = "-1"; 
             tarjeta.classList.remove('oculto-busqueda');
             tarjeta.style.opacity = "1";
             tarjeta.style.transform = "none";
         } else {
-            // Si no coincide, lo ocultamos
+            // Si NO coincide: DESAPARECE por completo
             tarjeta.style.display = "none";
-            tarjeta.style.order = "0";
             tarjeta.classList.add('oculto-busqueda');
         }
     });
 
-    // Manejo de títulos de categoría
-    categorias.forEach(titulo => {
+    // 3. Manejo de Títulos de Categoría
+    titulos.forEach(titulo => {
         if (input !== "") {
-            // Ocultamos títulos durante la búsqueda para que los resultados se agrupen arriba
+            // Si el usuario está buscando algo específico, ocultamos los títulos 
+            // (ZONA PERFILES, etc.) para que solo se vean los productos limpios.
             titulo.style.display = "none";
         } else {
-            // Restauramos títulos si no hay búsqueda
+            // Si no hay búsqueda, regresamos los títulos a su estado normal
             titulo.style.display = "flex";
         }
     });
 
-    // Refrescar animaciones
+    // 4. Refrescar AOS para evitar que elementos "invisibles" bloqueen el scroll
     setTimeout(() => {
         if (typeof AOS !== 'undefined') AOS.refreshHard();
     }, 100);
