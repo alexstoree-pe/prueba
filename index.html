@@ -1538,7 +1538,7 @@ document.getElementById("back-to-top").onclick = function() {
             }
         }, 100);
     }
-    function filtrarCategoria(categoria, boton) {
+   function filtrarCategoria(categoria, boton) {
     // 1. Gestionar estado visual de los botones
     document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
     boton.classList.add('active');
@@ -1579,29 +1579,21 @@ document.getElementById("back-to-top").onclick = function() {
         }
     });
 
-    // 3. Auto-scroll: Lleva la pantalla hacia la zona filtrada de manera suave
-    // ==========================================
-    // REEMPLAZAR DESDE AQUÍ: 3. Auto-scroll
-    // ==========================================
-    if (categoria !== 'TODOS' && primerElementoVisible) {
-        // Obtenemos la posición exacta del TÍTULO de la categoría
-        const elementoDestino = primerElementoVisible; 
-        
-        // Ajuste de margen para que el título no quede tapado por tu buscador/header pegajoso
-        // Si notas que se corta un poco más o menos, puedes calibrar este número (ej. -140, -150)
-        const yOffset = -140; 
-        
-        const y = elementoDestino.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        
-        // Ejecuta el desplazamiento suave al inicio real de la sección
-        window.scrollTo({ top: y, behavior: 'smooth' });
-    } else if (categoria === 'TODOS') {
-        // Si regresan a "TODOS", sube suavemente al inicio absoluto del catálogo
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    // ==========================================
-    // HASTA AQUÍ
-    // ==========================================
+    // 3. Auto-scroll con retraso controlado para evitar desfases de altura
+    setTimeout(() => {
+        if (categoria !== 'TODOS' && primerElementoVisible) {
+            // Ajuste de margen para que el título no quede tapado por tu buscador/header pegajoso
+            const yOffset = -150; 
+            const y = primerElementoVisible.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            
+            // Ejecuta el desplazamiento suave al inicio real de la sección
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        } else if (categoria === 'TODOS') {
+            // Si regresan a "TODOS", sube suavemente al inicio absoluto del catálogo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, 100); // 100 milisegundos son suficientes para que el DOM se reorganice
+
     // 4. Refrescar AOS para que reconozca los nuevos tamaños y posiciones de la página
     setTimeout(() => {
         if (typeof AOS !== 'undefined') {
@@ -1609,17 +1601,18 @@ document.getElementById("back-to-top").onclick = function() {
         }
     }, 250);
 }
+
 function scrollFilters(val) {
     const container = document.getElementById('filterScroll');
     container.scrollBy({ left: val, behavior: 'smooth' });
 }
 
-    // --- LÓGICA DE SELECCIÓN ---
-    function toggleSeleccion(elemento) {
-        if(elemento.classList.contains('agotado')) return;
-        elemento.classList.toggle('selected');
-        reconstruirCarritoDesdeUI();
-    }
+// --- LÓGICA DE SELECCIÓN ---
+function toggleSeleccion(elemento) {
+    if(elemento.classList.contains('agotado')) return;
+    elemento.classList.toggle('selected');
+    reconstruirCarritoDesdeUI();
+}
 
     function reconstruirCarritoDesdeUI() {
         carrito = [];
