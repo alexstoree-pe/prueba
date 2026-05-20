@@ -1583,7 +1583,7 @@ document.getElementById("back-to-top").onclick = function() {
     setTimeout(() => {
         if (categoria !== 'TODOS' && primerElementoVisible) {
             // Ajuste de margen para que el título no quede tapado por tu buscador/header pegajoso
-            const yOffset = -350; 
+            const yOffset = -310; 
             const y = primerElementoVisible.getBoundingClientRect().top + window.pageYOffset + yOffset;
             
             // Ejecuta el desplazamiento suave al inicio real de la sección
