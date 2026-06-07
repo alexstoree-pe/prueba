@@ -426,14 +426,19 @@
         bottom: 180px;
     }
 
-    /* Estilos internos de la ventana informativa */
     .modal-cristal {
         background: rgba(10, 10, 10, 0.85) !important;
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
-        max-height: 85vh;
+        
+        /* CORRECCIÓN: Limitamos la altura máxima y agregamos scroll interno */
+        max-height: 80vh;
         overflow-y: auto;
+        
+        /* CORRECCIÓN: Añadimos más espacio arriba y abajo para empujar el texto */
+        padding: 40px 24px 30px !important; 
+        box-sizing: border-box;
     }
     
     .info-seccion {
