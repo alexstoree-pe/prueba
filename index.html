@@ -395,10 +395,115 @@
             display: flex;
         }
     }
+
+
+
+    /* --- BOTÓN FLOTANTE DE INFO (SOLO MÓVIL) --- */
+    #btn-info-movil {
+        position: fixed;
+        bottom: 25px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        cursor: pointer;
+        z-index: 2500;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        transition: 0.3s ease;
+    }
+    
+    /* Si el carrito flotante de WhatsApp aparece, movemos el botón un poco arriba para que no estorbe al texto */
+    body:not(.hidden) #btn-info-movil {
+        bottom: 110px;
+    }
+
+    /* Estilos internos de la ventana informativa */
+    .modal-cristal {
+        background: rgba(10, 10, 10, 0.85) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+    
+    .info-seccion {
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 0;
+    }
+    
+    .info-seccion h3 {
+        font-size: 0.85rem;
+        color: var(--primary);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .info-seccion p {
+        font-size: 0.75rem !important;
+        color: #ccc !important;
+        line-height: 1.4 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* RESPONSIVE: Si la pantalla es grande (PC), ocultamos este botón móvil */
+    @media (min-width: 1200px) {
+        #btn-info-movil {
+            display: none !important;
+        }
+    }
+
+    
 </style>
 </head>
 <body>
 
+
+
+
+    <!-- BOTÓN FLOTANTE PARA CELULARES (INFO) -->
+<button id="btn-info-movil" onclick="abrirModalInfo()"><i class="fas fa-info-circle"></i></button>
+
+<!-- VENTANA MODAL DE INFORMACIÓN -->
+<div id="modal-info-lateral" class="modal-overlay" onclick="cerrarModalInfo(event)">
+    <div class="modal-content modal-cristal" onclick="event.stopPropagation()">
+        <h2 style="color: var(--primary); font-size: 1.3rem;"><i class="fas fa-star"></i> INFORMACIÓN ÚTIL</h2>
+        <p style="font-size: 0.8rem; margin-bottom: 25px;">Todo lo que necesitas saber antes de tu compra en Alex Store.</p>
+        
+        <div class="info-seccion">
+            <h3><i class="fas fa-shopping-cart"></i> ¿Cómo Comprar?</h3>
+            <p>1. Selecciona tus plataformas favoritas.</p>
+            <p>2. Presiona el botón de WhatsApp abajo.</p>
+            <p>3. Coordina el pago y recibe en minutos.</p>
+        </div>
+        
+        <div class="info-seccion">
+            <h3><i class="fas fa-clock"></i> Horario de Atención</h3>
+            <p>Lunes a Domingo: <strong>8:00 AM - 11:00 PM</strong></p>
+        </div>
+
+        <div class="info-seccion" style="border-bottom: none; padding-bottom: 0;">
+            <h3><i class="fas fa-gift"></i> Promoción Activa</h3>
+            <p>¡Llevando 2 o más cuentas obtienes un descuento automático en tu carrito! 🎁</p>
+        </div>
+        
+        <button class="btn-modal-back" onclick="document.getElementById('modal-info-lateral').style.display = 'none'" style="margin-top: 25px;">ENTENDIDO</button>
+    </div>
+</div>
+
+    
     <!-- BANNERS LATERALES FLOTANTES -->
 <div class="sidebar-lateral izquierdo">
     <div class="sidebar-card">
@@ -1200,6 +1305,21 @@
     document.getElementById("back-to-top").onclick = function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
+
+    // --- LÓGICA MODAL INFORMATIVA MÓVIL ---
+    function abrirModalInfo() {
+        document.getElementById('modal-info-lateral').style.display = 'flex';
+    }
+
+    function cerrarModalInfo(event) {
+        // Cierra la ventana si el cliente hace clic fuera del cuadro central
+        if (event.target.id === 'modal-info-lateral') {
+            document.getElementById('modal-info-lateral').style.display = 'none';
+        }
+    }
+
+    
 </script>
 </body>
 </html>
