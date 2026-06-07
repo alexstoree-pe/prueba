@@ -35,14 +35,15 @@
     html { display: none; background-color: var(--dark); scroll-behavior: smooth; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* --- TEXTURA Y FONDO DEL MUNDIAL 2026 MEJORADO --- */
+    /* --- FONDO DEL MUNDIAL TOTALMENTE ACLARADO (SIN FILTRO NEGRO) --- */
     body { 
         font-family: 'Poppins', sans-serif; 
-        /* Subimos levemente la opacidad del gradiente (0.9 y 0.94) para proteger la legibilidad */
-        background: linear-gradient(rgba(5, 5, 5, 0.90), rgba(5, 5, 5, 0.94)), 
-                    url("../img/fondo-mundial.jpg") no-repeat center top fixed;
-        /* cover asegura que llene toda la pantalla sin importar el monitor */
+        
+        /* Cambiamos el filtro negro por un destello blanco translúcido que aclara la foto original */
+        background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)), 
+                    url("../img/fondo-mundial.jpg") no-repeat center center fixed;
         background-size: cover;
+        
         color: white; 
         line-height: 1.4; 
         padding-bottom: 100px; 
@@ -91,17 +92,21 @@
         box-shadow: 0 0 10px var(--primary);
     }
 
-    /* --- OPCIÓN 2: HEADER CRISTAL DINÁMICO --- */
+    /* --- HEADER CRISTAL DINÁMICO MEJORADO --- */
     header {
-        background: rgba(10, 10, 10, 0.7);
-        backdrop-filter: blur(25px) saturate(180%);
-        -webkit-backdrop-filter: blur(25px) saturate(180%);
-        padding: 8px 10px 5px; 
+        /* Cambiamos el fondo a un cristal claro que resalte sobre el fondo oscuro */
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(30px) saturate(200%);
+        -webkit-backdrop-filter: blur(30px) saturate(200%);
+        padding: 12px 10px 8px; 
         text-align: center;
-        border-bottom: 1px solid var(--glass-border);
+        /* Le damos un borde inferior un poco más visible para definir el área */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         position: sticky;
         top: 0;
         z-index: 3000 !important;
+        /* Un sombreado suave hacia abajo para despegarlo del catálogo */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
     }
 
     .brand-logo { width: 35px; height: 35px; object-fit: contain; border-radius: 10px; margin-bottom: 2px; }
@@ -171,7 +176,7 @@
     .service-item { cursor: pointer; margin-bottom: 12px; position: relative; transition: 0.3s; }
     
 .service-card { 
-        background: rgba(255, 255, 255, 0.02); /* Un toque muy sutil de color blanco */
+        background: rgba(255, 255, 255, 0.03); /* Un toque muy sutil de color blanco */
         border-radius: 22px; 
         padding: 18px; 
         display: flex; 
@@ -182,8 +187,8 @@
         overflow: visible; 
         transition: 0.4s ease; 
         /* ESTO HACE LA MAGIA: Difumina el fondo del trofeo solo detrás de la tarjeta */
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
     }
     
     .service-item:hover .service-card { 
@@ -243,7 +248,7 @@
 
     .service-logo { width: 60px; height: 60px; object-fit: cover; border-radius: 15px; flex-shrink: 0; }
     .service-text h3 { font-size: 1.05rem; color: #fff; }
-    .manual-desc { font-size: 0.75rem; color: #777; }
+    .manual-desc { font-size: 0.75rem; color: #b3b3b3; }
 
     /* --- LÓGICA AGOTADO --- */
     .service-item.agotado { pointer-events: none; }
@@ -328,9 +333,100 @@
     body.searching header {
         padding-bottom: 0;
     }
+
+
+
+    /* --- COMPONENTES PARA LOS COSTADOS VACÍOS --- */
+    .sidebar-lateral {
+        position: fixed;
+        top: 180px; /* Se alinea debajo de tu cabecera */
+        width: 240px;
+        display: none; /* Por defecto oculto en pantallas pequeñas */
+        flex-direction: column;
+        gap: 20px;
+        z-index: 100;
+    }
+    
+    /* Posicionamiento en cada extremo */
+    .sidebar-lateral.izquierdo {
+        left: 4%;
+    }
+    .sidebar-lateral.derecho {
+        right: 4%;
+    }
+
+    /* Estilo de tarjeta de cristal idéntico a tus componentes */
+    .sidebar-card {
+        background: rgba(10, 10, 10, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        padding: 20px;
+        color: #fff;
+        backdrop-filter: blur(20px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .sidebar-card h3 {
+        font-size: 0.9rem;
+        color: var(--primary);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .sidebar-card p {
+        font-size: 0.75rem;
+        color: #ccc;
+        line-height: 1.5;
+        margin-bottom: 6px;
+    }
+    
+    .sidebar-card p strong {
+        color: var(--primary);
+    }
+
+    /* RESPONSIVE: Solo se muestran si la pantalla mide más de 1200px de ancho */
+    @media (min-width: 1200px) {
+        .sidebar-lateral {
+            display: flex;
+        }
+    }
 </style>
 </head>
 <body>
+
+    <!-- BANNERS LATERALES FLOTANTES -->
+<div class="sidebar-lateral izquierdo">
+    <div class="sidebar-card">
+        <h3><i class="fas fa-shopping-cart"></i> ¿Cómo Comprar?</h3>
+        <p>1. Selecciona tus plataformas favoritas.</p>
+        <p>2. Presiona el botón de WhatsApp abajo.</p>
+        <p>3. Coordina el pago y recibe en minutos.</p>
+    </div>
+    <div class="sidebar-card">
+        <h3><i class="fas fa-star"></i> Beneficios</h3>
+        <p>• Cuentas estables y renovables.</p>
+        <p>• Garantía completa contratada.</p>
+    </div>
+</div>
+
+<div class="sidebar-lateral derecho">
+    <div class="sidebar-card">
+        <h3><i class="fas fa-clock"></i> Horario de Atención</h3>
+        <p>Lunes a Domingo</p>
+        <p><strong>8:00 AM - 11:00 PM</strong></p>
+    </div>
+    <div class="sidebar-card" style="border-color: var(--promo);">
+        <h3><i class="fas fa-gift"></i> Promoción Activa</h3>
+        <p>¡Llevando 2 o más cuentas obtienes un descuento automático en tu carrito! 🎁</p>
+    </div>
+</div>
+
+    
     <div id="search-overlay"></div>
     <div id="progress-container"><div id="progress-bar"></div></div>
 
@@ -742,6 +838,22 @@
             </div>
         </div>
     </div>    
+
+        <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
+        <div class="service-card">
+            <div class="badge-oferta">En Oferta 🎁</div> <div class="check-icon">✓</div>
+            <img src="../img/one.webp" class="service-logo">
+            <div class="service-text">
+                <h3 class="nombre-prod">SMARTONE IPTV (12 meses)</h3>
+                <span class="manual-desc">•Licencia por 1 año • Activacion solo del aplicativo. • No contiene listas reproduccion</span>
+            </div>
+            <div class="price-container">
+                <span class="premium-tag-inner">PREMIUM</span>
+                <span class="price-tag precio-prod">S/ 20</span>
+                <div class="sin-stock-badge">SIN STOCK</div>
+            </div>
+        </div>
+    </div>    
         
     <div class="category-title" data-aos="fade-right">🎵 MÚSICA Y VIDEO SIN LÍMITES</div>
 
@@ -827,22 +939,6 @@
             </div>
         </div>
     </div>
-
-        <div class="service-item premium" onclick="toggleCarrito(this)" data-aos="fade-up">
-        <div class="service-card">
-            <div class="badge-oferta">En Oferta 🎁</div> <div class="check-icon">✓</div>
-            <img src="../img/one.webp" class="service-logo">
-            <div class="service-text">
-                <h3 class="nombre-prod">SMARTONE IPTV (12 meses)</h3>
-                <span class="manual-desc">•Licencia por 1 año • Activacion solo del aplicativo. • No contiene listas reproduccion</span>
-            </div>
-            <div class="price-container">
-                <span class="premium-tag-inner">PREMIUM</span>
-                <span class="price-tag precio-prod">S/ 20</span>
-                <div class="sin-stock-badge">SIN STOCK</div>
-            </div>
-        </div>
-    </div>    
 </div>
 
     <div id="whatsapp-btn" class="floating-btn hidden">
